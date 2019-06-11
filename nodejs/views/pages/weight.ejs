@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <% include ../partials/header.ejs %>
+</head>
+
+<body>
+
+<% include ../partials/nav.ejs %>
+
+
+<div class="container">
+<h2>Body Weight</h2>
+<form method="post" action="/weight">
+    <div class="form-group">
+        <label for="weight">Weight</label>
+        <input type="text" class="form-control" id="weight" name="weight" placeholder="Please enter your weight.">
+    </div>
+    <button type="submit" class="btn btn-primary">Calculate</button>
+</form>
+<br/>
+<% if (locals.results) { %>
+<div class="alert alert-info" role="alert">
+<% results.forEach(function(r) { %>
+  <%= r.category %>
+  <% }); %>
+</div>
+<% } %>
+</div>
+
+</body>
+</html>
