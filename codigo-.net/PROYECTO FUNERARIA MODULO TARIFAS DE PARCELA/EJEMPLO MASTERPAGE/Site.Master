@@ -1,0 +1,332 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.Master.cs" Inherits="WSCliente.SiteMaster" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Prototipo de Sistema Web</title>
+    <link href="Styles/cupert/jquery.ui.all.css" type="text/css" rel="stylesheet" />
+    <link href="Styles/EstiloControles.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/MiEstilo.css" rel="stylesheet" type="text/css" />
+    <link href="Styles/Grilla.css" rel="stylesheet" type="text/css" />
+    <link href="test/style.css" rel="stylesheet" type="text/css" />
+    <script src="Scripts/jquery-1.4.4.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.core.js" type="text/javascript"></script>
+    <script src="Scripts/lazyload.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.blockUI.js" type="text/javascript"></script>
+    <script src="Scripts/jquery.postmessage.js" type="text/javascript"></script>   
+    <script src="Includes/UI/jquery.ui.widget.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.mouse.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.position.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.dialog.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.draggable.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.resizable.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.tabs.js" type="text/javascript"></script>
+    <script src="Includes/UI/jquery.ui.datepicker.js" type="text/javascript"></script>
+    <script src="MisFunciones_js/funcionesGenerales.js" type="text/javascript"></script>
+    <script src="MisFunciones_js/funcionesGeneralesAjax.js" type="text/javascript"></script>
+    <script src="MisFunciones_js/jsFuncionesGrilla.js" type="text/javascript"></script>
+    <script src="MisFunciones_js/MessageBox.js" type="text/javascript"></script>
+    <script src="MisFunciones_js/ventanasModales.js" type="text/javascript"></script>    
+    <script src="test/js/cufon-yui.js" type="text/javascript"></script>
+    <script src="test/js/arial.js" type="text/javascript"></script>
+    <script src="test/js/cuf_run.js" type="text/javascript"></script>
+    <asp:ContentPlaceHolder ID="HeadContent" runat="server">
+    </asp:ContentPlaceHolder>
+    <base target="_self" />
+    <script type="text/javascript">
+        $(document).ready(function () {
+            try {
+                var __oReferencePopin1 = null;
+
+                $.receiveMessage(function (e) {
+                    fnDevolverResultadoPopin(e, __oReferencePopin1)
+                }, window.location);
+
+                fnHabilitaDivBusquedaProceso();
+
+                function fnHabilitaDivBusquedaProceso() {
+                    var strModulo;
+                    var strModulo2;
+
+                    strModulo2 = getValorQueryString("nmo");
+                    strModulo = getValorQueryString("modulo");
+
+                    if (strModulo.length > 0 || strModulo2.length > 0)
+                        $("#divBusquedaProcesos").show();
+                    else
+                        $("#divBusquedaProcesos").hide();
+                };
+
+                $("#wdnProcesos").click(function () {
+                    fnMostrarVentanaProcesos();
+                });
+
+                function fnMostrarVentanaProcesos() {
+                    __oReferencePopin1 = abrirPopin('Busqueda de Procesos', "popinProcesosSistema.aspx?sTitulo=Buscar Proceso&qModulo=" + getValorQueryString("modulo"), 500, 400);
+                };
+
+                function fnDevolverResultadoPopin(e, oReferencePopin) {
+                    try {
+                        newLink = e.data.split("|")[1];
+
+                        oReferencePopin.dialog("close");
+
+                        /*Abre en misma ventana*/
+                        location.href = newLink;
+                        return;
+
+                        /*Abre en otra ventana*/
+                        //fnOpenInNewTab(newLink);
+                    } catch (ex) { alert(ex) }
+                }
+
+                function fnOpenInNewTab(url) {
+                    var link = $("<a id='linkNewProceso'>" + url + "</a>");
+                    link.attr("href", url);
+
+                    $("body").append(link);
+
+                    $("#linkNewProceso").click(function (e) {
+
+                        window.open($(this).attr("href"), "_blank");
+                        $("#linkNewProceso").remove();
+                        return false;
+                    });
+
+                    $("#linkNewProceso").trigger("click");
+                };
+            }
+            catch (ex) { console.log(); }
+        });
+    </script>
+</head>
+<body>
+    <form runat="server" id="FormMaster">
+    <asp:ScriptManager ID="ScriptManagerSiteMaster" ViewStateMode="Enabled" runat="server">
+    </asp:ScriptManager>
+    <div id="MsgBox">
+    </div>
+    <div class="main">
+        <div class="header">
+            <div class="header_resize">
+                <div class="logo">
+                    <h1>
+                    </h1>
+                </div>
+                <div style="float: left; padding-top: 10px;">
+                    <table>
+                        <tr>
+                            <td>
+                                <h1>Prototipo</h1>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Label ID="lblModuloSeleccionado" runat="server" Text="-"></asp:Label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div style="float: left; padding-top: 10px;">
+                    <asp:UpdateProgress ID="UpdateProgressSiteMaster" runat="server">
+                        <ProgressTemplate>
+                            <div id="divProgressMaster" style="background-position: center center; background-attachment: fixed;
+                                vertical-align: middle; background-color: #090909; filter: alpha(opacity=70);">
+                            </div>
+                            <script type="text/javascript">                                var targetDiv = document.getElementById("divProgressMaster"); targetDiv.style.top = 0; targetDiv.style.left = 0; targetDiv.style.height = screen.availHeight; targetDiv.style.width = screen.availWidth;</script>
+                        </ProgressTemplate>
+                    </asp:UpdateProgress>
+                </div>
+                <div style="float: right;">
+                    <div class="loginDisplay">
+                        <asp:Button ID="BtnAntiCierreSesion" runat="server" OnClick="BtnAntiCierreSesion_Click"
+                            Text="" Width="0px" BackColor="#1A3B5C" BorderColor="#1A3B5C" 
+                            BorderStyle="None" BorderWidth="0px" />
+                        <asp:ImageButton ImageUrl="~/test/images/bCerrarSesion.gif" ID="btnCerrarSesion"
+                            runat="server" UseSubmitBehavior="False" OnClick="btnCerrarSesion_Click1" />
+                        <asp:LoginView ID="HeadLoginView" runat="server" Visible="False">
+                            <AnonymousTemplate>
+                                [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Iniciar sesión</a>
+                                ]</AnonymousTemplate>
+                            <LoggedInTemplate>
+                                Pantalla de bienvenida <span class="bold">
+                                    <asp:LoginName ID="HeadLoginName" runat="server" />
+                                </span>! [
+                                <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Cerrar sesión"
+                                    LogoutPageUrl="~/" />
+                                ]
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                        <div id="divBusquedaProcesos" style="float: right;">
+                            <span id="wdnProcesos" style="cursor: pointer;">Procesos</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="clr">
+                </div>
+                <div class="menu_nav">
+                    <div style="padding-left: 5px; padding-top: 4px; color: #0e318a; font-size: 12px;
+                        font-weight: bold;">
+                        <div class="clear">
+                            <asp:Menu ID="NavigationMenu" runat="server" CssClass="" Orientation="Horizontal"
+                                BackColor="Transparent" DynamicMenuStyle-CssClass="sb_menu" DynamicHorizontalOffset="2"
+                                Font-Names="Calibri" Font-Size="Small" ForeColor="White" StaticSubMenuIndent="2px"
+                                ItemWrap="True" Font-Strikeout="False">
+                                <DynamicMenuItemStyle HorizontalPadding="5px" BackColor="#1a3b5c" ForeColor="#ffffff"
+                                    VerticalPadding="0px" />
+                                <Items>
+                                    <asp:MenuItem NavigateUrl="~/Main2.aspx" Text="Inicio" Value="Inicio"></asp:MenuItem>
+                                    <asp:MenuItem NavigateUrl="~/About.aspx" Text="Acerca de" />
+                                </Items>
+                                <StaticHoverStyle CssClass="sb_menu" ForeColor="#ffffff" />
+                                <StaticMenuItemStyle CssClass="sb_menu" ForeColor="#1a3b5c" />
+                                <StaticSelectedStyle ForeColor="#ffffff" BackColor="#4b4bab" />
+                                <%--  <DynamicMenuItemStyle BackColor="#ffffff" ForeColor="#777777" CssClass="sb_menu" />--%>
+                            </asp:Menu>
+                        </div>
+                    </div>
+                    <div class="clr">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ContenedorMenuprincipal" align="center">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolderMenuprincipal" runat="server">
+                <table>
+                    <tr>
+                        <td>
+                            <asp:ImageButton ID="IBtnGrabar" runat="server" ImageUrl="~/Images/Icons/accept.png"
+                                Height="25px" ToolTip="Grabar registro" OnClick="IBtnGrabar_Click" ValidationGroup="GrupoValidacionGrabar" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnNuevo" runat="server" ImageUrl="~/Images/Icons/add.png"
+                                Height="25px" ToolTip="Agregar registro" OnClick="IBtnNuevo_Click" Style="width: 25px" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnModificar" runat="server" ImageUrl="~/Images/Icons/page_edit.png"
+                                Height="25px" ToolTip="Modificar registro" OnClick="IBtnModificar_Click" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnEliminar" runat="server" ImageUrl="~/Images/Icons/delete.png"
+                                Height="25px" ToolTip="Eliminar registro" OnClick="IBtnEliminar_Click" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnCancelar" runat="server" ImageUrl="~/Images/Icons/cancel.png"
+                                Height="25px" ToolTip="Cancelar" OnClick="IBtnCancelar_Click" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnBuscar" runat="server" ImageUrl="~/Images/Icons/find.png"
+                                Height="25px" ToolTip="Buscar" OnClick="IBtnBuscar_Click" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnImprimir" runat="server" ImageUrl="~/Images/Icons/printer.png"
+                                Height="25px" ToolTip="Imprimir" OnClick="IBtnImprimir_Click" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnMenuPrincipal" runat="server" ImageUrl="~/Images/Icons/house.png"
+                                Height="25px" ToolTip="Inicio / Home" OnClick="IBtnMenuPrincipal_Click" />
+                        </td>
+                        <td>
+                            <asp:ImageButton ID="IBtnMenuModulo" runat="server" ImageUrl="~/Images/Icons/Home-64_modulo.png"
+                                Height="25px" ToolTip="Menú de módulo" 
+                                onclick="IBtnMenuModulo_Click" />
+                        </td>
+                    </tr>
+                </table>
+                <table>
+                    <tr>
+                        <td align="center">
+                            <asp:Label ID="lblTituloPrincipal" runat="server" Text="TITULO" Font-Bold="True"
+                                Font-Size="Medium"></asp:Label>
+                        </td>
+                    </tr>
+                </table>
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="ContenedorAtributosBrowser" align="center">
+            <asp:ContentPlaceHolder ID="ContentPlaceHolderAtributosBrowser" runat="server">
+                <table style="width: 795px">
+                    <tr>
+                        <td align="right">
+                            <asp:Label ID="lblAtributos" runat="server" Text="Atributos"></asp:Label>
+                        </td>
+                        <td align="left">
+                            <table style="width: 487px">
+                                <tr>
+                                    <td align="left">
+                                        <asp:DropDownList ID="DDListFiltro1" runat="server" Width="275px" Height="31px" CssClass="ComboBox3">
+                                        </asp:DropDownList>
+                                    </td>
+                                    <td>
+                                        <asp:DropDownList ID="DDListFiltro2" runat="server" Width="204px" Height="31px" CssClass="ComboBox2">
+                                        </asp:DropDownList>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td>
+                            <table align="left">
+                                <tr>
+                                    <td>
+                                        <asp:Label ID="Label1" runat="server" Text="Cant. Reg."></asp:Label>
+                                    </td>
+                                    <td>
+                                        <asp:TextBox ID="TxtCantReg" runat="server" Height="18px" Width="41px" Font-Size="XX-Small"
+                                            CssClass="TextBox1">100</asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            <asp:Label ID="Label2" runat="server" Text="Ingresar datos de búsqueda"></asp:Label>
+                        </td>
+                        <td align="left">
+                            <table>
+                                <tr>
+                                    <td>
+                                        <asp:TextBox ID="txtDatosABuscar" runat="server" Width="476px" CssClass="TextBox3"></asp:TextBox>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td align="left">
+                            <asp:Button ID="btnBuscar" runat="server" Text="Buscar" Width="101px" Height="26px" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        </td>
+                        <td>
+                            <asp:Label ID="lblErrores" runat="server" ForeColor="#FF3300" Visible="False"></asp:Label>
+                        </td>
+                        <td>
+                            &nbsp;
+                        </td>
+                    </tr>
+                </table>
+            </asp:ContentPlaceHolder>
+        </div>
+        <div class="content">
+            <div class="content_resize">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <div class="footer">
+            <div id="dd">
+            </div>
+            <div class="footer_resize" style="border-top: 1px solid #999; margin-top: 5px;">
+                <p class="lf">
+                    &copy; Copyright <a href="#">Mi Prototipo aun en prueba</a>.</p>
+                <p class="rf">
+                    1.0</p>
+                <div class="clr">
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
+</body>
+</html>
