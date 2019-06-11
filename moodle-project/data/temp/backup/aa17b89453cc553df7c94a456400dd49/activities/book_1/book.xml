@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<activity id="1" moduleid="1" modulename="book" contextid="17">
+  <book id="1">
+    <name>Your Career in your hands</name>
+    <intro>&lt;p&gt;&lt;img src="@@PLUGINFILE@@/For%20Corporate.jpg" alt="" width="200" height="283" role="presentation" style="vertical-align:text-bottom; margin: 0 .5em;" class="img-responsive"&gt;&lt;br&gt;&lt;/p&gt;</intro>
+    <introformat>1</introformat>
+    <numbering>1</numbering>
+    <navstyle>1</navstyle>
+    <customtitles>0</customtitles>
+    <timecreated>1471924710</timecreated>
+    <timemodified>1471924710</timemodified>
+    <chapters>
+    </chapters>
+  </book>
+</activity>
