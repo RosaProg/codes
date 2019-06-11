@@ -1,0 +1,12 @@
+development:
+  adapter: mysql
+  database: _development
+  username: root
+  password:
+
+test:
+  adapter: mysql
+  database: _test
+  username: root
+  password:
+

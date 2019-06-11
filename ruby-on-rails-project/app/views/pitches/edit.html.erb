@@ -1,0 +1,11 @@
+<div id="_form">
+   <% unless @pitch.errors.empty? %>
+     <% content_for :error do %>
+       <%= error_messages_for :pitch %>
+     <% end %>
+   <% end %>
+   <% @title = " - Edit your pitch" %>
+
+   <h2>Edit Your Pitch</h2>
+   <%= render :partial => 'form' %>
+</div>

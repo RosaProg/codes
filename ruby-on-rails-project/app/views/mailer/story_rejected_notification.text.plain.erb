@@ -1,0 +1,13 @@
+Dear <%=@story.user.first_name%>,
+
+Your peer reviewer is suggesting further edits on your story on .
+
+<%= @story.headline %>
+Find the story at: <%= story_url(@story) %>
+
+If you have questions or concerns - please contact: <%=get_email(:info)%>
+
+Sincerely,
+ Team
+
+<%= render :partial=>"footer", :locals=>{ :email=>@story.user.email }

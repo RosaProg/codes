@@ -1,0 +1,31 @@
+<div class="summaryContent">
+	<div class="descriptionContainer">			
+		<% apply_fragment ['pitch_summary_c_', @pitch] do %>
+		
+			<%= render :partial => "/shared/social_sharing", :locals => { :content_url => pitch_path(@pitch, {:only_path=>false}), :comments_url => "#{pitch_path(@pitch)}/discussion", :comments_count => @pitch.comments.count }%>
+			
+			<% unless @pitch.video_embed.blank? %>
+				<div class="videoContainer">
+					<%= transform_embed_code(@pitch.video_embed, 520, 320) %>
+				</div>
+			<% else %>
+				<div class="featuredImage">
+					<%= image_tag(@pitch.featured_image.url(:featured_image)) %>
+				</div>
+			<%end%>
+			<div class="shortDescription">
+				<%= @pitch.short_description %>
+			</div>
+			<% unless @pitch.extended_description.blank? %>
+				<div class="extendedDescription">
+					<h4>How will it help?</h4>
+					<%= @pitch.extended_description.strip_double_spaces %>
+				</div>
+			<% end %>
+
+		<%end%>
+		
+	</div>
+</div>
+
+<%=render :partial => "pitches/sidebars/wide"%>

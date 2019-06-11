@@ -1,0 +1,34 @@
+<% apply_fragment ['pitch_header_a_', @pitch] do %>
+	<%unless @pitch.new_record?%>
+		<div class="headlineByline">
+			<h1><%=link_to h @pitch.headline %><!--erik, this needs to link to the summary tab. help?--></h1>
+			<ul>
+				<li>	
+					<%= link_to image_tag(@pitch.user.photo(:mini_thumb)), profile_path(@pitch.user) %>
+					By <%= link_to @pitch.user.full_name, profile_path(@pitch.user) %>
+				</li>
+				<% if @pitch.peer_reviewer %>
+					<li>
+						Peer review by <%= link_to @pitch.peer_reviewer.full_name, profile_path(@pitch.peer_reviewer) %>
+					</li>
+				<%end%>
+			</ul>
+		</div>
+		<div class="fundingStatus">
+			<%if @pitch.fully_funded? && @pitch.story && @pitch.story.published?%>
+				<h3 class="published">Published</h3>
+			<%elsif @pitch.fully_funded?%>
+				<h3 class="funded">Funded</h3>
+			<%else%>
+				<h3 class="needsFunding">Needs Funding</h3>
+			<%end%>
+		</div>
+	<%else%>
+		<div class="headerTitle">
+			<h1>Start A Story</h1>
+		</div>
+		<div class="joinContainer">
+			<a href="/pages/faq/" title='FAQ' rel="nofollow">FAQ &rsaquo;</a>
+		</div>
+	<%end%>
+<%end%>

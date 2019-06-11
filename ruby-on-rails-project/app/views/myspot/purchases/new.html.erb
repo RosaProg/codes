@@ -1,0 +1,24 @@
+<% @title = " - Your Donations" %>
+<div class="purchaseForms">
+	<h2 style="margin:20px 30px 0px 30px; padding:0px; border-bottom:1px solid #999; width:96%"><span id="hoverAnchorPurchase">Fund your donation to  - and support the story of your choice</span></h2>
+	<%= render :partial => "/myspot/purchases/purchase_form" %>
+<div class="status">
+Thank you for your interest in . We are not accepting new pitches or donations at this time.
+<a href="/pages/status">Learn more.</a>
+</div>
+
+</div>
+
+<div id="hoverContainerPurchase" class="hoverContainer purchaseHover" style="display:none;">
+	<%if @section%>
+		<h2 class="section"><%=@section.title%></h2>
+		<%unless @section.embed_code.blank?%>
+			<p><%= transform_embed_code(@section.embed_code, 570, 450) %></p>
+		<%end%>
+		<p><em><%=@section.short_description%></em></p>
+		<p><%=@section.extended_description%></p>
+	<%else%>
+		<h2>Ooops...</h2>
+		<p>We haven't gotten to that section yet. Check back in a bit and we are sure it will be there for you.</p>
+	<%end%>
+</div>

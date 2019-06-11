@@ -1,0 +1,21 @@
+Dear <%=@user.first_name%>,
+
+Welcome to  - http:/// and thanks for doing your part to fund journalism.
+
+We provide a platform for the community to support projects that are focused on serving the public’s unmet information needs.
+
+Check out the list of pitches to find projects that you can support 
+http:///news_items
+
+ is part of American Public Media, and is operated by the folks who run the Public Insight Network (PIN) - http://www.publicinsightnetwork.org. Become a source for PIN and inform journalism at newsrooms around the country by clicking here.
+
+If you have any questions or comments, email us at support@publicinsightnetwork.org.
+
+All the best,
+
+Michael Caputo
+Senior Analyst, Public Insight Network / 
+American Public Media
+mcaputo@americanpublicmedia.org
+
+<%= render :partial=>"footer", :locals=>{ :email=>@user.email }%>

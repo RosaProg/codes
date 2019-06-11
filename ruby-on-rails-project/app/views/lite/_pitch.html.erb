@@ -1,0 +1,29 @@
+<% if @pitch && @pitch.story && @pitch.story.published? %>
+	<div class="_spacer">
+		<h3 class="_pitch_title"><%= link_to h(@pitch.story.headline), @pitch.story, :target => "_parent" %></h3>
+		<span class="_dateline">Posted<%= @pitch.story.created_at.to_s(:long_date)%>
+		by <%= link_to truncate(h(@pitch.story.user.full_name), :length => 12), profile_path(@pitch.story.user), :target => "_parent" %> in <%= @pitch.story.network.name%></span>
+		<p class="short_description alt-">
+			<%= truncate_words(@pitch.story.extended_description, 30) if @pitch.story.extended_description%>
+			<%= link_to 'Read More &raquo;', @pitch.story, :target => "_parent" %>
+		</p>
+	</div>
+<% else %>
+	<div class="_spacer">
+		<div class="_pitch_info">
+			<%= link_to image_tag(@pitch.featured_image.url(:medium), :class => "_pitch_image"), @pitch, :target => "_parent" %>
+			<h3 class="_pitch_title"><%= link_to h(@pitch.headline), pitch_url(@pitch), :target => "_parent" %></h3>
+			<div class="_dateline"><%= link_to truncate(h(@pitch.user.full_name), :length => 20), profile_path(@pitch.user), :target => "_parent" %> | <%= short_date(@pitch.created_at)%></div>
+			<div class="_description">
+				"<%= truncate_words(strip_html(@pitch.short_description), 8) unless @pitch.short_description.blank? %>"
+			</div>
+		</div>
+		<div class="_progress">
+			<% if @pitch.fully_funded? %>
+				<%= image_tag('/images/new_design/fully_funded_medium.png', :alt => 'This News Item is Fully Funded!')%>
+			<% else %>
+				<%=render :partial=>"donations/button_widget"%>
+			<% end %>
+		</div>
+	</div>
+<% end %>

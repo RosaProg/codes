@@ -1,0 +1,17 @@
+<div class="headerTitle">
+	<%if params[:id]=="terms"%>
+		<h1> Terms of Use</h1>
+	<%elsif params[:id]=="privacy"%>
+		<h1> Privacy Policy</h1>
+	<%elsif @page_not_found%>
+		<h1>Sorry, we couldn't find that page!</h1>
+	<%elsif @exception_found%>
+		<h1>Oops, something went wrong!</h1>
+	<%else%>	
+		<h1 rel="nofollow"><%=@page ? @page.title : params[:id].to_s%></h1>
+		<p>Pioneering community-funded reporting</p>
+	<%end%>
+</div>
+<div class="joinContainer">
+	<a href="/user/new" title='Register' rel="nofollow">Join &rsaquo;</a>
+</div>

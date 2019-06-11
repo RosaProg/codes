@@ -1,0 +1,18 @@
+<p>
+	All,
+</p>
+
+<%if @has_donations%>
+	<p>
+		Attached you will find a <%=@interval%> report between <%=short_date(@start_date)%> and <%=short_date(@end_date)%>. The file is in CSV format.
+	</p> 
+<%else%>
+	<p>
+		No donations were received between <%=short_date(@start_date)%> and <%=short_date(@end_date)%>.
+	</p>
+<%end%>
+
+<p>
+	Sincerely, <br/>
+	
+</p>

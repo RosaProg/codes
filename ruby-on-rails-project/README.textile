@@ -1,0 +1,18 @@
+
+h3. Setup configuration files
+
+Make any necessary edits to these if the defaults don't work for you.  is dependent on MySQL because it uses the rand() function.
+
+# cp config/database.example.yml config/database.yml
+# cp config/newrelic.example.yml config/newrelic.yml
+# cp config/settings.example.yml config/settings.yml
+
+h3. Run basic setup tasks
+
+# rake db:create:all
+# rake db:migrate
+# rake db:populate
+
+h3. Start your local server
+
+# ./script/server

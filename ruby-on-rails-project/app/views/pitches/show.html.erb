@@ -1,0 +1,28 @@
+<%= render :partial => "pitch_head" %>
+<% @title = " - Pitch: #{h @pitch.headline}" %>
+
+<%=render :partial => "tabs"%>
+
+<% if @subscriber && @subscriber.errors.any? %>
+	<div class="error">
+		<%= error_messages_for :subscriber %>
+	</div>
+<% end %>
+
+<div class="pitchContainer">
+	<%if @tab=='summary' || @tab.blank?%>
+		<%=render :partial=>'pitches/tabs/summary' %>
+	<%elsif @tab=='story'%>
+		<%=render :partial=>'pitches/tabs/story' %>
+	<%elsif @tab=='updates'%>
+		<%=render :partial=>'pitches/tabs/updates' %>
+	<%elsif @tab=='discussion'%>
+		<%=render :partial=>'pitches/tabs/discussion' %>
+	<%elsif @tab=='assignments'%>
+		<%=render :partial=>'pitches/tabs/assignments' %>
+	<%elsif @tab=='donors'%>
+		<%=render :partial=>'pitches/tabs/donors' %>
+	<%elsif @tab=='details'%>
+		<%=render :partial=>'pitches/tabs/details' %>
+	<%end%>
+</div>
