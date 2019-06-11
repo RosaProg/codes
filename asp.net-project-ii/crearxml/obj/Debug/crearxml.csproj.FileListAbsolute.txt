@@ -1,0 +1,10 @@
+c:\users\casa\documents\visual studio 2012\Projects\crearxml\crearxml\bin\crearxml.dll
+c:\users\casa\documents\visual studio 2012\Projects\crearxml\crearxml\bin\crearxml.pdb
+c:\users\casa\documents\visual studio 2012\Projects\crearxml\crearxml\obj\Debug\crearxml.csprojResolveAssemblyReference.cache
+c:\users\casa\documents\visual studio 2012\Projects\crearxml\crearxml\obj\Debug\crearxml.dll
+c:\users\casa\documents\visual studio 2012\Projects\crearxml\crearxml\obj\Debug\crearxml.pdb
+C:\Users\August\Documents\Visual Studio 2012\Projects\crearxml\crearxml\obj\Debug\crearxml.csprojResolveAssemblyReference.cache
+C:\Users\August\Documents\Visual Studio 2012\Projects\crearxml\crearxml\obj\Debug\crearxml.dll
+C:\Users\August\Documents\Visual Studio 2012\Projects\crearxml\crearxml\bin\crearxml.dll
+C:\Users\August\Documents\Visual Studio 2012\Projects\crearxml\crearxml\bin\crearxml.pdb
+C:\Users\August\Documents\Visual Studio 2012\Projects\crearxml\crearxml\obj\Debug\crearxml.pdb
