@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+	"-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+
+<tiles-definitions>
+	<definition name="default" template="/WEB-INF/layouts/default.jspx">
+		<put-attribute name="header" value="/WEB-INF/views/header.jspx"/>
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jspx"/>
+	</definition>
+	
+	<definition name="clean" template="/WEB-INF/layouts/clean.jspx">
+		<put-attribute name="header" value="/WEB-INF/views/clean-header.jspx"/>
+	</definition>
+	
+	
+	<definition name="login" template="/WEB-INF/layouts/login.jspx">
+
+	</definition>
+	
+	<definition name="clean" template="/WEB-INF/layouts/clean.jspx">
+
+	</definition>
+	
+	<definition name="popupViews" template="/WEB-INF/layouts/default.jspx">
+		<put-attribute name="header" value="/WEB-INF/views/header.jspx"/>
+		<put-attribute name="footer" value="/WEB-INF/views/footer.jspx"/>
+	</definition>
+	
+	
+	
+	<definition name="mobile" template="/WEB-INF/layouts/mobile.jspx">
+		<put-attribute name="header" value="/WEB-INF/views/mobileheader.jspx"/>
+		<put-attribute name="footer" value="/WEB-INF/views/mobilefooter.jspx"/>
+	</definition>
+	
+	<definition name="pdfDefault" template="/WEB-INF/layouts/pdfDefault.jspx">
+	
+	</definition>
+	
+	<definition name="json" template="/WEB-INF/layouts/json.jspx">
+
+	</definition>
+</tiles-definitions>

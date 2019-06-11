@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:joda="http://www.joda.org/joda/time/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:spring="http://www.springframework.org/tags"
+	
+	>
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/" var="resources" />
+	<spring:url value="/user" var="user" />
+	<spring:url value="/database" var="database" />
+	
+ 	<spring:url value="/documentation" var="document" />
+
+	<style>
+		.log-boxes{
+			width:100%;
+		}
+		
+		.log-container{
+			margin:0;
+			padding:0;
+		}
+		
+	</style>
+
+	<div>
+		servers.config file:
+		<input type="text" id="servers-file" />
+		<br/>
+		pem file:
+		<input type="text" id="pem-file" />
+		<br />
+		number nodes per server:
+		<input type="text" id="number-nodes" />
+		<br/>
+		include history:
+		<input type="checkbox" id="include-history"/>
+		<br/>
+		<input type="button" onclick="loadLogs()" value="Load Logs" />
+	</div>
+	<div class="container">
+	<div id="log-grid" class="row">
+		<jsp:text />
+	</div>
+ </div>
+<script type="text/javascript">
+<![CDATA[
+         
+String.prototype.replaceAll = function(search, replacement) {
+  	val = this;
+	while(val != val.replace(search,replacement)){
+  		val = val.replace(search,replacement);
+  	}
+  	return val;
+};
+window.onbeforeunload = function() {
+    localStorage.setItem("servers-file", $('#servers-file').val());
+    localStorage.setItem("number-nodes", $('#number-nodes').val());
+    localStorage.setItem("pem-file", $('#pem-file').val());
+    
+    // ...
+}
+
+window.onload = function() {
+
+    var item = localStorage.getItem("servers-file");
+    if (item !== null) $('#servers-file').val(item);
+
+    item = localStorage.getItem("number-nodes");
+    if (item !== null) $('#number-nodes').val(item);
+
+    item = localStorage.getItem("pem-file");
+    if (item !== null) $('#pem-file').val(item);
+
+    // ...
+}
+         
+	function loadLogs(){
+		
+		var data = new Object();
+		data.fileLocation = $("#servers-file").val();
+		data.numNodes = $("#number-nodes").val();
+		data.pem = $("#pem-file").val();
+		$.ajax({
+			url :'${database}/servers-file',
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					var ipArr = data.list;
+					for( var i in data.list){
+						for(var nodeNum = 0; nodeNum< $("#number-nodes").val(); nodeNum++){
+							monitorLog(data.list[i],nodeNum);	
+						}
+						
+					}					
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	 	
+		
+	}
+	
+
+	var curLogs = new Object();
+	
+	function monitorLog(ip,nodeNum){
+		var data = new Object();
+		if(!curLogs.hasOwnProperty(ip.replaceAll(".","_") + "_" + nodeNum)){
+			curLogs[ip.replaceAll(".","_") + "_" + nodeNum] = true;
+			//create the text box
+			var html = '<div class="col-md-3 log-container">IP:' + ip + ' , Port' + (8890 + nodeNum) + '<textarea rows="20" class="log-boxes" id="log-' + ip.replaceAll(".","_") +"_" + nodeNum + '"></textarea></div>';
+			$("#log-grid").append(html);
+			if ($("#include-history").val() == "on") {
+		        data.isFirst = true;
+		    }else{
+		    	data.isFirst = false;
+		    }
+			
+		}else{
+			data.isFirst = false;
+		}
+
+		data.nodeNum = nodeNum;
+		data.ip = ip;
+
+		$.ajax({
+			url :'${database}/get-log',
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+				setTimeout(function(){ monitorLog(ip,nodeNum);},5000);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					var logOutput = data.entity;
+				    var psconsole = $('#log-' +  ip.replaceAll(".","_") +"_" + nodeNum );
+				    psconsole.val(psconsole.val() + logOutput)
+				    if(logOutput.length > 0)
+				       psconsole.scrollTop(psconsole[0].scrollHeight - psconsole.height());
+					
+					setTimeout(function(){monitorLog(ip,nodeNum);},5000);
+				}else{
+					console.error(data.errorMsg);
+					setTimeout(function(){monitorLog(ip,nodeNum);},5000);
+				}
+			}
+		});	 	
+		
+
+	}
+ ]]>
+</script>
+	
+</div>

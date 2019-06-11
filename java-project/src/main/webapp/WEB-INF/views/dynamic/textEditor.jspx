@@ -1,0 +1,773 @@
+<div  style="width:100%;height:100%" 
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/" var="resources" ></spring:url>
+	<spring:url value="/file" var="file" ></spring:url>
+	
+	<script type="text/javascript">
+	<![CDATA[
+		
+String.prototype.lines = function() { return this.split(/\r*\n/); }
+String.prototype.lineCount = function() { return this.lines().length; }
+$.fn.focusWithoutScrolling = function(){
+	 // this[0].focus();
+	  //this[0].scrollTop = 0;
+	  return this; //chainability
+
+	};
+	var editor;
+$().ready(function(){
+	
+	
+	ace.require("ace/ext/language_tools");
+	editor = ace.edit("editor");
+    
+	editor.setOptions({
+
+        enableBasicAutocompletion: true,
+        enableSnippets: true,
+        enableLiveAutocompletion: false
+	});
+    editor.setTheme("ace/theme/chrome");
+    editor.getSession().setUseSoftTabs(true);
+    editor.setShowPrintMargin(false);
+
+    	
+   
+
+	editor.on("paste",function(pasteObject){
+		pasteObject.text = pasteObject.text.replaceAll("	","    ");
+		
+	});
+    	
+    $(".file-editor").on("keyup",function(event){
+    	
+
+    			editorController.updateModel(event);
+    		});
+    	
+    		$(".file-editor").on("click",function(event){
+    			var cursor = editor.selection.getCursor();
+    			var curLine = cursor.row+1;
+    			var curCol = cursor.column+1;
+    			
+    			//var curCol = lineArr[lineArr.length -1].length;
+    			var totalLines = editor.session.getLength();
+    			//var totalLines = this.fileEditor[0].value.split("\n").length;
+    			
+    			$("#total-lines").html(totalLines);
+    			$("#cur-line").html(curLine);
+    			$("#cur-col").html(curCol);
+    		});
+
+});
+	
+
+
+  		var TextEditor = function(parentDiv,controllerName,project){
+  			this.curFile = "";
+  			this.numLines = 1;
+  			this.name = controllerName;
+  			this.files = new Array();
+  			this.filesContent = new Object();
+
+  			this.edited = new Object();
+			this.prevScroll = new Object();	
+  			this.prevCursorLine = 0;
+  			this.fileEditor = $(parentDiv).find(".file-editor");
+  			this.navBar = $(parentDiv).find(".file-selector");
+  			this.lineNumbers = $(parentDiv).find(".line-numbers");
+  			this.parentDiv = $(parentDiv);
+  			var self = this;
+  			this.project = project;
+
+  			this.currentlyShowingNav = new Array();
+  			
+  			this.renderNavbar();
+  			this.setupListeners();
+  		}
+  		
+  		TextEditor.prototype.selectAllText = function (){
+  			this.fileEditor.find("textarea")[0].select();
+  		}
+  		
+  		TextEditor.prototype.insertAtCursor = function ( myValue) {
+			editor.insert(myValue);
+			/*
+  			//IE support
+  		    if (document.selection) {
+  		        this.fileEditor[0].focus();
+  		        sel = document.selection.createRange();
+  		        sel.text = myValue;
+  		    }
+  		    //MOZILLA and others
+  		    else if (this.fileEditor[0].selectionStart || this.fileEditor[0].selectionStart == '0') {
+  		        var startPos = this.fileEditor[0].selectionStart;
+  		        var endPos = this.fileEditor[0].selectionEnd;
+  		        this.fileEditor[0].value = this.fileEditor[0].value.substring(0, startPos)
+  		            + myValue
+  		            + this.fileEditor[0].value.substring(endPos, this.fileEditor[0].value.length);
+  		        this.fileEditor[0].selectionStart = startPos + myValue.length;
+  		        this.fileEditor[0].selectionEnd = startPos + myValue.length;
+  		    } else {
+  		        this.fileEditor[0].value += myValue;
+  		    }*/
+  		};
+  		TextEditor.prototype.getAllText = function(){
+  			return editor.getValue();
+  		}
+  		
+  		TextEditor.prototype.setupListeners = function(){
+ 			var self = this;
+  			this.parentDiv.find(".add-new-file").on("click",function(){ self.addNew()
+  				
+  			});
+
+ 	  		//	this.parentDiv.find(".add-new-file")[0].onclick = (function(){ self.addNew()}).bind(self);
+ 				this.parentDiv.find(".open-file").on("click",function(){ self.showOpenDialog()});
+	
+ 	  			
+ 	  			this.fileEditor.on("cut",function(event){
+ 	  				self.updateModel(event);
+ 	  			});
+ 	  			
+ 	  			this.fileEditor.on("paste",function(event){
+ 	  				self.updateModel(event);
+ 	  			});
+ 	  		
+ 	  			
+ 	  			this.parentDiv.find(".save-text-editor").on("click",function(event){
+ 	  				self.save();
+ 	  			});
+ 	  			this.parentDiv.find(".save-as-text-editor").on("click",function(event){
+ 	  				self.saveAs();
+ 	  			});
+ 	  			this.parentDiv.find(".save-all-text-editor").on("click",function(event){
+ 	  				self.saveAll();
+ 	  			});
+ 	  			  			
+  		}
+  		
+  		//each project will have its own textEditor so we have to pass control form one
+  		TextEditor.prototype.passControl = function(newTextEditor){
+  			
+ 			this.parentDiv.find(".add-new-file").unbind("click");
+
+  		//	this.parentDiv.find(".add-new-file")[0].onclick = (function(){ self.addNew()}).bind(self);
+			this.parentDiv.find(".open-file").unbind("click");
+  	
+  			this.parentDiv.find(".save-text-editor").unbind("click");
+  			this.parentDiv.find(".save-as-text-editor").unbind("click");
+  			this.parentDiv.find(".save-all-text-editor").unbind("click");
+			
+  			newTextEditor.setupListeners();
+  			newTextEditor.renderNavbar();
+  			if(newTextEditor.curFile != ""){
+  				newTextEditor.showFile(newTextEditor.curFile);
+  			}else{
+  				editor.setReadOnly(true);
+  				editor.setValue("");
+//  				this.fileEditor.attr('disabled', true);
+ // 				newTextEditor.fileEditor.val("");
+  			}
+  		}
+
+		
+		
+		
+			
+		TextEditor.prototype.addNew = 
+			function (){
+				if(menuController.curProject != ""){
+					var self = this;
+					$("#create-modal").find(".create-new-text-editor-button").unbind("click");
+					$("#create-modal").find(".create-new-text-editor-button").on("click",self.createNewFile.bind(this));
+					$("#create-modal").find(".modal-title").html("Create File");
+					$("#create-modal").modal('show');
+					$("#create-file-name").focus();
+				}
+			};	         
+	    
+		TextEditor.prototype.createNewFile = 
+			function (){
+				if(menuController.curProject != ""){
+					var self = this;
+					var data = new Object();
+					data.project = menuController.curProject;
+					data.isPublic = menuController.curProjectIsPublic;
+					var createdFileName = $("#create-file-name").val();
+					data.name = createdFileName;
+					$.ajax({
+						url :'${file}/create',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								self.openFile(createdFileName);
+								menuController.showProjectFiles(self.project,menuController.curProjectIsPublic);	
+								$("#create-modal").modal('hide');
+								
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+				}
+			};	         
+	    
+	
+			
+		TextEditor.prototype.showOpenDialog = 
+			function (){
+				if(menuController.curProject != ""){
+					var data = new Object();
+					data.project = menuController.curProject;
+					$("#open-dialog-files").empty();
+					var self = this;
+					$.ajax({
+						url :'${file}/list',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								var htmlString = "";
+								for(var ind in data.list){
+									if(ind != 'length'){
+										var fileDescription = data.list[ind];
+										if(self.files.indexOf(fileDescription.fileName) == -1){
+											htmlString += ' <button style="width:100%" type="button" class="list-group-item" onclick="' + self.name + '.openFile(\'' + fileDescription.fileName + '\')">' + fileDescription.fileName + '</button>';	
+										}	
+									}
+									
+									
+								}			
+								$("#open-dialog-files").append(htmlString);
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+					$("#open-modal").modal("show");	
+				}
+			};	         
+	    
+			
+		TextEditor.prototype.saveAll = 
+			function (){
+				if(menuController.curProject != ""){
+					for(var ind = 0; ind < this.files.length;ind++){
+						this.saveFile(this.files[ind],this.files[ind],this.filesContent[this.files[ind]]);
+					}
+				}
+			};	         
+	    
+
+		TextEditor.prototype.save = 
+			function (){
+				if(menuController.curProject != ""){
+					this.saveFile(this.curFile,this.curFile,editor.getValue());		
+					this.filesContent[this.curFile] = editor.getValue();
+					
+				}
+			};	         
+
+
+		TextEditor.prototype.saveAs = 
+			function (){
+				if(menuController.curProject != ""){
+					var self = this;
+					$("#save-modal").find(".save-as-text-editor-button").unbind("click");
+					$("#save-modal").find(".save-as-text-editor-button").on("click",self.saveFileAs);
+					$("#save-modal").modal('show');
+				}
+			};	   
+		
+		TextEditor.prototype.saveFileAs = 
+			function (){
+				if(menuController.curProject != ""){
+					this.saveFile(this.curFile,$("#save-file-name").val(),editor.getValue());
+					this.openFile($("#save-file-name").val());
+				}
+			};	   
+		
+		
+		TextEditor.prototype.saveFile = 
+			function (name,newName,contents){
+				
+			if(menuController.curProject != ""){
+					var data = new Object();
+					data.isPublic = menuController.curProjectIsPublic;
+					data.contents = contents;
+					if(name.substr(0,3) == "../"){
+						data.name = name.substr(3,name.length-3);
+						data.newName = newName.substr(3,newName.length-3);
+						
+
+					}else{
+						data.name = name;
+						data.newName = newName;
+						
+						data.project = menuController.curProject;	
+					}
+					
+					var self = this;
+					$.ajax({
+						url :'${file}/save',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							
+							if(data.status == "success"){
+								//remove the star the file is saved
+								self.navBar.find('.nav-item-' + newName.replaceAll(".","_").replaceAll("/","_") + ' .file-edited').hide();
+								self.edited[name] = false;
+								//if name changes then update the name in the navbar
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+				}
+			};	         
+	    		
+		TextEditor.prototype.closeFile = 
+			function (event,name){
+				if(typeof event != "undefined"){
+					event = event || window.event;
+					if(event.stopImmediatePropagation){
+						event.stopImmediatePropagation();	
+					}else if(event.preventDefault){
+						event.preventDefault();
+					}					
+				}
+
+					
+				for(var ind = 0; ind < this.files.length; ind++){
+					
+					if(this.files[ind] == name){
+						if(this.curFile == name){
+							if(this.files.length > 1){
+								if(ind == 0){
+									this.curFile = this.files[1];
+								}else{
+									this.curFile = this.files[ind-1];
+								}	
+							}		
+						}
+						this.files.splice(ind,1);
+						delete this.filesContent[name];
+						this.renderNavbar();
+						if (this.files.length > 0){
+							this.showFile(this.curFile);	
+						}else{
+							editor.setReadOnly(true);
+//							this.fileEditor.attr('disabled', true);
+							editor.setValue("");
+							//this.fileEditor.val("");								
+						}
+						
+					}
+				}
+			
+			};
+
+		TextEditor.prototype.getSelectedText = function(){
+			
+			return editor.session.getTextRange(editor.getSelectionRange());
+			/*
+			var textComponent = this.fileEditor[0];
+
+			  var selectedText;
+			  // IE version
+			  if (document.selection != undefined)
+			  {
+			    textComponent.focus();
+			    var sel = document.selection.createRange();
+			    selectedText = sel.text;
+			  }
+			  // Mozilla version
+			  else if (textComponent.selectionStart != undefined)
+			  {
+			    var startPos = textComponent.selectionStart;
+			    var endPos = textComponent.selectionEnd;
+			    selectedText = textComponent.value.substring(startPos, endPos);
+			  }	
+			  
+			  return selectedText;*/
+		}
+			
+		TextEditor.prototype.updateModel = function(event){
+			
+			event == event || window.event;
+			var code;
+			if(typeof event == "undefined"){
+				event = new Object();
+				event.type = "none";
+				event.code = -1;
+			}
+			code = event.which;
+			
+			//var lineArr = this.fileEditor[0].value.substr(0, this.fileEditor[0].selectionStart).split("\n");
+			
+
+			
+			//var curLine = lineArr.length;
+			var cursor = editor.selection.getCursor();
+			var curLine = cursor.row+1;
+			var curCol = cursor.column+1;
+			
+			//var curCol = lineArr[lineArr.length -1].length;
+			var totalLines = editor.session.getLength();
+			//var totalLines = this.fileEditor[0].value.split("\n").length;
+			
+			$("#total-lines").html(totalLines);
+			$("#cur-line").html(curLine);
+			$("#cur-col").html(curCol);
+			
+			
+			if(this.prevCursorLine != curLine){
+				this.prevCursorLine = curLine;
+				 this.fileEditor.scrollLeft(0);	
+			}
+			if(event.type != "cut" && event.type != "paste"){
+				 if(event.type != "keyup" || typeof code == "undefined" ||(code >= 16 && code <=45) || (code >= 112 && code <=145)) {
+				        return;
+				    }
+				
+				if(event.ctrlKey){
+					//only x and p i think can modify
+					if((code != 120)&&(code != 121)&&(code != 122)&&(code != 99)){
+						return;
+					}
+				}	
+			}
+			
+			 
+			this.edited[this.curFile] = true;
+			this.navBar.find('.nav-item-' + this.curFile.replaceAll(".","_").replaceAll("/","_") + ' .file-edited').show();
+			var lastText = this.filesContent[this.curFile];
+			
+			//this.filesContent[this.curFile] = this.fileEditor.val();
+			this.filesContent[this.curFile] = editor.getValue();
+			
+			
+			
+			/*
+			
+			if (event.which==8 || event.which==46) {
+			     var newText =  this.fileEditor.val();
+			    for (var i=0; i<lastText.length-1; i++) {
+			      if (lastText[i]!=newText[i]) {
+			       console.log("char '" +  lastText[i] + "' was removed at index "+i);
+			        lastText = newText;
+			        return;
+			      }
+			    }
+			  }*/
+		}
+		
+		TextEditor.prototype.showNextFile =	function(){
+			var curFileInd =  this.files.indexOf(this.curFile) + 1;
+			if(curFileInd == (this.files.length )){
+				curFileInd = 0;
+			}
+			this.showFile(this.files[curFileInd]);
+		}
+		
+		TextEditor.prototype.showFile = function(file){
+			if(this.currentlyShowingNav.indexOf(file) == -1){
+				this.renderNavbar(this.files.indexOf(file));
+			}
+			var extension = file.split('.').pop();
+			if(extension == "py"){
+				editor.getSession().setMode("ace/mode/python");
+			}else if(extension == "r"){
+				editor.getSession().setMode("ace/mode/r");				
+			}else if(extension == "sql"){
+				editor.getSession().setMode("ace/mode/mysql");
+			}else if(extension == "txt"){
+				editor.getSession().setMode("ace/mode/text");
+			}else if((extension == "c")||(extension == "cu")||(extension == "cuh")){
+				editor.getSession().setMode("ace/mode/c_cpp");
+			}else if((extension == "h")||(extension == "cpp")||(extension == "cp")){
+			    editor.getSession().setMode("ace/mode/c_cpp");
+			}else if(extension == "js"){
+			    editor.getSession().setMode("ace/mode/javascript");
+			}else{
+			    editor.getSession().setMode("ace/mode/text");
+			}
+			
+			this.navBar.find("li").removeClass("active");
+			this.navBar.find(".nav-item-"+file.replaceAll(".","_").replaceAll("/","_")).addClass("active");
+	    	   $("#files .list-group-item").removeClass("active");
+	    	   $("#files .list-group-item[fileId='" + file.replaceAll(".","_").replaceAll("/","_") + "']").addClass("active");
+			this.curFile = file;	
+			this.filesContent[file] = this.filesContent[file].replaceAll("	","    "); 
+			editor.setValue(this.filesContent[file]);
+			
+			//this.fileEditor.val(this.filesContent[file]);
+			this.fileEditor.focusWithoutScrolling();
+			if(typeof this.prevScroll[this.curFile] !== "undefined"){
+				editor.gotoLine(this.prevScroll[this.curFile]);
+//				this.fileEditor.scrollTop(this.prevScroll[this.curFile]);
+			}else{
+
+			}
+			editor.setReadOnly(false);
+			//			this.fileEditor.attr('disabled', false);
+			//			this.fileEditor[0].setSelectionRange(0, 0); 
+			
+			this.updateModel(event);
+			this.handleScroll();
+			
+	
+		}
+		
+		TextEditor.prototype.addNavbarItem = function(addingToOverflow, ind,totalWidth,maxWidth){
+			
+		}
+				
+		TextEditor.prototype.renderNavbar = function(selectedIndex){
+			this.currentlyShowingNav = new Array();
+			if(typeof selectedIndex == "undefined"){
+				selectedIndex = 0;
+			}
+			this.navBar.children().remove();
+			var maxWidth = $(".file-selector").width();
+			var totalWidth = 0;
+			var addingToOverflow = false;
+
+			var numSelected = 0;
+			var indeces = new Array();
+			var beforeAfter = new Array();
+			var hi = selectedIndex;
+			var lo = selectedIndex - 1;
+			
+			while(hi < this.files.length || lo  >= 0){
+				
+				if(hi < this.files.length){
+					indeces.push(hi);
+					beforeAfter.push("hi");
+				}
+				
+				if(lo >= 0){
+					indeces.push(lo);
+					beforeAfter.push("lo");
+				}
+				hi++;
+				lo--;
+			}
+			
+			
+			for(var i = 0; i < this.files.length; i++){
+				var ind = indeces[i];
+				if(addingToOverflow){
+
+					i = this.files.length;
+				}else{
+					
+					var isHi = (beforeAfter[i] == "hi");
+					
+					if(isHi)
+					{
+						this.navBar.append('<li class="nav-item-' + this.files[ind].replaceAll(".","_").replaceAll("/","_") + '" role="presentation"><a href="javascript:void(0)" onclick="' + this.name + '.showFile(\'' + this.files[ind] +  '\')"><span class="file-edited">*</span>' + this.files[ind] + '<span style="margin-left:10px;"  onclick="' + this.name + '.closeFile(event,\'' + this.files[ind] + '\')">x</span></a></li>');		
+					}else{
+						this.navBar.prepend('<li class="nav-item-' + this.files[ind].replaceAll(".","_").replaceAll("/","_") + '" role="presentation"><a href="javascript:void(0)" onclick="' + this.name + '.showFile(\'' + this.files[ind] +  '\')"><span class="file-edited">*</span>' + this.files[ind] + '<span style="margin-left:10px;"  onclick="' + this.name + '.closeFile(event,\'' + this.files[ind] + '\')">x</span></a></li>');		
+					}	
+
+					totalWidth += this.navBar.find('.nav-item-' + this.files[ind].replaceAll(".","_").replaceAll("/","_")).width();
+					if(this.edited[this.files[ind]]){
+						this.navBar.find('.nav-item-' + this.files[ind].replaceAll(".","_").replaceAll("/","_") + ' .file-edited').show();							
+					}
+					this.currentlyShowingNav.push(this.files[ind]);
+					
+					if(totalWidth > maxWidth){
+						addingToOverflow = true;
+						//remove last one
+						if(isHi){
+							this.navBar.find("li:last-child").remove();
+															
+						}else{
+							this.navBar.find("li:first-child").remove();
+						}
+						i--;
+						this.currentlyShowingNav.pop();
+						
+						if(((totalWidth+40) - this.navBar.find("li:first-child").width()) > maxWidth){
+							isHi = (beforeAfter[i] == "hi");
+							
+							if(isHi){
+								this.navBar.find("li:last-child").remove();
+																
+							}else{
+								this.navBar.find("li:first-child").remove();
+							}
+							this.currentlyShowingNav.pop();
+							
+							i--;	
+						}
+						this.navBar.append('<li class="dropwdown navbar-right" style="margin-right:15px"><a href="javascript:void(0)" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span> </a>  <ul class="dropdown-menu overflow-files"> </ul> </li>');
+						
+					}
+					
+						
+				}
+				
+			}
+			if(addingToOverflow){
+				for(var ind = 0; ind < this.files.length; ind++){
+					this.navBar.find(".overflow-files").append('<li class="nav-item-' + this.files[ind].replaceAll(".","_").replaceAll("/","_") + '" role="presentation"><a href="javascript:void(0)" onclick="' + this.name + '.showFile(\'' + this.files[ind] +  '\')"><span class="file-edited">*</span>' + this.files[ind] + '<span style="margin-left:10px;"  onclick="' + this.name + '.closeFile(event,\'' + this.files[ind] + '\')">x</span></a></li>');		
+					if(this.edited[this.files[ind]]){
+						this.navBar.find(".overflow-files").find('.nav-item-' + this.files[ind].replaceAll(".","_").replaceAll("/","_") + ' .file-edited').show();							
+					}	
+				}	
+			}
+			
+				
+				
+				
+			
+		}
+	
+		
+		TextEditor.prototype.openFile = 
+			function (name,ignoreProject){
+				if(typeof ignoreProject == "undefined"){
+					
+					ignoreProject = false;
+				}
+				
+				var self = this;
+				if(this.files.indexOf(name) != -1){
+					this.showFile(name);
+					return;
+				}
+				$("#open-modal").modal("hide");	
+			
+				if(menuController.curProject != ""){
+					var data = new Object();
+					if(! ignoreProject){
+						data.project = menuController.curProject;						
+					}
+					data.isPublic = menuController.curProjectIsPublic;
+					data.name = name;
+					$.ajax({
+						url :'${file}/open',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+
+								if(ignoreProject){
+									self.files.push("../" + name);
+									self.edited["../" + name] =false;
+									self.filesContent["../" + name] = data.entity;	
+								}else{
+									self.files.push(name);
+									self.edited[name] =false;
+									self.filesContent[name] = data.entity;
+								}
+								
+								self.renderNavbar(self.files.length -1);
+								
+								self.showFile(self.files[self.files.length -1]);
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 			
+				}
+			};	         
+	    
+		
+         TextEditor.prototype.handleScroll = function(event){
+        	var lineHeight = parseInt(this.fileEditor.css('line-height'));
+            var numLinesDisplayed = (parseInt(this.fileEditor.css("height")) / lineHeight);
+     		var topLineNumber = this.fileEditor.scrollTop()/lineHeight;
+        	var numLines = topLineNumber + (2* numLinesDisplayed);
+        	
+        	this.prevScroll[this.curFile] = this.fileEditor.scrollTop(); 
+        	
+     		if(this.numLines < (numLines-numLinesDisplayed)){
+        		 var htmlString = "";
+        		 var curNum;
+        		 for(curNum = this.numLines; curNum <= numLines; curNum++){
+        			 htmlString += (curNum) + "<br/>";
+        		 }
+        		 this.lineNumbers.append(htmlString);
+        		 this.numLines = curNum;
+     		}
+     		
+     		this.lineNumbers.scrollTop(this.fileEditor.scrollTop())
+         }
+	     
+         //line numbers are set when we open a file and on key up we add one when we hit return
+	         
+
+
+
+
+
+
+
+
+
+	]]>
+	</script>
+	<!-- We want this to manage not just the file editing but the saving, deleting and uploading -->
+	
+
+	<div style="position:relative; height:100%">
+		<div id="editor" class="file-editor">
+		
+			<jsp:text />
+		</div>
+		<!--  
+		<div class="line-numbers">
+			<jsp:text />
+		</div>
+		-->
+	</div>
+
+	
+
+
+	
+
+
+</div>
+
+

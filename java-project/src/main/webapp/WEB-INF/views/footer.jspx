@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<div id="footer"
+	 xmlns:jsp="http://java.sun.com/JSP/Page"
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 version="2.0"> 
+	 <jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	 <jsp:output omit-xml-declaration="yes" />
+	 
+	 <spring:url value="/resources/images/logo.png" var="logo"/>
+
+	 
+	<div class="footerContent">
+		<div style="padding-top:0;">
+		
+		<!-- <img src="${logo}" style="height:140px" /> -->
+		</div>
+		
+	</div>
+</div>

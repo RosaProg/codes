@@ -1,0 +1,1176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:joda="http://www.joda.org/joda/time/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:spring="http://www.springframework.org/tags"
+	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	class="center-block"
+	>
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/" var="resources" />
+	<spring:url value="/user" var="user" />
+	<spring:url value="/database" var="database" />
+	<spring:url value="/r" var="r" />
+	<spring:url value="/python" var="python" />
+	<spring:url value="/resources/images" var="images" />
+		
+ 	<spring:url value="/documentation" var="document" />
+
+	
+	
+<script>
+<![CDATA[ 
+       $().ready(function(){
+    	  listFriends();
+    	  listDatabases();
+    		runRCommand(true);
+    		runPythonCommand(true);
+    		
+    	  $('.popover-trigger').on('hidden.bs.popover', function () {
+    		  return !showingAddUser;
+    		})
+       });
+   var userFriends;
+   function listFriends(){
+	   
+	   $.ajax({
+			url : "${user}/friends",
+			dataType : 'json',
+			type : "POST",
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					userFriends = data.list;
+					
+					renderFriends(userFriends,false);
+					
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});
+   }      
+
+   var databases;
+   function listDatabases(){
+	   
+	   $.ajax({
+			url : "${database}/list",
+			dataType : 'json',
+			type : "POST",
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					databases = new Object();
+					
+					for(var i in data.list){
+						var db = data.list[i];
+						databases[db.id] = db;
+					}
+
+					
+					renderDatabases(data.list);
+					if(showingAddUser){
+						showAddUserToDb(curDb.id);
+					}					
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});
+   }
+   
+   function showDatabaseModal(databaseId){
+	   
+   }
+
+   
+   
+   function renderDatabases(list){
+	   $("#databases").empty();
+	   
+	   
+		for(var i in list){
+			var database = list[i];
+			if(database.owned){
+				
+				//var menu = '<button class="btn btn-xs dropdown-toggle" type="button" id="dbOptions'+i+'" onclick="showDatabaseModal(' + i + ')"><!--<i class="fa fa-cog blackText"><jsp:text/></i>--></button> ';
+				var menu = '';
+				/*	var menu = '<div class="pull-right dropdown"> ' +
+							'<button class="btn btn-xs dropdown-toggle" type="button" id="dbOptions'+i+'" data-toggle="dropdown" aria-expanded="true"><i class="fa fa-cog blackText"><jsp:text/></i></button> ' +
+			  				'<ul class="dropdown-menu" role="menu" aria-labelledby="dbOptions'+i+'"> ' +
+			    			'<li role="presentation"><a type="button" aria-label="Edit" ><span class="glyphicon glyphicon-pencil blackText" aria-hidden="true"></span></a>\ '+
+			    			'</li> <li role="presentation"> ' +
+			    			'<a type="button" class="popover-trigger" aria-label="Share"  title="Sharing" data-html="true" data-content="<h3>Sharing database test</h3><button type=\'button\' class=\'btn btn-primary\' onclick=\'endSharing()\'>Done Sharing</button>" onclick="showAddUserToDb(' + database.id + ',event)"><span class="glyphicon glyphicon-share-alt blackText" aria-hidden="true"></span></a>\ ' +
+			    			'<li role="presentation"><a type="button" aria-label="Delete"><span class="glyphicon glyphicon-trash blackText" aria-hidden="true"></span></a>\</li> ' +
+			  				'</ul></div>';
+					
+				/*	'<div class="btn-group btn-group-xs">\
+			        <button type="button" class="btn btn-default" aria-label="Edit" ><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>\
+			        <button type="button" class="btn btn-default popover-trigger" aria-label="Share"  title="Sharing" data-html="true" data-content="<h3>Sharing database test</h3><button type=\'button\' class=\'btn btn-primary\' onclick=\'endSharing()\'>Done Sharing</button>" onclick="showAddUserToDb(' + database.id + ',event)"><span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span></button>\
+			        <button type="button" class="btn btn-default" aria-label="Delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>\
+			    </div>';	*/
+			}else{
+				var menu = ' <button type="button" class="btn btn-default" aria-label="Delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>';
+
+			}
+			
+		    
+		    
+			$("#databases").append('<li class="list-group-item blacktext" onclick="selectDatabase(' +database.id + ')" dbId="' + database.id + '">' + (database.owned ? "" : (database.user.username + " - ")) + database.name + menu + '</li>');				
+			
+
+		}
+   }
+   
+   function showStatus(msg){
+	   $("#status-text").html(msg);
+   }
+   function endSharing(){
+	   showingAddUser = false;
+	   $(".popover-trigger").popover('hide');
+	   listFriends();
+	 // $("#sharing-modal").modal('hide');	   
+   }
+   //Used to toggle the ui for assigning a user to a db
+   var showingAddUser = false;
+   var curDb;
+   function showAddUserToDb(dbId,event){
+	  event.preventDefault();
+	   showingAddUser = true;
+	//   $("#sharing-modal").modal('show');
+	
+		$(".list-group-item[dbId='" + dbId + "'] .popover-trigger").popover('show');	
+		
+	
+	   renderFriends(userFriends,true,dbId);
+	   var db = databases[dbId];
+	   curDb = db;
+	   $("#friends .list-group-item").removeClass("active");
+	   for(var i in db.users){
+		   var user = db.users[i];
+		   $("#friends .list-group-item[user-id='" + user.id + "']").addClass("active");
+	   }
+   }
+   
+	function editDatabase(name,id){
+		$("#database-name").val(name);
+		$("#database-id").val(id);
+		$('#database-modal').modal('show');
+		
+	}
+	
+   function saveDatabase(name,id){
+	   var data = new Object();
+		  data.name = name;
+		  data.id = id;
+	
+		  
+		   $.ajax({
+				url : "${database}/save",
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						listDatabases();
+						hideStatus("Your database was added");
+						
+					}else{
+						showStatus(data.errorMsg);
+					}
+				}
+			});	   
+   }
+   
+   function addFriend(username){
+	   var data = new Object();
+		  data.username = username;
+	
+		  
+		   $.ajax({
+				url : "${user}/addFriend",
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						listFriends();
+						hideStatus("Your friend was added");
+						
+					}else{
+						showStatus(data.errorMsg);
+					}
+				}
+			});	   
+   }
+   
+   function formatNumber (num,numDecimals) {
+		  num =  num.toFixed(numDecimals);
+	    var whole = Math.floor(num);	
+	    var remainder = (num-whole).toString();
+	    var remainder = remainder.substring(2,numDecimals+2);
+	    if(numDecimals > 0){
+	    	return whole.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,") + "." + remainder; 
+				
+	    }else{
+	    	return whole.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,"); 
+			
+	    }
+	    
+	}
+   
+   function runRCommand(isStart){
+	   
+	   var data = new Object();
+	   if(typeof curDb != "undefined"){
+		   data.dbId = curDb.id;
+		      
+	   }
+	   data.project = curProject;
+	   data.command = $("#r-command").val();
+	   var url;
+	   if(isStart){
+		   url = "${r}/start";
+	   }else{
+		   url = "${r}/command";
+	   }
+   		
+	   $.ajax({
+			url :url,
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					$("#r-text").html(data.entity);
+					$('#r-text').scrollTop($('#r-text')[0].scrollHeight);
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	  
+   }
+
+   
+   function binarySearchBegin(array, key) {
+	    var lo = 0,
+	        hi = array.length - 1,
+	        mid,
+	        element;
+	    while (lo <= hi) {
+	        mid = ((lo + hi) >> 1);
+	        element = array[mid].substr(0,key.length);
+	        if (element < key) {
+	            lo = mid + 1;
+	        } else if (element > key) {
+	            hi = mid - 1;
+	        } else {
+	            return mid;
+	        }
+	    }
+	    return -1;
+	}
+   
+   function binarySearch(array, key) {
+	    var lo = 0,
+	        hi = array.length - 1,
+	        mid,
+	        element;
+	    while (lo <= hi) {
+	        mid = ((lo + hi) >> 1);
+	        element = array[mid];
+	        if (element < key) {
+	            lo = mid + 1;
+	        } else if (element > key) {
+	            hi = mid - 1;
+	        } else {
+	            return mid;
+	        }
+	    }
+	    return -1;
+	}  
+   
+function listPythonPackages(){
+   $.ajax({
+		url :"${python}/list-packages",
+		dataType : 'json',
+		type : "POST",
+		async : true,
+		error : function(e) {
+			//most errorys are due to logout
+			//location.reload();
+			console.error(e);
+		},
+		success : function(data) {
+			if(data.status == "success"){
+				  var el = document.createElement( 'html' );
+					el.innerHTML = data.entity;
+					elements = el.getElementsByTagName( 'a' ); 
+		            for(var i = 0; i < elements.length; i++){
+		            	pythonPackages.push($(elements[i]).attr("href"));
+		            	
+		            	
+		            }
+				//get installed and modify list
+		         var request =   $.ajax({
+		        		url :"${python}/list-installed-packages",
+		        		dataType : 'json',
+		        		type : "POST",
+		        		async : false,
+		        		error : function(e) {
+		        			//most errorys are due to logout
+		        			//location.reload();
+		        			console.error(e);
+		        		},
+		        		
+		        	});	  
+				var data = JSON.parse(request.responseText); 
+				for(var i = 0; i < data.list.length; i++){
+					var index = binarySearch(pythonPackages,data.list[i]);
+					if(index != -1){
+						pythonPackages[index] = pythonPackages[index] + " (installed)"; 
+					}
+					
+				}
+				$("#package-name").typeahead({
+					source:pythonPackages,
+					afterSelect:function(item){
+						if(typeof item !== "undefined"){
+							addPythonPackage(item);
+						}
+					}
+				   });
+			}else{
+				showStatus(data.errorMsg);
+			}
+		}
+	});	  
+}
+
+function addPythonPackage(name){
+	var data = new Object();
+	data.name = name;
+	$("#package-status").html("Installing " + name); 
+	$.ajax({
+		url :"${python}/add-package",
+		dataType : 'json',
+		type : "POST",
+		data:data,
+		async : true,
+		error : function(e) {
+			//most errorys are due to logout
+			//location.reload();
+			console.error(e);
+		},
+		success : function(data) {
+			if(data.status == "success"){
+				listPythonPackages();
+				$("#package-status").html(name + " was successfully installed");   
+			}else{
+				$("#package-status").html(name + " was not installed. " + data.errorMsg);
+			}
+		}
+	});	  
+}
+
+function runPythonCommand(isStart){
+	   
+	   var data = new Object();
+	   if(typeof curDb != "undefined"){
+		   data.dbId = curDb.id;
+		      
+	   }
+	   data.project = curProject;
+	   data.command = $("#python-command").val();
+	   var url;
+	   if(isStart){
+		   url = "${python}/start";
+	   }else{
+		   url = "${python}/command";
+	   }
+   		
+	   $.ajax({
+			url :url,
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					$("#python-text").html(data.entity);
+					$('#python-text').scrollTop($('#python-text')[0].scrollHeight);
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	  
+   }
+   
+
+   function runQuery(){
+	   var data = new Object();
+	   if($("#write-to-file").is(':checked')){
+		   if($("#file-to-save").val() == ""){
+			   showStatus("If you want to save the contents of the query you need to set a name for the results file.");
+			   return;
+		   }
+		   data.fileName = $("#file-to-save").val();
+	   }
+	   data.query = $("#query-text").val();
+	   if((typeof curDb == "undefined")||(typeof curDb.id == "undefined")){
+		   showStatus("You need to select a database before running a query");
+		   return;
+	   }
+	   data.dbId = curDb.id;
+   		showStatus("Executing Query");
+   	
+	   $.ajax({
+			url :"${database}/query",
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+
+				console.error(e);
+			},
+			success : function(data) {
+						
+				if(data.status == "success"){
+					$("#results").html("");
+					data.entity = data.entity.replace("\r","");
+					var rows = data.entity.split("\n");
+					if(rows[0].indexOf("|") > -1){
+						var queryInfo = rows[0].split("|");
+						showStatus(queryInfo[0] +": " +formatNumber(parseFloat(queryInfo[1]),0) + "ms" + " , " + queryInfo[2] + ": " + formatNumber(parseInt(queryInfo[3]),0) + " , " + (parseInt(queryInfo[3])/(parseFloat(queryInfo[1])/1000))) + "rows/sec";
+						
+						var tableHtml = '<table class="table table-striped"><tr>';
+						
+						var headings = rows[1];
+						
+						var headingsArr = headings.split("|");
+						for(var i in headingsArr){
+							var heading = headingsArr[i];
+							tableHtml += "<th>" + heading + "</th>";
+						}
+						
+						tableHtml + "</tr>";
+						
+						
+						for(var i = 3; i < rows.length; i++){
+							tableHtml += "<tr>";
+							var rowArr = rows[i].split("|");
+							for(var j in rowArr){
+								tableHtml += "<td>" + rowArr[j] + "</td>";
+							}
+							
+							tableHtml += "</tr>";
+						}
+						
+						tableHtml += "</table>";
+						
+						$("#results").append(tableHtml);
+						
+					}else{
+						$("#results").html(data.entity);
+								
+					}
+					
+				
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	  
+   }
+   
+   function selectDatabase(dbId){
+	   curDb = databases[dbId];
+	   $("#databases .list-group-item").removeClass("active");
+	   $("#databases .list-group-item[dbId='" + dbId + "']").addClass("active");
+	   var msg = "using "
+	   if(! curDb.owned){
+		   msg += curDb.user.username + " ";
+	   }
+	   
+	   msg += curDb.name;
+	   showStatus(msg);
+	   
+   }
+   
+   //add a user to this database
+   function addUserToDb(username,dbId){
+	   var url;
+	   
+	   if($(event.target).hasClass("active")){
+		   $(event.target).removeClass("active")
+			url = "${user}/removeFromDb";   
+	   }else{
+		   $(event.target).addClass("active")
+	   		url = "${user}/addToDb";
+	   }
+	  var data = new Object();
+	  data.username = username;
+	  data.dbId = dbId;
+	  
+	   $.ajax({
+			url : url,
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					listDatabases();
+					
+					 showAddUserToDb(dbId);
+				
+				}else{
+					showStatus(data.errorMsg);
+			t	}
+			}
+		});	   
+   }
+   
+   function renderFriends(list,selectingForDb,dbId){
+	   $("#friends").empty();
+	   
+	   
+		for(var i in list){
+			var friend = list[i];
+			if(selectingForDb){
+				$("#friends").append('<li user-id="' + friend.id + '" class="list-group-item whiteText" onclick="addUserToDb(\'' + friend.username + '\',' + dbId + ')">' + friend.name + '</br><a class="whiteText" target="_blank" href="mailto:' + friend.username + '" > (' + friend.username+ ')</a></li>');				
+			}else{
+				$("#friends").append('<li class="list-group-item whiteText">' + friend.name + '</br><p class="whiteText" target="_blank" href= > (' + friend.username+ ')</p></li>');				
+			}
+
+		}
+   }
+   
+   
+   function run(){
+	   if(editingState == "sql"){
+			runQuery();   
+	   }else if (editingState == "r"){
+		   runRCommand(false);
+	   }else if (editingState = "python"){
+		   runPythonCommand(false);
+	   }
+   }
+   var editingState = "sql";
+   function selectInterface(interfaceSelected){
+	   if(interfaceSelected == "r"){
+		   editingState = "r";
+		   $("#query-text").css("position","absolute");
+		   
+		   $("#query-container").fadeOut(400,function(){
+			   $("#query-text").css("position","relative");
+			      
+		   });
+		   
+		   var heightRemaining = $(window).innerHeight() - 300;
+		   var strHeight = heightRemaining;
+		   $("#r-text").animate({
+		        height: strHeight + "px"
+		    }, 200);
+		   
+		   $("#r-text-editor .file-editor").animate({
+		        height: (strHeight+100) + "px"
+		    }, 200
+		    );
+		   $("#r-text-editor .line-numbers").animate({
+		        height: (strHeight+100) + "px"
+		    }, 200
+		    );
+		   
+		   
+		   
+		   $("#results-container").fadeOut(200);
+		   
+		   $("#results-container").fadeOut(200);
+		   
+		   $("#python-container").fadeOut(200);
+		   
+		   $("#r-container").fadeIn(200);
+		   
+		   $('#r-text').scrollTop($('#r-text')[0].scrollHeight);
+		   
+	   }else if(interfaceSelected == "sql"){
+		   editingState = "sql";
+		   $("#python-text").animate({
+		        height: '200px'
+		    }, 200);
+		   $("#r-text").animate({
+		        height: '200px'
+		    }, 200);
+		   $("#query-text").css("position","absolute");
+		   $("#results-container").fadeIn(200);		   
+		   $("#r-container").fadeOut(200);
+		   $("#python-container").fadeOut(200);
+		   
+		   $("#query-container").fadeIn(200,function(){
+			   $("#query-text").css("position","relative");
+			      
+		   });
+		   
+	   }else if(interfaceSelected == "python"){
+		   editingState = "python";
+		   
+		   var heightRemaining = $(window).innerHeight() - 300;
+		   var strHeight = heightRemaining;
+		   $("#python-text").animate({
+		        height: strHeight + "px"
+		    }, 200);
+		   
+		   $("#python-text-editor .file-editor").animate({
+		        height: (strHeight+100) + "px"
+		    }, 200
+		    );
+		   $("#python-text-editor .line-numbers").animate({
+		        height: (strHeight+100) + "px"
+		    }, 200
+		    );
+		   
+		   $("#results-container").fadeOut(200);
+		   $("#query-container").fadeOut(200);
+		   
+		   $("#python-container").fadeIn(200);
+		   
+		   $('#python-text').scrollTop($('#python-text')[0].scrollHeight);
+		   
+		   $("#r-text").animate({
+		        height: '200px'
+		    }, 200);
+		   $("#query-text").css("position","absolute");
+		   
+		   $("#r-container").fadeOut(200);
+		   
+	   }
+   }
+   function openList(list){
+	   
+	   if($('#' + list).hasClass("active")){
+		   $('#' + list).removeClass("active");
+	   }
+	   else{
+		   $('#' + list).addClass("active");   
+	   }
+	   
+	   
+	   
+   }
+   
+   
+   function showDatabaseModalSection(section){
+		   
+   }
+
+   function unminimize(elementMin,elementMax){
+	   $(elementMin).addClass("col-lg-6").addClass("col-md-6");
+	   $(elementMin).removeClass("col-lg-1").removeClass("col-md-1");
+	   
+	   $(elementMax).addClass("col-lg-6").addClass("col-md-6");
+	   $(elementMax).removeClass("col-lg-11").removeClass("col-md-11")
+   
+	   $(elementMin + " *").not('.modal').show();
+	   $(elementMax + " *").not('.modal').show();
+
+	   $(elementMin + " .max-png").hide();
+	   $(elementMax + " .min-png").show();
+	   $(elementMin + " .min-png").show();
+	   $(elementMax + " .max-png").hide();
+	   
+   }
+   
+   function minimize(elementMin,elementMax){
+	   $(elementMin).removeClass("col-lg-6").removeClass("col-md-6");
+	   $(elementMin).removeClass("col-lg-11").removeClass("col-md-11");
+	   $(elementMin).addClass("col-lg-1").addClass("col-md-1");
+	   
+	   $(elementMax).removeClass("col-lg-6").removeClass("col-md-6");
+	   $(elementMax).removeClass("col-lg-1").removeClass("col-md-1");
+	   $(elementMax).addClass("col-lg-11").addClass("col-md-11")
+   
+	   $(elementMin + " *").not('.modal').hide();
+	   $(elementMax + " *").not('.modal').show();
+
+	   $(elementMin + " .max-png").show();
+	   $(elementMax + " .min-png").show();
+	   $(elementMin + " .min-png").hide();
+	   $(elementMax + " .max-png").hide();
+	   
+   }
+   
+   $().ready(function(){
+	   listPythonPackages();
+	   
+		
+	   
+	   
+   });
+
+	var currentCountdown = 0;
+   function updateCountdown(){
+	   $("#countdown-value").html(currentCountdown);
+	   currentCountdown++;
+   }
+   
+	function validateEmail(email) {
+	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	    return re.test(email);
+	}
+   
+	
+	var editorController;
+	var editorPythonController;
+	var pythonPackages = new Array();
+	$().ready(function(){
+		//editorController.openFile("test.txt");
+		editorController = new TextEditor("#r-text-editor","editorController");
+		editorPythonController = new TextEditor("#python-text-editor","editorPythonController");
+		
+	});
+	
+]]>
+</script>
+
+
+
+	<div class="container-fluid">
+		<div id="confirm" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="confirm"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="confirm">Add Friend</h4>
+					</div>
+					<div class="modal-body">
+						
+						<div style="margin-bottom: 25px;margin-top:20px;" class="input-group">
+						    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"><jsp:text /></i></span>
+						    <input id="friend-username" type="text" class="form-control" name="username" value="" placeholder="email" />                                        
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="addFriend($('#friend-username').val())">Confirm</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+	<div id="count-modal" class="modal fade" style="display:none"
+			tabindex="-1" role="dialog" aria-labelledby="count-modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md" style="width:250px;">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="count-modal-title">Countdown</h4>
+					</div>
+					<div class="modal-body">
+						<h1 id="countdown-value"><jsp:text /></h1>
+						
+					</div>
+						<div class="modal-footer">
+
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+			
+			<!-- Open Modal -->
+	<div id="open-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Open File</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+	      	<ul id="open-dialog-files" class="list-group">
+				<jsp:text />
+			</ul>
+      	
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+
+		<!-- Package Modal -->
+	<div id="package-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Open File</h4>
+	      </div>
+	      <div class="modal-body">
+      		
+			<div class="form-group">
+			  <label for="usr">Name:</label>
+				<input type="text" id="package-name" data-provide="typeahead" />
+			</div>
+      		<div id="package-status">
+      			<jsp:text />
+      		</div>
+				      	
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+
+	<!-- Creat New Modal -->
+	<div id="create-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Create File</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+			<div class="form-group">
+			  <label for="usr">Name:</label>
+			  <input type="text" class="form-control" id="create-file-name"/>
+			</div>
+      		
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success create-new-text-editor-button" data-dismiss="modal" >Create</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+<!-- Save As Modal -->
+	<div id="save-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Save File As</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+			<div class="form-group">
+			  <label for="usr">Name:</label>
+			  <input type="text" class="form-control" id="save-file-name"/>
+			</div>
+      		
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success save-as-text-editor-button" data-dismiss="modal" >Save As</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+			
+		<div id="sharing-modal" class="modal fade" style="display:none"
+			tabindex="-1" role="dialog" aria-labelledby="sharing-modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="confirm">Sharing</h4>
+					</div>
+					<div class="modal-body">
+						<h2>Sharing Database Test</h2>
+						
+					</div>
+						<div class="modal-footer">
+
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="endSharing()">Done Sharing</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="database-modal" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="database-modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="database-content" class="modal-content">
+					<div class="modal-header">
+						<h2>Add Database</h2>
+						
+					</div>
+					<div class="modal-body">
+						<div id="database-modal-add-database" class="database-modal-body-section">
+							 <input id="database-id" type="hidden" class="form-control" name="id" value="-1" />   						
+							<div style="margin-bottom: 25px;margin-top:20px;" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-book"><jsp:text /></i></span>
+							    <input id="database-name" type="text" class="form-control" name="database-name" value="" placeholder="database name" />                                        
+							</div>
+						</div>
+						
+						   
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="saveDatabase($('#database-name').val(),$('#database-id').val())">Confirm</button>
+						
+					</div> 
+				</div>
+			</div>
+		</div>	
+		<div class="row">
+
+			<div style="margin-top:20px" class="col-lg-12">
+				
+				<div class="row">
+					<div class="col-lg-12">
+					<div class="btn-group" role="group" data-toggle="buttons-radio" aria-label="...">
+						  <button type="button" class="btn btn-default-pesta??a active"  ontouchend="selectInterface('sql')" onclick="selectInterface('sql')">SQL</button>
+						  <button type="button" class="btn btn-default-pesta??a" ontouchend="selectInterface('r')" onclick="selectInterface('r')">R</button>
+						  <button type="button" class="btn btn-default-pesta??a" ontouchend="selectInterface('python')" onclick="selectInterface('python')">Python</button>
+								
+					</div>
+
+					<div style="position:relative">
+						<div id="query-container">
+							<input type="checkbox" id="write-to-file" />Write results to file 
+							<input placeholder="File Name" type="text" id="file-to-save" />
+							
+							<textarea id="query-text" >
+								<jsp:text />
+							</textarea>
+					<button type="button" class="btn btn-lg btn-primary end-sharing" style="float:right;margin-right:15px;margin-top:15px" ontouchend="run()" onclick="run()" >Run</button>
+							
+						</div>
+						<div id="r-container">
+							<div class="row">
+								<div class="col-lg-6 col-md-6" id="r-text-editor">
+									<img src="${images}/min.png" onclick="minimize('#r-text-editor','#r-console-div')" class="min-png" />
+									<img src="${images}/max.png" onclick="unminimize('#r-text-editor','#r-console-div')" class="max-png"/>
+								
+									<tiles:insertTemplate template="textEditor.jspx" />
+								
+								</div>
+								<div class="col-lg-6 col-md-6" id="r-console-div">
+									<img src="${images}/min.png" onclick="minimize('#r-console-div','#r-text-editor')" class="min-png" />
+									<img src="${images}/max.png" onclick="unminimize('#r-console-div','#r-text-editor')" class="max-png"/>
+								
+									<tiles:insertTemplate template="imageViewer.jspx" />
+									
+									<textarea id="r-text" >
+										<jsp:text />
+									</textarea>
+									<input type="text" id="r-command" style="width:100%" placeHolder="input>" />
+									<button type="button" class="btn btn-lg btn-primary end-sharing" style="float:right;margin-right:15px;margin-top:15px" ontouchend="run()" onclick="run()" >Run</button>
+				
+								</div>
+							</div>
+							
+
+						</div>
+						<div id="python-container">
+							<div class="col-lg-6 col-md-6" id="python-text-editor">
+									<img src="${images}/min.png" onclick="minimize('#python-text-editor','#python-console-div')" class="min-png" />
+									<img src="${images}/max.png" onclick="unminimize('#python-text-editor','#python-console-div')" class="max-png"/>
+							
+								<tiles:insertTemplate template="textEditor.jspx" />
+								
+							</div>
+							<div class="col-lg-6 col-md-6" id="python-console-div">
+									<img src="${images}/min.png" onclick="minimize('#python-console-div','#python-text-editor')" class="min-png" />
+									<img src="${images}/max.png" onclick="unminimize('#python-console-div','#python-text-editor')" class="max-png"/>
+							
+								<div>
+									<a href="javascript:void(0)" onclick="$('#package-modal').modal('show')">Add Packages</a>
+								</div>
+								<textarea id="python-text" style="margin-top:20px;">
+									<jsp:text />
+								</textarea>
+								<input type="text" id="python-command" style="width:100%" placeHolder="input>" />
+					<button type="button" class="btn btn-lg btn-primary end-sharing" style="float:right;margin-right:15px;margin-top:15px" ontouchend="run()" onclick="run()" >Run</button>
+							</div>
+							
+						</div>
+						
+					</div>
+						
+					</div>
+					
+				</div>
+				<div class="row">
+					<div class="col-lg-12" style="margin-top:20px;">
+						<div class="alert alert-" id="status-text" role="alert"><jsp:text /></div>
+					</div>
+				</div>
+				<div id="results-container" class="row">
+					<div class="col-lg-12" style="overflow-x:auto">
+					<h3>Results</h3>
+						<div id="results">
+							<jsp:text />
+						</div>
+					</div>
+				</div>
+					
+			</div>
+		
+		</div>
+	</div>
+
+	<!-- 
+
+	<div>
+		<div class="w-container sectioncontent">
+			<h2 style="display: inline-block">Usuarios</h2>
+			<div style="float: right; display: inline-block">
+
+				<input style="margin-right: 15px" type="button" onclick="newUser()"
+					value="Crear Usuario" />
+
+			</div>
+			<ul class="default-list" id="user-list">
+				<li>first</li>
+				<li>second</li>
+			</ul>
+		</div>
+	</div>
+	<div class="modal-background">
+		<div class="modalwindow">
+			<h2>Crear un nuevo usuario</h2>
+			<div class="w-row">
+				<div class="w-col w-col-3">
+					<p>
+						Por favor llena los detalles del nuevo usuario que deseas crear. <br />
+						<br /> <br /> <br /> <br />
+					</p>
+				</div>
+				<div class="w-col w-col-9">
+					<div class="w-form">
+						<form action="${user}/save" id="wf-form-user-creator"
+							name="wf-form-User-Creator" data-name="User Creator">
+							<input type="hidden" name="id" value="-1" /> <label
+								for="username">Username</label> <input class="w-input" id="text"
+								type="text" placeholder="Ingresa el nombre del usuario"
+								name="username" data-name="text" required="required" /> <label
+								for="password">Password</label> <input class="w-input"
+								id="password" type="password"
+								placeholder="Ingresa una contrasena" name="password"
+								data-name="password" /> <label for="name">Nombre
+								Completo del Usuario (Nombre Apellido)</label> <input class="w-input"
+								id="name" type="text"
+								placeholder="Ingresa el nombre completo del usuario" name="name"
+								data-name="name" required="required" /> <label for="dni">DNI
+								(solo necesario para Jefes , Sub Gerentes de Zona y Gerentes)</label> <input
+								class="w-input" id="dni" type="text"
+								placeholder="Ingresa el dni" name="dni" data-name="dni" /> <label
+								for="email">EMAIL (solo necesario para Jefes , Sub
+								Gerentes de Zona y Gerentes)</label> <input class="w-input" id="email"
+								type="text" placeholder="Ingresa el correo electronico"
+								name="email" data-name="email" /> <label for="type">Tipo
+								de Usuario</label> <select class="w-select w-input" id="type"
+								name="type" data-name="type">
+								<option value="surveyor">Encuestador</option>
+								<option value="leader">Jefe de Zona</option>
+								<option value="chief">Sub Gerente</option>
+								<option value="boss">Gerente</option>
+								<option value="analyst">Analista</option>
+								<option value="admin">Administrador</option>
+
+							</select> <input class="w-button savebutton" type="submit" value="Save"
+								data-wait="Por favor espere..." wait="Por favor espere..." /> <input
+								class="w-button cancelbutton" type="button" value="Cancel"
+								data-wait="Por favor espere..." wait="Por favor espere..."
+								onclick="$('.modal-background').hide()" /> <input
+								id="archiveButton" class="w-button cancelbutton" type="button"
+								value="Borrar" data-wait="Por favor espere..."
+								wait="Por favor espere..." onclick="deleteUser()" />
+
+						</form>
+						<div class="w-form-done">
+							<p>Gracias! Agregamos el usuario.</p>
+						</div>
+						<div class="w-form-fail">
+							<p>Oops! Hubo un problema agregando el usuario, porfavor
+								contactarse con support@simply.pe si no es un error de los
+								campos llenados.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	-->
+</div>

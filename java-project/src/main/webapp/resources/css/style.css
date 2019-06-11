@@ -1,0 +1,259 @@
+
+
+/*
+Query Page
+*/
+.btn-default-pestaña{
+	color: #000000;
+    background-color: #F5F5F5;
+    border-color: #303030;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.btn-default-pestaña:hover{
+	color: #000000;
+    background-color: #F5F5F5;
+    border-color: #303030;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+
+.btn-default-pestaña.active:hover{
+	color: #FFFFFF;
+    background-color: #858687;
+    border-color: #858687;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.btn-default-pestaña.active{
+	color: #FFFFFF;
+    background-color: #858687;
+    border-color: #858687;
+    border-top-left-radius: 10px !important;
+    border-top-right-radius: 10px !important;
+}
+
+.dropdown-header{
+	position:relative;
+	float:none; 
+}
+.background-black{
+	background-color: #303030 !important;
+	width:100%;
+	height:100%;
+}
+
+.btn-register{
+	background-color: #EA5053 !important;
+	color:#FFFFFF;
+	font-size: 14px;
+}
+
+#query-text{
+	height:240px;
+}
+
+
+
+#python-container,#r-container,#query-text{
+	
+	width:100%;
+	
+}
+#python-text,#r-text,#r-container > input{
+	width:100%;
+	
+}
+#r-text{
+	height:210px;
+}
+#r-container, #python-container{
+	
+	display:none;
+}
+
+
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+    border-color: rgba(13, 198, 176, 0.8);
+    box-shadow: 0 1px 1px rgba(13, 198, 176, 0.075) inset, 0 0 8px rgba(13, 198, 176, 0.6);
+    outline: 0 none;
+    background-color: rgb(237, 252, 249);
+}
+
+
+
+/*
+General Styles
+*/
+
+a button{
+	text-decoration:none;
+	color:black;
+}
+
+.footer-text{
+	color: #FFFFFF;
+	font-family: arial;
+}
+.footer-text:hover{
+	color: #0DC6B0;
+	text-decoration: none;
+}
+
+.btn-primary,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
+
+  background-color: #0DC6B0 !important;
+  border-color: #0DC6B0 !important;
+}
+
+.btn-primary:hover{
+	background-color: #10bfa6 !important;
+	border-color: #10bfa6 !important;
+}
+
+.alert-{
+	background-color:#CFF4EF;
+	border-color:#CFF4EF;
+	color:#000;
+}
+a{
+	color:#0DC6B0;
+}
+.sidebar-nav .list-group-item{
+	background-color:#F7F7F8;
+	border:0px;
+	color:#444242;
+	text-indent: 0px ;
+	line-height: 20px ;
+	padding-left: 8%;
+	border-radius:2px;
+	padding-top:5px;
+	width:103%;
+}
+
+
+.sidebar-nav .list-group-item.active a{
+	color:#0DC6B0 !important;
+	background-color:#FFFFFF;
+	font-weight:900;
+}
+.modal-backdrop {
+    position: static; 
+}
+.sidebar-nav .list-group-item.active{
+  color:#0DC6B0 !important;
+  background-color: #FFFFFF;
+  border-color: #FFFFFF;
+  border-radius:0px;
+  font-weight:900;
+}
+.sidebar-nav .list-group-item.active:hover{
+	background-color:#EEEEEE;
+}
+
+.panel-heading button{
+	float:right;
+}
+.panel-default > .panel-heading{
+	 background-color: #F5F5F5;
+	color:white;
+}
+
+
+
+.redBack{
+	background-color:#CB5154;
+	-webkit-transition:width 0.25s, height 0.25s, background-color 0.25s, -webkit-transform 0.25s;
+    transition:width 0.25s, height 0.25s, background-color 0.25s, transform 0.25s;
+}
+.greenBack{
+	background-color:#70C4AE;
+}
+.lightGreenBack{
+	background-color:#CB5154;
+	opacity:0.3;
+}
+.whiteText{
+	color:#FFFFFF;
+}
+.blackText{
+	color:#000000;
+}
+.redBack:hover,
+.redBack:focus,
+.redBack:active {
+	background-color:#FFFFFF;
+	color:#CB5154;
+}
+
+.btn-New{
+	border-radius:5px;
+	margin-right:15px;
+}
+.filterdrop{
+	margin-top:45px;
+	border-bottom:1px solid #F5F5F5;
+}
+.table>tbody>tr>td{
+	padding:3px;
+	line-height:1;
+}
+.table>tbody>tr>th{
+	background-color:#70C4AE !important;
+	color:#FFFFFF;
+	font-size: 16px;
+	border-left: 1px solid #FFFFFF;
+	border-right: 1px solid #FFFFFF;
+}
+
+
+/*IDE
+
+*/
+.min-png, .max-png{
+	    width: 20px;
+    float: right;
+    cursor: pointer;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+
+}
+
+.max-png{
+	display:none;
+}
+.file-edited{
+	display:none;
+}
+
+.file-editor{
+	font-family:"Lucida Console", Monaco, monospace;
+	background-color:#F7F7F8;
+	overflow:auto;
+	padding-right:10px;
+	word-wrap:normal;
+	white-space:pre;
+}
+
+.line-numbers{
+	width: 46px;
+	text-align:right;
+	padding-top:3px; 
+	float:left;
+	font-family:"Lucida Console", Monaco, monospace;
+	margin-left:5px;
+	position:absolute;
+	top:0;
+	left:0;
+	overflow:hidden;
+}
+
+

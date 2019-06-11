@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="login" name="login/login">
+        <put-attribute name="body" value="/WEB-INF/views/login/login.jspx" />
+        <put-attribute name="footer" value="/WEB-INF/views/footer-login.jspx" />
+    </definition>
+    
+     <definition extends="default" name="user/restore">
+        <put-attribute name="body"
+            value="/WEB-INF/views/login/restorePass.jspx" />
+    </definition>
+    
+    <definition extends="clean" name="user/editProfile" >
+        <put-attribute name="body"
+            value="/WEB-INF/views/editProfile.jspx" />
+        <put-attribute name="header"
+            value="/WEB-INF/views/clean-header.jspx" />
+    </definition>
+    
+    <definition extends="default" name="login/register">
+        <put-attribute name="body"
+            value="/WEB-INF/views/login/register.jspx" />
+    </definition>
+        <definition extends="default" name="home/user_admin">
+        <put-attribute name="body"
+            value="/WEB-INF/views/login/user_admin.jspx" />
+                    <put-attribute name="header"
+            value="/WEB-INF/views/header.jspx" />
+            <put-attribute name="footer"
+            value="/WEB-INF/views/footer.jspx" />
+    </definition>                                                      
+</tiles-definitions>

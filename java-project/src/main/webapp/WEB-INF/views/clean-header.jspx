@@ -1,0 +1,309 @@
+<div id="header" 
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/j_spring_security_logout" var="logout" ></spring:url>
+	<spring:url value="/resources/" var="resources" ></spring:url>
+
+	<spring:url value="/views/upload" var="uploads" ></spring:url>
+
+	<spring:url value="/editProfile" var="editProfile" ></spring:url>
+	
+	<script>
+		<![CDATA[
+		$().ready(function(){
+
+		});
+		
+		
+		
+		function onResize(){
+			resize();
+			
+		
+		}
+		
+		function runSelection(selectAll){
+			//get selection from textEditor
+			var selectedText;
+			
+			if(selectAll){
+				selectedText = editorController.getAllText();
+			}else{
+				selectedText = editorController.getSelectedText();
+			}
+			//send selection to consoleEditor
+			
+			consoleController.setCurrentConsoleText(selectedText);
+			consoleController.runCurrentCommand();
+			//run the console
+		}
+		
+		function toggleTextEditor(){
+			
+			if(parseInt($(".left-pane").css("margin-left"), 10) < 0){
+				
+				$(".left-pane").css("margin-left","0");
+				$(".display-text-editor-check").css("display","inline-block");
+				
+//				$(".right-pane").removeClass("col-lg-12 col-md-12");		
+//				$(".right-pane").addClass("col-lg-6 col-md-6");
+				
+				if(parseInt($(".right-pane").css("width"), 10) > 0){
+					//we are showing both
+					$(".left-pane").removeClass("col-lg-12 col-md-12");		
+					$(".left-pane").addClass("col-lg-6 col-md-6");
+					$(".right-pane").removeClass("col-lg-12 col-md-12");		
+					$(".right-pane").addClass("col-lg-6 col-md-6");
+					
+				}else{
+					//we are showing only one
+					$(".left-pane").addClass("col-lg-12 col-md-12");		
+					$(".left-pane").removeClass("col-lg-6 col-md-6");
+				
+				}
+				
+			}else{
+				$(".left-pane").css("margin-left","-50%");
+				$(".display-text-editor-check").css("display","none");
+				
+	//			$(".right-pane").removeClass("col-lg-6 col-md-6");		
+	//			$(".right-pane").css("width","");
+	//			$(".right-pane").addClass("col-lg-12 col-md-12");
+				
+	
+				if(parseInt($(".right-pane").css("width"), 10) > 0){
+					//we are showing only right
+					$(".right-pane").addClass("col-lg-12 col-md-12");		
+					$(".right-pane").removeClass("col-lg-6 col-md-6");
+					
+				}
+	
+				if($(".left-pane").hasClass("col-lg-12")){
+					$(".left-pane").removeClass("col-lg-12 col-md-12");		
+					$(".left-pane").addClass("col-lg-6 col-md-6");
+						
+				}
+				
+			}
+			
+			
+			
+			
+			//$(".left-pane").toggleClass("col-lg-6 col-md-6 col-0");
+			
+			/*
+				$(".left-pane").removeClass("col-lg-6 col-md-6 col-lg-12 col-md-12");
+				$(".left-pane").addClass("col-0");
+				
+			}else{
+				$(".left-pane").addClass("col-lg-6 col-md-6");
+				$(".left-pane").removeClass("col-0");
+				
+			}
+			*/
+		}
+		
+		function toggleConsoleEditor(){
+			
+			if(parseInt($(".right-pane").css("width"), 10) > 1){
+				
+				$(".right-pane").css("width","0");
+				$(".display-console-check").css("display","none");
+				
+				
+				if(parseInt($(".left-pane").css("margin-left"), 10) < 0){
+
+
+					
+						
+				}else{
+					//we are showing the texteditor
+					
+					$(".left-pane").css("margin-left","0");
+					$(".left-pane").addClass("col-lg-12 col-md-12");		
+					$(".left-pane").removeClass("col-lg-6 col-md-6");
+				
+				
+				}
+				
+				
+			}else{
+				$(".right-pane").css("width","");
+
+				$(".display-console-check").css("display","inline-block");
+				
+				if(parseInt($(".left-pane").css("margin-left"), 10) < 0){
+
+					$(".right-pane").addClass("col-lg-12 col-md-12");		
+					$(".right-pane").removeClass("col-lg-6 col-md-6");
+					
+						
+				}else{
+					//we are showing both
+					$(".left-pane").removeClass("col-lg-12 col-md-12");		
+					$(".left-pane").addClass("col-lg-6 col-md-6");
+					$(".right-pane").removeClass("col-lg-12 col-md-12");		
+					$(".right-pane").addClass("col-lg-6 col-md-6");
+				
+				
+				}
+				
+				
+				
+			}
+
+			/*
+			if(! $(".right-pane").hasClass("col-0")){
+				//we are going to hide it, lets show the other one if its hidden
+				
+				$(".right-pane").removeClass("col-lg-6 col-md-6 col-lg-12 col-md-12");
+				$(".left-pane").removeClass("col-lg-6 col-md-6 col-0");
+				$(".right-pane").addClass("col-0");
+				$(".left-pane").addClass("col-lg-12 col-md-12");
+				
+				
+				
+			}else{
+
+				$(".right-pane").removeClass("col-0");
+				$(".left-pane").removeClass("col-lg-12 col-md-12");
+				$(".right-pane").addClass("col-lg-6 col-md-6");
+				$(".left-pane").addClass("col-lg-6 col-md-6");
+				/*
+				if($(".left-pane").is(":visible")){
+
+							
+				}else{
+					$(".right-pane").removeClass("col-0");
+					
+				}
+				$(".right-pane").removeClass("col-lg-12 col-md-12");
+				$(".left-pane").removeClass("col-lg-6 col-md-6 col-0");
+				$(".right-pane").addClass("col-0");
+				$(".left-pane").addClass("col-lg-12 col-md-12");
+				
+			}
+			*/
+			
+		}
+		
+
+		function toggleSideBar(){
+			$("#wrapper").toggleClass("toggled");
+
+			if($("#wrapper").hasClass("toggled")){
+				$(".display-explorer-check").css("display","none");
+				$("#thick-logo").hide();
+				$("#thin-logo").show();
+				
+			}else{
+				$(".display-explorer-check").css("display","inline-block");
+				$("#thick-logo").show();
+				$("#thin-logo").hide();
+				
+			}
+
+		}
+		
+		]]>
+	</script>
+	
+	
+	  <div class="row">
+				<ul class="nav navbar-nav top-nav-bar">
+				
+			        <li class="dropdown">
+			          <a href="javascript:void(0)" class="dropdown-toggle menu-css" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			          <span class="fa fa-floppy-o" aria-hidden="true" style="font-size: 14px; padding:0px 3px 0px 0px;"><jsp:text /></span><span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <!--
+			            <li><a href="javascript:void(0)" onclick="$('#upload-modal').modal('show')">Upload a File</a></li>
+			            -->
+						<li><a href="javascript:void(0)" class="save-text-editor">Save (ctrl + s)</a></li>
+						<li><a href="javascript:void(0)" class="save-as-text-editor">Save As (ctrl + shift + s)</a></li>
+						<li><a href="javascript:void(0)" class="save-all-text-editor">Save All (ctrl + shift + alt + s)</a></li>	
+			          </ul>
+			        </li>
+			        
+			        <li class="dropdown">
+			          <a href="javascript:void(0)" class="dropdown-toggle menu-css" onclick="$('#upload-modal').modal('show')">
+			          <span class="fa fa-upload" aria-hidden="true" style="font-size: 14px; padding:0px;"><jsp:text /></span>
+			          </a>
+			          <!-- <ul class="dropdown-menu">
+			            <li><a href="javascript:void(0)" onclick="$('#upload-modal').modal('show')">Upload a File</a></li>
+			          </ul>-->
+			        </li>
+			        
+			        <li class="dropdown">
+			          <a href="javascript:void(0)" class="dropdown-toggle menu-css" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			          <span class="fa fa-eye" aria-hidden="true" style="font-size: 14px; padding:0px 3px 0px 0px;"><jsp:text /></span><span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="javascript:void(0)" onclick="toggleTextEditor()">Display Text Editor <span class="display-text-editor-check">&#10004;</span></a></li>
+			            <li><a href="javascript:void(0)" onclick="toggleConsoleEditor()">Display Console <span class="display-console-check">&#10004;</span></a></li>
+			            <li><a href="javascript:void(0)" onclick="toggleSideBar()">Display Explorer <span class="display-explorer-check">&#10004;</span></a></li>
+			           
+							
+			          </ul>
+			        </li>
+			        
+			        <li class="dropdown">
+			          <a href="javascript:void(0)" class="dropdown-toggle menu-css" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			          <span class="fa fa-tasks" aria-hidden="true" style="font-size: 14px; padding:0px 3px 0px 0px;"><jsp:text /></span><span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="javascript:void(0)" onclick="$('#package-modal').modal('show');$('#package-modal .modal-title').html('Install Conda Module');isPythonPackageConda=true;$('#package-name').show();$('#package-name-pip').hide();">Install Python Conda Modules</a></li>
+		                <li><a href="javascript:void(0)" onclick="$('#package-modal').modal('show');$('#package-modal .modal-title').html('Install PIP Module');isPythonPackageConda=false;$('#package-name-pip').show();$('#package-name').hide();">Install Python PIP Modules</a></li>
+		           
+							<jsp:text />				
+			          </ul>
+			        </li>
+			        
+			        <li class="dropdown">
+			          <a href="javascript:void(0)" class="dropdown-toggle menu-css" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+			          <span class="fa fa-file-code-o" aria-hidden="true" style="font-size: 14px; padding:0px 3px 0px 0px;"><jsp:text /></span><span class="caret"></span>
+			          </a>
+			          <ul class="dropdown-menu">
+			            <li><a href="javascript:void(0)" onclick="consoleController.relaunchCurrentConsole('r')">Relaunch Current Project R console</a></li>
+			            <li><a href="javascript:void(0)" onclick="consoleController.relaunchCurrentConsole('python')">Relaunch Current Project Python console</a></li>
+			            <li><a href="javascript:void(0)" onclick="consoleController.interruptExecution()">Interrupt Current Console Command (alt + ctrl + c)</a></li>		
+			          </ul>
+			        </li>
+			        
+			        <li class="dropdown navbar-left">
+						<a href="javascript:void(0)" class="dropdown-toggle menu-css" onclick="runSelection(true)" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+							<span class="fa fa-play" aria-hidden="true" style="font-size: 14px;"><jsp:text /></span>
+						</a>
+			        </li>
+			        
+			        
+			        <li role="presentation" class="dropdown user-dropdown navbar-right">
+					    <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:void(0)" role="button" aria-haspopup="true" aria-expanded="false" style="padding:8px 10px 0px 12px">
+					      <span id="full-name-drop"> ${fullName}</span> <span class="caret"></span>
+					    </a>
+					    <ul class="dropdown-menu">
+							<li><a href="${editProfile}"> Edit Profile</a><jsp:text /></li>
+							<li><a href="${logout}"> Logout</a><jsp:text /></li>	    
+					    </ul>
+	   			    </li>
+	   			    <li class="dropdown navbar-right">
+			        <a href="http://www.db.com/help.html" class="-help" target="_blank" style="float:left; height:39px">
+			        	<span class="fa fa-question-circle" aria-hidden="true" style="padding-top:0px; padding-bottom:0px; font-size:18px;"><jsp:text /></span>
+			        </a>
+			        </li>
+			        
+			      </ul>
+	
+	  </div>
+
+
+
+</div>
+
+

@@ -1,0 +1,574 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" 
+	  xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	  xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	  xmlns:spring="http://www.springframework.org/tags">
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+    
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />  
+    <jsp:directive.page pageEncoding="UTF-8" /> 
+	<head>	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+		
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title> GPU Database</title>
+		<link href='https://fonts.googleapis.com/css?family=Work+Sans:300,400' rel='stylesheet' type='text/css' />
+		<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css" />
+		
+		<spring:url value="/resources/" var="resources" />
+			<spring:url value="/user" var="user" />
+	<spring:url value="/database" var="database" />
+		<spring:url value="/resources/css/bootstrap.min.css" var="bootstrap_css" />
+		<spring:url value="/resources/css/clean-style.css" var="style_css" />
+		
+		<spring:url value="/resources/css/font-awesome-4.3.0/css/font-awesome.min.css" var="fontAwesome_css" />
+		<spring:url value="/resources/js/bootbox.min.js" var="bootbox_js" />		
+		<spring:url value="/resources/js/bootstrap.min.js" var="bootstrap_js" />
+		<spring:url value="/resources/js/transition.js" var="transition_js" />
+		<spring:url value="/resources/js/collapse.js" var="collapse_js" />
+		<spring:url value="/resources/" var="resources" />
+		
+		<spring:url value="/resources/js/jquery-1.9.1.js" var="jquery_js" />
+		<spring:url value="/resources/js/jquery-ui-1.10.2.custom.min.js" var="jquery_ui_js" />
+		<spring:url value="/resources/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" var="jquery_ui_css" />
+
+		<spring:url value="/resources/js/typeahead.js" var="typeahead_js" />		
+		<spring:url value="/resources/fonts/fontBold" var="boldCustomFont" />			
+		<spring:url value="/resources/fonts/fontLight" var="lightCustomFont" />			
+		
+		<link rel="stylesheet" type="text/css" media="screen" href="${bootstrap_css}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="${jquery_ui_css}" />	
+
+		<link rel="stylesheet" type="text/css" media="screen" href="${simple_css}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="${fontAwesome_css}" />	
+
+		<link rel="icon" type="image/ico" href="${resources}images/Icon.ico" />
+
+		<script src="${resources}ace/ace.js" type="text/javascript"> <jsp:text/></script>
+		<script src="${resources}ace/ext-language_tools.js" type="text/javascript"> <jsp:text/></script>
+		
+		
+		<script type="text/javascript" src="${jquery_js}"><jsp:text/></script>
+		<script type="text/javascript" src="${jquery_ui_js}"><jsp:text/></script>
+		<script src="${bootstrap_js}"><jsp:text> </jsp:text></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"><jsp:text/></script>
+		<script src="${typeahead_js}"><jsp:text> </jsp:text></script>
+		
+		<link rel="stylesheet" type="text/css" media="screen" href="${style_css}" />
+	</head>
+	
+	<script>
+	<![CDATA[
+
+	String.prototype.replaceAll = function ( find, replace) {
+		  return this.split(find).join(replace);
+		};
+		
+		function contextMenu(event){
+			if($(event.target).closest("#projects").length == 0){
+				return true;
+			}else{
+				event.preventDefault();
+				event.stopPropagation();
+return false;
+			}
+		}
+		
+		
+		$(window).on("keydown",function(event){
+			 var keyCode = event.keyCode || event.which; 
+	
+			if(event.shiftKey && ! event.ctrlKey && ! event.altKey) {
+			
+				  if (keyCode == 9) { 
+						 if(typeof editorController == 'undefined'){
+							 return;
+						 } 
+					  event.preventDefault();
+					event.stopPropagation();
+				    editorController.showNextFile();
+				  	return;
+				  } 
+			 }
+			 
+			 if(event.ctrlKey){
+				 if(keyCode == 83 || keyCode == 115){
+					 event.preventDefault();
+					event.stopPropagation();
+					 if(typeof editorController == 'undefined'){
+						 return;
+					 }  
+					if(event.shiftKey){
+						 if(event.altKey){
+							 editorController.saveAll();
+						 }else{
+							 editorController.saveAs();	 
+						 }
+						 
+					 }else{
+						 editorController.save();	 
+					 }
+					 
+					 return;
+				 }
+				 
+				
+			 }
+			 
+			 if(event.altKey && ! event.shiftKey && ! event.ctrlKey){
+			
+				if(keyCode == 70 || keyCode == 102){
+					 event.preventDefault();
+						event.stopPropagation();
+					if(typeof editorController == 'undefined'){
+						 return;
+					 } 
+						editorController.addNew();
+
+				}else if(keyCode == 69 || keyCode == 101){
+					 event.preventDefault();
+						event.stopPropagation();
+					menuController.createProject();					 
+				}
+			}
+			 			
+		});
+        ]]>
+		</script>
+		<script type="text/javascript" src="${bootbox_js}"><jsp:text/></script>
+	
+	<body onLoad="onResize()" oncontextmenu="contextMenu(event)" onResize="onResize()" >
+
+		<!--  this next tile contains the left side wrapper as the top level element  -->
+		
+   		<div id="wrapper">
+   		<tiles:insertAttribute name="sideMenu" ignore="true" />
+   			<div class="container-fluid no-padding" id="page-content-wrapper">
+		   		<tiles:insertAttribute name="header" />
+		   		<tiles:insertAttribute name="body"/>
+		   		<tiles:insertAttribute name="footer" ignore="true"/> 
+			</div>
+   		</div>
+
+   		
+<script type="text/javascript" src="${resources}js/jqueryform.js" ><jsp:text /> </script>
+	  
+	  
+	  
+
+		<!-- Open Modal -->
+		<div id="open-modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">X</button>
+		        <h4 class="modal-title">Open File</h4>
+		      </div>
+		      <div class="modal-body">
+	      	
+		      	<ul id="open-dialog-files" class="list-group">
+					<jsp:text />
+				</ul>
+	      	
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+	
+		<!-- Iams Modal -->
+		<div id="iams-modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">X</button>
+		        <h4 class="modal-title">Iam Users </h4>
+		      </div>
+		      <div class="modal-body">
+	      	
+				
+		      	<form role="form">
+				  <div class="form-group">
+				    <label for="iams-user">Iam Users:</label>
+				    <input type="text" class="form-control" id="iams-user" />
+				  </div>
+				  <div class="form-group">
+				    <label for="access-key-id">Access Key Id:</label>
+				    <input type="text" class="form-control" id="access-key-id" />
+				  </div>
+				  <div class="form-group">
+				    <label for="secret-access-key">Secret Access Key:</label>
+				    <input type="text" class="form-control" id="secret-access-key" />
+				  </div>
+				  <div class="form-group">
+				    <label for="iams-password">Password:</label>
+				    <input type="password" class="form-control" id="iams-password"/>
+				  </div>
+				  <div class="checkbox">
+				    <label><input type="checkbox" id="iams-persist"/> Remember me</label>
+				  </div>
+	
+				</form>
+		        
+		        <div id="iams-status">
+					<jsp:text />
+		        </div>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+		        <button type="button" class="btn btn-default" onclick="awsController.registerIams()">Add Iam User</button>
+
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+	
+
+		<!-- S3 move file Modal -->
+		<div id="s3-move-modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">X</button>
+		        <h4 class="modal-title">Migreate s3 File</h4>
+		      </div>
+		      <div class="modal-body">
+	      	
+				
+				<div class="form-group">
+				  <label for="usr">Destination:</label>
+				  <input type="text" class="form-control" id="migrate-input-field"/>
+				</div>	
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-success create-new-text-editor-button" data-dismiss="modal" onclick="awsController.migrateKey()" >Migrate</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+	
+	
+		<!-- Creat New Modal -->
+		<div id="create-modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">X</button>
+		        <h4 class="modal-title">Create</h4>
+		      </div>
+		      <div class="modal-body">
+	      	
+				<div class="form-group">
+				  <label for="usr">Name:</label>
+				  <input type="text" class="form-control" id="create-file-name"/>
+				</div>
+	      		
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-success create-new-text-editor-button"  >Create</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+	
+	<!-- Save As Modal -->
+		<div id="save-modal" class="modal fade" role="dialog">
+		  <div class="modal-dialog">
+		
+		    <!-- Modal content-->
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal">X</button>
+		        <h4 class="modal-title">Save File As</h4>
+		      </div>
+		      <div class="modal-body">
+	      	
+				<div class="form-group">
+				  <label for="usr">Name:</label>
+				  <input type="text" class="form-control" id="save-file-name"/>
+				</div>
+	      		
+		        
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-success save-as-text-editor-button" data-dismiss="modal" >Save As</button>
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		      </div>
+		    </div>
+		
+		  </div>
+		</div>
+
+		<!-- Package Modal -->
+	<div id="package-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Install PIP Module</h4>
+	      </div>
+	      <div class="modal-body">
+      		
+			<div class="form-group">
+			  <label for="usr">Name:</label>
+				<input type="text" id="package-name" data-provide="typeahead" />
+				<input type="text" id="package-name-pip" style="display:none" data-provide="typeahead" />
+			</div>
+      		<div id="package-status">
+      			<jsp:text />
+      		</div>
+				      	
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+
+		<div id="sharing-modal" class="modal fade" style="display:none"
+			tabindex="-1" role="dialog" aria-labelledby="sharing-modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="confirm">Sharing</h4>
+					</div>
+					<div class="modal-body">
+						<h2>Sharing Database Test</h2>
+						
+					</div>
+						<div class="modal-footer">
+
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="endSharing()">Done Sharing</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<script src="${resources }js/plupload/plupload.full.min.js" type="text/javascript"><jsp:text /></script>
+	<script src="${resources }js/plupload/jquery.ui.plupload/jquery.ui.plupload.min.js" type="text/javascript"><jsp:text /></script>
+	<link rel="stylesheet" type="text/css" href="${resources }js/plupload/jquery.ui.plupload/css/jquery.ui.plupload.css"><jsp:text /></link>
+
+
+
+		<div id="upload-modal" class="modal fade" style="display:none"
+			tabindex="-1" role="dialog" aria-labelledby="sharing-modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="confirm">Upload Files</h4>
+					</div>
+					<div class="modal-body">
+						<div id="filelist">Your browser doesn't have Flash, Silverlight or HTML5 support.</div>
+						<br />
+						 
+						<div id="container">
+						    <a id="pickfiles" href="javascript:;">[Select files]</a>
+						    <a id="uploadfiles" href="javascript:;">[Upload files]</a>
+   						    <a id="cancel-upload" href="javascript:;" onclick="cancelUpload()">[Cancel Uploads]</a>
+						</div>
+						 
+						<br />
+						
+						<div class="progress progress-striped" id="upload-progress">
+						  <div class="progress-bar active" role="progressbar" aria-valuenow="0"
+						  aria-valuemin="0" aria-valuemax="100" style="width:0%">
+						    <jsp:text />
+						  </div>
+						</div>
+						
+					</div>
+						<div class="modal-footer">
+
+						<button type="button" class="btn btn-primary" data-dismiss="modal" onclick="endSharing()">Done Uploading</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		
+		<div id="database-modal" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="database-modal"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="database-content" class="modal-content">
+					<div class="modal-header">
+						<h2>Add Database</h2>
+						
+					</div>
+					<div class="modal-body">
+						<div id="database-modal-add-database" class="database-modal-body-section">
+							 <input id="database-id" type="hidden" class="form-control" name="id" value="-1" />   						
+							<div style="margin-bottom: 25px;margin-top:20px;" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-book"><jsp:text /></i></span>
+							    <input id="database-name" type="text" class="form-control" name="database-name" value="" placeholder="database name" />                                        
+							</div>
+						</div>
+						
+						   
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button id="create-new-database-button" type="button" class="btn btn-primary" data-dismiss="modal" onclick="menuController.saveDatabase($('#database-name').val(),$('#database-id').val())">Confirm</button>
+						
+					</div> 
+				</div>
+			</div>
+		</div>	
+
+		
+	
+	
+ 
+<script type="text/javascript">
+<![CDATA[
+// Custom example logic
+ 
+ 
+ $().ready(function(){
+	 $('.modal').on('hidden.bs.modal', function (e) {
+		  $(e.currentTarget).find("input").val("");
+		}) 
+ });
+ 
+ function cancelUpload(){
+	uploader.stop();	
+	$("#cancel-upload").hide();
+	$("#filelist b span").html("");
+    $("#upload-progress > .progress-bar").css("width", "0%");
+	
+}
+ 
+var uploader = new plupload.Uploader({
+    runtimes : 'html5,flash,silverlight,html4',
+     
+    browse_button : 'pickfiles', // you can pass in id...
+    container: document.getElementById('container'), // ... or DOM Element itself
+ 
+    url : "${database}/upload" ,// window.location.protocol + "//" + window.location.hostname  + ":8010/-upload/upload.php",
+    /* 
+    filters : {
+        max_file_size : '10mb',
+        mime_types: [
+            {title : "Image files", extensions : "jpg,gif,png"},
+            {title : "Zip files", extensions : "zip"}
+        ]
+    },*/
+    multipart_params: {
+    	  sessionId: '${session}'
+    },
+    // Maximum file size
+    max_file_size : '2000000mb',
+
+    chunk_size: '1mb',
+
+    
+    // Flash settings
+    flash_swf_url : '/plupload/js/Moxie.swf',
+ 
+    // Silverlight settings
+    silverlight_xap_url : '/plupload/js/Moxie.xap',
+     
+ 
+    init: {
+        PostInit: function() {
+            document.getElementById('filelist').innerHTML = '';
+ 
+            document.getElementById('uploadfiles').onclick = function() {
+                uploader.start();
+                return false;
+            };
+        },
+        UploadFile: function(up,file){
+        	$("#upload-progress > .progress-bar").addClass("active");    
+        	$("#cancel-upload").show();	  
+        }
+        ,
+        UploadComplete: function(up, files) {
+            // Called when all files are either uploaded or failed
+            var fileStr = "";
+            var fileNames = new Array();
+            plupload.each(files, function(file) {
+                fileStr += file.name + ",";
+                fileNames.push(file);
+
+            });
+            
+            while(fileNames.length > 0){
+            	uploader.removeFile(fileNames.shift());
+            	
+            }
+       
+            fileStr = fileStr.substr(0,fileStr.length - 1);
+		$("#upload-progress > .progress-bar").html("Uploaded " +  fileStr);
+		$("#upload-progress > .progress-bar").removeClass("active");    
+  		$("#cancel-upload").hide();
+            $("#filelist").empty();
+        },
+        FilesAdded: function(up, files) {
+        	if(uploader.state == plupload.STARTED){
+        		plupload.each(files, function(file) {
+                   uploader.removeFile(file);
+                   alert("Please wait for the current upload to finish");
+                });
+        	}else{
+                $("#upload-progress > .progress-bar").css("width", "0%");
+                
+            	plupload.each(files, function(file) {
+                    document.getElementById('filelist').innerHTML += '<div id="' + file.id + '">' + file.name + ' (' + plupload.formatSize(file.size) + ') <b></b></div>';
+                });        		
+        	}
+
+        },
+ 
+        UploadProgress: function(up, file) {
+        	  
+            $("#upload-progress > .progress-bar").css("width",file.percent + "%");
+            
+        	document.getElementById(file.id).getElementsByTagName('b')[0].innerHTML = '<span>' + file.percent + "%</span>";
+        },
+ 
+        Error: function(up, err) {
+            document.getElementById('console').innerHTML += "\nError #" + err.code + ": " + err.message;
+        }
+    }
+});
+ 
+uploader.init();
+ ]]>
+</script>
+		
+	  
+	</body>
+</html>

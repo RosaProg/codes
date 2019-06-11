@@ -1,0 +1,206 @@
+<div style="width:100%;"
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/" var="resources" ></spring:url>
+	<spring:url value="/file" var="file" ></spring:url>
+	<spring:url value="/image" var="image" ></spring:url>
+	
+	<script type="text/javascript">
+	<![CDATA[
+		
+  		var ImageEditor = function(){
+  			this.curFile = "";
+  			this.files = new Array();
+
+			
+  		}
+  		
+
+		
+		
+			
+
+			
+		ImageEditor.prototype.showOpenDialog = 
+			function (){
+				if(curProject != ""){
+					var data = new Object();
+					data.project = curProject;
+					data.isImage = true;
+					$("#open-dialog-files").empty();
+					var self = this;
+					$.ajax({
+						url :'${file}/list',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								var htmlString = "";
+								for(var ind in data.list){
+									if(ind != 'length'){
+										var fileDescription = data.list[ind];
+										if(self.files.indexOf(fileDescription.fileName) == -1){
+											htmlString += ' <button style="width:100%" type="button" class="list-group-item" onclick="imageController.openFile(\'' + fileDescription.fileName + '\')">' + fileDescription.fileName + '</button>';	
+										}	
+									}
+									
+									
+								}			
+								$("#open-dialog-files").append(htmlString);
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+					$("#open-modal").modal("show");	
+				}
+			};	         
+	    
+			
+
+		ImageEditor.prototype.closeFile = 
+			function (event,name){
+				event = event || window.event;
+				if(event.stopImmediatePropagation){
+					event.stopImmediatePropagation();	
+				}else if(event.preventDefault){
+					event.preventDefault();
+				}
+
+				if(curProject != ""){
+					
+					for(var ind = 0; ind < this.files.length; ind++){
+						
+						if(this.files[ind] == name){
+							if(this.cufFile == name){
+								if(this.files.length > 1){
+									if(ind == 0){
+										this.curFile = this.files[1];
+									}else{
+										this.curFile = this.files[ind-1];
+									}	
+								}		
+							}
+							this.files.splice(ind,1);
+							this.renderNavbar();
+							if (this.files.length > 0){
+								this.showFile(this.curFile);	
+							}else{
+								$("#image-container").html("");								
+							}
+							
+						}
+					}
+				}
+			};
+
+		
+		ImageEditor.prototype.showFile = function(file){
+			$("#image-editor-nav").children().removeClass("active");
+			$("#nav-item-"+file.replace(".","_")).addClass("active");
+			this.curFile = file;
+			$("#image-container").html('<img style="width:100%" src="${image}/get/' + curProject + '/' + this.curFile +'"/>');
+
+		}
+		
+		ImageEditor.prototype.renderNavbar = function(){
+			if(curProject != ""){
+				$("#image-editor-nav").children().filter(":gt(0)").remove();
+				for(var ind = 0; ind < this.files.length; ind++){
+					
+						$("#image-editor-nav").append('<li id="nav-item-' + this.files[ind].replace(".","_") + '" role="presentation"><a href="javascript:void(0)" onclick="imageController.showFile(\'' + this.files[ind] +  '\')">' + this.files[ind] + '<span style="margin-left:10px;"  onclick="imageController.closeFile(event,\'' + this.files[ind] + '\')">x</span></a></li>');		
+						
+				}
+			}
+		}
+			
+		ImageEditor.prototype.openFile = 
+			function (name){
+				var self = this;
+				$("#open-modal").modal("hide");	
+			
+				
+				if(curProject != ""){
+					self.files.push( name);
+
+
+					self.renderNavbar();
+					self.showFile(self.files[self.files.length -1]);
+				}
+			};	         
+	    
+		
+	         
+	         
+	         
+
+
+
+
+		var imageController = new ImageEditor();
+			
+	$().ready(function(){
+		//imageController.openFile("test.txt");
+		
+	});
+
+
+
+
+	]]>
+	</script>
+	<!-- We want this to manage not just the file editing but the saving, deleting and uploading -->
+	
+	<ul class="nav nav-pills" id="image-editor-nav">
+		<li role="presentation"><a href="javascript:void(0)" onclick="imageController.showOpenDialog()">open</a></li>
+		
+
+	</ul>
+	<div id="image-container">
+		<jsp:text />
+	</div>
+
+
+
+
+	<!-- Open Modal -->
+	<div id="open-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Open File</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+	      	<ul id="open-dialog-files" class="list-group">
+				<jsp:text />
+			</ul>
+      	
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+</div>
+
+

@@ -1,0 +1,464 @@
+<div style="width:100%" 
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/" var="resources" ></spring:url>
+	<spring:url value="/file" var="file" ></spring:url>
+	
+	<script type="text/javascript">
+	<![CDATA[
+		
+  		var TextEditor = function(){
+  			this.curFile = "";
+  			this.numLines = 1;
+  			this.files = new Array();
+  			this.filesContent = new Object();
+  			this.edited = new Object();
+			this.prevScroll = new Object();	
+  			this.prevCursorLine = 0;
+  		}
+  		
+
+		var curProject = "project_11"; //Hard coded for testing remember to remove this
+		
+		
+		
+			
+		TextEditor.prototype.addNew = 
+			function (){
+				if(curProject != ""){
+					$("#create-modal").modal('show');
+				}
+			};	         
+	    
+		TextEditor.prototype.createNewFile = 
+			function (){
+				if(curProject != ""){
+					var self = this;
+					var data = new Object();
+					data.project = curProject;
+					var createdFileName = $("#create-file-name").val();
+					data.name = createdFileName;
+					$.ajax({
+						url :'${file}/create',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								self.openFile(createdFileName);
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+				}
+			};	         
+	    
+	
+			
+		TextEditor.prototype.showOpenDialog = 
+			function (){
+				if(curProject != ""){
+					var data = new Object();
+					data.project = curProject;
+					$("#open-dialog-files").empty();
+					var self = this;
+					$.ajax({
+						url :'${file}/list',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								var htmlString = "";
+								for(var ind in data.list){
+									if(ind != 'length'){
+										var fileDescription = data.list[ind];
+										if(self.files.indexOf(fileDescription.fileName) == -1){
+											htmlString += ' <button style="width:100%" type="button" class="list-group-item" onclick="editorController.openFile(\'' + fileDescription.fileName + '\')">' + fileDescription.fileName + '</button>';	
+										}	
+									}
+									
+									
+								}			
+								$("#open-dialog-files").append(htmlString);
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+					$("#open-modal").modal("show");	
+				}
+			};	         
+	    
+			
+		TextEditor.prototype.saveAll = 
+			function (){
+				if(curProject != ""){
+					for(var ind = 0; ind < this.files.length;ind++){
+						this.saveFile(this.files[ind],this.files[ind],this.filesContent[this.files[ind]]);
+					}
+				}
+			};	         
+	    
+
+		TextEditor.prototype.save = 
+			function (){
+				if(curProject != ""){
+					this.saveFile(this.curFile,this.curFile,$("#file-editor").val());		
+					this.filesContent[this.curFile] = $("#file-editor").val();
+					
+				}
+			};	         
+
+
+		TextEditor.prototype.saveAs = 
+			function (){
+				if(curProject != ""){
+					$("#save-modal").modal('show');
+				}
+			};	   
+		
+		TextEditor.prototype.saveFileAs = 
+			function (){
+				if(curProject != ""){
+					this.saveFile(this.curFile,$("#save-file-name").val(),$("#file-editor").val());
+					this.openFile($("#save-file-name").val());
+				}
+			};	   
+		
+		
+		TextEditor.prototype.saveFile = 
+			function (name,newName,contents){
+				if(curProject != ""){
+					var data = new Object();
+					data.contents = contents;
+					data.name = name;
+					data.newName = newName;
+					data.project = curProject;
+					$.ajax({
+						url :'${file}/save',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								//remove the star the file is saved
+							$('#nav-item-' + newName.replace(".","_") + ' .file-edited').hide();
+								
+								//if name changes then update the name in the navbar
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 	
+				}
+			};	         
+	    		
+		TextEditor.prototype.closeFile = 
+			function (event,name){
+				event = event || window.event;
+				if(event.stopImmediatePropagation){
+					event.stopImmediatePropagation();	
+				}else if(event.preventDefault){
+					event.preventDefault();
+				}
+
+				if(curProject != ""){
+					
+					for(var ind = 0; ind < this.files.length; ind++){
+						
+						if(this.files[ind] == name){
+							if(this.cufFile == name){
+								if(this.files.length > 1){
+									if(ind == 0){
+										this.curFile = this.files[1];
+									}else{
+										this.curFile = this.files[ind-1];
+									}	
+								}		
+							}
+							this.files.splice(ind,1);
+							delete this.filesContent[name];
+							this.renderNavbar();
+							if (this.files.length > 0){
+								this.showFile(this.curFile);	
+							}else{
+								$("#file-editor").val("");								
+							}
+							
+						}
+					}
+				}
+			};
+
+		TextEditor.prototype.updateModel = function(event){
+			
+			event == event || window.event;
+			var code = event.which;
+			var curLine = $("#file-editor")[0].value.substr(0, $("#file-editor")[0].selectionStart).split("\n").length;
+			if(this.prevCursorLine != curLine){
+				this.prevCursorLine = curLine;
+				 $("#file-editor").scrollLeft(0);	
+			}
+			
+			 if((code >= 16 && code <=45) || (code >= 112 && code <=145)) {
+			        return;
+			    }
+			
+			
+			 
+			this.edited[this.curFile] = true;
+			$('#nav-item-' + this.curFile.replace(".","_") + ' .file-edited').show();
+			var lastText = this.filesContent[this.curFile];
+			this.filesContent[this.curFile] = $("#file-editor").val();
+			
+			
+			
+			/*
+			
+			if (event.which==8 || event.which==46) {
+			     var newText =  $("#file-editor").val();
+			    for (var i=0; i<lastText.length-1; i++) {
+			      if (lastText[i]!=newText[i]) {
+			       console.log("char '" +  lastText[i] + "' was removed at index "+i);
+			        lastText = newText;
+			        return;
+			      }
+			    }
+			  }*/
+		}
+		
+		TextEditor.prototype.showFile = function(file){
+			$("#text-editor-nav").children().removeClass("active");
+			$("#nav-item-"+file.replace(".","_")).addClass("active");
+			this.curFile = file;
+			$("#file-editor").val(this.filesContent[file]);
+			if(typeof this.prevScroll[this.curFile] !== "undefined"){
+				$("#file-editor").scrollTop(this.prevScroll[this.curFile]);
+			}
+			this.handleScroll();
+		}
+		
+		TextEditor.prototype.renderNavbar = function(){
+			if(curProject != ""){
+				$("#text-editor-nav").children().filter(":gt(1)").remove();
+				for(var ind = 0; ind < this.files.length; ind++){
+					
+						$("#text-editor-nav").append('<li id="nav-item-' + this.files[ind].replace(".","_") + '" role="presentation"><a href="javascript:void(0)" onclick="editorController.showFile(\'' + this.files[ind] +  '\')"><span class="file-edited">*</span>' + this.files[ind] + '<span style="margin-left:10px;"  onclick="editorController.closeFile(event,\'' + this.files[ind] + '\')">x</span></a></li>');		
+						if(this.edited[this.files[ind]]){
+							$('#nav-item-' + this.files[ind].replace(".","_") + ' .file-edited').show();							
+						}
+				}
+			}
+		}
+			
+		TextEditor.prototype.openFile = 
+			function (name){
+				var self = this;
+				$("#open-modal").modal("hide");	
+			
+				if(curProject != ""){
+					var data = new Object();
+					data.project = curProject;
+					data.name = name;
+					$.ajax({
+						url :'${file}/open',
+						dataType : 'json',
+						type : "POST",
+						data:data,
+						async : true,
+						error : function(e) {
+							//most errorys are due to logout
+							//location.reload();
+							console.error(e);
+						},
+						success : function(data) {
+							if(data.status == "success"){
+								self.files.push( name);
+								self.edited[name] =false;
+								self.filesContent[name] = data.entity;
+								self.renderNavbar();
+								self.showFile(self.files[self.files.length -1]);
+							}else{
+								showStatus(data.errorMsg);
+							}
+						}
+					});	 			
+				}
+			};	         
+	    
+		
+         TextEditor.prototype.handleScroll = function(event){
+        	var lineHeight = parseInt($('#file-editor').css('line-height'));
+            var numLinesDisplayed = (parseInt($("#file-editor").css("height")) / lineHeight);
+     		var topLineNumber = $("#file-editor").scrollTop()/lineHeight;
+        	var numLines = topLineNumber + (2* numLinesDisplayed);
+        	
+        	this.prevScroll[this.curFile] = $("#file-editor").scrollTop(); 
+        	
+     		if(this.numLines < (numLines-numLinesDisplayed)){
+        		 var htmlString = "";
+        		 var curNum;
+        		 for(curNum = this.numLines; curNum <= numLines; curNum++){
+        			 htmlString += (curNum) + "<br/>";
+        		 }
+        		 $("#line-numbers").append(htmlString);
+        		 this.numLines = curNum;
+     		}
+     		
+     		$("#line-numbers").scrollTop($("#file-editor").scrollTop())
+         }
+	     
+         //line numbers are set when we open a file and on key up we add one when we hit return
+	         
+
+
+
+
+		var editorController = new TextEditor();
+			
+	$().ready(function(){
+		//editorController.openFile("test.txt");
+		
+	});
+
+
+
+
+	]]>
+	</script>
+	<!-- We want this to manage not just the file editing but the saving, deleting and uploading -->
+	
+	<ul class="nav nav-pills" id="text-editor-nav">
+		<li role="presentation"><a href="javascript:void(0)" onclick="editorController.addNew()">+</a></li>
+		<li role="presentation"><a href="javascript:void(0)" onclick="editorController.showOpenDialog()">open</a></li>
+		
+
+	</ul>
+	<div style="position:relative;padding-left:50px;">
+		<textarea style="width:100%;" id="file-editor" onkeyup="editorController.updateModel(event)" contentEditable="true" onscroll="editorController.handleScroll(event)">
+		
+			<jsp:text />
+		</textarea>
+		<div id="line-numbers">
+			<jsp:text />
+		</div>
+	</div>
+	<div>
+		<button type="button" class="btn btn-success" onclick="editorController.save()">Save</button>	
+		<button type="button" class="btn btn-success" onclick="editorController.saveAs()">Save As</button>	
+		<button type="button" class="btn btn-success" onclick="editorController.saveAll()">Save All</button>	
+	</div>
+	
+
+
+	<!-- Open Modal -->
+	<div id="open-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Open File</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+	      	<ul id="open-dialog-files" class="list-group">
+				<jsp:text />
+			</ul>
+      	
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+	<!-- Creat New Modal -->
+	<div id="create-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Create File</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+			<div class="form-group">
+			  <label for="usr">Name:</label>
+			  <input type="text" class="form-control" id="create-file-name"/>
+			</div>
+      		
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="editorController.createNewFile()">Create</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+<!-- Save As Modal -->
+	<div id="save-modal" class="modal fade" role="dialog">
+	  <div class="modal-dialog">
+	
+	    <!-- Modal content-->
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal">X</button>
+	        <h4 class="modal-title">Save File As</h4>
+	      </div>
+	      <div class="modal-body">
+      	
+			<div class="form-group">
+			  <label for="usr">Name:</label>
+			  <input type="text" class="form-control" id="save-file-name"/>
+			</div>
+      		
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-success" data-dismiss="modal" onclick="editorController.saveFileAs()">Save As</button>
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	      </div>
+	    </div>
+	
+	  </div>
+	</div>
+
+
+</div>
+
+

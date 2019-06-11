@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?> 
+<div id="footer" style="min-width:1024px; min-width:300px;"
+	 xmlns:jsp="http://java.sun.com/JSP/Page"
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 version="2.0"> 
+	 <jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	 <jsp:output omit-xml-declaration="yes" />
+	 
+	 <spring:url value="/resources/images/logo.png" var="logo"/>
+
+	 
+	
+	<div class="row" style="width:700px; display:inline">
+		<ul id="menu" class="text-center" style="padding-left:0px">
+			<li style="display:inline; margin:0px 12px 0px 12px"><a class="footer-text" target="_blank" style="text-decoration:none;" href="http://www.db.com">About us</a></li>
+			<li style="display:inline; margin:0px 12px 0px 12px"><a class="footer-text" target="_blank" style="text-decoration:none;" href="http://www.db.com/help.html">Help</a></li>
+			<li style="display:inline; margin:0px 12px 0px 12px"><a class="footer-text" target="_blank" style="text-decoration:none;" href="#">Blog</a></li>
+			<li style="display:inline; margin:0px 12px 0px 12px"><a class="footer-text" target="_blank" style="text-decoration:none;" href="https://www.facebook.com/db?fref=ts">Facebook</a></li>
+			<li style="display:inline; margin:0px 12px 0px 12px"><a class="footer-text" target="_blank" style="text-decoration:none;" href="https://twitter.com/db">Twitter</a></li>
+			<li style="display:inline; margin:0px 12px 0px 12px"><a class="footer-text" target="_blank" style="text-decoration:none;" href="https://www.linkedin.com/company/10078142">Linkedin</a></li>
+			<li style="display:inline; margin:0px 12px 0px 12px; color: white" >© 2015-2016 DB </li>
+		</ul> 
+	</div>
+		<!-- <img src="${logo}" style="height:140px" /> -->	
+	
+
+</div>

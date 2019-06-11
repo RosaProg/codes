@@ -1,0 +1,67 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" 
+	  xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	  xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	  xmlns:spring="http://www.springframework.org/tags">
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+    
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />  
+    <jsp:directive.page pageEncoding="UTF-8" /> 
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+		
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<spring:url value="/resources/css/bootstrap.min.css" var="bootstrap_css" />
+		<spring:url value="/resources/css/style.css" var="style_css" />
+		<spring:url value="/resources/css/simple-sidebar.css" var="simple_css" />
+		<spring:url value="/resources/css/font-awesome-4.3.0/css/font-awesome.min.css" var="fontAwesome_css" />
+		
+		<spring:url value="/resources/js/bootstrap.min.js" var="bootstrap_js" />
+		<spring:url value="/resources/js/transition.js" var="transition_js" />
+		<spring:url value="/resources/js/collapse.js" var="collapse_js" />
+		<spring:url value="/resources/" var="resources" />
+		
+		<spring:url value="/resources/js/jquery-1.9.1.js" var="jquery_js" />
+		<spring:url value="/resources/js/jquery-ui-1.10.2.custom.min.js" var="jquery_ui_js" />
+		<spring:url value="/resources/css/ui-lightness/jquery-ui-1.10.2.custom.min.css" var="jquery_ui_css" />
+
+		<spring:url value="/resources/js/typeahead.js" var="typeahead_js" />		
+		<spring:url value="/resources/fonts/fontBold" var="boldCustomFont" />			
+		<spring:url value="/resources/fonts/fontLight" var="lightCustomFont" />			
+		
+		<link rel="stylesheet" type="text/css" media="screen" href="${bootstrap_css}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="${jquery_ui_css}" />	
+		<link rel="stylesheet" type="text/css" media="screen" href="${style_css}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="${simple_css}" />
+		<link rel="stylesheet" type="text/css" media="screen" href="${fontAwesome_css}" />	
+
+
+		<!--  this is used for the title -->
+		<link href="https://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css" />
+		
+		
+		<script type="text/javascript" src="${jquery_js}"><jsp:text/></script>
+		<script type="text/javascript" src="${jquery_ui_js}"><jsp:text/></script>
+		<script src="${bootstrap_js}"><jsp:text> </jsp:text></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"><jsp:text/></script>
+	<script src="${typeahead_js}"><jsp:text> </jsp:text></script>
+	</head>
+
+
+	
+	<body onLoad="onResize()" onResize="onResize()" >
+
+		<!--  this next tile contains the left side wrapper as the top level element  -->
+		<tiles:insertAttribute name="sideMenu" ignore="true" />
+   		<div id="wrapper">
+	   		<tiles:insertAttribute name="header" ignore="true" />
+	   		<tiles:insertAttribute name="body"/>
+	   		<tiles:insertAttribute name="footer" ignore="true"/> 
+			
+   		</div>
+
+   		
+<script type="text/javascript" src="${resources}js/jqueryform.js" ><jsp:text /> </script>
+	  
+	</body>
+</html>

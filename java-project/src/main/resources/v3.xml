@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+	
+	
+		<changeSet id="1" author="felipe">
+		
+<createTable tableName="users">
+		<column name="id" type="BIGINT" autoIncrement="true">
+			<constraints primaryKey="true" nullable="false" />
+		</column>
+		<column name="username" type="varchar(128)"><constraints nullable="false" /></column>
+		<column name="name" type="varchar(128)"><constraints nullable="false" /></column>
+		
+		<column name="password" type="varchar(45)" ><constraints nullable="false" /></column>
+		<column name="enabled" defaultValueBoolean="true" type="tinyint" ><constraints nullable="false" /></column>
+		<column name="client_id" type="BIGINT">
+		
+		</column>
+		
+	</createTable>
+	<createIndex tableName="users" indexName="ix_users_username">
+		<column name="username"></column>
+	</createIndex>
+		
+		<createTable tableName="authorities">
+			<column name="username" type="varchar(50)">
+				<constraints nullable="false" />
+			</column>
+			<column name="authority" type="varchar(50)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="enabled" type="boolean" >
+				<constraints nullable="false" />
+			</column>
+			
+
+		</createTable>
+		
+		
+		<addForeignKeyConstraint constraintName="fk_authorities_users"
+				baseTableName="authorities" baseColumnNames="username"
+				referencedTableName="users" referencedColumnNames="username" />
+		
+		<createIndex tableName="authorities" indexName="ix_auth_username">
+		    <column name="username"/>
+		    <column name="authority"/>
+		</createIndex>
+
+			
+	
+		<createTable tableName="database">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="name" type="varchar(128)" >
+				<constraints nullable="false" />
+			</column>
+			<column name="user_id" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			
+			
+		</createTable>
+	
+		<addForeignKeyConstraint constraintName="fk_database_user"
+			baseTableName="database" baseColumnNames="user_id"
+			referencedTableName="users" referencedColumnNames="id" />
+		
+				
+		<createTable tableName="user_database">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="user_id" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="database_id" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			
+		</createTable>
+		
+		<addForeignKeyConstraint constraintName="fk_user_database_user"
+			baseTableName="user_database" baseColumnNames="user_id"
+			referencedTableName="users" referencedColumnNames="id" />
+		
+		<addForeignKeyConstraint constraintName="fk_user_database_database"
+			baseTableName="user_database" baseColumnNames="database_id"
+			referencedTableName="database" referencedColumnNames="id" />
+		
+		
+			
+		 
+	</changeSet>
+	
+	<changeSet id="2" author="felipe">
+		<createTable tableName="user_friends">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="user_id" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			<column name="friend_id" type="BIGINT" >
+				<constraints nullable="false" />
+			</column>
+			
+		</createTable>
+		
+		
+		<addForeignKeyConstraint constraintName="fk_user_friends_user"
+			baseTableName="user_friends" baseColumnNames="user_id"
+			referencedTableName="users" referencedColumnNames="id" />
+		
+		<addForeignKeyConstraint constraintName="fk_user_friends friend"
+			baseTableName="user_friends" baseColumnNames="friend_id"
+			referencedTableName="users" referencedColumnNames="id" />
+		
+		
+		
+	</changeSet>
+	
+	<changeSet id="3" author="felipe">
+		<renameTable newTableName="_database" oldTableName="database"/>
+	
+	</changeSet>
+	<changeSet id="4" author="felipe">
+	
+		<addUniqueConstraint tableName="users" columnNames="username"/>
+		<addUniqueConstraint tableName="_database" columnNames="user_id,name"/>
+		
+	</changeSet>
+	<changeSet id="5" author="felipe">
+	
+		<dropNotNullConstraint tableName="users" columnName="password" columnDataType="varchar(45)"/>
+		<dropNotNullConstraint tableName="users" columnName="name" columnDataType="varchar(128)"/>
+		
+	</changeSet>
+	
+	<changeSet id="6" author="felipe">
+		<createTable tableName="invited_user">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="database_id" type="BIGINT">
+				<constraints nullable="false"/>
+			</column>
+			<column name="email" type="varchar(254)">
+				<constraints nullable="false"/>
+			</column>
+			
+			
+		</createTable>
+		<modifyDataType tableName="users" columnName="username" newDataType="varchar(254)"/>
+	</changeSet>
+	
+	<changeSet id="7" author="felipe">
+		<addColumn tableName="users">
+			<column name="showTips" type="BOOLEAN" defaultValue="1">
+				<constraints nullable="false"/> 
+			</column>
+		</addColumn>
+	</changeSet>
+	<changeSet id="8" author="felipe">
+	    <dropDefaultValue 
+            columnDataType="BOOLEAN"
+            columnName="showTips"
+            
+            tableName="users"/>
+          <addDefaultValue   columnDataType="BOOLEAN"
+            columnName="showTips"
+            defaultValueBoolean="true" 
+            tableName="users"/>
+		<createTable tableName="iams">
+			<column name="id" type="BIGINT" autoIncrement="true">
+				<constraints primaryKey="true" nullable="false" />
+			</column>
+			<column name="userId" type="BIGINT">
+				<constraints nullable="false"/> 
+			</column>			
+			<column name="username" type="varchar(64)">
+				<constraints nullable="false"/> 
+			</column>
+			<column name="accessKeyId" type="BLOB">
+				<constraints nullable="false"/> 
+			</column>
+			<column name="secretAccessKey" type="BLOB">
+				<constraints nullable="false"/> 
+			</column>
+			<column name="accessKeyIdIv" type="BLOB">
+				<constraints nullable="false"/> 
+			</column>
+			<column name="secretAccessKeyIv" type="BLOB">
+				<constraints nullable="false"/> 
+			</column>
+			
+		</createTable>
+	</changeSet>
+	
+</databaseChangeLog>

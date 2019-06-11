@@ -1,0 +1,107 @@
+<div id="mobileHeader" data-role="header"
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+	
+	
+
+	<spring:url value="/resources/images/tweed.png" var="tweed" ></spring:url>	
+		<spring:url value="/resources/images/grey_wash_wall.png" var="wall" ></spring:url>
+				<spring:url value="/resources/images/back2.png" var="back" ></spring:url>
+	<spring:url value="/resources/images/backButton.png" var="backButton" ></spring:url>
+		<spring:url value="/model/sharePDF" var="shareURL" ></spring:url>
+	<script>
+	<![CDATA[
+	         
+	       function share(){
+	    	   $("#share").show();
+	       }
+	         
+	       
+	      function sendShare(){
+	    	  var data = new Object();
+	    	  data.isMetric = isMetric;
+	    	  data.modelNumber = curModelNumber;
+	    	  data.email = $("#emailToShare").val();
+	    	  $.ajax({
+					url:"${shareURL}",
+					type:"POST",
+					data:data,
+					async:false,
+					error:function(e){
+						console.error(e);
+					},success:function(data){
+					
+				    	  $("#share").hide();
+				    	  
+				    	  
+				    	  alert("shared");
+					}
+		   		});
+	    	  
+
+	    	  
+	      }
+		function showOrig(){
+			$("#logoOrig").show();
+			$("#logo").hide();
+		}
+		
+		function showNew(){
+			$("#logoOrig").hide();
+			$("#logo").show();
+		}
+		function cancelShare(){
+			$("#share").hide();
+		}
+		var i = 0;
+		function changeBack(){
+			if(i >=3){
+				i= 0;
+			}else{
+				i++;	
+			}
+			
+			if(i == 0){
+				$("#mobileHeader").css("background-image","");
+				$("#mobileContent").css("background-image","");
+			}else if (i ==1){
+				$("#mobileHeader").css("background-image","url(${tweed})");
+				$("#mobileContent").css("background-image","url(${tweed})");
+			}else if( i == 2){
+				$("#mobileHeader").css("background-image","");
+				$("#mobileContent").css("background-image","");
+				$("#mobileHeader").css("background-color","transparent");
+				$("#mobileContent").css("background-color","transparent");
+				$("#pageWrap").css("background-image","url(${back})");
+			}
+			else{
+				$("#mobileHeader").css("background-image","url(${wall})");
+				$("#mobileContent").css("background-image","url(${wall})");
+			}
+		}
+		]]>
+	</script>
+<!-- 	<a href="javascript:void(0)" onclick="changeBack()" style="position:fixed;bottom:20px;"> background</a>-->
+
+	<a href="javascript:void(0)" data-role="button" data-theme="a" id="backButton" onclick="back(true)">Back</a>
+	<h1>Basintek</h1>
+	<a  class="ui-btn-right" data-role="button" data-theme="a" href="javascript:void(0)" onclick="switchStandardMetricMobile()" >
+		    <span class="standardMetricSelector">Metric</span>
+		</a> 
+
+
+<div id="share">
+	Please Select an email to share this with: <br/>
+	<input type="text" id="emailToShare" />
+	<br/>
+	<a href="javascript:void(0)" onclick="sendShare()" data-role="button" class="firstList">Share</a>
+		<a href="javascript:void(0)" onclick="cancelShare()" data-role="button" class="firstList">Cancel</a>
+</div>
+
+	
+</div>
+
+

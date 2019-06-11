@@ -1,0 +1,165 @@
+<div id="header" style="width:100%;"
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/j_spring_security_logout" var="logout" ></spring:url>
+	<spring:url value="/resources/" var="resources" ></spring:url>
+	<spring:url value="/views/upload" var="uploads" ></spring:url>
+	<spring:url value="/project" var="project" ></spring:url>
+	<spring:url value="/file" var="file" ></spring:url>
+
+
+	<script>
+	<![CDATA[
+	         
+	      $().ready(function(){
+	    	  listProjects();
+	      });
+         function renderProjects(list){
+      	   $("#projects").empty();
+      		for(var i in list){
+      			var project = list[i];
+      		    
+      			$("#projects").append('<li class="list-group-item blacktext" projectName="' + project.fileName + '" onclick="selectProject(\'' + project.fileName + '\')" >' + project.fileName + '</li>');				
+
+      		}
+         }
+		var curProject;
+         function selectProject(name){
+      	   $("#projects .list-group-item").removeClass("active");
+    	   $("#projects .list-group-item[projectName='" + name + "']").addClass("active");
+        	 curProject = name;
+        	 //produce material ripple on left
+        
+        	 runPythonCommand(true);
+        	 runRCommand(true);
+         }
+         
+         function saveProject(name){
+        	 var data = new Object();
+        	 data.name = name;
+        	 $.ajax({
+					url :'${project}/create',
+					dataType : 'json',
+					type : "POST",
+					data:data,
+					async : true,
+					error : function(e) {
+						//most errorys are due to logout
+						//location.reload();
+						console.error(e);
+					},
+					success : function(data) {
+						if(data.status == "success"){
+							listProjects();
+							selectProject(name);							
+						}else{
+							showStatus(data.errorMsg);
+						}
+
+					}
+				});	 
+         }
+         
+         function createProject(){
+        	$("#create-modal").find(".create-new-text-editor-button").unbind("click");
+			$("#create-modal").find(".create-new-text-editor-button").on("click",function(){ saveProject($("#create-file-name").val())});
+			
+			$("#create-modal").modal('show');
+         }
+         
+         function listProjects(){
+				$("#projects").empty();
+        	 var data = new Object();
+
+        	 data.isDirectory = true;
+        	 $.ajax({
+				url :'${file}/list',
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						renderProjects(data.list);				
+					}else{
+						showStatus(data.errorMsg);
+					}
+
+				}
+			});	 
+         }
+	]]>
+	</script>
+	<ul class="sidebar-nav">	
+		<div class="row">
+			<div class="col-lg-10 col-lg-offset-1" style="margin-top:10px;padding: 0;">
+				<li>
+					<div class="dropdown">
+						<img style="width:100%;margin-bottom:20px;" src="${resources}images/Logo2.png" />
+						<input type="text" class="form-control" id="Search" placeholder="Search"/>
+						<!--  <button class="btn btn-block text-center text-uppercase redBack whiteText btn-New dropdown-toggle" 
+						type="button" id="newMenu" data-toggle="dropdown" aria-expanded="true">New</button>  -->
+							<div style="margin-top: 0.7%;">
+								<sec:authorize access="isAuthenticated()">
+								<a style="color:#444242;font-weight:900;" class="dropdown-toggle" id="logout-menu" data-toggle="dropdown" >
+									Rodrigo Aramburú <span class="caret"></span>
+									 <ul role="menu" aria-labelledby="logout-menu" class="dropdown-menu">
+										<a href="${logout }" > LOGOUT</a>
+									 </ul>
+								</a>
+							</sec:authorize>
+							</div>	
+							<sec:authorize access="isAuthenticated()">
+							<div style="display:block;" class="dropdown">
+								<button class="btn text-center text-uppercase redBack whiteText btn-New dropdown-toggle" 
+										type="button" id="newMenu" data-toggle="dropdown" aria-expanded="true">New</button>
+								  <ul class="dropdown-menu" role="menu" aria-labelledby="newMenu">
+									    <li role="presentation"><a class="blackText" role="menuitem" tabindex="-1" href="#" onclick="createProject()">Create a project</a></li>
+									    <li role="presentation"><a class="blackText" role="menuitem" tabindex="-1" href="#" onclick="editDatabase('',-1)">Create a database</a></li>
+									    <li role="presentation"><a class="blackText" role="menuitem" tabindex="-1" href="#" onclick="$('#confirm').modal('show');">Add a friend</a></li>
+									    <li role="presentation"><a class="blackText" role="menuitem" tabindex="-1" href="${uploads}" >Upload a CSV</a></li>
+									  </ul>
+							</div>
+							</sec:authorize>
+					</div>
+				</li>
+				<li >
+					<a href="#" onclick="openList('projects')" class=" filterdrop blackText" > <i style="display:inline;" class="fa fa-user"><jsp:text/></i>   Projects <span class="caret pull-right"><jsp:text/></span></a>
+					<ul id="projects" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	            </li>
+				<li >
+					<a href="#" onclick="openList('databases')" class=" filterdrop blackText"><i style="display:inline;" class="fa fa-database"><jsp:text/></i>   Databases <span class="caret pull-right"><jsp:text/></span></a>
+					<ul id="databases" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	               </li>
+	               <li >
+					<a href="#" onclick="openList('friends')" class=" filterdrop blackText" > <i style="display:inline;" class="fa fa-user"><jsp:text/></i>   Friends <span class="caret pull-right"><jsp:text/></span></a>
+					<ul id="friends" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	               </li>
+               </div>
+		</div>
+	</ul>
+        <!-- /#sidebar-wrapper -->
+        
+
+</div>
+
+

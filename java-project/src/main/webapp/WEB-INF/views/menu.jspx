@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div id="menu" 
+	 xmlns:jsp="http://java.sun.com/JSP/Page"
+	 xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 version="2.0">
+	 <jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	 <jsp:output omit-xml-declaration="yes" />
+	
+	 <spring:url value="/datasets" var="dataset"/>
+	 <spring:url value="/typemetadata" var="typemetadata"/>
+	 <spring:url value="/types" var="types"></spring:url>
+	 <spring:url value="/relationshipClasses" var="relationshipClass"></spring:url>
+	 <spring:url value="/typeRelationships" var="typeRelationship"></spring:url>
+	 <spring:url value="/collectionpoints" var="collectionpoints"></spring:url>
+	 <spring:url value="/groups" var="groups"></spring:url>
+	 <spring:url value="/units" var="units"></spring:url>
+	 <spring:url value="/choices" var="choices"></spring:url>
+	<spring:url value="/questionclass" var="questionClass"></spring:url>
+	 	 
+	 <a href="${dataset}"><h4>DataSet</h4></a>
+	  <a href="${typemetadata}"><h4>Type Metadata</h4></a>
+	 <a href="${types}"><h4>Types</h4></a>
+	 <a href="${relationshipClass}"><h4>Relationship class</h4></a>
+	 <a href="${typeRelationship}"><h4>Create Relationships</h4></a>
+	 <a href="${collectionpoints}"><h4>Collection Point</h4></a>
+	 <a href="${groups}"><h4>Question Groups</h4></a>
+	  <a href="${questionClass}"><h4>Question Classes</h4></a>
+	 <a href="${units}"><h4>Units and UnitGroups</h4></a>
+	 <a href="${choices}"><h4>Choices</h4></a>
+</div>

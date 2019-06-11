@@ -1,0 +1,1467 @@
+<div id="clean-body" 
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 	xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	 
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/j_spring_security_logout" var="logout" ></spring:url>
+	<spring:url value="/resources/" var="resources" ></spring:url>
+
+	<spring:url value="/views/upload" var="uploads" ></spring:url>
+
+		<spring:url value="/resources/" var="resources" />
+	<spring:url value="/user" var="user" />
+	<spring:url value="/database" var="database" />
+	<spring:url value="/shell" var="shell" />
+	<spring:url value="/r" var="r" />
+	<spring:url value="/python" var="python" />
+	<spring:url value="/resources/images" var="images" />
+			<spring:url value="/image" var="image" ></spring:url>
+		
+ 	<spring:url value="/documentation" var="document" />
+
+	
+<script>
+		
+<![CDATA[ 
+         
+       function resize(){
+    	   var heightRemaining = $(window).innerHeight() - 159;
+    	   
+    	   $("#sql-console,#r-console,#python-console,.console").css("height",heightRemaining);
+    	   
+    	   $(".line-numbers,.text-editor-area").css("height",heightRemaining+51);
+    	   
+    	   $(".sidebar-nav, #sql-tab, #r-tab, #python-tab,.console-tab").css("height",heightRemaining+83);
+    	   $(".sidebar-nav").css("height",heightRemaining+60);
+    	   if(typeof editorController != "undefined"){
+    		   editorController.handleScroll();   
+    	   }
+    	   if(typeof toolTipController != "undefined"){
+    		   toolTipController.renderTip();   
+    	   }
+    	   
+       } 
+         
+       $().ready(function(){
+    	  listFriends();
+
+    	  $(document).on("keydown",function(e){
+    		 if(e.ctrlKey && e.altKey && ((e.keyCode == 67) || (e.keyCode == 99))){
+    			 consoleController.interruptExecution();
+    		 } 
+    	  });
+    	  
+    	  $("body").on("resize",resize);
+			resize();    	 
+
+			
+			$('.file-editor').keydown(function (e) {
+
+	    		  if (e.ctrlKey && e.keyCode == 13) {
+	    		    
+	    			 e.preventDefault();
+	    			runSelection(false);
+	    		  }else if(e.keyCode == 9) { 
+						editorController.insertAtCursor("    ");
+    				  e.preventDefault(); 
+    				  
+    			  }
+	    		});
+			
+		
+
+	    	  $("#shell-input").keydown(function (e) {
+
+	    		  if (e.ctrlKey && e.keyCode == 13) {
+	    		    
+	    			 e.preventDefault();
+	    			consoleController.runCommand("shell"); 
+	    		    
+	    		  }
+	    		});
+			
+    	  $("#sql-input").keydown(function (e) {
+
+    		  if (e.ctrlKey && e.keyCode == 13) {
+    		    
+    			 e.preventDefault();
+    			consoleController.runCommand("sql"); 
+    		    
+    		  }
+    		});
+    	  $("#python-input").keydown(function (e) {
+
+    		  if (e.ctrlKey && e.keyCode == 13) {
+    		    
+    			 e.preventDefault();
+    			consoleController.runCommand("python",false,false,menuController.curProjectIsPublic); 
+    		    
+    		  }
+    		});
+
+    	  $("#r-input").keydown(function (e) {
+
+    		  if (e.ctrlKey && e.keyCode == 13) {
+    		    
+    			 e.preventDefault();
+    			consoleController.runCommand("r",false,false,menuController.curProjectIsPublic); 
+    		    
+    		  }
+    		});
+
+    	  
+    	  $('.popover-trigger').on('hidden.bs.popover', function () {
+    		  return !showingAddUser;
+    		})
+       });
+   var userFriends;
+   function listFriends(){
+	   
+	   $.ajax({
+			url : "${user}/friends",
+			dataType : 'json',
+			type : "POST",
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					userFriends = data.list;
+					
+					renderFriends(userFriends,false);
+					
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});
+   }      
+
+ 
+   function showStatus(msg){
+	   $("#status-text").html(msg);
+   }
+   function endSharing(){
+	   showingAddUser = false;
+	   $(".popover-trigger").popover('hide');
+	   listFriends();
+	 // $("#sharing-modal").modal('hide');	   
+   }
+   //Used to toggle the ui for assigning a user to a db
+   var showingAddUser = false;
+   
+   function showAddUserToDb(dbId,event){
+	  event.preventDefault();
+	   showingAddUser = true;
+	//   $("#sharing-modal").modal('show');
+	
+		$(".list-group-item[dbId='" + dbId + "'] .popover-trigger").popover('show');	
+		
+	
+	   renderFriends(userFriends,true,dbId);
+	   var db = menuController.databases[dbId];
+	   menuController.curDb = db;
+	   $("#friends .list-group-item").removeClass("active");
+	   for(var i in db.users){
+		   var user = db.users[i];
+		   $("#friends .list-group-item[user-id='" + user.id + "']").addClass("active");
+	   }
+   }
+   
+
+   
+   function addFriend(username){
+	   var data = new Object();
+		  data.username = username;
+	
+		  
+		   $.ajax({
+				url : "${user}/addFriend",
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						listFriends();
+						hideStatus("Your friend was added");
+						
+					}else{
+						showStatus(data.errorMsg);
+					}
+				}
+			});	   
+   }
+   
+   function formatNumber (num,numDecimals) {
+	  	if(typeof numDecimals == "undefined"){
+	   		numDecimals = 0;
+	   	}
+	  	dec = "";
+		num =  num.toFixed(numDecimals);
+		if(numDecimals > 0){
+			dec = num.split('.')[1];
+			num = num.split('.')[0];
+		}
+		
+		revNum = num.split('').reverse().join('');
+		var frontNum = "";
+		for(var i = 0; i < revNum.length; i++){
+			frontNum += revNum[i];
+			if((i % 3) == 2){
+				if(i < revNum.length-1){
+					frontNum += ',';	
+				}
+				
+			}
+		}
+	   	
+		
+		num = frontNum.split('').reverse().join('');
+		if(typeof dec != "undefined"){
+			num +=  '.' + dec;
+		}
+		return num;
+
+	    
+	}
+   
+
+   
+   function binarySearchBegin(array, key) {
+	    var lo = 0,
+	        hi = array.length - 1,
+	        mid,
+	        element;
+	    while (lo <= hi) {
+	        mid = ((lo + hi) >> 1);
+	        element = array[mid].substr(0,key.length);
+	        if (element < key) {
+	            lo = mid + 1;
+	        } else if (element > key) {
+	            hi = mid - 1;
+	        } else {
+	            return mid;
+	        }
+	    }
+	    return -1;
+	}
+   
+   function binarySearch(array, key) {
+	    var lo = 0,
+	        hi = array.length - 1,
+	        mid,
+	        element;
+	    while (lo <= hi) {
+	        mid = ((lo + hi) >> 1);
+	        element = array[mid];
+	        if (element < key) {
+	            lo = mid + 1;
+	        } else if (element > key) {
+	            hi = mid - 1;
+	        } else {
+	            return mid;
+	        }
+	    }
+	    return -1;
+	}  
+  var typeAheadObj = null;
+  var typeAheadObj2 = null;
+  var pythonPackages2 = new Array();
+  var isPythonPackageConda;
+function listPythonPackages(isConda){
+	
+	var data = new Object();
+	data.isConda = isConda;
+   $.ajax({
+		url :"${python}/list-packages",
+		dataType : 'json',
+		type : "POST",
+		data:data,
+		async : true,
+		error : function(e) {
+			//most errorys are due to logout
+			//location.reload();
+			console.error(e);
+		},
+		success : function(data) {
+			if(data.status == "success"){
+				
+				if(isConda){
+					pythonPackages = data.list;
+						
+				}else{
+					pythonPackages2 = data.list;
+					
+				}
+				
+				var params = new Object();
+				params.isConda = isConda;
+				//get installed and modify list
+		         $.ajax({
+		        		url :"${python}/list-installed-packages",
+		        		dataType : 'json',
+		        		data:params,
+		        		type : "POST",
+		        		async : true,
+		        		error : function(e) {
+		        			//most errorys are due to logout
+		        			//location.reload();
+		        			console.error(e);
+		        		},
+		        		success : function(data){
+		        			
+		        			
+		        			if(isConda){
+		        				for(var i = 0; i < data.list.length; i++){
+			    					var index = binarySearch(pythonPackages,data.list[i]);
+			    					if(index != -1){
+			    						pythonPackages[index] = pythonPackages[index] + " (installed)"; 
+			    					}
+			    					
+			    				}
+		        				if(typeAheadObj == null){
+				    				 typeAheadObj = $("#package-name").typeahead({
+				    					source:pythonPackages,
+				    					afterSelect:function(item){
+				    						if(typeof item !== "undefined"){
+				    							addPythonPackage(item);
+				    						}
+				    					}
+				    				   });					        				
+			        			}else{
+			        				var autocomplete = $('#package-name').typeahead();
+			        				autocomplete.data('typeahead').source = pythonPackages;
+			        			}	
+		        			}else{
+		        				for(var i = 0; i < data.list.length; i++){
+			    					var index = binarySearch(pythonPackages2,data.list[i]);
+			    					if(index != -1){
+			    						pythonPackages2[index] = pythonPackages2[index] + " (installed)"; 
+			    					}
+			    					
+			    				}
+		        				if(typeAheadObj2 == null){
+				    				 typeAheadObj2 = $("#package-name-pip").typeahead({
+				    					source:pythonPackages2,
+				    					afterSelect:function(item){
+				    						if(typeof item !== "undefined"){
+				    							addPythonPackage(item);
+				    						}
+				    					}
+				    				   });					        				
+			        			}else{
+			        				var autocomplete = $('#package-name-pip').typeahead();
+			        				autocomplete.data('typeahead').source = pythonPackages2;
+			        			}
+		        			}
+		        			
+
+		        		}
+		        		
+		        	});	  
+				
+			}else{
+				showStatus(data.errorMsg);
+			}
+		}
+	});	  
+}
+
+function addPythonPackage(name){
+	var data = new Object();
+	data.name = name;
+	data.isConda = isPythonPackageConda;
+	$("#package-status").html("Installing " + name); 
+	$.ajax({
+		url :"${python}/add-package",
+		dataType : 'json',
+		type : "POST",
+		data:data,
+		async : true,
+		error : function(e) {
+			//most errorys are due to logout
+			//location.reload();
+			console.error(e);
+		},
+		success : function(data) {
+			if(data.status == "success"){
+
+				$("#package-status").html(name + " was successfully installed");   
+				if(isPythonPackageConda){
+					setTimeout(function(){listPythonPackages(true);},100);
+				}else{
+					setTimeout(function(){listPythonPackages(false);},100);	
+				}
+				
+			}else{
+				$("#package-status").html(name + " was not installed. " + data.errorMsg);
+			}
+		}
+	});	  
+}
+
+
+
+   function runQuery(){
+	   var data = new Object();
+	   if($("#write-to-file").is(':checked')){
+		   if($("#file-to-save").val() == ""){
+			   showStatus("If you want to save the contents of the query you need to set a name for the results file.");
+			   return;
+		   }
+		   data.fileName = $("#file-to-save").val();
+	   }
+	   data.query = $("#sql-input").val();
+	   if((typeof menuController.curDb == "undefined")||(typeof menuController.curDb.id == "undefined")){
+		   showStatus("You need to select a database before running a query");
+		   return;
+	   }
+	   data.dbId = menuController.curDb.id;
+   		showStatus("Executing Query");
+   	
+	   $.ajax({
+			url :"${database}/query",
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+
+				console.error(e);
+			},
+			success : function(data) {
+						
+				if(data.status == "success"){
+					$("#results").html("");
+					data.entity = data.entity.replaceAll("\r","");
+					var rows = data.entity.split("\n");
+					if(rows[0].indexOf("|") > -1){
+						var queryInfo = rows[0].split("|");
+						showStatus(queryInfo[0] +": " +formatNumber(parseFloat(queryInfo[1]),0) + "ms" + " , " + queryInfo[2] + ": " + formatNumber(parseInt(queryInfo[3]),0) + " , " + (parseInt(queryInfo[3])/(parseFloat(queryInfo[1])/1000))) + "rows/sec";
+						
+						var tableHtml = '<table class="table table-striped"><tr>';
+						
+						var headings = rows[1];
+						
+						var headingsArr = headings.split("|");
+						for(var i in headingsArr){
+							var heading = headingsArr[i];
+							tableHtml += "<th>" + heading + "</th>";
+						}
+						
+						tableHtml + "</tr>";
+						
+						
+						for(var i = 3; i < rows.length; i++){
+							tableHtml += "<tr>";
+							var rowArr = rows[i].split("|");
+							for(var j in rowArr){
+								tableHtml += "<td>" + rowArr[j] + "</td>";
+							}
+							
+							tableHtml += "</tr>";
+						}
+						
+						tableHtml += "</table>";
+						
+						$("#results").append(tableHtml);
+						
+					}else{
+						$("#results").html(data.entity);
+								
+					}
+					
+				
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	  
+   }
+   
+
+   
+   //add a user to this database
+   function addUserToDb(username,dbId){
+	   var url;
+	   
+	   if($(event.target).hasClass("active")){
+		   $(event.target).removeClass("active")
+			url = "${user}/removeFromDb";   
+	   }else{
+		   $(event.target).addClass("active")
+	   		url = "${user}/addToDb";
+	   }
+	  var data = new Object();
+	  data.username = username;
+	  data.dbId = dbId;
+	  
+	   $.ajax({
+			url : url,
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+					menuControler.listDatabases();
+					
+					 showAddUserToDb(dbId);
+				
+				}else{
+					showStatus(data.errorMsg);
+			t	}
+			}
+		});	   
+   }
+   
+   function renderFriends(list,selectingForDb,dbId){
+	   $("#friends").empty();
+	   
+	   
+		for(var i in list){
+			var friend = list[i];
+			if(selectingForDb){
+				$("#friends").append('<li user-id="' + friend.id + '" class="list-group-item whiteText" onclick="addUserToDb(\'' + friend.username + '\',' + dbId + ')">' + friend.name + '</br><a class="whiteText" target="_blank" href="mailto:' + friend.username + '" > (' + friend.username+ ')</a></li>');				
+			}else{
+				$("#friends").append('<li class="list-group-item whiteText">' + friend.name + '</br><p class="whiteText" target="_blank" href= > (' + friend.username+ ')</p></li>');				
+			}
+
+		}
+   }
+   
+   
+
+   var editingState = "sql";
+   
+   
+
+   var consoleController;
+   $().ready(function(){
+	   listPythonPackages(true);
+	   listPythonPackages(false);
+	   
+	   consoleController = new ConsoleController();
+		
+ 	  consoleController.runCommand("shell",true);
+	   
+   });
+
+
+	function validateEmail(email) {
+	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+	    return re.test(email);
+	}
+   
+	
+	var editorController;
+	var editorPythonController;
+	var pythonPackages = new Array();
+	$().ready(function(){
+		//editorController.openFile("test.txt");
+//		editorController = new TextEditor("#text-editor-container","editorController");
+
+		
+	});
+	
+	
+	
+	var ConsoleController = function(){
+		this.consoleTypes = ["sql","r","python","shell"];
+		this.consoleDivs = [""]
+		this.consoleData = new Object();
+		for(var i = 0; i < this.consoleTypes.length; i++){
+			this.consoleData[this.consoleTypes[i]] = "";
+		}
+		
+	};
+	
+	ConsoleController.prototype.interruptExecution = function (){
+		var data = new Object();
+		data.project = menuController.curProject;
+		type = this.getCurrentState();
+		if(type == "python"){
+			url = "${python}/interrupt";
+		}else if (type == "r"){
+			url = "${r}/interrupt";			
+		}else if (type == "shell"){
+			url = "${shell}/interrupt";			
+		}else{
+			alert("Can't interrupt SQL currently.");
+			return;
+		}
+		$.ajax({
+				url :url,
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+
+					console.error(e);
+				},
+				success : function(data) {
+							
+					if(data.status == "success"){
+					
+						
+					
+					}else{
+						showStatus(data.errorMsg);
+					}
+				}
+			});	  
+	}
+	
+	ConsoleController.prototype.runCommand = function(type,isStart,isForced,isPublic){
+		
+		var data = new Object();
+		   data.isPublic = isPublic;
+		var url;
+		var self = this;
+		if(typeof isPublic == "undefined"){
+			isPublic = false;
+		}
+		if(typeof isForced == "undefined"){
+			   isForced = false;
+		   }
+		   if(isForced){
+			   data.force = true;
+		   }
+		var command;
+
+		if(type == "sql"){
+			$("#sql-input").html($("#sql-input").text());
+			
+		   if($("#write-to-file").is(':checked')){
+			   if($("#file-to-save").val() == ""){
+				   showStatus("If you want to save the contents of the query you need to set a name for the results file.");
+				   return;
+			   }
+			   data.fileName = $("#file-to-save").val();
+		   }
+		   
+		   if((typeof menuController.curDb == "undefined")||(typeof menuController.curDb.id == "undefined")){
+			   var data = new Object();
+			   data.entity = "You need to select a database before running a query";
+			   this.renderSQL(data);
+			   return;
+		   }
+		   
+		   data.command = $("#sql-input").val();  
+		   $("#sql-input").val("");
+		   data.command = data.command.split("&lt;").join("<");
+			data.command = data.command.split("&gt;").join(">");
+		   
+		   data.command = data.command.split("<div>").join("\n");
+		   data.command = data.command.split("<br>").join("");
+		   data.command = data.command.split("</div>").join("");
+		   
+			
+		   command = data.command;
+		   data.dbId = menuController.curDb.id;
+			url = "${database}/query";
+			data.query = command;  
+			
+			
+			var output = ">" +  command;
+			
+			output.replaceAll("\n","<br/>");
+			
+			
+			if(this.consoleData["sql"] != ""){
+				output = "<br/><br/>" + output;
+			}
+			
+			
+			this.consoleData["sql"] = this.consoleData["sql"] + output;
+			//do an append if we can
+			$("#sql-console").append(output);	
+			
+			$("#sql-console").animate({ scrollTop: $('#sql-console')[0].scrollHeight}, 100,'easeOutExpo');
+	
+			
+		}else if(type =="r"){
+			$("#r-input").html($("#r-input").text());
+			   if(typeof menuController.curDb != "undefined"){
+				   data.dbId = menuController.curDb.id;
+				      
+			   }
+			   data.project = menuController.curProject;
+			   data.command = $("#r-input").val();
+			   $("#r-input").val("");
+
+			   data.command = data.command.split("&lt;").join("<");
+			   data.command = data.command.split("&gt;").join(">");
+			   
+			   data.command = data.command.split("<div>").join("\n");
+			   data.command = data.command.split("<br>").join("");
+			   data.command = data.command.split("</div>").join("");
+			   data.imagePath = "${image}";
+			   command = data.command;
+			   
+			   if(isStart){
+				   url = "${r}/start";
+				   
+			   }else{
+				   url = "${r}/command";
+				      
+			   }
+				
+				var output = ">" +  command;
+				
+				output.replaceAll("\n","<br/>");
+				
+				
+				if(this.consoleData["r"] != ""){
+					output = "<br/><br/>" + output;
+				}
+				
+				
+		//		this.consoleData["r"] = this.consoleData["r"] + output;
+				//do an append if we can
+		//		$("#r-console").append(output);	
+				
+		//		$("#r-console").animate({ scrollTop: $('#r-console')[0].scrollHeight}, 100,'easeOutExpo');
+		   		
+			   
+		}else if(type == "python"){
+			   if(typeof menuController.curDb != "undefined"){
+				   data.dbId = menuController.curDb.id;
+				      
+			   }
+				$("#python-input").html($("#python-input").text());
+			   
+			   
+			   data.project = menuController.curProject;
+			   data.command = $("#python-input").val();
+			   $("#python-input").val("");
+			   data.command = data.command.split("&lt;").join("<");
+			   data.command = data.command.split("&gt;").join(">");
+			   
+			   data.command = data.command.split("<div>").join("\n");
+			   data.command = data.command.split("<br>").join("");
+			   data.command = data.command.split("</div>").join("");
+			   
+			   command = data.command;
+			   
+			   if(isStart){
+				   url = "${python}/start";
+				   
+			   }else{
+				   url = "${python}/command";
+				      
+			   }
+			
+				/*
+				var output = command;
+				
+				output.replaceAll("\n","<br/>");
+				
+				var splitArr = output.split("\n");
+				output = "";
+				for(var i = 0; i < splitArr.length; i++){
+					if(splitArr[i] != ""){
+						if(i > 0){
+							output += "<br/>";
+						}
+						output += splitArr[i];
+						
+					}
+				}
+				
+				
+				output = " " +  output + "<br/>";
+				
+				this.consoleData["python"] = this.consoleData["python"] + output;
+				//do an append if we can
+				$("#python-console").append(output);	
+			*/	
+		//		$("#python-console").animate({ scrollTop: $('#python-console')[0].scrollHeight}, 100,'easeOutExpo');
+		   		
+		}else if(type == "shell"){
+			   if(typeof menuController.curDb != "undefined"){
+				   data.dbId = menuController.curDb.id;
+				      
+			   }
+				$("#shell-input").html($("#shell-input").text());
+			   
+			   
+			   data.project = menuController.curProject;
+			   data.command = $("#shell-input").val();
+			   $("#shell-input").val("");
+			   data.command = data.command.split("&lt;").join("<");
+			   data.command = data.command.split("&gt;").join(">");
+			   
+			   data.command = data.command.split("<div>").join("\n");
+			   data.command = data.command.split("<br>").join("");
+			   data.command = data.command.split("</div>").join("");
+			   
+			   command = data.command;
+			   
+			   if(isStart){
+				   url = "${shell}/start";
+				   
+			   }else{
+				   url = "${shell}/command";
+				      
+			   }
+			
+				
+				var output = command;
+				
+				output.replaceAll("\n","<br/>");
+				
+				var splitArr = output.split("\n");
+				output = "";
+				for(var i = 0; i < splitArr.length; i++){
+					if(splitArr[i] != ""){
+						if(i > 0){
+							output += "<br/>";
+						}
+						output += splitArr[i];
+						
+					}
+				}
+				
+				
+				output = " " +  output + "<br/>";
+				
+				this.consoleData["shell"] = this.consoleData["shell"] + output;
+				//do an append if we can
+				$("#shell-console").append(output);	
+				
+		//		$("#python-console").animate({ scrollTop: $('#python-console')[0].scrollHeight}, 100,'easeOutExpo');
+		   		
+		}		
+
+		if(typeof consoleLogController != "undefined"){
+			consoleLogController.saveCommand(data.command);
+				
+		}
+		
+		showStatus("Executing");
+	   	
+	    $.ajax({
+			url :url,
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+
+				console.error(e);
+			},
+			success : function(data) {
+						
+				if(data.status == "success"){
+					
+					if(type == "sql"){
+						self.renderSQL(data,command,true);
+					}else if(type == "r"){
+						if(isStart){
+							self.renderConsole(data,command,false,"#r-console");
+						}else{
+							self.renderConsole(data,command,true,"#r-console");	
+						}
+						
+					}else if (type == "python"){
+						if(isStart){
+							self.renderConsole(data,command,false,"#python-console");
+						}else{
+							self.renderConsole(data,command,true,"#python-console");	
+						}
+						
+					}else if(type == "shell"){
+						if(isStart){
+							self.renderConsole(data,command,false,"#shell-console");
+						}else{
+							self.renderConsole(data,command,true,"#shell-console");	
+						}
+					}
+				
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	  
+	   	
+	}
+	
+	ConsoleController.prototype.getCurrentState = function(){
+		if($("#sql-tab").hasClass("active")){
+			return "sql";
+		}else if($("#r-tab").hasClass("active")){
+			return "r";
+		}else if($("#python-tab").hasClass("active")){
+			return "python";
+		}else if($("#shell-tab").hasClass("active")){
+			return "shell";
+		}  
+	}	  
+
+
+	ConsoleController.prototype.runCurrentCommand = function(){
+		var state = this.getCurrentState();
+		this.runCommand(state,false,false,menuController.curProjectIsPublic);
+	}	  
+	
+	ConsoleController.prototype.setCurrentConsoleText = function(text){
+		var state = this.getCurrentState();
+		$("#" + state + "-input").val(text);
+	}	  
+	   
+	ConsoleController.prototype.relaunchCurrentConsole = function(type){
+		this.runCommand(type,true,true,menuController.curProjectIsPublic);
+	}
+	
+	ConsoleController.prototype.relaunchAllConsoles = function(type){
+		//TODO:
+	}
+	   
+	ConsoleController.prototype.convertResponseToConsoleOutput = function(data){
+		//data.list contains info we need
+	}
+	
+	ConsoleController.prototype.renderConsole = function (data, query,appendAllowed,consoleDiv){
+		
+		if(appendAllowed){
+			$(consoleDiv).append(data.entity);	
+		}else{
+			$(consoleDiv).html(data.entity);			
+		}
+		$(consoleDiv).scrollTop($(consoleDiv)[0].scrollHeight);
+	}
+		
+	
+	ConsoleController.prototype.renderSQL = function (data, query,appendAllowed){
+		
+//		var lineBreaksReplaced = this.consoleData["sql"].replaceAll("\n","<br/>");
+
+		data.entity = data.entity.replaceAll("\r","");
+		var removingLineBreaksAndDelims = data.entity.split("'");
+		for(var i = 1; i < removingLineBreaksAndDelims.length; i+=2){
+			removingLineBreaksAndDelims[i] = removingLineBreaksAndDelims[i].replaceAll("\n","$$$linebreak$$$");
+			removingLineBreaksAndDelims[i] = removingLineBreaksAndDelims[i].replaceAll("|","$$$delim$$$");
+		}
+		
+		data.entity = removingLineBreaksAndDelims.join("'");
+		
+		var rows = data.entity.split("\n");
+		var tableHtml;
+		
+		var output;
+		if(rows[0].indexOf("|") > -1){
+			
+			var queryInfo = rows[0].split("|");
+			
+			showStatus(queryInfo[0] +": " +formatNumber(parseFloat(queryInfo[1]),0) + "ms" + " , " + queryInfo[2] + ": " + formatNumber(parseInt(queryInfo[3]),0) + " , " + (parseInt(queryInfo[3])/(parseFloat(queryInfo[1])/1000))) + "rows/sec";
+			
+			tableHtml = '<table class="table table-striped"><tr>';
+			
+			var headings = rows[1];
+			
+			var headingsArr = headings.split("|");
+			for(var i in headingsArr){
+				var heading = headingsArr[i];
+				tableHtml += "<th>" + heading + "</th>";
+			}
+			
+			tableHtml + "</tr>";
+			
+			
+			for(var i = 3; i < rows.length; i++){
+				
+				if(rows[i] != ""){
+					tableHtml += "<tr>";
+					var rowArr = rows[i].split("|");
+					for(var j in rowArr){
+						if(rowArr[j][0] == "'"){
+							rowArr[j] = rowArr[j].replaceAll("$$$linebreak$$$","\n").replaceAll("$$$delim$$$","|").replaceAll("\u0007","'");
+							
+							rowArr[j] = rowArr[j].substr(1,rowArr[j].length - 2);
+						}
+						tableHtml += "<td>" + rowArr[j] + "</td>";
+					}
+					
+					tableHtml += "</tr>";	
+				}
+				
+			}
+			
+			tableHtml += "</table>";
+			
+			output = "<br/><br/>Results:<br/>"+ tableHtml + " Query ran in " + formatNumber(parseFloat(rows[0].split("|")[1],3)) + "ms \n Rows: " + formatNumber(parseFloat(rows[0].split("|")[3],0)) + "  Speed: " + formatNumber(1000*parseFloat(rows[0].split("|")[3])/parseFloat(rows[0].split("|")[1]),0) + " rows / sec";
+			
+			
+		}else{
+			tableHtml = data.entity;
+			output = "<br/><br/>Results:<br/>"+ tableHtml;
+					
+		}
+
+		this.consoleData["sql"] = this.consoleData["sql"] + output;
+		//do an append if we can
+		if(appendAllowed){
+			$("#sql-console").append(output);					
+		}else{
+			$("#sql-console").html(this.consoleData["sql"]); 
+		}	
+		
+		$("#sql-console").animate({ scrollTop: $('#sql-console')[0].scrollHeight}, 1000,'easeOutExpo');
+		
+	}
+	var toolTipController;
+	var consoleLogController;
+
+	
+	$().ready(function(){
+		toolTipController = new ToolTip();
+		toolTipController.hasTips();
+		consoleLogController = new ConsoleLog();
+	   	  $("#sql-input, #r-input, #shell-input, #python-input").keydown(function (e) {
+  		    if (e.keyCode == 38){
+				consoleLogController.getPrevCommand();
+  		    }else if(e.keyCode == 40){
+  		    	consoleLogController.getNextCommand();
+  		    }
+  		 });
+  	  
+	});
+	
+	
+	var Project = function(){
+		this.rLog = new Array();
+		this.rLog.push("");
+		this.sqlLog = new Array();
+		this.sqlLog.push("");
+		this.pythonLog = new Array();
+		this.pythonLog.push("");
+		this.terminalLog = new Array();
+		this.terminalLog.push("");
+		this.logIndex = new Object();
+		this.logIndex["sql"] = 0;
+		this.logIndex["python"] = 0;
+		this.logIndex["r"] = 0;
+		this.logIndex["terminal"] = 0;
+	}
+	
+	var ConsoleLog = function(){
+		this.projects = new Object();
+		this.curProject = null;
+		this.curConsole = "sql";
+	}
+	
+	
+	ConsoleLog.prototype.getNextCommand = function() {
+		if(this.curProject.logIndex[this.curConsole] > 0){
+			this.curProject.logIndex[this.curConsole]--;		
+		}
+		
+		if(this.curConsole == "sql"){
+			$("#sql-input").val(this.curProject.sqlLog[this.curProject.logIndex["sql"]])
+		}
+		
+		else if(this.curConsole == "python"){
+			$("#python-input").val(this.curProject.sqlLog[this.curProject.logIndex["python"]])
+		}
+			
+		else if(this.curConsole == "r"){
+			$("#r-input").val(this.curProject.sqlLog[this.curProject.logIndex["r"]])
+		}
+		
+		else if(this.curConsole == "terminal"){
+			$("#shell-input").val(this.curProject.sqlLog[this.curProject.logIndex["shell"]])
+		}	
+	}
+	
+	ConsoleLog.prototype.getPrevCommand = function() {
+		if(this.curProject.logIndex[this.curConsole] > 0){
+			this.curProject.logIndex[this.curConsole]--;		
+		}
+		
+		if(this.curConsole == "sql"){
+			if(this.curProject.logIndex[this.curConsole] < (this.curProject.sqlLog.length-1)){
+				this.curProject.logIndex[this.curConsole]++;		
+			}
+
+			$("#sql-input").val(this.curProject.sqlLog[this.curProject.logIndex["sql"]])
+		}
+		
+		else if(this.curConsole == "python"){
+			if(this.curProject.logIndex[this.curConsole] < (this.curProject.pythonLog.length-1)){
+				this.curProject.logIndex[this.curConsole]++;		
+			}
+
+			$("#python-input").val(this.curProject.sqlLog[this.curProject.logIndex["python"]])
+		}
+			
+		else if(this.curConsole == "r"){
+			if(this.curProject.logIndex[this.curConsole] < (this.curProject.rLog.length-1)){
+				this.curProject.logIndex[this.curConsole]++;		
+			}
+
+			$("#r-input").val(this.curProject.sqlLog[this.curProject.logIndex["r"]])
+		}
+		
+		else if(this.curConsole == "terminal"){
+			if(this.curProject.logIndex[this.curConsole] < (this.curProject.terminalLog.length-1)){
+				this.curProject.logIndex[this.curConsole]++;		
+			}
+
+			$("#shell-input").val(this.curProject.sqlLog[this.curProject.logIndex["shell"]])
+		}	
+	}
+	
+	ConsoleLog.prototype.setProject = function(projectId) {
+		if(! this.projects.hasOwnProperty(projectId)){
+			var tempProject = new Project();
+			this.projects[projectId] = tempProject;
+		}	
+		this.curProject = this.projects[projectId];
+	}
+	
+	ConsoleLog.prototype.setConsole = function(consoleId) {
+		this.curConsole = consoleId;
+	}
+	
+	ConsoleLog.prototype.saveCommand = function(command){
+		if(this.curConsole == "sql"){
+			this.curProject.sqlLog.unshift(command);
+			this.curProject.logIndex["sql"] = 0;
+		}
+		
+		else if(this.curConsole == "python"){
+			this.curProject.pythonLog.unshift(command);
+			this.curProject.logIndex["python"] = 0;
+		}
+			
+		else if(this.curConsole == "r"){
+			this.curProject.rLog.unshift(command);
+			this.curProject.logIndex["r"] = 0;
+		}
+		
+		else if(this.curConsole == "terminal"){
+			this.curProject.terminalLog.unshift(command);
+			this.curProject.logIndex["terminal"] = 0;
+		}
+	}
+	
+	
+	
+	
+	var ToolTip = function(){
+		
+		this.tips = [{positionType:"center",arrowType:'none',top:'50',left:'51',img:'<img src="${resources}images/help-1.png"/>',text:'<p class="bubble-note-text-title"">Create and select a database.</p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'},
+		            {positionType:"center",arrowType:'none',top:'50',left:'51',img:'<img src="${resources}images/help-2.png"/>',text:'<p class="bubble-note-text-title">Upload a file.</p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'},
+		            {positionType:"center",arrowType:'none',top:'50',left:'51',img:'<img src="${resources}images/help-3.png"/>',text:'<p class="bubble-note-text-title">Create an Environment and .sql File.</p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'},
+		            {positionType:"center",arrowType:'none',top:'50',left:'51',img:'<img src="${resources}images/help-4.png"/>',text:'<p class="bubble-note-text-title">Create and load table</p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry text since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'},
+		            {positionType:"center",arrowType:'none',top:'50',left:'51',img:'<img src="${resources}images/help-5.png"/>',text:'<p class="bubble-note-text-title0 text-center"> Write Queries!</p>'},
+		            
+		            ];
+		var self = this;
+		$("#prev-tip").click(function(){self.prevTip()});
+		$("#next-tip").click(function(){self.nextTip()});
+		$("#hide-tip").click(function(){self.hideTip()});
+		
+		
+		this.curTip = 0;	
+	}
+	
+	$( document ).ajaxComplete(function(event,request,ajaxOptions) {
+		
+		if(request.responseText.indexOf("Forgot your password?") != -1){
+			alert("Your session has ended. If you have any unsaved changes please copy and paste them into another document before refreshing.");
+		}
+	});
+	
+	
+	ToolTip.prototype.prevTip = function(){
+		this.curTip--;
+		
+		
+		this.renderTip();
+
+	}
+
+	ToolTip.prototype.hasTips = function(){
+		var self = this;
+	    $.ajax({
+			url :'${user}/hasTips',
+			dataType : 'json',
+			type : "POST",
+			
+			async : true,
+			error : function(e) {
+				//most errorys are due to logout
+				//location.reload();
+
+				console.error(e);
+			},
+			success : function(data) {
+						
+				if(data.status == "success"){
+					if(data.entity == true){
+						self.renderTip();
+					}else{
+						self.hideTip();
+					}
+				}else{
+					showStatus(data.errorMsg);
+				}
+			}
+		});	  
+	   		
+	}
+	
+	ToolTip.prototype.renderTip = function(){
+		$(".bubble-images").html('<img>' + this.tips[this.curTip].img + '</img>');
+		$(".bubble-note-text").html('<p>' + this.tips[this.curTip].text + '</p>');
+		
+		
+		var maxLeft = $("#sidebar-wrapper").width() + $("#page-content-wrapper").width();
+		var maxTop = $("#sidebar-wrapper").height();
+		var minLeft = $("#sidebar-wrapper").width();
+		
+		var left = minLeft + ((maxLeft - minLeft) * (this.tips[this.curTip].left/100));
+		var top = ((maxTop) * (this.tips[this.curTip].top/100));
+		
+		if(this.tips[this.curTip].positionType =="center"){
+			left = left - $(".bubble-container").width()/2;
+			top = top - $(".bubble-container").height()/2;
+			
+		}else if(this.tips[this.curTip].positionType == "bottom-px"){
+			top = maxTop - this.tips[this.curTip].top - $(".bubble-container").height() - 50;
+			//assume topleft
+		}
+		
+		if(left < 0){
+			left = 0;
+			
+		}
+		if(top < 0){
+			top = 0;
+		}
+		
+		if((left + $(".bubbleContainer").width()) > maxLeft){
+			left = maxLeft = $(".bubbleContainer").width();
+		}
+		if((top + $(".bubbleContainer").height()) > maxTop){
+			top = maxTop - $(".bubbleContainer").height();
+		}
+		$(".bubble-container").css({left:left,top:top});
+		
+		
+		<!--
+		$(".bubble-arrow").hide();
+		
+		if(this.tips[this.curTip].arrowType == "left"){
+			$(".flecha-left").show();
+		}else if(this.tips[this.curTip].arrowType == "down"){
+			$(".flecha-down").show();			
+		}else if(this.tips[this.curTip].arrowType == "left-slanted"){
+			$(".flecha-left-slanted").show();			
+		}else{
+			
+		}
+		-->
+		
+		if(this.curTip == (this.tips.length - 1)){
+			$("#next-tip").hide();
+		}else{
+			$("#next-tip").show();			
+		}
+		if(this.curTip == 0){
+			$("#prev-tip").hide();
+		}else{
+			$("#prev-tip").show();			
+		}
+	}
+	
+	ToolTip.prototype.nextTip = function(){
+		
+		this.curTip++;
+
+		this.renderTip();
+		
+	}
+
+	ToolTip.prototype.hideTip = function(){
+		if($("#remove-tips")[0].checked){
+			 $.ajax({
+					url :'${user}/hideTips',
+					dataType : 'json',
+					type : "POST",
+					
+					async : true
+			 });
+		}
+		$(".bubble-container").hide();
+		
+	}
+	
+	
+	
+]]>
+
+</script>
+
+		
+		<div class="bubble-container">
+			<div class="bubble-note" style=" margin-left:0px;" >
+						
+				<div class="bubble-images" style="margin: 0px 0px 0px 0px">
+					<img src="http://placehold.it/550x350"/><jsp:text />
+				</div>
+				
+				<div style="margin: 0px 15px 0px 10px">
+					<div class="bubble-links">
+						<div class="col-xs-6 text-left" style="margin-top:10px; margin-bottom:25px; padding-left:22px;">
+							<button href="#bubble2" class="btn buttonnext1" id="prev-tip">&#60; PREV TIP</button>
+						</div>
+						<!--<a href="#bubble2" class="buttonnext0 text-center" style="padding-left:5px; padding-right:5px;" id="hide-tip">HIDE TIPS </a>-->
+						<div class="col-xs-6 text-right" style="margin-top:10px; margin-bottom:25px;">
+							<button href="#bubble2" class="btn buttonnext2" id="next-tip">NEXT TIP &#62;</button>
+						</div>
+					</div>
+					
+					<div class="bubble-note-text text-justify">
+						Lorem Ipsum is simply dummy text of the printing and typesetting industry.					
+					</div>
+				</div>
+				
+				<div style="margin: 35px 15px 95px 18px" >
+					<div class="col-xs-6">
+						<button href="#bubble2" id="hide-tip" class="btn btn-profile4">Go to App</button>
+					</div>
+  					<div class="col-xs-6 text-right">
+						<a href="http://www.db.com/help.html" class="-help-2" target="_blank" >
+							<span class="fa fa-question-circle" style="font-size:21px;"><jsp:text /></span>
+						</a>
+					</div>
+				</div>
+				<div style="padding:10px 0px 1px 0px;"><hr class="gray-separator-checkbox"/></div>
+				<div class="col-xs-12 text-left" style="padding:0px 28px 0px 33px;">
+					<input type="checkbox" id="remove-tips" style="margin:0px 5px 0px 0px; width:12px; height:12px;"/> 
+					<label class="bubble-note-text-2"> Don't show tips again.</label>
+				</div>
+				
+			</div>
+		</div>
+
+				
+  <div class="row" id="pane-container">
+      
+		<div class="col-lg-6 col-md-6 left-pane">
+			<ul class="nav nav-pills file-selector">
+			  <li style="margin-top:7px; margin-left:15px;">Open a project to start editing files</li>
+	
+			</ul>
+			
+			<div class="tab-content text-editor-area">
+					  <div id="text-editor-container" class="tab-pane fade in active" style="height:100%">
+<tiles:insertTemplate template="textEditor.jspx" />
+			  </div>
+				
+			</div>	
+			<div class="text-editor-info">
+
+								Line <span id="cur-line"><jsp:text/></span>, Column <span id="cur-col"><jsp:text/></span>
+
+				<div style="display:inline-block;float:right"> <span id="total-lines" ><jsp:text/></span> Lines </div>								
+			</div>
+		</div>
+		<div class="col-lg-6 col-md-6 right-pane">
+			<ul class="nav nav-tabs console-selector">
+			  <li class="active col-lg-3 col-md-3 col-sm-3"><a data-toggle="tab" href="#sql-tab" onclick="consoleLogController.setConsole('sql')">SQL</a></li>
+			  <li class="col-lg-3 col-md-3 col-sm-3"><a data-toggle="tab" href="#r-tab" onclick="consoleLogController.setConsole('r')">R</a></li>
+			  <li class="col-lg-3 col-md-3 col-sm-3"><a data-toggle="tab" href="#python-tab" onclick="consoleLogController.setConsole('python')">Python</a></li>
+			  <li class="col-lg-3 col-md-3 col-sm-3"><a data-toggle="tab" href="#shell-tab" onclick="consoleLogController.setConsole('terminal')">Terminal</a></li>
+			
+			</ul>
+			
+			<div class="tab-content console-area">
+			  <div id="sql-tab" class="tab-pane fade in active">
+			    <div id="sql-console">
+			    	<jsp:text />
+			    </div>
+
+			    <textarea id="sql-input">
+
+			    	<jsp:text />
+			    </textarea>
+			  </div>
+			  <div id="r-tab" class="tab-pane fade">
+				<div id="r-console">
+			    	<jsp:text />
+			    </div>
+
+			    <textarea id="r-input">
+
+			    	<jsp:text />
+			    </textarea>
+			  </div>
+			  <div id="python-tab" class="tab-pane fade">
+				<div id="python-console">
+			    	<jsp:text />
+			    </div>
+
+			    <textarea id="python-input">
+
+			    	<jsp:text />
+			    </textarea>
+			  </div>
+			   <div id="shell-tab" class="tab-pane fade console-tab">
+				<div id="shell-console" class="console">
+			    	<jsp:text />
+			    </div>
+
+			    <textarea id="shell-input" class="console-input">
+
+			    	<jsp:text />
+			    </textarea>
+			  </div>
+			</div>
+		</div>
+		<div id="project-circle-container" class="material-circle-container">
+	        <div id="project-circle" class="material-circle">
+				<jsp:text />
+	        </div>    
+    	</div>  
+		
+  </div>
+
+
+<!-- MODALS -->
+	
+
+
+
+</div>
+
+

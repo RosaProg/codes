@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div 
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:joda="http://www.joda.org/joda/time/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:spring="http://www.springframework.org/tags" id="login">
+
+	<title> GPU Database</title>
+		
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/> 
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<spring:url value="/views/main" var="main" />
+	<spring:url value="/resources/" var="resources" />
+		<spring:url value="/user" var="user" />
+	<spring:url var="loginUrl" value="/j_spring_security_check" />
+	<spring:url var="register" value="/register" /> 
+
+	
+	<spring:url var="registrationUrl" value="/user/save" />
+	
+	<style>
+#wrapper {
+	padding-left: 0px;
+}
+
+html,body{
+height:100%;
+width:100%;
+background-color:#363636;
+}
+</style>
+
+ 	<script>
+ 	<![CDATA[
+ 	$(function() {
+ 		
+ 		$("#username").blur(function(){
+ 	 		if(! validateEmail($("#username").val())){
+ 	 			$("#username-alert").html("The username must be a valid email address");
+ 	 			$("#username-alert").show(200);
+ 	 			$("#username").keyup(function(){
+ 	 				if(validateEmail($("#username").val())){
+	 	 				$("#username-alert").hide(200);
+	 	 			}
+	 	 		});
+ 	 		}else{
+ 	 			$("#username-alert").hide(200);
+ 	 		}
+ 	 	});
+
+ 	 	$("#name").change(function(){
+ 	 		if($("name").val() != ""){
+ 	 			$("#name-alert").hide(200);
+ 	 		}
+ 	 	});
+ 	 	
+ 	 	$("#password2").change(function(){
+ 	 		if($("#password").val() != $("#password2").val()){
+ 	 			$("#password2-alert").show(200);
+ 	 			$("#password2-alert").html("This does not match the password field.");
+ 	 			$("#password2, #password").keyup(function(){
+	 	 				if($("#password").val() == $("#password2").val()){
+	 	 					$("#password2-alert").hide(200);
+	 	 				}
+	 	 			});
+ 	 			
+ 	 			
+ 			}else{
+ 				$("#password2-alert").hide(200);
+ 			}
+ 	 	});
+ 	 	
+ 	 	$("#password").change(function(){
+ 	 		var text = "";
+ 	 		if($("#password").val().length < 6){
+ 	 			$("#password-alert").show(200);	
+ 	 			$("#password-alert").html("The password should be at least 6 characters long."); 		
+ 	 			$("#password").keyup(function(){
+ 	 				if($("#password").val().length >= 6){
+ 	 					$("#password-alert").hide(200);
+ 	 				}
+ 	 			});
+ 	 		}else{
+ 	 			$("#password-alert").hide(200);
+ 	 		}
+ 	 		
+ 	 		if($("#password2").val() != ""){
+ 	 			if($("#password").val() != $("#password2").val()){
+ 	 	 	    	$("#password2-alert").html("This does not match the password field.");
+ 	 	 	    	$("#password2-alert").show(200);
+ 	 	 			$("#password2, #password").keyup(function(){
+ 	 	 				if($("#password").val() == $("#password2").val()){
+ 	 	 					$("#password2-alert").hide(200);
+ 	 	 				}
+ 	 	 			});
+ 	 			}else{
+ 	 				$("#password2-alert").hide(200);	
+ 	 			}
+ 	 		}
+ 	 		
+ 	 	});
+ 		
+ 	    $('#registerForm').submit(function() {
+ 	    	if($("#password").val().length < 6){
+ 	    		return false;
+ 	    	}
+ 	    	
+ 	    	if(! document.getElementById('accepts-eula').checked){
+ 	    		$("#eula-alert").show(200);
+ 	 			$("#eula-alert").html("You need to accept the end user license agreement to register.");
+ 	    		return false;
+ 	    	}
+ 	    	if($("#password").val() != $("#password2").val()){
+ 	    		return false;
+ 	    	}
+ 	    	
+ 	    	if(! validateEmail($("#username").val())){
+ 	    		return false;
+ 	    	}
+ 	    	
+ 	    	if($("#name").val() == ""){
+ 	 			$("#name-alert").show(200);
+ 	 			$("#name-alert").html("You need to fill out your name.");
+ 	    		return false;
+ 	    	}else{
+ 	 			$("#name-alert").hide(200);
+ 	    	}
+ 	    	
+ 	    	return true; 
+ 	    });
+ 	});
+ 	
+ 	function validateEmail(email) {
+ 	    var re = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
+ 	    return re.test(email);
+ 	}
+
+ 	
+ 	]]>
+ 	</script>
+
+
+ 	<div class="container">
+	 	<div class="row">
+	 		<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4" >
+	 				<div class="row" style="padding: 180px 0px 40px 0px">
+								<center>
+								<img src="${resources}images/logo1.png"/>
+								</center>
+					</div>
+							
+		 			<c:if test="${not empty error}">
+					    <div id="error-alert" class="alert alert-danger" role="alert" style="display:none">${error}</div>
+					</c:if>
+				 		<form id="registerForm" name="registerForm" action="${registrationUrl}" method="post">
+				 		
+							<div style="margin-bottom: 10px;" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"><jsp:text /></i></span>
+							    <input id="username" type="text" class="form-control" name="username" value="" placeholder="Email" />                                        
+							</div>
+							<div id="username-alert" class="alert alert-danger" role="alert" style="display:none"><jsp:text /></div>	
+							<div style="margin-bottom: 10px" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-user"><jsp:text /></i></span>
+							    <input id="name" type="text" class="form-control" name="name" value="" placeholder="Full name"/>                                        
+							</div>
+							<div id="city-alert" class="alert alert-danger" role="alert" style="display:none"><jsp:text /></div>	
+							<!--
+							<div style="margin-bottom: 10px" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-map-marker"><jsp:text /></i></span>
+							    <input id="city" type="text" class="form-control" name="name" value="" placeholder="City/Town"/>                                        
+							</div>
+							-->
+							<div id="name-alert" class="alert alert-danger" role="alert" style="display:none"><jsp:text /></div>
+							<div style="margin-bottom: 10px" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"><jsp:text /></i></span>
+							    <input id="password" type="password" class="form-control" name="password" placeholder="Password"/>
+							</div>
+							 <div id="password-alert" class="alert alert-danger" role="alert" style="display:none"><jsp:text /></div>
+							 <div style="margin-bottom: 10px" class="input-group">
+							    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"><jsp:text /></i></span>
+							    <input id="password2" type="password" class="form-control"  placeholder="Confirm password"/>
+							</div>
+							 <div id="password2-alert" class="alert alert-danger" role="alert" style="display:none"><jsp:text /></div>						        
+				 			<div style="margin-bottom: 10px" class="input-group">
+								<label class="text-justify" style="padding-top:10px; padding-bottom:5px; line-height:110%;">
+								    <input id="accepts-eula" type="checkbox" name="accepts"/>
+									<span style="color:white; font-size:13px; font-weight:400; padding-left:8px;">Please click here to acknowledge that you acept our </span><a style="color:#0DC6B0; font-size:13px; font-weight:400" href="http://db.com/alpha.pdf">End <span style="padding-left:20px">User License Agreement</span></a>.
+								</label>
+							</div>
+				 			 <div id="eula-alert" class="alert alert-danger" role="alert" style="display:none;"><jsp:text /></div>						        
+				 			
+				 		<input type="submit" name="submit" value="Register me!" class="btn btn-primary btn-block" style="background-color:#0DC6B0"/>
+						</form>
+						
+						<div class="row text-center" style="padding: 210px 0px 10px 0px">
+							<p style="color:white;">©2015-2016 DB</p>
+						</div>	
+	 			</div>
+	 				<div class="col-lg-4 col-md-2 hidden-xs hidden-sm" >
+	 				<jsp:text />
+	 		</div>
+	 	</div>
+ 	</div>
+ 
+ 
+
+	
+
+	
+	
+	
+
+
+</div>

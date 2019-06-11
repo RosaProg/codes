@@ -1,0 +1,58 @@
+<html xmlns:jsp="http://java.sun.com/JSP/Page" 
+	  xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	  xmlns:fn="http://java.sun.com/jsp/jstl/functions" 
+	  xmlns:tiles="http://tiles.apache.org/tags-tiles"
+	  xmlns:spring="http://www.springframework.org/tags">
+	<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
+    
+    <jsp:directive.page contentType="text/html;charset=UTF-8" />  
+    <jsp:directive.page pageEncoding="UTF-8" /> 
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> 
+<spring:url value="/resources/" var="resources"/>
+		<spring:url value="/resources/js/jquery-1.9.1.js" var="jquery_js" />
+		<spring:url value="/resources/js/jquery-ui-1.10.2.custom.min.js" var="jquery_ui_js" />
+		<spring:url value="/resources/css/style.css" var="app_css_url" />
+		<spring:url value="/resources/styles/default.css" var="default_css_url" />
+		<spring:url value="/resources/css/login.css" var="login_css_url" />
+		<spring:url value="/resources/css/popups.css" var="friends_css_url" />
+		<spring:url value="/resources/js/jsonparse.js" var="json_js" />
+		<spring:url value="/resources/js/sugar.js" var="sugar_js" />
+		<spring:url value="/resources/js/tablescript.js" var="table_js" />
+
+		<spring:url value="/news/edit" var="editNews" />
+		<spring:url value="/model/upload" var="upload" />
+		
+		
+		<spring:url value="resources/img/loginback.jpg" var="login_background" />
+		
+		<link rel="icon" type="image/ico" href="${resources}images/Icon.ico" />
+		
+		<link rel="stylesheet" type="text/css" media="screen" href="${app_css_url}" />	
+		<link rel="stylesheet" type="text/css" media="screen" href="${default_css_url}" />	
+		<link rel="stylesheet" type="text/css" media="screen" href="${login_css_url}" />	
+		<link rel="stylesheet" type="text/css" media="screen" href="${friends_css_url}" />	
+		<script src="${resources}ace/ace.js" type="text/javascript"> <jsp:text/></script>
+		
+				<script type="text/javascript" src="${jquery_js}"><jsp:text/></script>
+		<script type="text/javascript" src="${jquery_ui_js}"><jsp:text/></script>
+		<!--  this is used for the title -->
+		<link href="http://fonts.googleapis.com/css?family=Great+Vibes" rel="stylesheet" type="text/css" />
+		
+		
+
+		
+		<script type="text/javascript">
+			function onResize(){
+				//Do nothing
+			}
+		</script>
+	</head>
+
+
+	
+	<body class="background-black" onLoad="" onResize="onResize()">
+   		<tiles:insertAttribute name="body"/> 
+   		<tiles:insertAttribute name="footer" /> 
+	</body>
+</html>

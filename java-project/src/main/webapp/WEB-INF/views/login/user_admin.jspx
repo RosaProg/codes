@@ -1,0 +1,705 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:joda="http://www.joda.org/joda/time/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:spring="http://www.springframework.org/tags"
+	class="center-block"
+	>
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" />
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/resources/" var="resources" />
+	<spring:url value="/user" var="user" />
+ 	<spring:url value="/client" var="client" />
+ 	<spring:url value="/views" var="views" />
+ 
+		<link rel="stylesheet" type="text/css" media="screen" href="${resources}css/bootstrap.min.css" /> 
+		<script type="text/javascript" src="${resources}js/bootstrap.min.js"><jsp:text> </jsp:text> </script>
+	
+	<script type="text/javascript">
+		<![CDATA[
+		var userList = new Array();
+
+		$().ready(
+						function() {
+							$('[data-toggle="tooltip"]').tooltip();
+
+							listClients();
+							listUsers();
+						
+
+						});
+
+		
+		function listClients(){
+			$.ajax({
+				url : "${client}/list",
+				dataType : 'json',
+				type : "POST",
+		
+				async : true,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						$("#client-list tr:not(:first-child)").remove();
+						for (var i = 0; i < data.list.length; i++) {
+							clientList[data.list[i].id] = data.list[i];
+							if(! data.list[i].archived){
+								$("#client-list")
+										.append('<tr>'+
+												'<td>' + data.list[i].name + '</td>'+
+												'<td>'+
+													'<div class="btn-group btn-group-md  centerimage" role="group">'+
+														'<button type="button" class="btn btn-default"'+
+															'data-toggle="tooltip" data-placement="bottom" title="Modify"'+
+															'onclick="editClient(' + data.list[i].id + ')">'+
+															'<span class="glyphicon glyphicon-edit"><jsp:text /></span>'+
+														'</button>'+
+														'<button onclick="confirmDeleteClient(' + data.list[i].id + ')" type="button" class="btn btn-default"'+
+															'data-toggle="tooltip" data-placement="bottom" title="Delete">'+
+															'<span class="glyphicon glyphicon-trash"><jsp:text /></span>'+
+														'</button>'+
+													'</div>'+
+												'</td>'+
+											'</tr>'											
+										);
+
+							}
+						
+						}
+						$("#userForm select[name=client]").empty();
+						for(var i = 0; i < data.list.length; i++){
+							if(! data.list[i].archived){
+								
+								$("#userForm select[name=client]").append('<option value="' + data.list[i].id + '">' +data.list[i].name + '</option>');	
+							}
+						}	
+					}
+					
+
+				}
+			});
+		}
+		
+		function saveUser(){
+			var data = new Object();
+			data.id = $("#userForm input[name=id]").val();
+			data.name = $("#userForm input[name=name]").val();
+			data.lastName = $("#userForm input[name=last_name]").val();
+			data.username = $("#userForm input[name=username]").val();
+			data.type = $("#userForm select[name=type]").val();
+			data.clientId = $("#userForm select[name=client]").val();
+			$.ajax({
+				url : "${user}/save",
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if (data.status == "success") {
+						$("#userModal").modal('toggle');
+						$("#status .modal-body").html("Changes saved");
+						$("#status").modal('toggle');
+						
+						listUsers();
+					} else {
+						$("#userModal .modal-footer .alert").html(data.errorMsg);			
+						$("#userModal .modal-footer .alert").show();
+					
+					}
+					
+
+				}
+			});
+			
+		}
+		
+		var client = new XMLHttpRequest();
+		  
+		   function upload() 
+		   {
+		      var file = document.getElementById("uploadfile");
+		     
+		      /* Create a FormData instance */
+		      var formData = new FormData();
+		      /* Add the file */ 
+		      formData.append("upload", file.files[0]);
+		      formData.append("id",$("#userForm input[name=id]").val());
+
+		      client.open("post", "/upload", true);
+		      client.setRequestHeader("Content-Type", "multipart/form-data");
+		      client.send(formData);  /* Send to server */ 
+		   }
+		     
+		   /* Check the response status */  
+		   client.onreadystatechange = function() 
+		   {
+		      if (client.readyState == 4 && client.status == 200) 
+		      {
+		         alert(client.statusText);
+		      }
+		   }
+		
+		
+		var curId = -1;
+		function editUser(id) {
+			var user = userList[id];
+			curId = id;
+			
+			
+			$("#userForm input[name=id]").val(user.id);
+			$("#userForm input[name=name]").val(user.name);
+			$("#userForm input[name=last_name]").val(user.lastName);
+			$("#userForm input[name=username]").val(user.username);
+			$("#userForm select[name=type]").val(user.type);
+			
+			$("#userForm select[name=client]").val(user.client.id);
+			
+			$("#userModal .modal-footer .alert").html("");			
+			$("#userModal .modal-footer .alert").hide();
+			$('#userModal').modal('toggle');
+			
+		}
+
+		
+
+		function newUser() {
+			$("#userForm input[name=id]").val(-1);
+			$("#userForm input[name=name]").val("");
+			$("#userForm input[name=last_name]").val("");
+			$("#userForm input[name=username]").val("");
+
+			$("#userForm select[name=type]").val("user");
+			$("#userModal .modal-footer .alert").html("");			
+			$("#userModal .modal-footer .alert").hide();
+			$('#userModal').modal('toggle');
+		}
+
+		var curData;
+		function outputUsers(data){
+			
+			$("#user-list").empty();
+			$("#user-list").append('<tr><th class="text-uppercase">Username</th><th class="text-uppercase">Full Name</th><th class="text-uppercase">Customer</th><th class="text-uppercase">Type</th><th class="text-uppercase">Actions</th></tr>');
+
+		
+			for (var i = 0; i < data.list.length; i++) {
+				userList[data.list[i].id] = data.list[i];
+				if ((data.list[i].enabled) && ((typeof data.list[i].hidden === "undefined") || ! data.list[i].hidden)){
+					$("#user-list")
+							.append('<tr>'+
+									'<td>' + data.list[i].username + '</td>'+
+									'<td>' + data.list[i].name + '</td>'+
+									'<td>' + data.list[i].client.name + '</td>'+
+									'<td>' + data.list[i].type + '</td>'+
+									
+									'<td>'+
+										'<div class="btn-group btn-group-md  centerimage" role="group">'+
+											'<button type="button" class="btn btn-default"'+
+												'data-toggle="tooltip" data-placement="bottom" title="Edit"'+
+												'onclick="editUser(' + data.list[i].id + ')">'+
+												'<span class="glyphicon glyphicon-edit"><jsp:text /></span>'+
+											'</button>'+
+											'<button onclick="confirmDelete(' + data.list[i].id + ')" type="button" class="btn btn-default"'+
+												'data-toggle="tooltip" data-placement="bottom" title="Archive">'+
+												'<span class="glyphicon glyphicon-trash"><jsp:text /></span>'+
+											'</button>'+
+										'</div>'+
+									'</td>'+
+								'</tr>'											
+							);
+
+				}
+			}
+		}
+		
+		function listUsers() {
+			var data = new Object();
+			$
+					.ajax({
+						url : "${user}/list",
+						dataType : 'json',
+						type : "POST",
+						async : true,
+						data : data,
+						error : function(e) {
+							console.error(e);
+						},
+						success : function(data) {
+							if (data.status == "success") {
+								curData = data;
+								outputUsers(data);
+							
+							} 
+
+						}
+					});
+
+		}
+		
+		function confirmDelete(id){
+			$("#confirm .modal-body").html("Are you sure you want to erase this user?");
+			
+			$("#confirm .modal-footer").html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteUser(' + id + ')">Confirm</button>');
+			
+			$("#confirm").modal('toggle');
+			
+			
+		}
+		
+		function confirmDeleteClient(id){
+			$("#confirm .modal-body").html("Are you sure you want to erase this Customer? ");
+			
+			$("#confirm .modal-footer").html('<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger" data-dismiss="modal" onclick="deleteClient(' + id + ')">Confirm</button>');
+			
+			$("#confirm").modal('toggle');
+			
+			
+		}
+		
+		var clientList = new Array();
+
+		function editClient(id){
+			$("#modalForm input[name=name]").val(clientList[id].name);
+			$("#modalForm input[name=id]").val(id);
+			
+			$("#clientModal").modal('toggle');
+			
+		}
+		
+		function newClient(){
+			$("#modalForm input[name=name]").val("");
+			$("#modalForm input[name=id]").val(-1);
+			
+			$("#clientModal").modal('toggle');
+			
+		}
+		
+		function deleteClient(id){
+			var data = new Object();
+			data.id = id;	
+
+			$.ajax({
+				url : "${client}/delete",
+				dataType : 'json',
+				type : "POST",
+				async : true,
+				data : data,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if (data.status == "success") {
+						$('.modal-background').hide();
+						listClients();
+
+					} else {
+						alert(data.errorMsg);
+					}
+
+				}
+			});
+
+		}
+		
+		function saveClient(){
+			var data = new Object();
+			data.id = $("#modalForm input[name=id]").val();
+			data.name= $("#modalForm input[name=name]").val();
+			
+			$.ajax({
+				url : "${client}/save",
+				dataType : 'json',
+				type : "POST",
+				async : true,
+				data : data,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if (data.status == "success") {
+						$("#clientModal").modal('toggle');
+						$("#status .modal-body").html("Changes saved");
+						$("#status").modal('toggle');
+						listClients();
+
+					} else {
+						alert(data.errorMsg);
+					}
+
+				}
+			});
+			
+		}
+	
+		
+		
+		function searchUsers(){
+			
+			var data = curData;
+			
+			var search = $("#userSearch").val();
+		
+			for (var i = 0; i < data.list.length; i++) {
+				userList[data.list[i].id] = data.list[i];
+				if (data.list[i].enabled) {
+					if(hasString(search,data.list[i].username) || hasString(search,data.list[i].name) || hasString(search,data.list[i].client.name) || hasString(search,data.list[i].type)){
+						data.list[i].hidden = false;
+					}else{
+						data.list[i].hidden = true;
+					}
+					
+
+				}
+			}
+			
+			outputUsers(data);
+			
+		}
+		
+		function deleteUser(id) {
+			
+			
+			var data = new Object();
+			data.id = id;	
+
+			$.ajax({
+				url : "${user}/archive",
+				dataType : 'json',
+				type : "POST",
+				async : true,
+				data : data,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if (data.status == "success") {
+						$('.modal-background').hide();
+						listUsers();
+
+					} else {
+						alert(data.errorMsg);
+					}
+
+				}
+			});
+
+		}
+
+		]]>
+	</script>
+
+
+
+	<div class="container-fluid">
+
+<div id="status" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="Status"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="Status">Status</h4>
+					</div>
+					<div class="modal-body">
+						
+											<jsp:text />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="confirm" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="confirm"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="confirm">Confirm</h4>
+					</div>
+					<div class="modal-body">
+						
+											<jsp:text />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Confirm</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+
+		<div id="clientModal" class="modal fade bs-example-modal-lg"
+			tabindex="-1" role="dialog" aria-labelledby="clientLabel"
+			aria-hidden="true">
+			<form id="modalForm" class="modal-dialog modal-lg" role="form">
+				<div id="clientModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="clientLabel">Customer</h4>
+					</div>
+					<div class="modal-body">
+						
+						<input type="hidden" value="-1" name="id" />
+
+						<div class="form-group">
+						
+							<div class="input-group">
+							  <span class="input-group-addon">Customer Name</span>
+							  <input type="text" name="name" class="form-control" placeholder="Client Name"/>
+							</div>
+						</div>
+						
+						
+					</div>
+					<div class="modal-footer">
+						<div class="alert alert-danger" style="display:none" role="alert">
+						  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"><jsp:text /></span>
+						  <span class="sr-only">Error:</span>
+						  <span class="message"><jsp:text /></span>
+						</div>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" onclick="saveClient()">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
+
+
+		<div id="userModal" class="modal fade bs-example-modal-lg"
+			tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+			aria-hidden="true">
+			<form id="userForm" class="modal-dialog modal-lg" role="form">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="myModalLabel">User</h4>
+					</div>
+					<div class="modal-body">
+						
+						<input type="hidden" value="-1" name="id" />
+						<div class="form-group">
+							 <div class="input-group">
+							 <span class="input-group-addon">@</span>
+							 <input type="text" name="username" class="form-control" placeholder="Email"/>
+							</div>
+						</div>
+						<div class="form-group">
+						
+							<div class="input-group">
+							  <span class="input-group-addon">Full Name</span>
+							  <input type="text" name="name" class="form-control" placeholder="Full Name"/>
+							</div>
+						</div>
+						
+					
+						<div class="form-group">
+						
+							<div class="input-group">
+							  <span class="input-group-addon">User Type</span>
+							  <select name="type" class="form-control">
+							  	<option value="user">Client</option>
+							  	<option value="document">Document Manager</option>
+							  	<option value="admin">Admin</option>
+							  </select>
+							</div>
+						</div>		
+						<div class="form-group">
+						
+							<div class="input-group">
+							  <span class="input-group-addon">Customer</span>
+							  <select name="client" id="clientList" class="form-control">
+							  	<jsp:text />
+							  </select>
+							</div>
+						</div>		
+						
+						
+					</div>
+					<div class="modal-footer">
+						<div class="alert alert-danger" style="display:none" role="alert">
+						  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"><jsp:text /></span>
+						  <span class="sr-only">Error:</span>
+						  <span class="message"><jsp:text /></span>
+						</div>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary" onclick="saveUser()">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
+		<div class="row">
+			<div class="col-lg-2">
+				<jsp:text />
+			</div>
+		
+			<div class="col-lg-8" >
+				<h2 style="margin-right:30px"><a href="${views }/documents">Documentation </a>
+				
+					/ User Admin
+					
+						<div style="display:inline-block;margin-bottom:0;position:relative;left:10px;top:12px;width:400px" class="form-group">
+						
+							<div class="input-group">
+							  <span class="input-group-addon">Search</span>
+							  <input name="search" id="userSearch" onkeyup="searchUsers()" class="form-control" />
+							 
+							</div>
+						</div>	
+				</h2>
+				
+				<h3 style="display: inline-block;margin-right:30px">Users</h3>
+				
+				<button type="button" class="btn btn-primary newUser" onclick="newUser()">
+					<span class="glyphicon glyphicon-plus"> <jsp:text /></span> Create
+				</button>
+				
+				<div style="height:400px;overflow:auto">
+					<table id="user-list" class="table table-hover table-bordered table-responsive">
+						<tr>
+							<th class="text-uppercase">User</th>
+							<th class="text-uppercase">Name</th>
+							<th class="text-uppercase">Customer</th>
+							<th class="text-uppercase">Type</th>
+							
+							<th class="text-uppercase">Actions</th>
+	
+						</tr>
+	
+					</table>
+				</div>
+			</div>
+		
+			<div class="col-lg-2">
+				<jsp:text />
+			</div>
+		
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-lg-2">
+				<jsp:text />
+			</div>
+		
+			<div class="col-lg-8" >
+				<h3 style="display: inline-block;margin-right:30px">Customer</h3>
+				<button type="button" class="btn btn-primary newUser" onclick="newClient()">
+					<span class="glyphicon glyphicon-plus"> <jsp:text /></span> Create
+				</button>
+				<div style="height:400px;overflow:auto">
+					<table id="client-list" class="table table-hover table-bordered table-responsive" >
+						<tr>
+							<th class="text-uppercase">Name</th>
+							<th class="text-uppercase">Actions</th>
+						</tr>
+	
+					</table>
+				</div>
+			</div>
+		
+			<div class="col-lg-2">
+				<jsp:text />
+			</div>
+		
+		</div>
+		
+	</div>
+
+	<!-- 
+
+	<div>
+		<div class="w-container sectioncontent">
+			<h2 style="display: inline-block">Usuarios</h2>
+			<div style="float: right; display: inline-block">
+
+				<input style="margin-right: 15px" type="button" onclick="newUser()"
+					value="Crear Usuario" />
+
+			</div>
+			<ul class="default-list" id="user-list">
+				<li>first</li>
+				<li>second</li>
+			</ul>
+		</div>
+	</div>
+	<div class="modal-background">
+		<div class="modalwindow">
+			<h2>Crear un nuevo usuario</h2>
+			<div class="w-row">
+				<div class="w-col w-col-3">
+					<p>
+						Por favor llena los detalles del nuevo usuario que deseas crear. <br />
+						<br /> <br /> <br /> <br />
+					</p>
+				</div>
+				<div class="w-col w-col-9">
+					<div class="w-form">
+						<form action="${user}/save" id="wf-form-user-creator"
+							name="wf-form-User-Creator" data-name="User Creator">
+							<input type="hidden" name="id" value="-1" /> <label
+								for="username">Username</label> <input class="w-input" id="text"
+								type="text" placeholder="Ingresa el nombre del usuario"
+								name="username" data-name="text" required="required" /> <label
+								for="password">Password</label> <input class="w-input"
+								id="password" type="password"
+								placeholder="Ingresa una contrasena" name="password"
+								data-name="password" /> <label for="name">Nombre
+								Completo del Usuario (Nombre Apellido)</label> <input class="w-input"
+								id="name" type="text"
+								placeholder="Ingresa el nombre completo del usuario" name="name"
+								data-name="name" required="required" /> <label for="dni">DNI
+								(solo necesario para Jefes , Sub Gerentes de Zona y Gerentes)</label> <input
+								class="w-input" id="dni" type="text"
+								placeholder="Ingresa el dni" name="dni" data-name="dni" /> <label
+								for="email">EMAIL (solo necesario para Jefes , Sub
+								Gerentes de Zona y Gerentes)</label> <input class="w-input" id="email"
+								type="text" placeholder="Ingresa el correo electronico"
+								name="email" data-name="email" /> <label for="type">Tipo
+								de Usuario</label> <select class="w-select w-input" id="type"
+								name="type" data-name="type">
+								<option value="surveyor">Encuestador</option>
+								<option value="leader">Jefe de Zona</option>
+								<option value="chief">Sub Gerente</option>
+								<option value="boss">Gerente</option>
+								<option value="analyst">Analista</option>
+								<option value="admin">Administrador</option>
+
+							</select> <input class="w-button savebutton" type="submit" value="Save"
+								data-wait="Por favor espere..." wait="Por favor espere..." /> <input
+								class="w-button cancelbutton" type="button" value="Cancel"
+								data-wait="Por favor espere..." wait="Por favor espere..."
+								onclick="$('.modal-background').hide()" /> <input
+								id="archiveButton" class="w-button cancelbutton" type="button"
+								value="Borrar" data-wait="Por favor espere..."
+								wait="Por favor espere..." onclick="deleteUser()" />
+
+						</form>
+						<div class="w-form-done">
+							<p>Gracias! Agregamos el usuario.</p>
+						</div>
+						<div class="w-form-fail">
+							<p>Oops! Hubo un problema agregando el usuario, porfavor
+								contactarse con support@simply.pe si no es un error de los
+								campos llenados.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	-->
+</div>

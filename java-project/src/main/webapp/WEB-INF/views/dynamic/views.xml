@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<tiles-definitions>
+    <definition extends="default" name="views/main">
+        
+        <put-attribute name="sideMenu" value="/WEB-INF/views/dynamic/sideMenu.jspx" />
+        <put-attribute name="body" value="/WEB-INF/views/dynamic/friends.jspx" />
+    </definition>
+    
+    <definition extends="clean" name="views/clean">
+        <put-attribute name="sideMenu" value="/WEB-INF/views/dynamic/clean-side.jspx" />
+        <put-attribute name="header" value="/WEB-INF/views/clean-header.jspx" />
+    	<put-attribute name="body" value="/WEB-INF/views/dynamic/clean-body.jspx" />
+    </definition>    
+    <definition extends="default" name="views/upload">
+        <put-attribute name="body"
+            value="/WEB-INF/views/dynamic/upload.jspx" />
+    </definition>
+    
+    <definition extends="default" name="views/logs">
+        <put-attribute name="body"
+            value="/WEB-INF/views/dynamic/log.jspx" />
+    </definition>
+    
+    
+    <definition extends="default" name="views/editor">
+        <put-attribute name="body"
+            value="/WEB-INF/views/dynamic/textEditor.jspx" />
+    </definition>
+    
+    <definition extends="default" name="views/imageViewer">
+        <put-attribute name="body"
+            value="/WEB-INF/views/dynamic/imageViewer.jspx" />
+    </definition>
+        
+                                    
+</tiles-definitions>

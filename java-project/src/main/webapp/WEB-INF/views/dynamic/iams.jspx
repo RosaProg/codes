@@ -1,0 +1,824 @@
+<div id="sidebar-wrapper"
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/j_spring_security_logout" var="logout" ></spring:url>
+	<spring:url value="/resources/" var="resources" ></spring:url>
+	<spring:url value="/views/upload" var="uploads" ></spring:url>
+	<spring:url value="/project" var="project" ></spring:url>
+	<spring:url value="/file" var="file" ></spring:url>
+	<spring:url value="/database" var="database" />
+
+	<script>
+	<![CDATA[
+	         
+	     var menuController;
+	      $().ready(function(){
+	    	  
+	    	  menuController = new MenuController();
+	    	  menuController.listProjects(0);
+	    	  menuController.listProjects(0,true);
+	    	  menuController.listDatabases();
+
+	    	  $("#projects,#public-projects").bind("contextmenu",function(e){ e.preventDefault();
+	    	  	e.stopImmediatePropagation();
+	    	  	return false;
+	    	  });
+	    	  $("#projects,#public-projects").mousedown(function(e){ 
+	    		    if( e.button == 2 ) { 
+	    		    	e.stopImmediatePropagation();
+	    		    	e.preventDefault();
+	    		    	menuController.rightClickProject(e);
+	    		        
+	    		      } 
+	    		      
+	    		    }); 
+
+	      });
+         
+
+         
+         function showDatabaseModal(databaseId){
+      	   
+         }
+
+         
+         
+
+         
+
+      	
+
+         
+	
+   		var MenuController = function(){
+   			this.projects = new Array();
+   			this.publicProjects = new Array();
+   			
+   			this.databases = new Array();
+   			
+   			this.textEditors = new Object();
+   			this.textEditorsPublic = new Object();
+   			
+   			this.curDb;
+   			this.curProject = "";
+   			this.curProjectIsPublic= false;
+   			
+   			this.displayingTextEditor = true;
+   			this.displayingConsole = true;
+   			this.displayingSidebar = true;
+   			
+   			this.rightClickType = "";
+   			this.rightClickProjectName = "";
+   			this.rightClickValue = "";
+   			this.rightClickIsPublic = "";
+   			
+   		};
+   		
+   		
+
+   		MenuController.prototype.renameFile = function(event){
+   			
+   			var self = this;
+   			var title;
+   			var value;
+   			var msg = "What is the new name for the ";
+   			if(this.rightClickType == "project"){
+   				msg += "project " + this.rightClickProjectName ;
+   				value = this.rightClickProjectName;
+   				title = "Rename project";
+   			}else if (this.rightClickType == "file"){
+   				msg += "file " + this.rightClickValue;
+   				value = this.rightClickValue;
+   				if(this.rightClickProjectName != ""){
+   					msg += " in the project " + this.rightClickProjectName;
+   				}
+   				title = "Rename file";
+   				
+   			}
+   			msg += "?";
+
+   			bootbox.prompt({ 
+   			    title:title,
+   			    value:value,
+   				size: 'small',
+   			    message: msg, 
+   			    callback: function(result){ 
+   			    	self.completeRename(result);
+   			    }
+   			})
+   		}
+
+   		MenuController.prototype.completeRename = function(result){
+   			var data = new Object();
+   			data.project = this.rightClickProjectName;
+   			data.isPublic = this.rightClickIsPublic;
+   			if(this.rightClickType == "project"){
+   				data.newProject = result;
+   				data.newName = "";
+   				data.name = "";
+   			}else{
+   				data.newProject = this.rightClickProjectName;
+   				data.project = this.rightClickProjectName;
+   	   			data.newName = result;
+   	   			data.name = this.rightClickValue;
+   			}
+   			
+
+   			
+   			var self = menuController;
+   			var proj = self.curProject;
+   			if((this.rightClickProjectName == self.curProject)&&(this.rightClickValue == "")){
+   				if(this.projects.length > 1){
+   					if(self.projects.indexOf(self.rightClickProjectName) > 1){
+   						if(this.rightClickIsPublic){
+   							proj = this.publicProjects[self.publicProjects.indexOf(self.rightClickProjectName) - 1];
+   						}else{
+   							proj = this.projects[self.projects.indexOf(self.rightClickProjectName) - 1];	
+   						}
+   						
+   					}else{
+						if(this.rightClickIsPublic){
+	   						proj = this.publicProjects[self.publicProjects.indexOf(self.rightClickProjectName) + 1];   						
+   						}else{
+   	   						proj = this.projects[self.projects.indexOf(self.rightClickProjectName) + 1];   						   							
+   						}
+
+   					}
+   				}else{
+   					proj = "";
+   				}
+   			}
+   			newName = result;
+   			name = this.rightClickValue;
+   			type = this.rightClickType;
+   			if(type =="file"){
+   				newProj = this.rightClickProjectName;
+   	   				
+   			}else{
+   				newProj = result;
+   			}
+   			var isPublic = this.rightClickIsPublic;
+			$.ajax({
+				url :'${file}/rename',
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						var scrollTop = $(".sidebar-nav").scrollTop();
+						if((type == "file")&&(proj != "")){
+							if(isPublic){
+								self.textEditorsPublic[proj].closeFile(name);
+								self.textEditorsPublic[proj].openFile(newName);
+							}else{
+								self.textEditors[proj].closeFile(name);
+								self.textEditors[proj].openFile(newName);	
+							}
+							
+							self.showProjectFiles(proj,isPublic);							
+						}else if((type == "project")||(proj == "")||(newProj ="")){
+							
+							self.listProjects(scrollTop,isPublic);
+							self.selectProject(newName,self.rightClickIsPublic);	
+
+						}
+						
+							
+					}else{
+						showStatus(data.errorMsg);
+					}
+
+				}
+			});	 
+   		}
+   		
+   		
+   		MenuController.prototype.deleteFile = function(event){
+   			
+   			var self = this;
+   			var msg = "Are you sure you want to delete the ";
+   			if(this.rightClickType == "project"){
+   				msg += "project " + this.rightClickProjectName;
+   			}else if (this.rightClickType == "file"){
+   				msg += "file " + this.rightClickValue;
+   				if(this.rightClickProjectName != ""){
+   					msg += " in the project " + this.rightClickProjectName;
+   				}
+   			}
+   			msg += "?";
+   			
+   			bootbox.confirm({ 
+   			    size: 'small',
+   			    message: msg, 
+   			    callback: function(result){ 
+   			    	
+   			    	if(result){
+   			    		self.completeDelete();
+   			    	}
+   			    }
+   			})
+   		}
+   		
+   		MenuController.prototype.completeDelete = function(){
+   			var data = new Object();
+   			data.project = this.rightClickProjectName;
+   			data.name = this.rightClickValue;
+   			data.isPublic = this.rightClickIsPublic;
+   			isPublic = data.isPublic;
+   			var self = menuController;
+   			var proj = self.curProject;
+   			if((this.rightClickProjectName == self.curProject)&&(this.rightClickValue == "")){
+   				if(this.projects.length > 1){
+   					if(self.projects.indexOf(self.rightClickProjectName) > 1){
+   						proj = this.projects[self.projects.indexOf(self.rightClickProjectName) - 1];
+   					}else{
+   						proj = this.projects[self.projects.indexOf(self.rightClickProjectName) + 1];   						
+   					}
+   				}else{
+   					proj = "";
+   				}
+   			}
+   			name = this.rightClickValue;
+   			type = this.rightClickType;
+   		 $.ajax({
+				url :'${file}/delete',
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					//most errorys are due to logout
+					//location.reload();
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+						var scrollTop = $(".sidebar-nav").scrollTop();
+						if((type == "file")&&(proj != "")){
+							if(isPublic){
+								self.textEditorsPublic[proj].closeFile(name);
+								
+							}else{
+								self.textEditors[proj].closeFile(name);
+								
+							}
+							self.showProjectFiles(proj,isPublic);	
+						}else{
+							self.listProjects(scrollTop,isPublic);							
+						}
+						if(type == "project"){
+
+							self.selectProject(proj,self.rightClickIsPublic);							
+						}
+							
+					}else{
+						showStatus(data.errorMsg);
+					}
+
+				}
+			});	 
+   		}
+   		
+   		MenuController.prototype.rightClickProject = function(event){
+   			this.rightClickType = $(event.target).closest("li").attr("Type");
+				this.rightClickIsPublic = $(event.target).closest("li").attr("isPublic");
+   			if(typeof this.rightClickType == "undefined"){
+   				return;
+   			}
+
+   			this.rightClickIsPublic = $(event.target).closest("li").attr("isPublic");
+   			$(event.target).closest("li").addClass("right-clicked");
+   			if(this.rightClickType == "file"){
+   				if($(event.target).closest("li").attr("projectName") != ""){
+   					this.rightClickProjectName = $(event.target).closest("li").attr("projectName");
+   				}else{
+   					this.rightClickProjectName = "";
+   				}		
+   				this.rightClickValue = $(event.target).closest("li").attr("fileName");
+   				$("#file-context-menu").css("top",event.clientY+5);
+   	   			$("#file-context-menu").css("left",event.clientX+5);
+   	   			$("#file-context-menu").show();
+   			
+   			}else{
+   				//its a project
+   				this.rightClickValue = "";
+   				this.rightClickProjectName = $(event.target).closest("li").attr("projectName");
+   				$("#project-context-menu").css("top",event.clientY+5);
+   	   			$("#project-context-menu").css("left",event.clientX+5);
+   	   			$("#project-context-menu").show();
+   			
+   			}
+   			
+
+   			
+   			
+
+   			$(document).click(clickAfterOpenContextMenu);
+   			
+   		}
+        
+   		function clickAfterOpenContextMenu(event){
+	   			$(".sidebar-nav .list-group-item").removeClass("right-clicked");
+					$("#project-context-menu").hide();
+					$("#file-context-menu").hide();
+					
+					$(document).unbind("click",clickAfterOpenContextMenu);			
+								
+			}
+   		
+        MenuController.prototype.selectProject = function(name){
+        	if(name == ""){
+        		return;
+        	}
+         	if(this.curProject == name){
+        		return;
+        	}
+			var isPublic = $(event.target).closest("li").attr("isPublic") == "true";
+			this. curProjectIsPublic = isPublic;
+    		var self = this;
+    		self.curProject = name;
+        	 var count = 0;
+        	 var curAddition = 40;
+        	 $("#pane-container").css("overflow-y","hidden");
+        	 $("#page-content-wrapper").css("overflow-y","hidden");
+			//    $("#project-circle").css("opacity",1.0);        	 
+			    
+	        	 if(typeof self.textEditors[name] == "undefined")
+ 	        	 {
+	        		 if(isPublic){
+	        			 self.textEditorsPublic[name] = new TextEditor("#wrapper","editorController",name);
+	        		 }else{
+	        			 self.textEditors[name] = new TextEditor("#wrapper","editorController",name);	 
+	        		 }
+ 	        		 
+ 	        	 }
+ 	        	 if(typeof editorController != "undefined"){
+ 	        		 if(isPublic){
+ 	        			editorController.passControl(self.textEditorsPublic[name]);
+ 	   	        	 editorController = self.textEditorsPublic[name]; 
+ 	        		 }else{
+ 	        			editorController.passControl(self.textEditors[name]);
+ 	   	        	 editorController = self.textEditors[name]; 	 	            	 	 
+ 	        		 }
+ 	        		 	 
+ 	        	 }else{
+ 	        		if(isPublic){
+ 	        			editorController = self.textEditorsPublic[name];
+ 	        		}else{
+ 	        			editorController = self.textEditors[name];	
+ 	        		}
+ 	        		 
+ 	        	 }
+
+ 	        	$('#projects > .list-group-item').removeClass("active");
+ 	        	$('#public-projects > .list-group-item').removeClass("active");
+  	    	    
+ 	        	$('#' +((isPublic) ? 'public-projects' : 'projects') + ' > .list-group-item[projectName="' + name + '"]').addClass("active");
+  	        	 
+  	        	 consoleController.runCommand("r",true,false,isPublic);
+  	        	 consoleController.runCommand("python",true,false,isPublic);
+  			    $("#pane-container").css("overflow-y","auto");
+ 	        	 
+ 	        	 
+  	        	$("#page-content-wrapper").css("overflow-y","auto");
+        /*	 var interval =window.setInterval(function(){
+     			if((count % 3) == 0){
+     			     curAddition +=4;   
+     			    }
+     			    count++;
+     			    $("#project-circle, #project-circle-container").css("width","+=" + curAddition);
+     			    $("#project-circle, #project-circle-container").css("height","+=" + curAddition);
+     				if(Number($("#project-circle").width()) > (2.5*Number($("#pane-container").width()))){
+     			   	window.clearInterval(interval);
+     			   	
+     
+     	        	
+    	        	 
+
+
+     			   	$("#project-circle").animate({
+     			   		opacity:0.0
+     			   	},75,function(){
+     			   		
+     			   		
+     			   	$("#project-circle, #project-circle-container").css("width",0);
+     			    $("#project-circle, #project-circle-container").css("height",0);	
+     
+     			   
+     			   	})
+     			   	
+     	        	 
+
+     	        	 
+     				}
+	
+        	 },10);*/
+	 
+   
+         };
+        
+
+
+         
+         
+         
+         MenuController.prototype.renderProjects = function(list,scrollTop,isPublic){
+
+        	   if(typeof isPublic == "undefined"){
+        		   isPublic = false;
+        	   }
+        	   if(isPublic ){
+        		   projectList = "#public-projects";
+        	   }else{
+        		   projectList = "#projects";
+        	   }
+        	   $(projectList).empty();
+        	   for(var i in list){
+      			var project = list[i];
+      		    
+      			//var menu = '<a href="" onclick="$(\'files_' + project.fileName +'\').toggle()" class=" filterdrop blackText" ><span class="glyphicon glyphicon-menu-down" aria-hidden="true"><jsp:text /></span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"><jsp:text /></span> </a>';
+ 				var menu = '<ul id="files_' + project.fileName +'" style="padding-left:0px;"></ul>';
+				var isPublicString;
+				if(project.isPublic){
+					isPublicString = 'isPublic="true"';
+				}else{
+					isPublicString = 'isPublic="false"';
+				}
+				
+      			if(project.isFolder){
+      				
+          			$(projectList).append('<li ' + isPublicString + ' class="list-group-item blacktext" Type="project" onclick="menuController.selectProject(\'' + project.fileName + '\',' + ((project.isPublic) ? true : false) + ')" projectName="' + project.fileName + '" ><span class="glyphicon glyphicon-menu-right" aria-hidden="true" onclick="menuController.showProjectFiles(\'' + project.fileName + '\',' + ((project.isPublic) ? 'true' : 'false') + ')"><jsp:text /></span> <span class="glyphicon glyphicon-menu-down" aria-hidden="true" onclick="menuController.hideProjectFiles(\'' + project.fileName + '\')"><jsp:text /></span><span><i class="fa fa-folder" ></i><i class="fa fa-folder-open" ></i>' + project.fileName +'</span>' + menu + '</li>');				      				
+      			}else{
+          			$(projectList).append('<li ' + isPublicString + ' onclick="editorController.openFile(\'' +project.fileName + '\',true)" class="list-group-item blacktext" Type="file" fileName="' + project.fileName + '" fileId="' + project.fileName.replaceAll(".","_").replaceAll("/","_") + '" projectName="" ><span><i class="fa fa-sticky-note" ></i>' + project.fileName +'</span> </li>');				
+
+      			}
+
+      		}
+      		
+      		if(typeof scrollTop != "undefined"){
+      			$(".sidebar-nav").scrollTop(scrollTop);
+      		}
+         };
+        
+        MenuController.prototype.saveProject = function (name){
+       	 var data = new Object();
+       	 data.name = name;
+       	 isPublic = isCreatePublic;
+       	 data.isPublic = isCreatePublic;
+       	 var self = this;
+       	 $.ajax({
+					url :'${project}/create',
+					dataType : 'json',
+					type : "POST",
+					data:data,
+					async : true,
+					error : function(e) {
+						//most errorys are due to logout
+						//location.reload();
+						console.error(e);
+					},
+					success : function(data) {
+						if(data.status == "success"){
+							if(isPublic){
+								self.listProjects(0,true);
+								self.selectProject(name,isPublic);								
+							}else{
+								self.listProjects(0,false);
+								self.selectProject(name,isPublic);
+							}
+							
+						}else{
+							showStatus(data.errorMsg);
+						}
+
+					}
+				});	 
+        };
+   		
+        var isCreatePublic = false;
+   		MenuController.prototype.createProject = function (isPbulic){
+        	if(typeof isPublic != "undefined"){
+        		isCreatePublic = isPublic;
+        	}else{
+        		isCreatePublic = false;
+        	}
+   			$("#create-modal").find(".create-new-text-editor-button").unbind("click");
+        	var self = this;
+			$("#create-modal").find(".create-new-text-editor-button").on("click",function(){ self.saveProject($("#create-file-name").val())});
+			$("#create-modal").find(".modal-title").html("Create Project");
+			$("#create-modal").modal('show');
+         };
+   			
+   		
+   		
+   		MenuController.prototype.listProjects = function(scrollTop,publicProject){
+			var data = new Object();
+			var self = this;
+			if(typeof publicProject === "undefined"){
+				publicProject = false;
+			}
+			if(publicProject){
+				$("#public-projects").empty();
+	       	 	
+			}else{
+				$("#projects").empty();
+	       	 	
+			}
+			data.isPublic = publicProject;
+	       	 data.isDirectory = true;
+	       	 $.ajax({
+					url :'${file}/list',
+					dataType : 'json',
+					type : "POST",
+					data:data,
+					async : true,
+					error : function(e) {
+						//most errorys are due to logout
+						//location.reload();
+						console.error(e);
+					},
+					success : function(data) {
+						if(data.status == "success"){
+							
+							self.renderProjects(data.list,scrollTop,publicProject);	
+							
+											
+						}else{
+							showStatus(data.errorMsg);
+						}
+	
+					}
+				});	 
+        };
+   		
+   		
+   		MenuController.prototype.saveDatabase =  function(name,id){
+	       	   var data = new Object();
+	   		  data.name = name;
+	   		  data.id = id;
+	   		var self = this;
+	   		  
+	   		   $.ajax({
+	   				url : "${database}/save",
+	   				dataType : 'json',
+	   				type : "POST",
+	   				data:data,
+	   				async : true,
+	   				error : function(e) {
+	   					//most errorys are due to logout
+	   					//location.reload();
+	   					console.error(e);
+	   				},
+	   				success : function(data) {
+	   					if(data.status == "success"){
+	   						self.listDatabases();
+	   						hideStatus("Your database was added");
+	   						
+	   					}else{
+	   						showStatus(data.errorMsg);
+	   					}
+	   				}
+	   			});	   
+	      };
+   		
+		MenuController.prototype.renderDatabases =  function(list){
+	      	   $("#databases").empty();
+	      	   
+	      	   
+	      		for(var i in list){
+	      			var database = list[i];
+	      			if(database.owned){
+	      				
+	      				var menu = '';
+	      				
+	      			}else{
+	      				var menu = '';
+//	      				var menu = ' <button type="button" class="btn btn-default" aria-label="Delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>';
+
+	      			}
+	      			
+	      		    
+	      		    
+	      			$("#databases").append('<li class="list-group-item blacktext" onclick="menuController.selectDatabase(' +database.id + ')" dbId="' + database.id + '"><i class="fa fa-sticky-note"></i>' + database.name + (database.owned ? "" : " - " + database.user.username) + menu + '</li>');				
+	      			
+
+	      		}
+	         };
+	         
+		MenuController.prototype.editDatabase = function(name,id){
+      		$("#database-name").val(name);
+      		$("#database-id").val(id);
+      		$('#database-modal').modal('show');
+      		
+      	};
+      	
+      	MenuController.prototype.selectDatabase =    function(dbId){
+     	   menuController.curDb = menuController.databases[dbId];
+    	   $("#databases .list-group-item").removeClass("active");
+    	   $("#databases .list-group-item[dbId='" + dbId + "']").addClass("active");
+    	   var msg = "using "
+    	   if(! menuController.curDb.owned){
+    		   msg += menuController.curDb.user.username + " ";
+    	   }
+    	   
+    	   msg += menuController.curDb.name;
+    	   showStatus(msg);
+    	   
+       };
+	      
+   		MenuController.prototype.listDatabases = function(){
+       	   var self = this;
+       	   $.ajax({
+       			url : "${database}/list",
+       			dataType : 'json',
+       			type : "POST",
+       			async : true,
+       			error : function(e) {
+       				//most errorys are due to logout
+       				//location.reload();
+       				console.error(e);
+       			},
+       			success : function(data) {
+       				if(data.status == "success"){
+       					self.databases = new Object();
+       					
+       					for(var i in data.list){
+       						var db = data.list[i];
+       						self.databases[db.id] = db;
+       					}
+
+       					
+       					self.renderDatabases(data.list);
+       					if(showingAddUser){
+       						showAddUserToDb(self.curDb.id);
+       					}					
+       				}else{
+       					showStatus(data.errorMsg);
+       				}
+       			}
+       		});
+          };
+   		
+          MenuController.prototype.hideProjectFiles = function(name){
+        	  event.preventDefault();
+        	  event.stopPropagation();
+        	  
+        		$('#files_' + name).hide();
+        		$("#projects .list-group-item[projectName='" + name + "']").removeClass('project-expanded');
+        		$("#public-projects .list-group-item[projectName='" + name + "']").removeClass('project-expanded');
+          }
+          
+          MenuController.prototype.showProjectFiles = function(name,isPublic){
+        	  event.preventDefault();
+        	  event.stopPropagation();
+        	  var data = new Object();
+				data.project = name;
+				data.isPublic = isPublic;
+				var self = this;
+				var proj = name;
+				$('#files_' + name).show();
+		    	
+				$("#files_" + proj).empty();
+				$.ajax({
+					url :'${file}/list',
+					dataType : 'json',
+					type : "POST",
+					data:data,
+					async : true,
+					error : function(e) {
+						//most errorys are due to logout
+						//location.reload();
+						console.error(e);
+					},
+					success : function(data) {
+						if(data.status == "success"){
+							var htmlString = "";
+							for(var ind in data.list){
+								if(ind != 'length'){
+									var file = data.list[ind];
+									if(file.isPublic){
+										isPublicString = 'isPublic="true"';
+									}else{
+										isPublicString = 'isPublic="false"';
+									}
+									$("#files_" + proj).append('<li ' + isPublicString +  ' projectName="' + proj + '" class="file-link list-group-item blacktext" Type="file" onclick="event.preventDefault();menuController.selectProject(\'' + name + '\',' + ((file.isPublic) ? true : false) + ');editorController.openFile(\'' +file.fileName + '\')" fileId="' + file.fileName.replaceAll(".","_").replaceAll("/","_") + '" fileName="' + file.fileName + '"><i class="fa fa-sticky-note"></i>' + file.fileName + '</li>');				
+					      			
+									
+								}
+								
+								
+							}			
+							if(isPublic){
+								$("#public-projects .list-group-item[projectName='" + name + "']").addClass('project-expanded');
+							}else{
+								$("#projects .list-group-item[projectName='" + name + "']").addClass('project-expanded');	
+							}
+			        		
+						}else{
+							showStatus(data.errorMsg);
+						}
+					}
+				});	 	
+          }
+          
+          MenuController.prototype.openList = function(list){
+         	   
+         	   if($('#' + list).hasClass("active")){
+         		   $('#' + list).hide();
+         		   $($("#" + list).parent().children()[0]).find(".glyphicon-menu-down").hide();
+         		 $($("#" + list).parent().children()[0]).find(".glyphicon-menu-right").show();
+       		   
+         		   $('#' + list).removeClass("active");
+         	   }
+         	   else{
+           		 $('#' + list).show();
+           		   $($("#" + list).parent().children()[0]).find(".glyphicon-menu-down").show();
+               		 $($("#" + list).parent().children()[0]).find(".glyphicon-menu-right").hide();
+
+         		   $('#' + list).addClass("active");   
+         	   }
+         	   
+         	   
+         	   
+            };
+            
+          
+         ]]>
+	</script>
+	<div>
+		<a href="javascript:void(0)" class="btn btn-default" onclick="toggleSideBar()" id="menu-toggle"><i class="fa fa-angle-double-left" ><jsp:text /></i><i class="fa fa-angle-double-right" ><jsp:text /></i></a>
+			</div>
+	<ul class="sidebar-nav">	
+		
+				<li >
+					<a href="javascript:void(0)" onclick="menuController.openList('projects')" class=" filterdrop blackText" ><span class="glyphicon glyphicon-menu-down" aria-hidden="true"><jsp:text /></span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"><jsp:text /></span>  Environments </a>
+					<ul id="projects" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	            </li>
+	            <li >
+					<a href="javascript:void(0)" onclick="menuController.openList('public-projects')" class=" filterdrop blackText" ><span class="glyphicon glyphicon-menu-down" aria-hidden="true"><jsp:text /></span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"><jsp:text /></span> Public Environments </a>
+					<ul id="public-projects" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	            </li>
+				<li >
+					<a href="javascript:void(0)" onclick="menuController.openList('databases')" class=" filterdrop blackText"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"><jsp:text /></span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"><jsp:text /></span> Databases</a>
+					<ul id="databases" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	            </li>
+	           <!-- <li >
+					<a href="javascript:void(0)" onclick="menuController.openList('files')" class=" filterdrop blackText"><span class="glyphicon glyphicon-menu-down" aria-hidden="true"><jsp:text /></span> <span class="glyphicon glyphicon-menu-right" aria-hidden="true"><jsp:text /></span> Files</a>
+					<ul id="files" style="padding-left:0px;">
+						<jsp:text />
+					</ul>
+					
+	            </li>-->
+           
+		
+	</ul>
+	<img id="thick-logo" src="${resources}images/logo-wide.png" />
+		<img id="thin-logo" src="${resources}images/logo-thin.png" />
+        <!-- /#sidebar-wrapper -->
+        
+        
+        <!-- Modals -->
+
+	
+		<div id="project-context-menu" class="-context-menu">
+			<div class="list-group">
+			  <button type="button" class="list-group-item" onclick="menuController.renameFile(event)">Rename</button>
+			  <button type="button" class="list-group-item" onclick="menuController.deleteFile(event)">Delete</button>
+			  <button type="button" class="list-group-item" onclick="menuController.createProject()">New Project</button>
+
+			</div>
+		</div>
+	
+		<div id="file-context-menu" class="-context-menu">
+			<div class="list-group">
+			  <button type="button" class="list-group-item project-selected-btn" onclick="menuController.renameFile(event)">Rename</button>
+			  <button type="button" class="list-group-item project-selected-btn" onclick="menuController.deleteFile(event)">Delete</button>
+			  <button type="button" class="list-group-item" onclick="editorController.addNew()">New File</button>
+
+			</div>
+		</div>
+	
+				
+</div>
+
+

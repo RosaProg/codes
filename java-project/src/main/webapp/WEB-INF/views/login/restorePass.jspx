@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<div 
+	xmlns:jsp="http://java.sun.com/JSP/Page"
+	xmlns:c="http://java.sun.com/jsp/jstl/core" 
+	xmlns:joda="http://www.joda.org/joda/time/tags"
+	xmlns:sec="http://www.springframework.org/security/tags"
+	xmlns:spring="http://www.springframework.org/tags" id="login">
+
+	<title> GPU Database</title>
+	
+	<jsp:directive.page contentType="text/html;charset=UTF-8"/> 
+	<jsp:output omit-xml-declaration="yes"/>
+	
+	<spring:url value="/views/main" var="main" />
+	<spring:url value="/resources/" var="resources" />
+		<spring:url value="/user" var="user" />
+	<spring:url var="loginUrl" value="/j_spring_security_check" />
+	<spring:url var="register" value="/register" /> 
+	
+	<spring:url var="registrationUrl" value="/user/save" />
+	
+	<style>
+#wrapper {
+	padding-left: 0px;
+}
+
+html,body{
+height:100%;
+width:100%;
+background-color:#303030;
+}
+</style>
+
+ <script>
+
+
+	function forgotPassword(){
+		var data = new Object();
+		data.email = $("#username").val();
+		
+		$.ajax({
+			url : "${user}/forgotPassword",
+			dataType : 'json',
+			type : "POST",
+			data:data,
+			async : true,
+			error : function(e) {
+				console.error(e);
+			},
+			success : function(data) {
+				if(data.status == "success"){
+				 	  $("#status .modal-body").html("Email sent with instructions.");
+			    	  $("#status").modal('toggle');
+				
+				}else{
+				 	  $("#status .modal-body").html(data.errorMsg + " Please make sure you input your username into the username field in the login form.");
+			    	  $("#status").modal('toggle');
+					
+				}	
+			}
+		});
+		
+	}
+
+			   
+</script>
+		<div id="status" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="Status"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="Status">Status</h4>
+					</div>
+					<div class="modal-body">
+						
+											<jsp:text />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+
+ 	<div class="container">
+	 	<div class="row">
+	 		<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4" >
+	 				<div class="row" style="padding: 270px 0px 0px 0px;">
+						<h3 style="color:white; padding-left:16px;">Restore your password</h3>
+						<p style="color:white; padding-left:16px;">We'll send you an email so you can reset your password.</p>
+					</div>
+					
+					<hr style="color: white; padding:8px 0px 0px 0px; margin: 10px 0px 10px 0px" />
+							
+				 	<div id="registerForm" name="registerForm">
+				 		<p style="color:white;">Enter your email</p>
+						<div class="control-label" style="margin-bottom: 15px;">
+							  <input id="username" name="j_username" type="text" class="form-control" value="" placeholder="Write here..." />                                        
+						</div>
+							<input onclick="forgotPassword()" id="username" type="submit" name="submit" value="Send" class="btn btn-primary btn-block" style="background-color:#0DC6B0; padding: 7px 0px 7px 0px;"/>
+					</div>
+					
+					<div class="row text-center" style="padding: 350px 0px 10px 0px">
+						<p style="color:white;">©2015-2016 DB</p>
+					</div>	
+							
+	 		</div>
+	 	</div>
+ 	</div>
+ 
+ 
+ 
+
+</div>

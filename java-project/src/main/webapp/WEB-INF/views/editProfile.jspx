@@ -1,0 +1,199 @@
+<div
+	 xmlns:jsp="http://java.sun.com/JSP/Page" 
+	 xmlns:spring="http://www.springframework.org/tags" 
+	 xmlns:sec="http://www.springframework.org/security/tags"
+	 version="2.0">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" /> 
+	<jsp:output omit-xml-declaration="yes" />
+
+	<spring:url value="/j_spring_security_logout" var="logout" ></spring:url>
+	<spring:url value="/resources/" var="resources" ></spring:url>
+
+	<spring:url value="/views/upload" var="uploads" ></spring:url>
+	<spring:url value="/user/edit" var="editProfile" ></spring:url>
+	<spring:url value="/user/newPassword" var="userPassword" ></spring:url>
+	<script>
+	<![CDATA[
+		function newPassword(){
+			if($("#newpassword").val() != $("#newpassword2").val()){
+			 	  $("#password-alert").show();
+				return;
+			}
+			$("#password-alert").hide();
+			var data = new Object();
+			data.newPass = $("#newpassword").val();
+			data.oldPass = $("#password").val();
+			$.ajax({
+				url : "${userPassword}",
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+					 	  $("#password-success").show();
+					}else{
+					 	  $("#status .modal-body").html("We could not save your changes.");
+				    	  $("#status").modal('toggle');
+						
+					}	
+				}
+			});
+			
+		}
+		
+		function editProfile(){
+			var data = new Object();
+			data.name = $("#name").val();
+			
+			$.ajax({
+				url : "${editProfile}",
+				dataType : 'json',
+				type : "POST",
+				data:data,
+				async : true,
+				error : function(e) {
+					console.error(e);
+				},
+				success : function(data) {
+					if(data.status == "success"){
+					 	  $("#status .modal-body").html("Your user was saved.");
+				    	  $("#status").modal('toggle');
+							$("#full-name-drop").html($("#name").val());
+					}else{
+					 	  $("#status .modal-body").html("We could not save your changes.");
+				    	  $("#status").modal('toggle');
+						
+					}	
+				}
+			});
+			
+		}
+	         
+	         
+	         
+	 $().ready(function(){
+	 	$('.top-nav-bar > li:lt(6)').hide();
+	 	$(' #wrapper') .css('padding-left',0);
+	 });
+	]]>
+	
+	
+	
+	</script>
+
+	<div id="status" class="modal fade"
+			tabindex="-1" role="dialog" aria-labelledby="Status"
+			aria-hidden="true">
+			<div class="modal-dialog modal-md">
+				<div id="userModal-content" class="modal-content">
+					<div class="modal-header">
+						
+						<h4 class="modal-title" id="Status">Status</h4>
+					</div>
+					<div class="modal-body">
+						
+											<jsp:text />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	
+	<div id="changePass" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="Status" aria-hidden="true">
+					<div class="modal-dialog modal-md" style="width:370px">
+						<div id="userModal-content" class="modal-content">
+							<div class="modal-header" style="margin: 5px 15px 5px 15px">
+								<p class="modal-title" style="color:#EA5053; font-size:16px">Change Password</p>
+							</div>
+							<div class="modal-body" style="margin: 0px 15px 0px 15px">
+								<p style="color:#363636;">Change or retrieves your current password.</p>
+								<div id="registerForm" name="registerForm" action="${registrationUrl}" method="post">
+									<p style="color:#0DC6B0; margin-bottom:3px;">Current Password</p>	
+									<div style="margin-bottom: 10px" class="control-label">
+							    		<input id="password" type="password" class="form-control" name="password" placeholder="Password" style="background-color:#F3F3F3"/>                                        
+									</div>
+									
+									<p style="color:#363636; margin-bottom:3px;">New Password</p>
+									<div style="margin-bottom: 10px" class="control-label">
+							  			<input id="newpassword" type="password" class="form-control" name="password" placeholder="Password" style="background-color:#F3F3F3"/>
+									</div>
+									
+							 		<p style="color:#363636; margin-bottom:3px;">Confirm Password</p>
+							 		<div style="margin-bottom: 15px" class="control-label">
+							    		<input id="newpassword2" type="password" class="form-control"  placeholder="Confirm password" style="background-color:#F3F3F3"/>
+									</div>
+								</div>
+								<div class="alert alert-danger" style="display:none" id="password-alert">
+								  Your new passwords don't match.
+								</div>
+								<div class="alert alert-success" style="display:none" id="password-success">
+								  Your password was saved.
+								</div>
+							</div>
+							<div class="modal-footer" style="margin: 0px 15px 0px 15px" >
+								<button onclick="newPassword()" type="submit" name="submit" class="btn btn-primary btn-block btn-pass" style="width:125px; display:inline-block;">Save changes</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>	
+							</div>
+						</div>
+					</div>
+				</div>
+	
+	<div class="container">
+	 	<div class="row">
+	 		<div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-3 col-lg-4 col-lg-offset-4" >
+	 			<div class="row" style="padding: 180px 0px 0px 0px;">
+					<h3 style="color:#EA5053; padding-left:16px;">Edit Profile</h3>
+					<p style="color:#363636; padding-left:16px;">Keep updated your profile information.</p>
+				</div>
+					
+				<hr style="color: white; padding:8px 0px 0px 0px; margin: 10px 0px 10px 0px" />
+							
+				<div id="registerForm" name="registerForm" >
+							
+							<div id="username-alert" class="alert alert-danger" role="alert" style="display:none"><jsp:text /></div>	
+							
+							<p style="color:#363636; margin-bottom:3px;">Full Name</p>
+							<div style="margin-bottom: 10px" class="control-label">
+							    <input id="name" type="text" class="form-control" name="j_name" value="${fullName}"  style="background-color:#F3F3F3"/>                                     
+							</div>
+							
+							<p style="color:#363636; margin-bottom:3px;">Email</p>
+							<div style="margin-bottom: 2px;" class="control-label">
+							    <input id="username" type="text" class="form-control" name="username" value="${email }" readonly="readonly" style="background-color:#F3F3F3"/>                                        
+							</div>
+							<p style="color:#878787; font-size: 12.5px; margin-bottom:10px;">This section is not editable.</p>
+							<!-- 
+							<p style="color:#363636; margin-bottom:3px;">City/Town</p>	
+							<div style="margin-bottom: 10px" class="control-label">
+							    <input id="city" type="text" class="form-control" name="name" value="" placeholder="Write here..." style="background-color:#F3F3F3"/>                                        
+							</div>
+							-->
+							<p style="color:#363636; margin-bottom:3px;">Password</p>	
+							<div style="margin-bottom: 17px" class="control-label">
+							    <input data-toggle="modal" onclick="$('#password-success').hide();" data-target="#changePass" type="submit" name="submit" value="Change Password" class="btn btn-primary btn-block btn-profile1"/>                                       
+							</div>
+				 			
+				 			<input onclick="editProfile()" type="submit" name="submit" value="Save changes" class="btn btn-primary btn-profile2" style="width:125px; display:inline-block;"/>
+				 			<input value="Cancel" class="btn btn-profile3" style="width:100px; display:inline-block; margin-top:0px; margin-left:5px;"/>
+				 		
+				 			
+				</div>
+					
+				<div class="row text-center" style="padding: 250px 0px 10px 0px">
+					<p style="color:#363636;">©2015-2016 DB</p>
+				</div>	
+							
+	 		</div>
+	 	</div>
+ 	</div>
+
+
+</div>
+
