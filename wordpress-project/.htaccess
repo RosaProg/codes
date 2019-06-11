@@ -1,0 +1,53 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+<FilesMatch "^(xmlrpc\.php|wp-trackback\.php)">
+Order Deny,Allow
+Deny from all
+#Allow from x.x.x.
+</FilesMatch>
+AddEncoding x-compress .Z
+AddEncoding x-gzip .gz .tgz
+# cache images/pdf/swf docs durante 10 dias
+<FilesMatch "\.(ico|pdf|jpg|jpeg|png|gif|swf|css|js)$">
+  Header set Cache-Control "max-age=864000, public, must-revalidate"
+  Header unset Last-Modified
+</FilesMatch>
+<IfModule mod_expires.c>
+ExpiresActive On
+ExpiresByType image/jpg "access plus 1 year"
+ExpiresByType image/jpeg "access plus 1 year"
+ExpiresByType image/gif "access plus 1 year"
+ExpiresByType image/png "access plus 1 year"
+ExpiresByType text/css "access plus 1 month"
+ExpiresByType application/pdf "access plus 1 month"
+ExpiresByType text/x-javascript "access plus 1 month"
+ExpiresByType application/x-shockwave-flash "access plus 1 month"
+ExpiresByType image/x-icon "access plus 1 year"
+ExpiresDefault "access plus 2 days"
+</IfModule>
+Redirect 301 /tag-decoracion-e-interiorismo  /tag/decoracion-e-interiorismo/
+Redirect 301 /tag-muebles-de-diseno  /tag/muebles-de-diseno/
+Redirect 301 /tag-arquitectura-de-vanguardia  /tag/arquitectura-y-construccion/
+Redirect 301 /tag-iluminacion-de-led  /tag/iluminacion-led/
+Redirect 301 /tag-iluminacion-decorativa  /tag/iluminacion-decorativa/
+Redirect 301 /tag-productos-de-decoracion  /tag/productos-de-decoracion/
+Redirect 301 /tag-equipamiento-corporativo  /tag/equipamento-corporativo/
+Redirect 301 /tag-controles-automaticos  /tag/controles-automaticos/
+Redirect 301 /tag-equipamiento-para-banos  /tag/equipamento-para-banos/
+Redirect 301 /tag-decoracion-y-tecnologia  /tag/decoracion-y-tecnologia/
+Redirect 301 /tag-muebles-de-diseno  /tag/mobiliario-de-diseno/
+Redirect 301 /tag-muebles-para-el-hogar  /tag/muebles-para-el-hogar/
+Redirect 301 /tag-interiorismo-corporativo  /tag/interiorismo-corporativo/
+Redirect 301 /tag-casas-inteligentes  /tag/casas-inteligentes/
+Redirect 301 /tag-arte-y-decoracion  /tag/arte-y-decoracion/
+Redirect 301 /tag-revestimientos-para-paredes  /tag/revestimientos-para-paredes/
+Redirect 301 /tag-sillas-de-oficina  /tag/sillas-de-oficina/
+# BEGIN WordPress
+
+# END WordPress
