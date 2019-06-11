@@ -1,0 +1,137 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <style>
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css');
+.date-form { margin: 10px; }
+label.control-label span { cursor: pointer; }
+</style>
+<h1>Camaras</h1>
+<hr/>
+<div align="right" class="form-group"> 
+<div class="col-sm-12"> 
+<form method="post" action="">
+<input type="button"  name="new_camara" value="New" class="btn btn-primary" onclick="window.location.assign('application/index/add')"/>
+</form></div> 
+</div> 
+<br/>
+<hr/>
+<div class="container">
+  <table class="table  table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Tipo</th>
+		<th>Est.</th>
+        <th>Cod.</th>
+        <th>Des.</th>
+        <th>Pos.</th>
+        <th>Ip</th>
+        <th>Marca</th>
+        <th>Modelo</th>
+        <th>Alta </th>
+        <th>Alta F. </th>
+        <th>Modif.</th>
+        <th>Modif. F.</th>
+        <th>Fecha baja</th>
+        <th>Baja U.</th>
+        <th>Estado Registro</th>
+		<th></th>
+		<th></th>
+      </tr>
+    </thead>
+    <tbody>
+<?php  foreach($this->camaras as $cam){
+?>
+<tr>
+<td><?php echo $cam['id']; ?></td>
+<td><?php echo $cam['tipo']; ?></td>
+<td><?php echo $cam['estado']; ?></td>
+<td><?php echo $cam['codigo']; ?></td>
+<td><?php echo $cam['descripcion']; ?></td>
+<td><?php echo $cam['posicion']; ?></td>
+<td><?php echo $cam['ip']; ?></td>
+<td><?php echo $cam['marca']; ?></td>
+<td><?php echo $cam['modelo']; ?></td>
+<td><?php echo $cam['altausuario']; ?></td>
+<td><?php echo $cam['altafecha']; ?></td>
+<td><?php echo $cam['modiusuario']; ?></td>
+<td><?php echo $cam['modifecha']; ?></td>
+<td><?php echo $cam['bajafecha']; ?></td>
+<td><?php echo $cam['bajausuario']; ?></td>
+<td><?php echo $cam['estadoregistro']; ?></td>
+<td>
+<form action="" method="post">
+<input type="hidden" name="edit_id" value="<?php echo $cam['id']; ?>">
+<input type="submit" name="edit" value="Edit" class="btn btn-success" />
+<!-- /application/index/edit -->
+</form>
+</td><td>
+<form action="" method="post">
+<input type="hidden" name="delete_id" value="<?php echo $cam['id']; ?>">
+<input type="submit" id="<?php echo $cam['id']; ?>" name="Delete" value="Delete" class="btn btn-danger"/>
+</form>
+</td>
+</tr>
+<?php
+}?>   
+   
+    </tbody>
+  </table>
+</div>
+<br/><br/>
+<h1>Estado Camaras</h1>
+<hr/>
+<div align="right" class="form-group"> 
+<div class="col-sm-12"> 
+<input type="submit" id="New" name="New" value="New" class="btn btn-primary"/>
+</div> 
+</div> <br/>
+<hr/>
+<div class="container">
+  <table class="table  table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Icono</th>
+		<th>Alta Usuario</th>
+        <th>Alta Fecha</th>
+        <th>Usuario Modificacion</th>
+        <th>Modificacion Fecha</th>
+        <th>Usuario: Baja</th>
+        <th>Fecha de baja</th>
+        <th>Estado de registro</th>
+		<th></th>
+		<th></th>
+      </tr>
+    </thead>
+    <tbody>
+<?php  foreach($this->estado_camaras as $est){
+?>
+<tr>
+<td><?php echo $est['id']; ?></td>
+<td><?php echo $est['nombre']; ?></td>
+<td><?php echo $est['descripcion']; ?></td>
+<td><?php echo $est['icono']; ?></td>
+<td><?php echo $est['altausuario']; ?></td>
+<td><?php echo $est['altafecha']; ?></td>
+<td><?php echo $est['modiusuario']; ?></td>
+<td><?php echo $est['modifecha']; ?></td>
+<td><?php echo $est['bajafecha']; ?></td>
+<td><?php echo $est['bajausuario']; ?></td>
+<td><?php echo $est['estadoregistro']; ?></td>
+<td><?php echo $est['estadoregistro']; ?></td>
+<td>
+<input type="submit" id="Edit" name="Edit" value="Edit" class="btn btn-success"/>
+</td><td>
+<input type="submit" id="Delete" name="Delete" value="Delete" class="btn btn-danger"/>
+</td>
+</tr>
+<?php
+}?>   
+   
+    </tbody>
+  </table>
+</div>

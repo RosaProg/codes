@@ -1,0 +1,78 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <style>
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css');
+.date-form { margin: 10px; }
+label.control-label span { cursor: pointer; }
+</style>
+<h1>Estado Camaras</h1>
+<hr/>
+<div align="right" class="form-group"> 
+<div class="col-sm-12"> 
+<form name="a" method="post" action="">
+<input type="submit" name="New_estado" value="New" class="btn btn-primary"/>
+</form>
+<br/>
+<form name="b"  method="post" action="">
+<select name="undelete_estado_text">
+<option value="">Select </option>
+<?php foreach($this->undeletelist as $un){ ?>
+<option value="<?php echo $un['id']; ?>"><?php echo $un['nombre']; ?></option>
+<?php } ?>
+</select>
+<input type="submit"  name="undelete_estado" value="Undelete" class="btn btn-warning"/>
+</form>
+</div> 
+</div> <br/>
+<hr/>
+<div class="container">
+  <table class="table  table-striped table-hover">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Nombre</th>
+        <th>Descripcion</th>
+        <th>Icono</th>
+		<th>Alta Usuario</th>
+        <th>Alta Fecha</th>
+        <th>Usuario Modificacion</th>
+        <th>Modificacion Fecha</th>
+        <th>Usuario: Baja</th>
+        <th>Fecha de baja</th>
+		<th></th>
+      </tr>
+    </thead>
+    <tbody>
+<?php  foreach($this->estado_camaras as $est){
+?>
+<tr>
+<td><?php echo $est['id']; ?></td>
+<td><?php echo $est['nombre']; ?></td>
+<td><?php echo $est['descripcion']; ?></td>
+<td><?php echo $est['icono']; ?></td>
+<td><?php echo $est['altausuario']; ?></td>
+<td><?php echo $est['altafecha']; ?></td>
+<td><?php echo $est['modiusuario']; ?></td>
+<td><?php echo $est['modifecha']; ?></td>
+<td><?php echo $est['bajafecha']; ?></td>
+<td><?php echo $est['bajausuario']; ?></td>
+<td>
+<form action="" method="post">
+<input type="hidden" name="edit_estado_id" value="<?php echo $est['id']; ?>">
+<input type="submit" name="edit_estado" value="Edit" class="btn btn-success"/>
+</form>
+</td>
+<td>
+<form action="" method="post">
+<input type="hidden" name="delete_estado_id" value="<?php echo $est['id']; ?>">
+<input type="submit"  name="delete_estado" value="Delete" class="btn btn-danger"/>
+</form>
+</td>
+</tr>
+<?php
+}?>   
+   
+    </tbody>
+  </table>
+</div>

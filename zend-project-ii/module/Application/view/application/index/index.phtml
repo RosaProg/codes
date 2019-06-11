@@ -1,0 +1,95 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <style>
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css');
+.date-form { margin: 10px; }
+label.control-label span { cursor: pointer; }
+</style>
+<script>
+
+  $(function() {
+$(".date-picker").datepicker();
+  });
+</script>
+
+<form id="my-form-id" action="" method="post" class="form-horizontal"  role="form"> 
+<div><input name="my-form-id" type="hidden" value="1"  class="form-control"></div> 
+<fieldset> 
+<legend></legend> 
+<div class="form-group"> 
+<label for="tipo" class="col-sm-4 control-label">Tipo<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="tipo" name="tipo" type="text" maxlength="50" value="" id="tipo-id" placeholder="Tipo" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group"> 
+<label for="codigo" class="col-sm-4 control-label">Codigo<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="codigo" name="codigo" type="text" maxlength="50" value="" placeholder="Codigo" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group"> 
+<label for="descripcion" class="col-sm-4 control-label">Descripcion: </label> 
+<div class="col-sm-8"> 
+<textarea id="descripcion" name="descripcion" cols="30"  maxlength="250" rows="4" placeholder="Enter your message here ..." class="form-control"></textarea> 
+</div> 
+</div>
+<div class="form-group"> 
+<label for="posicion" class="col-sm-4 control-label">Posicion<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="posicion" name="posicion" type="text" maxlength="50" value="" placeholder="Posicion" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group"> 
+<label for="estado" class="col-sm-4 control-label">Estado<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="estado" name="estado" type="text" maxlength="50" value="" placeholder="Estado" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group"> 
+<label for="ip" class="col-sm-4 control-label">Ip<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="ip" name="ip" type="text" maxlength="50" value="" placeholder="Ip" required="required" class="form-control"> 
+</div> 
+</div> 
+
+<div class="form-group"> 
+<label for="marca" class="col-sm-4 control-label">Marca<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="marca" name="marca" type="text" maxlength="50" value="" placeholder="Marca" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group"> 
+<label for="modelo" class="col-sm-4 control-label">Modelo<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="modelo" name="modelo" type="text" maxlength="50" value="" placeholder="Modelo" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group">
+        <label for="date-picker-2" class="col-sm-4 control-label">Baja Usuario<sup class="text-danger">* </sup>:</label>
+            <div class="col-sm-8">  <div class="input-group">
+                <input name="bajausuario" placeholder="Baja Usuario" required="required"  id="date-picker-bajausuario" type="text" class="date-picker form-control" />
+                <label for="date-picker-2" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span>
+               </div> </label>
+    </div>
+</div>
+<div class="form-group">
+        <label for="date-picker-2" class="col-sm-4 control-label">Baja Fecha<sup class="text-danger">* </sup>:</label>
+            <div class="col-sm-8">  <div class="input-group">
+                <input name="bajafecha" placeholder="Baja Fecha" required="required"  id="date-picker-bajafecha" type="text" class="date-picker form-control" />
+                <label for="date-picker-2" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span>
+               </div> </label>
+    </div>
+</div>
+
+</fieldset> 
+<fieldset>  
+<div align="right" class="form-group"> 
+<div class="col-sm-12"> 
+<input type="submit" id="save" name="save" value="Send" class="btn btn-primary"/>
+</div> 
+</div> 
+
+</fieldset> 
+</form> 

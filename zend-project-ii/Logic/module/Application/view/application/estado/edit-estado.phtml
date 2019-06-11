@@ -1,0 +1,92 @@
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <style>
+@import url('//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css');
+.date-form { margin: 10px; }
+label.control-label span { cursor: pointer; }
+</style>
+<script>
+
+  $(function() {
+$(".date-picker").datepicker({ dateFormat: 'yy-mm-dd' });
+  });
+</script>
+
+<form id="my-form-id" action="" method="post" class="form-horizontal"  role="form"> 
+<div><input name="my-form-id" type="hidden" value="1"  class="form-control"></div> 
+<fieldset> 
+<legend></legend> 
+<div class="form-group"> 
+<label for="nombre" class="col-sm-4 control-label">Nombre<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="nombre" name="nombre" type="text" maxlength="50" value="<?php echo $this->estado[0]['nombre']; ?>" placeholder="nombre" required="required" class="form-control"> 
+</div> 
+</div>
+
+<div class="form-group"> 
+<label for="descripcion" class="col-sm-4 control-label">Descripcion: </label> 
+<div class="col-sm-8"> 
+<textarea id="descripcion" name="descripcion"  cols="30"  maxlength="250" rows="4" placeholder="Enter your message here ..." class="form-control"><?php echo $this->estado[0]['descripcion']; ?></textarea> 
+</div> 
+</div>
+<div class="form-group"> 
+<label for="icono" class="col-sm-4 control-label">Icono<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="icono" name="icono" type="text" maxlength="50" value="<?php echo $this->estado[0]['icono']; ?>" placeholder="Icono" required="required" class="form-control"> 
+</div> 
+</div> 
+ 
+<div class="form-group"> 
+<label for="altausuario" class="col-sm-4 control-label">Alta Usuario<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="altausuario" name="altausuario" type="text" maxlength="50"  value="<?php echo $this->estado[0]['altausuario']; ?>" placeholder="Alta Usuario" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group">
+        <label for="date-picker-2" class="col-sm-4 control-label">Alta Fecha<sup class="text-danger">* </sup>:</label>
+            <div class="col-sm-8">  <div class="input-group">
+                <input name="altafecha" placeholder="Alta Fecha" value="<?php echo $this->estado[0]['altafecha']; ?>" required="required"  id="date-picker-bajausuario" type="text" class="date-picker form-control" />
+                <label for="date-picker-2" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span>
+               </div> </label>
+    </div>
+</div>
+<div class="form-group"> 
+<label for="modiusuario" class="col-sm-4 control-label">Modificacion Usuario<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="modiusuario" name="modiusuario" type="text"  value="<?php echo $this->estado[0]['modiusuario']; ?>" maxlength="50" value="" placeholder="Modificacion Usuario" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group">
+        <label for="date-picker-2" class="col-sm-4 control-label">Fecha Modificacion<sup class="text-danger">* </sup>:</label>
+            <div class="col-sm-8">  <div class="input-group">
+                <input name="modifecha"  value="<?php echo $this->estado[0]['modifecha']; ?>" placeholder="Fecha Modificacion" required="required"  id="date-picker-modifecha" type="text" class="date-picker form-control" />
+                <label for="date-picker-2" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span>
+               </div> </label>
+    </div>
+</div>
+<div class="form-group"> 
+<label for="bajausuario" class="col-sm-4 control-label">Baja Usuario<sup class="text-danger">* </sup>: </label> 
+<div class="col-sm-8"> 
+<input id="bajausuario" name="bajausuario" type="text" maxlength="50"   value="<?php echo $this->estado[0]['bajausuario']; ?>" placeholder="Baja Usuario" required="required" class="form-control"> 
+</div> 
+</div> 
+<div class="form-group">
+        <label for="date-picker-2" class="col-sm-4 control-label">Baja Fecha<sup class="text-danger">* </sup>:</label>
+            <div class="col-sm-8">  <div class="input-group">
+                <input name="bajafecha" placeholder="Baja Usuario" required="required"   value="<?php echo $this->estado[0]['bajafecha']; ?>" id="date-picker-bajafecha" type="text" class="date-picker form-control" />
+                <label for="date-picker-2" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span>
+               </div> </label>
+    </div>
+</div>
+ 
+</fieldset> 
+<fieldset>  
+<div align="right" class="form-group"> 
+<div class="col-sm-12"> 
+<input type="submit" name="save_edit" value="Send" class="btn btn-primary"/>
+</div> 
+</div> 
+
+</fieldset> 
+</form> 
