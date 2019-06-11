@@ -1,0 +1,23 @@
+﻿@{
+    ViewBag.Title = "ThankYou";
+}
+
+<div class="pchi-Intro no-overflow">
+    <span class="pchi-IntroTitle">Thank you</span> <br />
+    <br />
+
+    @*<h2>ThankYou</h2>*@
+
+    @if (((bool?)ViewBag.Submitted).Value)
+    {
+        <text>
+            Your have submitted your results. You can view your score history by going to your scores.
+        </text>
+    }
+    else
+    {
+        <text>
+            You have saved your results, you can continue any time by logging in.
+        </text>
+    }
+</div>

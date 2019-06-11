@@ -1,0 +1,103 @@
+﻿.menu-container {
+    /*position: fixed;
+    width:101px;
+    height:100%;
+    float:right;*/
+position: fixed;
+top: 125px;
+bottom: 88px;
+width: 101px;
+/* height: 100%; */
+left:20px;
+}
+
+    /*.menu-container ul {
+        list-style: none;
+        text-align: left;
+        float:right; 
+        margin-right:1px;
+    }*/
+    .menu-container ul{
+        list-style: none;
+text-align: left;
+float: right;
+margin-top: 0px;
+margin-right: 1px;
+    }
+
+        .menu-container ul li {
+            /*margin-top:10px;*/
+            margin-top: 0px;
+            width: 101px;
+        }
+
+        .menu-container::-webkit-scrollbar {
+ display: none;
+}
+
+.tab-icon {
+/*width: 90px;
+max-width: 101px;
+float: right;
+text-align: center;
+background-color: #56138B;
+margin-top: 8px;
+position: relative;
+padding-top: 2px;
+padding-bottom: 3px;
+padding-left: 4px;
+padding-right: 4px;
+margin-right: -1px;
+height: 80px;
+border-radius: 12px 0px 0px 12px;
+z-index: 0;
+color: #ffffff;
+font-size: 12px;
+overflow-wrap: normal;*/
+
+width: 85px;
+max-width: 101px;
+float: right;
+text-align: center;
+background-color: #56138B;
+margin-top: 5px;
+position: relative;
+padding-top: 1px;
+padding-bottom: 3px;
+padding-left: 4px;
+padding-right: 4px;
+margin-right: -1px;
+height: 56px;
+border-radius: 8px 0px 0px 8px;
+z-index: 0;
+color: #ffffff;
+font-size: 12px;
+overflow-wrap: normal;
+}
+
+.tab-icon img {
+width: 40px;
+height: 40px;
+}
+
+    .menu-container ul li:hover,
+    .tab-icon:hover {
+        cursor: pointer;
+        background-color: #8CCB1E;
+    }
+
+.menu-container ul li a {
+    text-decoration: none;    
+}
+
+.tab-current {
+    background-color: #8CCB1E;
+    cursor: default;
+}
+
+.menu-container {
+position: absolute;
+top: 20px;
+width: 101px;
+float: right;
+}

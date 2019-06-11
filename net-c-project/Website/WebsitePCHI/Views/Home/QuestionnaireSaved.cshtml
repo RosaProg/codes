@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "ThankYou";
+}
+
+<h2>ThankYou</h2>
+
+@if (ViewBag.Submitted)
+{
+    <text>
+        Your have submitted your results. You can view your score history by going to your scores.
+    </text>
+}
+else
+{
+    <text>
+        You have saved your results, you can continue any time by logging in.
+    </text>
+}

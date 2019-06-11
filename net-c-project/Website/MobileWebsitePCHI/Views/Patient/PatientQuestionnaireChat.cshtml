@@ -1,0 +1,76 @@
+﻿@model WebsiteSupportLibrary.Models.QuestionnaireModel
+@using WebsiteSupportLibrary.Common;
+
+
+@section styles{
+    <link href="~/Content/CSS/PCHI-Chat.css" rel="stylesheet" type="text/css">
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Loading.css")" />
+}
+@{
+    ViewBag.Title = "Questionnaire";
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+            <!--      <div class="menu-trigger"></div>
+            -->
+            <!--Page-->
+
+            <div data-role="page" id="myQuests" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div id="progress-bar" class="all-rounded" data-bind="updateProgressBar: QuestionsAnswered, MaximumValue: TotalAmountOfQuestions, visible: ShowProgressBar">
+                    <div id="progress-bar-text" class="progress-bar-text"></div>
+                    <div id="progress-bar-percentage" class="all-rounded" style="width: 100%"></div>
+                </div>
+                @*Html.Partial("QuestionnaireChat", Model, new ViewDataDictionary() { { "actionSubmit", "SaveChatMode" }, { "controllerSubmit", "Patient" }, { "actionSave", "SaveChatMode" }, { "controllerSave", "Patient" } })*@
+
+
+                <div id="bottomBar-Background" class="bottomBar-Background">
+
+                    <!-- CURRENT RESPONSE PANEL -->
+                    <!-- ko with: CurrentResponsePanel -->
+                    @*<div class="skipLink"><a href="#">skip it</a></div>
+                        <div class="skipLink" style="bottom:100px;"><a href="#" onclick="ShowProgressGadget();">Show Progress Gadget</a></div>
+                        <div class="skipLink" style="bottom:120px;"><a href="#" onclick="HideProgressGadget();">Hide Progress Gadget</a></div>
+
+                        <div data-bind="html: HtmlContent"></div>*@
+
+                    <div class="Msg-Box"><div id="Msg-Box" data-bind="html: HtmlContent"></div></div>
+                    <div class="chatButtons">
+                        <button class="Msg-Send" data-bind="click: function (data, event) { $parent.SendAnswer(data, event), DisableChat() }  ">Send</button>
+                        <!-- Edited -->
+                        <button id="Edited" class="Msg-SendEdit" data-bind="click: function (data, event) { $parent.SendAnswerEdited(data, event), DisableChat(), ResizeChat() }  " style="display:none">Send</button>
+                        <a href="#" data-bind="click: function (data, event) { $parent.GoToNextItem(data, event) }" id="ContinuetheQuestionnaire" style="display:none">Continue the Questionnaire</a>
+                        <a href="#" data-bind="click: function (data, event) { $parent.GoToNextItemAfterSkip(data, event) }" id="ContinuetheQuestionnaireSkipped" style="display:none">Continue the Questionnaire</a>
+                        <!-- Edited -->
+                        <button class="Msg-Submit" onclick="Save(true);">Submit</button>
+                        <div class="text-buttons">
+                            <!-- Skip -->
+                            <div class="skip-btn" data-bind="visible: CanSkip"><div id="skipbtn" data-bind="    click: function (data, event) { $parent.SendAnswerSkiped(data, event), DisableChat(), ResizeChat() }   "><a href="#">skip it</a></div></div>
+                            <div class="skip-btn" data-bind="visible: CanSkip"><div id="skipEdit" data-bind="    click: function (data, event) { $parent.SendAnswerSkipedEdited(data, event), DisableChat(), ResizeChat() }   " style="display:none"><a href="#">skip it</a></div></div>
+                            <!-- Skip -->
+                            <div class="save-btn" onclick="Save(false);" data-bind="visible: $parent.CanSavePartial">
+                                @*<a href="#"><img src="../Content/images/Chat/btn-Save.png" width="46" height="46" alt="" /></a>*@
+                                <a href="#">Save and finish later</a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /ko -->
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Content panel Ends -->
+    </div>
+</div>

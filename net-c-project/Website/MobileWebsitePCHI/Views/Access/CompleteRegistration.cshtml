@@ -1,0 +1,209 @@
+﻿@model WebsiteSupportLibrary.Models.QuestionnaireModel
+
+@{
+    ViewBag.Title = "CompleteRegistration";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    var pageText = new PCHI.WcfServices.API.PCHIServices.InterfaceProxies.Service.ServiceDetailsClient().GetPageText(new List<string>() { "Access_Registration_Top", "UserName" }, registrationCode: Request.QueryString["code"]).StringDictionary;
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Loading.css")" />
+}
+
+
+@section scripts
+{
+    <script>
+        var passwordTest = false;
+        var securityQuestionTest = false
+        var securityAnswerTest = false
+        var nameTest = true;
+
+        $(function () {
+            $('#submit').attr("disabled", "disabled");
+        })
+
+        function NameTest() {
+            $("#LoaderImg").show();
+            var url = "./NameTest?code=" + GetQueryStringParams("code") + "&userName=" + $('#UserName').val();
+            $.ajax({
+                type: 'get',
+                url: url
+            }).done(function (result) {
+                if (!result.success) {
+                    $('#userNameError').text(result.message)
+                    nameTest = false;
+                }
+                else {
+                    $('#userNameError').text('');
+                    nameTest = true;
+                }
+                $("#LoaderImg").hide();
+            }).fail(function (result) {
+                // In case of an error we will asume it is all correct so the user can continue. The check is performed upon submit anyway.
+                $('#userNameError').text('');
+                nameTest = true;
+            });
+        }
+
+        function VerifyPassword(skipMatchCheck) {
+            var pwd = $('#Password').val();
+            var chk = $('#RepeatPassword').val();
+            if (skipMatchCheck != true && pwd != chk) {
+                $('#pwdCheckError').text("The passwords must match");
+                passwordTest = false;
+            }
+            else {
+                $('#pwdCheckError').text("");
+                passwordTest = true;
+            }
+
+            re = /[0-9]/;
+            if (!re.test(pwd)) {
+                $('#pwdError').text("Error: password must contain at least one number (0-9)!");
+                passwordTest = false;
+            }
+            else {
+                $('#pwdError').text('');
+                passwordTest = true;
+            }
+
+            re = /[a-z]/;
+            if (!re.test(pwd)) {
+                $('#pwdError').text("Error: password must contain at least one lowercase letter (a-z)!");
+                passwordTest = false;
+            }
+            else {
+                $('#pwdError').text('');
+                passwordTest = true;
+            }
+
+            re = /[A-Z]/;
+            if (!re.test(pwd)) {
+                $('#pwdError').text("Error: password must contain at least one uppercase letter (A-Z)!");
+                passwordTest = false;
+            }
+            else {
+                $('#pwdError').text('');
+                passwordTest = true;
+            }
+
+            re = /^(?=.{6})(?=.*[^a-zA-Z0-9])/;
+            if (!re.test(pwd)) {
+                $('#pwdError').text("Error: password must contain at least one non-alphanumeric character (!, #, $, %, etc.)!");
+                passwordTest = false;
+            }
+            else {
+                $('#pwdError').text('');
+                passwordTest = true;
+            }
+
+            VerifyForm();
+        }
+
+        function VerifySecurityQuestion() {
+            var q = false;
+            if ($('#SecurityQuestion').val().trim() != '') {
+                $('#secQuestionCheckError').text("");
+                securityQuestionTest = true;
+            }
+            else {
+                $('#secQuestionCheckError').text("The security question cannot be empty");
+                securityQuestionTest1 = false;
+            }
+
+            VerifyForm();
+        }
+
+        function VerifySecurityAnswer() {
+            var a = false;
+            if ($('#SecurityAnswer').val().trim() != '') {
+                $('#secAnswerCheckError').text("");
+                securityAnswerTest = true;
+            }
+            else {
+                $('#secAnswerCheckError').text("The security answer cannot be empty.");
+                securityAnswerTest = false;
+            }
+
+            VerifyForm();
+        }
+
+
+
+        function VerifyForm() {
+            if (passwordTest == true && securityQuestionTest == true && securityAnswerTest == true && nameTest == true) {
+                $('#submit').removeAttr("disabled");
+            }
+            else {
+                $('#submit').attr("disabled", "disabled");
+            }
+        }
+    </script>
+}
+
+
+
+@using (Html.BeginForm(ViewContext.RouteData.GetRequiredString("action"), ViewContext.RouteData.GetRequiredString("controller"), new { code = Request.QueryString["code"] }, FormMethod.Post, new { id = "NewEpisodeForm" }))
+{
+    @pageText["Access_Registration_Top"];
+    <br />
+    <table>
+        <tr>
+            <td colspan="2">By default your user name is your email. You can change it below, but if you do, please choose a name you will easily remember.</td>
+        </tr>
+        <tr>
+            <td width="100px">*User</td>
+            <td>
+                @Html.TextBox("UserName", ViewBag.UserName == null ? pageText["UserName"] : ViewBag.UserName as string, new { onblur = "NameTest();" }) <label id="userNameError" style="color:red;"></label><img id="LoaderImg" src="~/Content/images/ajax-loader.gif" style="display: none; margin-top:0px; text-align:center;vertical-align:middle;" width="25px" height="25px" />
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">Please choos a password that you will remember and has at least one upper case and one lower case letter, and one digit. Please repeate it to make sure you've typed the right thing.</td>
+        </tr>
+        <tr>
+            <td>*Password</td>
+            <td>@Html.Password("Password", ViewBag.Password as string, new { onblur = "VerifyPassword(true);" }) <label id="pwdError" style="color:red;"></label></td>
+        </tr>
+        <tr>
+            <td>*Repeat Password</td>
+            <td>@Html.Password("RepeatPassword", ViewBag.PasswordRepeat as string, new { onblur = "VerifyPassword();" }) <label id="pwdCheckError" style="color:red;"></label></td>
+        </tr>
+        <tr>
+            <td colspan="2">Now choose a security question for which you are the only person likely to know the answer. Please choose carefully as you shouldn;'t forget the answer.</td>
+        </tr>
+        <tr>
+            <td>*Security Question</td>
+            <td>@Html.TextBox("SecurityQuestion", ViewBag.SecurityQuestion as string, new { onblur = "VerifySecurityQuestion();" }) <label id="secQuestionCheckError" style="color:red;"></label></td>
+        </tr>
+        <tr>
+            <td>*Answer</td>
+            <td>@Html.Password("SecurityAnswer", ViewBag.SecurityAnswer as string, new { onblur = "VerifySecurityAnswer();" }) <label id="secAnswerCheckError" style="color:red;"></label></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                Although having to enter your user name and password might seem safe enough, some people prefer to be more cautious and request that a security code be used to get access to their health data.<br />
+                *Please choose the method you would like us to use to send you the security code each time you attempt to log into RePLAY
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <input type="radio" name="SecurityCodeProvider" value="None" @(ViewBag.SecurityCodeProvider == "None" ? "Checked" : string.Empty) /> None, I will use only the user name and password to login<br />
+                <input type="radio" name="SecurityCodeProvider" value="EmailCode" @(ViewBag.SecurityCodeProvider == "EmailCode" ? "Checked" : string.Empty) /> Send the secure code by Email to @Html.TextBox("email", ViewBag.Email as string) <br />
+                @*<input type="radio" name="SecurityCodeProvider" value="SmsCode" @(ViewBag.SecurityCodeProvider == "SmsCode"? "Checked" : string.Empty)/> Send the secure code by SMS to @Html.TextBox("mobile", ViewBag.Mobile as string) <br />*@
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                That's it! When you click Submit you will receive a security code by your chosen method, which you must enter to complete the activation of your account. Please contact us if you don't receive the code after a few tries. Thanks again for completing your registration.
+            </td>
+        </tr>
+    </table>
+    <input type="submit" id="submit" value="Submit" />
+
+    if (ViewBag.ShowPopup != null && (ViewBag.ShowPopup as bool?).Value == true)
+    {
+        @Html.Partial("PopUpAuthenticationCodeField", new ViewDataDictionary() { { "top", "" }, { "code", Request.QueryString["Code"] } })
+    }
+}

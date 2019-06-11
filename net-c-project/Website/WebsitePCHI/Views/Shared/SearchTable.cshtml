@@ -1,0 +1,63 @@
+﻿@model IEnumerable<WebsiteSupportLibrary.Models.PatientModel>
+
+@{
+    string actionName = (string)ViewData["ActionName"];
+    string linkText = (string)ViewData["LinkText"];
+}
+
+<table cellspacing="0" class="table-Results">
+    <tr class="table-Results-TitleBar">
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mobileNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ExternalId)
+        </th>
+        <th></th>
+    </tr>
+
+
+    @foreach (var item in Model)
+    {
+        <tr class="table-Results-Content">
+            <td class="table-ResultsCells cellEmail">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td class="table-ResultsCells">
+                @Html.DisplayFor(modelItem => item.Firstname)
+            </td>
+            <td class="table-ResultsCells">
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td class="table-ResultsCells">
+                @if (item.DateOfBirth.HasValue)
+                {
+                    @Convert.ToDateTime(item.DateOfBirth.Value).ToString("yyyy-MM-dd")
+                }
+            </td>
+            <td class="table-ResultsCells">
+                @Html.DisplayFor(modelItem => item.mobileNumber)
+            </td>
+            <td class="table-ResultsCells">
+                @Html.DisplayFor(modelItem => item.ExternalId)
+            </td>
+            <td>
+                @Html.ActionLink(linkText, actionName, new { patientId = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+

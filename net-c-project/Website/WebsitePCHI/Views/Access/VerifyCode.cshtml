@@ -1,0 +1,54 @@
+﻿@model WebsiteSupportLibrary.Models.TwoFactorModel
+
+@{
+    ViewBag.WelcomeMsg = "Welcome to PCHI";
+    ViewBag.Title = "Verify Code";
+    Layout = "~/Views/Shared/_LayoutSimple.cshtml";
+}
+
+@*<hgroup class="title">
+        <h1>@ViewBag.Title.</h1>
+    </hgroup>*@
+
+<div class="pchi-content">
+    <div class="login-wrapper">
+        <div class="login-panel" id="loginWelcome">
+            <div class="login-welcomemsg" id="welcomeMessage">
+                <header>@ViewBag.WelcomeMsg</header>
+                <p>OPSMC PCHI is a groundbreaking new service that allows you to track your health history and progress, as well as prepare for upcoming medical appointments, by completing questionnaires assigned by your practitioner.</p>
+                <p>Every patient is different, and at OPSMC we want to find the best possible way to treat YOU.</p>
+                <p>Log in or <a href="/Account/Register">register</a> to get started!</p>
+            </div>
+            <div class="login-video" id="loginVideo">
+                <iframe src="//www.youtube-nocookie.com/embed/fujIjTedVfs?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen style="height:100%; width:100%;"></iframe>
+            </div>
+        </div>
+
+        <div class="login-panel login-form" id="loginForm">
+            @Html.Partial("Notifications");
+            <header>@ViewBag.Title</header>
+            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(m => m.UserName)
+                <fieldset>
+                    A securitycode has been sent to you via your method of choice (Either by SMS or via Email).<br />
+                    Please wait for it to arrive and then enter the code below to complete the login process.<br /><br />
+                    <ol>
+                        <li>
+                            @Html.LabelFor(m => m.TwoFactorCode, new { @class = "fieldName" })
+                            @Html.PasswordFor(m => m.TwoFactorCode)
+                            @Html.ValidationMessageFor(m => m.TwoFactorCode)
+                        </li>
+                        <li id="resend-code">
+                            @Html.ActionLink("Resend Code", "VerifyCode", "Access", new { resendTwoFactorAuthentication = true }, null)
+                        </li>
+                    </ol>
+                    <input type="submit" value="Access now!" />
+                </fieldset>
+            }
+
+        </div>
+    </div>
+</div>

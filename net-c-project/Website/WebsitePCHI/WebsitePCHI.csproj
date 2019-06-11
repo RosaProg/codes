@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{248DF2C0-543D-4FAA-8C58-364C2C293FAE}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>WebsitePCHI</RootNamespace>
+    <AssemblyName>WebsitePCHI</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Syncfusion.Compression.Base, Version=12.2451.0.36, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebsiteSupportLibrary\Libraries\Syncfusion\Syncfusion.Compression.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Core, Version=12.2451.0.36, Culture=neutral, PublicKeyToken=632609b4d040f6b4, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebsiteSupportLibrary\Libraries\Syncfusion\Syncfusion.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.EJ, Version=12.2451.0.36, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebsiteSupportLibrary\Libraries\Syncfusion\Syncfusion.EJ.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.EJ.MVC, Version=12.2500.0.36, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebsiteSupportLibrary\Libraries\Syncfusion\Syncfusion.EJ.MVC.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Linq.Base, Version=12.2451.0.36, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebsiteSupportLibrary\Libraries\Syncfusion\Syncfusion.Linq.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.XlsIO.Base, Version=12.2451.0.36, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\WebsiteSupportLibrary\Libraries\Syncfusion\Syncfusion.XlsIO.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.2\lib\net45\System.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.2\lib\net45\System.Web.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.2\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.1\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Newtonsoft.Json.5.0.6\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="WebGrease">
+      <Private>True</Private>
+      <HintPath>..\..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Utility\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Content Include="Content\CSS\angular\angular.css" />
+    <Content Include="Content\CSS\angular\angularLteIE8.css" />
+    <Content Include="Content\CSS\PCHI-Admin.css" />
+    <Content Include="Content\CSS\PCHI-Loading.css" />
+    <Content Include="Content\CSS\PCHI-Pass.css" />
+    <Content Include="Content\CSS\PCHI-Patient.css" />
+    <Content Include="Content\CSS\PCHI-PopUp.css" />
+    <Content Include="Content\CSS\PCHI-Researcher.css" />
+    <Content Include="Content\CSS\PCHI.css" />
+    <Content Include="Content\CSS\QueryBuilder.css" />
+    <Compile Include="Controllers\AccessController.cs" />
+    <Compile Include="Controllers\AccountController.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PatientController.cs" />
+    <Compile Include="Controllers\ControlsController.cs">
+      <ExcludeFromStyleCop>False</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Controllers\PractitionerController.cs" />
+    <Compile Include="Controllers\ResearcherController.cs" />
+    <Compile Include="Controllers\TelephonistController.cs" />
+    <Compile Include="Controllers\UtilityController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AdminModel.cs" />
+    <Compile Include="Models\MvcHtmlHelpers.cs" />
+    <Compile Include="Models\ResearcherModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Content\CSS\PCHI-Chat.css" />
+    <Content Include="Content\CSS\PCHI-Framing.css" />
+    <Content Include="Content\CSS\PCHI-Gadgets.css" />
+    <Content Include="Content\CSS\PCHI-Login.css" />
+    <Content Include="Content\CSS\PCHI-Menu.css" />
+    <Content Include="Content\CSS\PCHI-Results.css" />
+    <None Include="Content\CSS\questionnaireChat\less\questionnaireChat.css" />
+    <Content Include="Content\CSS\questionnaireChat\questionnaireChat.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\ajax-loader2.gif" />
+    <Content Include="Content\images\arrows.png" />
+    <Content Include="Content\images\badThings-happen.png" />
+    <Content Include="Content\images\BodyControl\ache.png" />
+    <Content Include="Content\images\BodyControl\bodyBack.png" />
+    <Content Include="Content\images\BodyControl\bodyFront-Back.png" />
+    <Content Include="Content\images\BodyControl\bodyFront.png" />
+    <Content Include="Content\images\BodyControl\burning.png" />
+    <Content Include="Content\images\BodyControl\numbness.png" />
+    <Content Include="Content\images\BodyControl\pins-needles.png" />
+    <Content Include="Content\images\BodyControl\stabbing.png" />
+    <Content Include="Content\images\Chat\arrow-Icon.png" />
+    <Content Include="Content\images\Chat\arrow-IconGrey.png" />
+    <Content Include="Content\images\Chat\btn-Edit.png" />
+    <Content Include="Content\images\Chat\btn-Save.png" />
+    <Content Include="Content\images\Chat\btn-Skipped.png" />
+    <Content Include="Content\images\Chat\btn-Submit.png" />
+    <Content Include="Content\images\Chat\dsprima-Icon.png" />
+    <Content Include="Content\images\Chat\icon-OPSMC.png" />
+    <Content Include="Content\images\Chat\icon-User.png" />
+    <Content Include="Content\images\dsprima-icon.png" />
+    <Content Include="Content\images\email-icon.png" />
+    <Content Include="Content\images\ErrorBodyFront-Back.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-114x114.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-120x120.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-144x144.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-152x152.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-180x180.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-57x57.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-60x60.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-72x72.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-76x76.png" />
+    <Content Include="Content\images\icons\apple-touch-icon-precomposed.png" />
+    <Content Include="Content\images\icons\apple-touch-icon.png" />
+    <Content Include="Content\images\icons\browserconfig.xml" />
+    <Content Include="Content\images\icons\favicon-160x160.png" />
+    <Content Include="Content\images\icons\favicon-16x16.png" />
+    <Content Include="Content\images\icons\favicon-192x192.png" />
+    <Content Include="Content\images\icons\favicon-32x32.png" />
+    <Content Include="Content\images\icons\favicon-96x96.png" />
+    <Content Include="Content\images\icons\favicon.ico" />
+    <Content Include="Content\images\icons\mstile-144x144.png" />
+    <Content Include="Content\images\icons\mstile-150x150.png" />
+    <Content Include="Content\images\icons\mstile-310x150.png" />
+    <Content Include="Content\images\icons\mstile-310x310.png" />
+    <Content Include="Content\images\icons\mstile-70x70.png" />
+    <Content Include="Content\images\OPSMC-logoTrans.png" />
+    <Content Include="Content\images\phone-icon.png" />
+    <Content Include="Content\images\radioGreen.jpg" />
+    <Content Include="Content\images\RePLAY-administrator-icon.png" />
+    <Content Include="Content\images\RePlay-athletesBackground.png" />
+    <Content Include="Content\images\RePlay-Blank-tab.png" />
+    <Content Include="Content\images\RePlay-btn-Logout-hover.png" />
+    <Content Include="Content\images\RePlay-btn-Logout.png" />
+    <Content Include="Content\images\RePlay-graphicMockup.png" />
+    <Content Include="Content\images\RePLAY-loading.gif" />
+    <Content Include="Content\images\RePlay-MyProgressTable.png" />
+    <Content Include="Content\images\RePlay-MyResults-tab.png" />
+    <Content Include="Content\images\RePLAY-Practitioner-icon.png" />
+    <Content Include="Content\images\RePlay-Quest-tab.png" />
+    <Content Include="Content\images\RePlay-RePlay-tab.png" />
+    <Content Include="Content\images\RePLAY-researcher-icon.png" />
+    <Content Include="Content\images\RePLAY-telephonist-icon.png" />
+    <Content Include="Content\images\Chat\RePLAY-texting.gif" />
+    <Content Include="Content\images\RePLAY-user-icon.png" />
+    <Content Include="Content\images\RePLAYlogo_logo-Header.png" />
+    <Content Include="Content\images\video.jpg" />
+    <Content Include="Content\CSS\ejThemes\Default-theme\ej.theme.min.css" />
+    <Content Include="Content\CSS\ejThemes\Default-theme\ej.widgets.all.min.css" />
+    <Content Include="Content\CSS\ejThemes\ej.widgets.core.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Properties\DataSources\PCHI.Models.Model.Questionnaire.Pro.ProInstrument.datasource" />
+    <Content Include="Properties\DataSources\PCHI.Models.Model.Questionnaire.Format.Format.Format.datasource" />
+    <Content Include="Properties\DataSources\PCHI.Models.Model.Questionnaire.Response.ProDomainResultSet.datasource" />
+    <Content Include="Content\CSS\jquery-ui-1-10-4-themes-smoothness.css" />
+    <None Include="Content\CSS\questionnaireChat\less\questionnaireChat.css.map" />
+    <None Include="Content\CSS\questionnaireChat\less\questionnaireChat.less" />
+    <None Include="Properties\PublishProfiles\External.pubxml" />
+    <None Include="Properties\PublishProfiles\Dev.pubxml" />
+    <None Include="Properties\PublishProfiles\Release-INTERNAL.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\angular\angular-sanitize.1.2.0.js" />
+    <Content Include="Scripts\angular\angular-sanitize.1.2.28.js" />
+    <Content Include="Scripts\angular\angular-sanitize.1.3.8.js" />
+    <Content Include="Scripts\angular\angular.1.2.0.js" />
+    <Content Include="Scripts\angular\angular.1.2.28.js" />
+    <Content Include="Scripts\angular\angular.1.3.8.js" />
+    <Content Include="Scripts\ej\ej.unobtrusive.min.js" />
+    <Content Include="Scripts\ej\ej.web.all.min.js" />
+    <Content Include="Scripts\knockout.mapping-latest.debug.js" />
+    <Content Include="Scripts\KnockoutHelper.js" />
+    <Content Include="Scripts\excanvas.min.js" />
+    <Content Include="Scripts\GeneralFunctionality.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-ui-1.10.4.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.progressbar.custom.min.js" />
+    <Content Include="Scripts\jquery-ui-1.9.2.tabs.custom.min.js" />
+    <Content Include="Scripts\jquery.capslockstate.js" />
+    <Content Include="Scripts\jquery.easing-1.3.min.js" />
+    <Content Include="Scripts\jquery.globalize.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.imagemapster.js" />
+    <Content Include="Scripts\jquery.imagemapster.min.js" />
+    <Content Include="Scripts\jquery.ui.core.min.css" />
+    <Content Include="Scripts\jquery.ui.tabs.min.css" />
+    <Content Include="Scripts\jquery.ui.theme.min.css" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\jsrender.js" />
+    <Content Include="Scripts\jsrender.min.js" />
+    <Content Include="Scripts\knockout-3.2.0.debug.js" />
+    <Content Include="Scripts\knockout-3.2.0.js" />
+    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PCHI-GadgetsSupport.js" />
+    <Content Include="Scripts\QueryBuilder\condition.js" />
+    <Content Include="Scripts\QueryBuilder\group.js" />
+    <Content Include="Scripts\QueryBuilder\viewModel.js">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Content>
+    <Content Include="Scripts\QuestionnaireChatSupport.js" />
+    <Content Include="Scripts\questionnaireChat\directives\chatPanel.js" />
+    <Content Include="Scripts\questionnaireChat\filters\htmlHelpers.js" />
+    <Content Include="Scripts\questionnaireChat\json2.js" />
+    <Content Include="Scripts\questionnaireChat\questionnaireChat.js" />
+    <Content Include="Scripts\questionnaireChat\services\data.js" />
+    <Content Include="Scripts\questionnaireChat\services\ie7Support.js" />
+    <Content Include="Scripts\questionnaireChat\services\reply.js" />
+    <Content Include="Scripts\questionnaireChat\services\validation.js" />
+    <Content Include="Scripts\QuestionnaireSupport.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <None Include="Scripts\_references.js" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Home\AnonQuestionnaireClassic.cshtml" />
+    <Content Include="Views\Patient\QuestionnaireResults.cshtml" />
+    <Content Include="Views\Access\Login.cshtml" />
+    <Content Include="Views\Access\VerifyCode.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Home\QuestionnaireSaved.cshtml" />
+    <Content Include="Views\Patient\MyQuestionnaires.cshtml" />
+    <Content Include="Views\Account\ChangeSettings.cshtml" />
+    <Content Include="Views\Account\ChangePassword.cshtml" />
+    <Content Include="Views\Home\AnonQuestionnaireChat.cshtml" />
+    <Content Include="Views\Patient\QuestionnaireSaved.cshtml" />
+    <Content Include="Views\Patient\PatientQuestionnaireClassic.cshtml" />
+    <Content Include="Views\Patient\PatientQuestionnaireChat.cshtml" />
+    <Content Include="Views\Shared\QuestionnaireClassic.cshtml" />
+    <Content Include="Views\Shared\QuestionnaireChat.cshtml" />
+    <Content Include="Views\Telephonist\Telephonist.cshtml" />
+    <Content Include="Views\Telephonist\CreatePatient.cshtml" />
+    <Content Include="Views\Practitioner\Patient.cshtml" />
+    <Content Include="Views\Shared\PatientDetails.cshtml" />
+    <Content Include="Views\Shared\PatientEpisodes.cshtml" />
+    <Content Include="Views\Controls\SearchPatients.cshtml" />
+    <Content Include="Views\Practitioner\Physician.cshtml" />
+    <Content Include="Views\Shared\PROResultGraph.cshtml" />
+    <Content Include="Views\Shared\PROResultTable.cshtml" />
+    <Content Include="Views\Access\CompleteRegistration.cshtml" />
+    <Content Include="Views\Shared\Menu.cshtml" />
+    <Content Include="Views\Shared\Header.cshtml" />
+    <Content Include="Views\Shared\Footer.cshtml" />
+    <Content Include="Views\Shared\_LayoutSimple.cshtml" />
+    <Content Include="Views\Shared\Test.cshtml" />
+    <Content Include="Views\Practitioner\CurrentCondition.cshtml" />
+    <Content Include="Views\Patient\Index.cshtml" />
+    <Content Include="Views\Researcher\ResearcherSearch.cshtml" />
+    <Content Include="Views\Access\RegistrationCompleted.cshtml" />
+    <Content Include="Views\Access\SelectRole.cshtml" />
+    <Content Include="Views\Patient\SelectPatient.cshtml" />
+    <Content Include="Views\Shared\PopUpAuthenticationCodeField.cshtml" />
+    <Content Include="Views\Shared\PopupStart.cshtml" />
+    <Content Include="Views\Shared\PopupEnd.cshtml" />
+    <Content Include="Views\Shared\SelectRolePopup.cshtml" />
+    <Content Include="Views\Access\PopUpForgotPassword.cshtml" />
+    <Content Include="Views\Access\ResetPassword.cshtml" />
+    <Content Include="Views\Shared\PopUpAuthenticationPassword.cshtml" />
+    <Content Include="Views\Shared\PROResultTablePatient.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Account\MyAuditTrail.cshtml" />
+    <Content Include="Views\Shared\PopUpResendRegistrationToken.cshtml" />
+    <Content Include="Views\Shared\SearchTable.cshtml" />
+    <Content Include="Views\Patient\PopUpSelectConfidentialityScope.cshtml" />
+    <Content Include="Views\Patient\ChangePatientDetails.cshtml" />
+    <Content Include="Views\Telephonist\Index.cshtml" />
+    <Content Include="Views\Practitioner\Index.cshtml" />
+    <Content Include="Views\Researcher\Index.cshtml" />
+    <Content Include="Views\Telephonist\Patient.cshtml" />
+    <Content Include="Views\Shared\Notifications.cshtml" />
+    <None Include="Web.Development.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="packages.config" />
+    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Models\Model\PCHIModels.csproj">
+      <Project>{40db3249-1159-4c36-b304-d18e06e3ed84}</Project>
+      <Name>PCHIModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WcfServices\Api\DSPrima.WcfUserSession\DSPrima.WcfUserSession.csproj">
+      <Project>{cdb621df-e1e4-46ba-ad18-58e1b132147c}</Project>
+      <Name>DSPrima.WcfUserSession</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WcfServices\Api\PCHIServices\PCHIWcfInterfaceContracts\PCHIWcfInterfaceContracts.csproj">
+      <Project>{0124a1dd-4fef-486e-a3f0-93a49646daa5}</Project>
+      <Name>PCHIWcfInterfaceContracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WcfServices\Api\PCHIServices\PCHIWcfInterfaceProxies\PCHIWcfInterfaceProxies.csproj">
+      <Project>{f0b4d8af-47d8-4469-9015-55515f691a00}</Project>
+      <Name>PCHIWcfInterfaceProxies</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WebsiteSupportLibrary\WebsiteSupportLibrary.csproj">
+      <Project>{7244a21f-63f3-49a9-8c15-c21b9e560ca8}</Project>
+      <Name>WebsiteSupportLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Development|AnyCPU'">
+    <OutputPath>bin\</OutputPath>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>55239</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:55239/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

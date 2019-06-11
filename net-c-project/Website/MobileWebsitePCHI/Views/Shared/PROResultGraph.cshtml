@@ -1,0 +1,51 @@
+﻿
+<div id="Tooltip@(ViewBag.ChartName as string)" class="Tooltip" style="display: none;">
+    <div id="icon">
+        <div id="eficon@(ViewBag.ChartName as string)" class="eficon"></div>
+    </div>
+    <div id="value@(ViewBag.ChartName as string)" class="value">
+        <div>
+            <label id="efpercentage_@(ViewBag.ChartName as string)" class="efPercentage">#point.text#</label><br />
+            <label id="ef@(ViewBag.ChartName as string)" class="ef">#point.y#</label>
+        </div>
+    </div>
+</div>
+<div style="z-index:300;">
+    @{
+        string chartId = "container" + ViewBag.ChartName;
+    }
+    @(Html.EJ().Chart(chartId)
+
+                .PrimaryXAxis(pr => pr.ValueType(AxisValueType.Datetime).LabelFormat("dd/MMM/yy").RangePadding(ChartRangePadding.Additional).DesiredIntervals(1).CrosshairLabel(cr => cr.Visible(true)).Title(tl => tl.Text("Time"))).Crosshair(ch => ch.Visible(true).Type(CrosshairType.Crosshair).Line(ln => ln.Width(2).Color("black")))
+                .PrimaryYAxis(pr => pr.Range(rg => rg.Min(0).Interval(Convert.ToDouble(ViewBag.SetData["interval"]))).LabelFormat("{value}").CrosshairLabel(cr => cr.Visible(true)).Title(tl => tl.Text("Result"))).Crosshair(ch => ch.Visible(true).Type(CrosshairType.Crosshair).Line(ln => ln.Width(2).Color("black")))
+                        .CommonSeriesOptions(cr => cr.Type(SeriesType.Spline).EnableAnimation(true).Marker(mr => mr.Shape(ChartShape.Circle).Size(sz => sz.Height(10).Width(10)).Visible(true)).Tooltip(sr1 => sr1.Visible(true).Template("Tooltip" + (string)ViewBag.ChartName)).Border(st => st.Width(2)))
+        .Series(sr =>
+            {
+                foreach (string name in (ViewBag.SetData["names"] as List<string>))
+                {
+                    sr.Points(pt =>
+                    {
+                        bool firstFlag = true;
+                        foreach (KeyValuePair<string, double> point in (ViewBag.SetData[name] as List<KeyValuePair<string, double>>))
+                        {
+                            if (firstFlag)
+                            {
+                                pt.X(point.Key).Y(point.Value).Text("Baseline").Add();
+                                firstFlag = false;
+                            }
+                            else
+                            {
+                                pt.X(point.Key).Y(point.Value).Text("").Add();
+                            }
+                        }
+                    }).Name(name).Add();
+                }
+            })
+        .Crosshair(cr => cr.Visible(false).Type(CrosshairType.Trackball))
+        .Zooming(zn => zn.Enable(true).EnableMouseWheel(true))
+        .CanResize(true)
+        .Load("loadTheme")
+        .Title(title => title.Text(ViewBag.SetData["instrumentName"].ToString()))
+        .Size(sz => sz.Height("300")).Size(sz => sz.Width("100%"))
+        .Legend(lg => { lg.Visible(true); }))
+</div>

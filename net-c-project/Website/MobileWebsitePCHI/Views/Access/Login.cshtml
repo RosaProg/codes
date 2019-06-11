@@ -1,0 +1,100 @@
+﻿@model WebsiteSupportLibrary.Models.LoginModel
+
+@{
+    ViewBag.WelcomeMsg = "Welcome to RePLAY";
+    ViewBag.Title = "Login";
+}
+<!-- Content panel Begins-->
+<div id="content" style="height: 100%;overflow-y: auto;">
+
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+            <!--<div class="menu-trigger"></div>-->
+
+
+            <div data-role="page" id="loginForm">
+                @Html.Partial("Notifications")
+                <div data-role="header" data-position="">
+                    <div id="RePlay-logo"><a href="#home"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content">
+                    <p>
+
+                        <div data-role="fieldcontain" class="txt-home form">
+                            <span class="title-home">@ViewBag.Title</span><br />
+                            @using (Html.BeginForm("Login", "Access", new { ReturnUrl = ViewBag.ReturnUrl, data_ajax = "false" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <div>
+                                    @Html.LabelFor(m => m.UserName, new { @class = "fieldName" })
+                                    @Html.TextBoxFor(m => m.UserName)
+                                    @Html.ValidationMessageFor(m => m.UserName)
+                                    <br />
+                                    <br />
+                                    @Html.LabelFor(m => m.Password, new { @class = "fieldName" })
+                                    @Html.PasswordFor(m => m.Password)
+                                    @Html.ValidationMessageFor(m => m.Password)
+                                    <br />
+                                    @Html.ActionLink("Forgot password?", "ForgotPassword", "Access")
+                                    <br />
+                                    @if (ViewBag.RegistrationNotCompleted != null && (bool)ViewBag.RegistrationNotCompleted)
+                                    {
+                                        <div id="resend-registration-token">
+                                            @Html.ActionLink("Resend registration token", "ResendRegistrationToken", "Access")
+                                        </div>
+                                    }
+                                    <br />
+                                    <input type="submit" value="Access now!" formtarget="_self" data-role="button" class="green-button" />
+                                </div>
+                                switch ((string)ViewBag.ShowPopUp)
+                                {
+                                    case "SelectRole":
+                                            @Html.Partial("SelectRole", ViewData["Roles"], new ViewDataDictionary() { { "top", "" }, { "returnUrl", ViewBag.ReturnUrl } })
+                                        break;
+                                    case "ForgotPassword":
+
+                                        @Html.Partial("PopUpForgotPassword", new ViewDataDictionary() { { "top", "" } })
+                                        break;
+                                    case "ResendRegistrationToken":
+
+                                        @Html.Partial("PopUpResendRegistrationToken", new ViewDataDictionary() { { "top", "" } })
+                                        break;
+                                }
+                            }
+                            
+                        </div>
+
+                    </p>
+                </div>
+            </div>
+
+        </div>
+        <div data-role="footer" data-position="">
+            <h4>Forgot your Password? <a href="#">Tap here!</a></h4>
+        </div>
+    </div>
+    <!--grid content-->
+
+</div>
+
+<script type="text/javascript">
+
+
+    $('iframe').each(function () {
+        var url = $(this).attr("src");
+        if ($(this).attr("src").indexOf("?") > 0) {
+            $(this).attr({
+                "src": url + "&wmode=transparent",
+                "wmode": "Opaque"
+            });
+        }
+        else {
+            $(this).attr({
+                "src": url + "?wmode=transparent",
+                "wmode": "Opaque"
+            });
+        }
+    });
+</script>

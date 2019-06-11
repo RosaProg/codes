@@ -1,0 +1,43 @@
+﻿
+
+WCF Service side
+- The WCF Service implementation must have the following attribute specified [WcfUserSessionBehaviour]
+- An implementation of IUserManager must be assigned to WcfUserSessionSecurity.UserManager
+- An implementation of IUserSessionStore must be assigned to WcfUserSessionSecurity.SessionStore
+	Note: There is a standard in memory implementation of this in the library called "DSPrima.WcfUserSession.SecurityHandlers.SessionStore"
+- Configuration can be done in a function called "public static void AppInitialize()" that should be placed in the App_Code folder.
+- The login function on the service side must call "WcfUserSessionSecurity.Login" which in turn will call "UserManager.Find(username, password)" to complete the login process.
+- If a user is logged in and authentication has completed the current user can be accessed via WcfUserSessionSecurity.Current.User
+- If a MultiStepVerification is enabled on either WcfUserSessionSecurity or on the current user, "WcfUserSessionSecurity.MultiStepVerificationCompleted(username) must be called in order to indicate the authentication process is completed. Until this is done, the User is not available. 
+
+Client side
+It is highly recommended that Client side proxies inherits from SecureClientBase. If you cannot inherit from the SecureClientBase, ensure that the WcfUserSessionBehaviour is set on the Channel to use. 
+Doing this makes the WcfUserClientSession.Current instance available for use on the current thread. This means that the security string is automatically passed back and forth between the Server and the Client.
+
+If the proxy inherits from SecureClientBase, the security string that is required to be passed back to the WCF service can be retrieved by calling "SecurityCookie"
+If the client side has the HttpContext.Current is available (for exadple when it is a website), the security string cookie is automatically set by the Service Behaviour and nothing has to be done by the Website proxies.
+
+If the proxy can not inherit from SecureClient base, the security string is availabe in a header and can be retrieved as follows:
+UserSessionConfiguration configuration = OperationContext.Current.IncomingMessageHeaders.GetHeader<DSPrima.WcfUserSession.Model.UserSessionConfiguration>("SecurityConfig", "s");
+string securityString = configuration.SecurityString;
+
+
+When instantiating a SecureClientBase instance on a thread separate to the Main Thread and WcfUserClientSession.Current.Config is not available, the security string must be set via a new RequestHeader instance assigned to the RequestHeader variable before any calls to the service are made. (Assuming the user is logged in).
+Subsequent calls on the same instance automatically have this header set so it is not needed to reset this on subsequent calls.
+
+In order to load the session on the client side you have to call "WcfUserClientSession.LoadSession();" This is best done in the Global.asax file in the "Application_PostAuthenticateRequest" function.
+
+
+User Roles
+Roles are stored in the header and, when the the HttpContext.Current is available, are also added to the Authentication Ticket in the UserData variable as a comma separated list. Unfortunately, FormsAuthentication doesn't support roles.
+In order to have the roles available on the current user, add the following to the Global.asax.cs file of the website:
+		protected void Application_PostAuthenticateRequest(Object sender, EventArgs e)
+		{
+			HttpCookie authCookie = Request.Cookies[FormsAuthentication.FormsCookieName];
+			if (authCookie != null)
+			{
+				FormsAuthenticationTicket ticket = FormsAuthentication.Decrypt(authCookie.Value);
+				System.Web.HttpContext.Current.User = new System.Security.Principal.GenericPrincipal(new FormsIdentity(ticket), ticket.UserData.Split(new string [] {","}, StringSplitOptions.RemoveEmptyEntries));   
+			}
+		}
+

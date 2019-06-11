@@ -1,0 +1,24 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="PCHI.BusinessLogic.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="MaxFailedAccessAttemptsBeforeLockout" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="WebsiteUrl" Type="System.Uri" Scope="Application">
+      <Value Profile="(Default)">http://localhost:55239</Value>
+    </Setting>
+    <Setting Name="LockoutTimeSpan" Type="System.TimeSpan" Scope="Application">
+      <Value Profile="(Default)">00:05:00</Value>
+    </Setting>
+    <Setting Name="NewRegistrationQuestionnaire" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">OPSMCFirstAppointment</Value>
+    </Setting>
+    <Setting Name="CurrentConditionQuestionnaire" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">OPSMCCurrentCondition</Value>
+    </Setting>
+    <Setting Name="SecuredAccessServerName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">cyberpowersyste</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

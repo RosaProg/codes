@@ -1,0 +1,7 @@
+﻿<div align="left" class=''>
+    <!-- Print error message and/or notification messages on the screen -->
+    @Html.Label(string.Empty, ViewBag.ErrorMessage == null ? TempData["ErrorMessage"] == null ? string.Empty : (string)TempData["ErrorMessage"] : (string)ViewBag.ErrorMessage, new Dictionary<string, object>() { { "style", "color:red;" } })
+    @Html.Label(string.Empty, ViewBag.NotificationMessage == null ? TempData["NotificationMessage"] == null ? string.Empty : (string)TempData["NotificationMessage"] : (string)ViewBag.NotificationMessage, new Dictionary<string, object>() { { "style", "color:green;" } })
+    <!--Message Box-->
+    <div class="spacer">&nbsp;</div>
+</div>

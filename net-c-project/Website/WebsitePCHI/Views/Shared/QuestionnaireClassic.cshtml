@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "PRO Results";
+}
+@if (ViewBag.Html != null)
+{
+    <script src="@Url.Content("~/Scripts/QuestionnaireSupport.js")"></script>
+    <div align="left" class='chatWindow'>
+        <div class="Msg-Window">
+            @using (Html.BeginForm())
+            {
+                <p>@Html.Raw(ViewBag.html)</p>
+                <input type="submit" value="SaveSubmit" name="action:SaveSubmit" />
+                <input type="submit" value="Save" name="action:Save" />
+            }
+        </div>
+    </div>
+}

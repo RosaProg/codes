@@ -1,0 +1,51 @@
+﻿@charset "UTF-8";
+/* CSS PCHI-Pass */
+
+.popUp-Overlay{
+height: 100%;
+width: 100%;
+position: fixed;
+top: 0;
+bottom: 0;
+left: 0;
+right: 0;
+background-color: #333;
+opacity: 0.85;
+filter: alpha(opacity=65);
+}
+
+.popUp{
+position: fixed;
+left: 20%;
+right: 20%;
+margin: 0 auto;
+max-width: 400px;
+background: #e3e3e3;
+padding: 10px;
+border: 1px solid #ddd;
+border-radius: 6px;
+line-height: 20px;
+font-size: 100%;
+}
+
+input, button {
+width:200px;
+}
+
+input[type="submit"]{
+float: right;
+position: relative;
+right: 5px;
+}
+
+fieldset{
+    border: none;
+width: 250px;
+/* margin: 0 auto; */
+margin-top: 20px;
+display:table;
+}
+
+ol{
+    display: table-caption;
+}

@@ -1,0 +1,105 @@
+﻿@using PCHI.Model.Episodes;
+
+@model List<PCHI.Model.Episodes.Episode>
+
+<span class="pchi-IntroTitle">Patient Episodes</span>
+
+<script type="text/javascript">
+
+    function HideNew() {
+        $("#NewRow").hide();
+    }
+
+    function ShowNew() {
+        $("#NewRow").show();
+        /*
+        if (!$("#NewRow").hidden) {
+            $("#NewRow").hide();
+        }
+        else {
+            $("#NewRow").show();
+        }*/
+    }
+
+    function Submit() {
+        if (Date.parse($('#Date').val()) < new Date()) {
+            $('#ErrorMessage').text("The appointment date must not be in the past");
+            $('#ErrorMessage').show();
+        }
+        else if ($('#Condition').val() == '') {
+            $('#ErrorMessage').text("The condition cannot be empty");
+            $('#ErrorMessage').show();
+        }
+        else {
+            document.getElementById('NewEpisodeForm').submit();
+        }
+    }
+</script>
+
+@*@using (Html.BeginForm())
+    {
+        <text>Episode:</text> @Html.TextBox("Condition") <text>Appointment date</text> @Html.TextBox("Date", null, new { type = "date" }) <input type="submit" value="New" />
+    }*@
+@if (Model != null)
+{
+    <span id="ErrorMessage" style="color:red;display: none;"></span>
+    using (Html.BeginForm(ViewContext.RouteData.GetRequiredString("action"), ViewContext.RouteData.GetRequiredString("controller"), FormMethod.Post, new { id = "NewEpisodeForm" }))
+    {
+        <table class="table-Admin">
+            <tr class="table-TitleBar">
+                <th>Episode VIP Id</th>
+                <th>Episode Description (Brief)</th>
+                <th>Practitioner VIP Id</th>
+                <th>Appointment Date</th>
+                <th>@*Action <br />*@ <a href="#" class="btn-new" onclick="ShowNew()">New</a></th>
+            </tr>
+            <tr id="NewRow" style="display: none;" class="newRow-Table">
+                <td>@Html.TextBox("externalEpisodeId")</td>
+                <td>@Html.TextBox("Condition")</td>
+                @if (ViewBag.Practitioners == null)
+                {
+                    <td>Id: @Html.TextBox("PractitionerId")</td>
+                }
+                else
+                {
+                    <td>@Html.DropDownList("PractitionerId", ((Dictionary<string, string>)ViewBag.Practitioners).Select(d => new SelectListItem() { Value = d.Key, Text = d.Value }))</td>
+                }
+                <td>@Html.TextBox("Date", null, new { type = "date" })</td>
+                <td>
+                    @*<input type="submit" value="New" onclick="VerifyData()" />*@
+                    <a onclick="Submit()">Save</a>
+                    / <a href="#" onclick="HideNew()">Cancel</a>
+                </td>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                EpisodeMilestone mileStone = item.MileStones.Where(ms => ms.Milestone.Name == "Appointment").OrderByDescending(ms => ms.MilestoneDate).FirstOrDefault();
+                <tr>
+                    <td>@item.ExternalId</td>
+                    <td>@Html.DisplayTextFor(m => item.Condition)</td>
+                    <td>
+                        @if (mileStone != null)
+                        {
+                            <text>
+                                @mileStone.PractitionerId (@mileStone.PractitionerName)
+                            </text>
+                        }
+                    </td>
+                    <td>
+                        @if (mileStone != null)
+                        {
+                            @Html.DisplayTextFor(m => mileStone.MilestoneDate)
+                        }
+                    </td>
+                    <td>@*<a href="@Url.Action("CurrentCondition", "Admin", new { userId = ViewBag.PatientId,  episodeId=item.Id })">View Episode</a>*@</td>
+                </tr>
+            }
+
+        </table>
+    }
+}
+else
+{
+    <p>No episodes have been specified yet.</p>
+}

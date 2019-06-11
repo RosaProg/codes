@@ -1,0 +1,57 @@
+﻿@model IEnumerable<WebsiteSupportLibrary.Models.PatientModel>
+
+@{
+    ViewBag.Title = "Telephonist";
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <!--Starts Conten-->
+
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+
+                    <div id="main-dashboard" class="main-dashboard">
+                        <div class="intro-dashboard">
+
+                            @Html.Action("SearchPatients", "Controls", new { action = ViewContext.RouteData.Values["action"], controller = ViewContext.RouteData.Values["controller"] })
+                            @if (Model != null && Model.Count() > 0)
+                            {
+                                @Html.Partial("SearchTable", Model, new ViewDataDictionary { { "ActionName", "Patient" }, { "LinkText", "Select" } });
+                            }
+                            else if (Model != null)
+                            {
+                                <div>
+                                    Your search produced no results.
+                                </div>
+                            }
+
+                            @if (Model != null)
+                            {
+                                <p>
+                                    @if (TempData.ContainsKey("Patients"))
+                                    {
+                                        @Html.ActionLink("Create New Patient", "CreatePatient")
+                                    }
+                                </p>
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

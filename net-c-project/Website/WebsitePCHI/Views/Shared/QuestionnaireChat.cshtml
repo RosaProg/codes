@@ -1,0 +1,78 @@
+﻿@model WebsiteSupportLibrary.Models.QuestionnaireModel
+@using WebsiteSupportLibrary.Common;
+
+@{
+    ViewBag.Title = "PRO Chat";
+}
+
+<!-- ViewModel -->
+<input type="hidden" id="questionnaireModel" value='@Html.Raw(SerializationHelper.ObjectToJson(Model))' />
+<!-- Templates -->
+<div id="chatHistoryPanel" class='main-window'>
+    <div id="history" chat-panel>
+        @* chat-panel attribute  as a directive *@
+        @* HISTORICAL QUESTIONS JCV Here we set the template to each historical question *@
+        <div ng-cloak class="ng-cloak" ng-repeat="idx in arrHistoricalQuestions">
+            <div ng-class="{ disabled: currentQuestionEditing && currentQuestionEditing.idx!==idx}">
+                <!-- JCV 18-Dic-2014 class disabled when someone is editing the  currentQuestion -->
+                <div ng-class="{ currentBubble: currentQuestionEditing && currentQuestionEditing.idx===idx, opsmcBubble: true, historical:true}">
+                    <div class="opsmc-Avatar"></div>
+                    <div ng-cloak class="ng-cloak" ng-bind-html="historicalQuestions[idx].Question.HtmlContent | unsafe"></div>
+                </div>
+                <div chat-editing ng-cloak class="userBubble ng-cloak editing" ng-if="currentQuestionEditing && currentQuestionEditing.idx===idx">
+                    <div class="btns">
+                        <a href="#" class="send" ng-click="chatCtrl.sendEditing(currentQuestionEditing.idx)" title="Send">&#10148;</a>
+                        <a href="#" class="cancel" ng-click="chatCtrl.closeEditing()" title="Cancel">&#10006;</a>
+                    </div>
+                    <div ng-cloak class="responsePanel ng-cloak" ng-bind-html="currentQuestionEditing.ResponsePanel.HtmlContent | unsafe"></div>
+                </div>
+                <div ng-cloak class="ng-cloak userBubble answer" ng-if="currentQuestionEditing.idx!==idx">
+                    <div class="edit-Icon">
+                        <a href="#" class="continue" ng-if="showQuestion" ng-click="chatCtrl.continueQuestionnaire()" title="Continue">â–¼</a>
+                        <a href="#" ng-click="chatCtrl.edit(idx)" title="Edit this answer"><img src="../Content/images/Chat/btn-Edit.png" width="26" height="26" alt="Edit this answer" /></a>
+                    </div>
+                    <div ng-cloak class="ng-cloak" ng-bind-html="historicalQuestions[idx].Answer.Value ? historicalQuestions[idx].Answer.Value : 'I decided not to answer this question' | unsafe"></div>
+                </div>
+            </div>
+        </div>
+        <!-- CURRENT QUESTION -->
+        <div class="currentQuestion">
+            <div class="opsmcBubble loading ng-cloak" ng-cloak ng-if="!showQuestion && !currentQuestionEditing && questionnaire.CurrentItem<total">
+                <div class="opsmc-Avatar"></div>
+                <div><img src="../Content/images/Chat/RePLAY-texting.gif" /></div>
+            </div>
+            <!-- opsmc question -->
+            <div id="opsmcBubble" ng-cloak class="ng-cloak opsmcBubble currentBubble" ng-if="showQuestion">
+                <div class="opsmc-Avatar"></div>
+                <div ng-cloak class="ng-cloak" ng-bind-html="currentQuestion.Question.HtmlContent | unsafe"></div>
+            </div>
+            <!-- Reply Panel of que current Question -->
+            <div ng-cloak ng-class="{ userBubble: true, withSkip: currentQuestion.ResponsePanel.CanSkip, withSavePartial: questionnaire.CanSavePartial }" ng-if="showQuestion && currentQuestion.AnsweredStatus==='NotAnswered'">
+                <div ng-class="{btns:true, end: questionnaire.CurrentItem===total }">
+                    <a href="#" class="savePartial" ng-if="questionnaire.CanSavePartial && questionnaire.CurrentItem<total" ng-click="chatCtrl.savePartial()" title="Save and finish later">&#8986;</a>
+                    <a href="#" class="skip" ng-if="currentQuestion.ResponsePanel.CanSkip && questionnaire.CurrentItem<total" ng-click="chatCtrl.send(currentQuestion.idx, true )" title="Skip it">&#8631;</a>
+                    <a href="#" class="send" ng-hide="questionnaire.CurrentItem===total" ng-click="chatCtrl.send(currentQuestion.idx)" title="Send">&#10148;</a>
+                    <a href="#" class="finish" ng-if="questionnaire.CurrentItem===total" ng-click="chatCtrl.finish(currentQuestion.idx)" title="Submit ">Submit &#10004;</a>
+                </div>
+                <div ng-cloak class="responsePanel replying ng-cloak" ng-bind-html="currentQuestion.ResponsePanel.HtmlContent | unsafe"></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@Html.Raw(ViewBag.html)
+
+<form action="/Controls/SaveJsonSubmit?@Request.QueryString.ToString()" id="myformForKnockoutSubmit" method="post">
+    <input type="hidden" name="modelSubmit" id="modelSubmit" value="" />
+    <input type="hidden" name="redirectActionSubmit" id="redirectActionSubmit" value="@ViewContext.ViewData["actionSubmit"]" />
+    <input type="hidden" name="redirectControllerSubmit" id="redirectControllerSubmit" value="@ViewContext.ViewData["controllerSubmit"]" />
+</form>
+
+<form action="/Controls/SaveJson?@Request.QueryString.ToString()" id="myformForKnockout" method="post">
+    <input type="hidden" name="modelSave" id="modelSave" value="" />
+    <input type="hidden" name="redirectActionSave" id="redirectActionSave" value="@ViewContext.ViewData["actionSave"]" />
+    <input type="hidden" name="redirectControllerSave" id="redirectControllerSave" value="@ViewContext.ViewData["controllerSave"]" />
+</form>
+
+@*<script src="@Url.Content("~/Scripts/QuestionnaireChatSupport.js")"></script>*@

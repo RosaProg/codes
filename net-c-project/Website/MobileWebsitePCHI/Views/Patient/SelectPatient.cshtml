@@ -1,0 +1,43 @@
+﻿@model IEnumerable<WebsiteSupportLibrary.Models.PatientModel>
+
+@{
+    ViewBag.Title = "SelectPatient";
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">Select a patient.</div>
+                    <!--Starts Conten-->
+
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+
+                    <div id="main-dashboard" class="main-dashboard">
+                        <div class="intro-dashboard">
+                            <br />
+                            @using (Html.BeginForm("SelectPatient", "Patient", FormMethod.Post))
+                            {
+                                List<WebsiteSupportLibrary.Models.PatientModel> Model = TempData["Patients"] as List<WebsiteSupportLibrary.Models.PatientModel>;
+                                if (Model != null && Model.Count() > 0)
+                                {
+                                    @Html.Partial("SearchTable", Model, new ViewDataDictionary { { "ActionName", "Index" }, { "LinkText", "Select" } });
+                                }
+                            }
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

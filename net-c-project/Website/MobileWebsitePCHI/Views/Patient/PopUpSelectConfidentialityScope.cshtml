@@ -1,0 +1,28 @@
+﻿@Html.Partial("PopupStart", null, ViewData)
+<div>
+    <span class="MainTitle">Please select the type of confidentiality for your data</span> <br />
+    <br />
+
+    @using (Html.BeginForm("SelectConfidentialityScope", "Patient", new { patientId = Request["patientId"] }))
+    {
+        <div class="">
+            <fieldset>
+                <ol style="list-style-type: none;">
+                    <li>
+                        Share data for quality assurance <br />
+                        <input type="radio" name="qualityAssurance" value="Yes">Yes
+                        <input type="radio" name="qualityAssurance" value="No">No<br>
+                        
+                        Share data with researcher <br />
+                        <input type="radio" name="withResearcher" value="Yes">Yes
+                        <input type="radio" name="withResearcher" value="No">No<br>
+                        <input type="submit" value="Update confideality" class="">
+                    </li>
+                </ol>
+            </fieldset>
+        </div>
+    }
+
+</div>
+@Html.Partial("PopupEnd")
+

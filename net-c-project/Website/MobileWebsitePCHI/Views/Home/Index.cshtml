@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.WelcomeMsg = "Welcome to RePLAY";
+    ViewBag.Title = "Welcome";
+}
+
+<!-- Content panel Begins-->
+<div id="content" style="height: 100%;overflow-y: auto;">
+
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+            <!--<div class="menu-trigger"></div>-->
+            <div data-role="page" id="home">
+                <div data-role="header" data-backbtn="false">
+                    <!--data-position="fixed"--> <!--data-position="fixed"-->
+                    <div id="RePlay-logo"><a href="#"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content">
+
+                    <div style="padding:0px" data-role="content">
+                        <span class="title-home">@ViewBag.Title</span>
+                        <p class="txt-home"> <strong>OPSMC RePLAY</strong> is a groundbreaking new service that allows you to track your health history and progress, as well as prepare for upcoming medical appointments, by completing questionnaires assigned by your practitioner. </p>
+
+                        <figure class="fluid video-home">
+                            <iframe id="IntroVideo" src="http://www.youtube.com/embed/PeOran1TipM?rel=0&amp;controls=0&amp;showinfo=0" unselectable="on" frameborder="0" allowfullscreen></iframe>
+                        </figure>
+                        <p class="txt-home"> Every patient is different, and at OPSMC we want to find the best possible way to treat YOU. Log in or Join to get started! </p>
+                        <div align="center"><a href="/Access/Login" data-role="button" class="green-button">Get Started</a></div>
+                    </div>
+                    <div data-role="footer">
+                        <div align="center" style="height:80px;background-color:#56138b;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

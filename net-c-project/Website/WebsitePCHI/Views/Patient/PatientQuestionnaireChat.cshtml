@@ -1,0 +1,88 @@
+﻿@model WebsiteSupportLibrary.Models.QuestionnaireModel
+@using WebsiteSupportLibrary.Common;
+
+@{
+    ViewBag.Title = "PRO Chat";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Chat.css")" />
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Loading.css")" />    
+    <!-- CSS angular.css or angularLteIE8.css are important to not show hidden elements -->
+    <!--[if lte IE 8 ]>
+    <link rel="stylesheet" type="text/css" media="all" href="~/Content/css/angular/angularLteIE8.css" />
+    <![endif]-->
+    <!--[if (gt IE 8)|!(IE)]><!-->
+    <link rel="stylesheet" type="text/css" media="all" href="~/Content/css/angular/angular.css" />
+    <!--<![endif]-->
+    <link rel="stylesheet" type="text/css" href="~/Content/css/questionnaireChat/questionnaireChat.css" />
+    <link rel="Stylesheet" href="~/Content/CSS/questionnaireChat/questionnaireChat.css" />
+}
+
+@section scripts
+{
+    @*@Scripts.Render("~/bundles/Questionnaire")*@
+    @*
+        IE 7 and below donâ€™t support:
+                JSON.parse an JSON.stringify
+                querySelector -> angular.1.2.0.js and angular-sanitize.1.2.0
+                SCE (Strick Context Scaping) -> Disabled by ie7Support.js
+    *@
+    <!--[if lt IE 8 ]>
+    <script src="Scripts/questionnaireChat/json2.js"></script>
+        <script src="/Scripts/angular/angular.1.2.0.js"></script>
+        <script src="/Scripts/angular/angular-sanitize.1.2.0.js"></script>
+        <script src="/Scripts/questionnaireChat/services/ie7Support.js"></script>
+    <![endif]-->
+    <!-- Load angular 1.2.28 which supports IE8 -->
+    <!--[if IE 8 ]>
+        <script src="/Scripts/angular/angular.1.2.28.js"></script>
+        <script src="/Scripts/angular/angular-sanitize.1.2.28.js"></script>
+    <![endif]-->
+    <!--[if (gt IE 8)|!(IE)]><!-->
+    <script src="/Scripts/angular/angular.1.3.8.js"></script>
+    <script src="/Scripts/angular/angular-sanitize.1.3.8.js"></script>
+    <!--<![endif]-->
+    <!-- questionnaire Chat JavaScript-->
+    <script src="/Scripts/questionnaireChat/filters/htmlHelpers.js"></script>
+    <script src="/Scripts/questionnaireChat/services/data.js"></script>
+    <script src="/Scripts/questionnaireChat/services/validation.js"></script>
+    <script src="/Scripts/questionnaireChat/services/reply.js"></script>
+    <script src="/Scripts/questionnaireChat/directives/chatPanel.js"></script>
+    <script src="/Scripts/questionnaireChat/questionnaireChat.js"></script>
+    <script src="/Scripts/QuestionnaireSupport.js"></script>
+
+}
+
+@section ContentHeader{
+    <!-- ChatTittle Template -->
+    <div class="chatTitle">
+        <div class="chatTitle">
+            <div id="chatTitle-Background" class="chatTitle-Background">
+                <p class="chatTitle-Txt" ng-bind="questionnaire.Title">?</p>
+                <div id="progress-bar" class="all-rounded" ng-if="questionnaire.ShowProgressBar">
+                    <div id="progress-bar-text" class="progress-bar-text" ng-bind="questionnaire.CurrentItem + ' de ' + total"></div>
+                    <div id="progress-bar-percentage" ng-cloak class="ng-cloak all-rounded" ng-if="progressBarValue" ng-style="{width: progressBarValue + '%'}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END ChatTittle Template -->
+}
+
+@section ContentWindow{
+    @Html.Partial("QuestionnaireChat", Model, new ViewDataDictionary() { { "actionSubmit", "SaveChatMode" }, { "controllerSubmit", "Patient" }, { "actionSave", "SaveChatMode" }, { "controllerSave", "Patient" } })
+}
+
+@section ContentFooter{
+    <div id="bottomBar-Background" class="bottomBar-Background">
+        <div class="chatButtons">
+            <div class="text-buttons">
+                <div class="skip-btn"><a href="#">skip it</a></div>
+                <div class="save-btn" onclick="Save(false);">
+                    <a href="#">Save and finish later</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}

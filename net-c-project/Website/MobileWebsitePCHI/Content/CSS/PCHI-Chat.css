@@ -1,0 +1,649 @@
+@charset "UTF-8";
+/* CSS Document */
+
+table {
+	display: inline-block;
+}
+.pchi-table {
+	position: absolute;
+	height: 100%;
+	bottom: 80px;
+	display: table;
+}
+.main-container {
+	background-color: #fff;
+	border: 4px solid #8CCB1E;
+	border-radius: 12px;
+	min-height: 300px;
+}
+.spacer {
+	position: relative;
+	float: left;
+}
+.spacer {
+	position: relative;
+	float: left;
+}
+.Msg-Window {
+left:10px;
+right:10px;
+top: 70px;
+bottom: 80px;
+overflow-x: auto;
+overflow-y: auto;
+padding: 10px;
+padding-bottom:120px;
+}
+
+.ui-mobile .ui-page-active {
+overflow: hidden;
+height:100%;
+}
+
+.Msg-Box {
+padding: 5px 20px 5px 20px;
+text-align: center;
+border-top: solid 1px #ddd;
+border-top-left-radius: 6px;
+border-top-right-radius: 6px;
+background-color: #e3e3e3;
+	webkit-box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+	-moz-box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+	-o-box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+	box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+/* bottom: 6px; */
+/* position: relative; */
+/* margin: 0 auto; */
+/* min-height: 100px; */
+}
+
+/*.Msg-Box {
+	padding: 5px 20px 5px 20px;
+	text-align: center;
+	border-top: solid 1px #56138B;
+	bottom: -4px;
+	position: relative;
+	min-height: 100px;
+}*/
+
+.Msg-Box-content {
+	margin: 0 auto;
+	display: table;
+	text-align: left;
+	position: relative;
+	top: 10px;
+}
+.Msg-Box table td {
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 10px;
+}
+.Msg-Send {
+	position: absolute;
+	right: 25px;
+	width: 140px;
+	z-index: 3;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	color: #fff;
+	cursor: pointer;
+}
+.Msg-Submit {
+	position: absolute;
+	right: 185px;
+	width: 140px;
+	z-index: 3;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	color: #fff;
+	cursor: pointer;
+}
+.Msg-Skip {
+	position: absolute;
+	right: 10px;
+	width: 100px;
+	margin-top: 0px;
+	z-index: 3;
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+	color: #333;
+}
+input {
+	vertical-align: middle;
+	height: 28px;
+}
+input[type="submit"] {
+	height: 30px;
+	background-color: #8CCB1E;
+	border: none;
+	margin-top: 30px;
+	bottom: 10px;
+}
+input[type="submit"]:hover {
+	height: 30px;
+	background-color: #56138B;
+	color: #8CCB1E;
+	border: none;
+	margin-top: 30px;
+}
+.main-window {
+	position: fixed;
+	background-color: #fff;
+	overflow-x: hidden;
+	overflow-y: auto;
+	padding: 0px 0px 60px 0px;
+	width: 84%;
+	border: solid 4px rgba(140,203,30,1.00);
+	border-top: none;
+	/*border-bottom:solid 1px red;*/
+	border-bottom: none;
+	top: 165px;
+	bottom: 232px;
+	/*height: 100%;*/
+	z-index: 0;
+}
+.chatTitle {
+	font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+	font-size: 26px;
+	font-weight: bold;
+	padding-top: 0px;
+	text-align: left;
+	color: #0e1839;
+	margin-top: 10px;/*margin-left:100px;*/
+}
+.chatTitle-Txt {
+	color: #56138B;
+	padding-left: 20px;
+	float: left;
+	z-index: 5;
+	margin: 0px;
+	padding-top: 10px;
+}
+.chatTitle-Background {
+	position: fixed;
+	width: 84%;
+	background-color: #e1e1e1;
+	height: 50px;
+	opacity: 0.99;
+	border: solid 4px rgba(140,203,30,1.00);
+	border-radius: 12px 12px 0px 0px;
+	border-bottom: solid 1px #56138B;
+	z-index: 1;
+}
+a, img {
+	outline: none;
+	border: none;
+}
+/* Questions types */
+
+.skipped-Q {
+	background-color: #F4D34F;
+	border: solid 1px #F4B24F;
+}
+.skipped-Icon {
+position: absolute;
+text-align: center;
+right: -36px;
+bottom: 0px;
+}
+.text-cont {
+/*	width: 350px;
+*/}
+.edit-Icon {
+	position: absolute;
+	/* float: right; */
+/* width: 60px; */
+/* text-align: center; */
+/* line-height: 10px; */
+	left: -36px;
+	bottom: 0px;
+}
+/* Bottom bar */
+
+.chatButtons {
+	bottom: 0px;
+	/* top: 10px; */
+	position: relative;
+	background-color: #e1e1e1;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+	display: inline-table;
+	width: 100%;
+	height: 46px;
+	border-top: solid 2px #d1d1d1;
+}
+/*.save-btn{
+	margin: 0px auto;
+position: static;
+bottom: 5px;
+width: 200px;
+}*/
+
+.skip-btn {
+	/*position:absolute;
+	text-align:left;
+	z-index:3;
+	bottom:16px;
+    margin-left:20px;*/
+	position: absolute;
+}
+.save-btn {
+	/*margin: 0px auto; 
+position: absolute;
+ bottom: 5px; 
+ width: 200px; 
+display: inline-block;
+ float: right; 
+left: 25%;*/
+	position: relative;
+	float: right;
+}
+/*.submit-btn{
+	margin:-35px 500px;
+	width:200px;
+	top:565px;
+}*/
+
+
+
+.submit-btn {
+	/* margin: -35px 500px; */
+/* width: 200px; */
+/* top: 565px; */
+	position: absolute;
+	display: inline-block;
+	left: 55%;
+}
+button.Msg-Send {
+	height: 30px;
+	background-color: #8CCB1E;
+	border: none;
+	bottom: 8px;
+}
+button.Msg-Send:hover {
+	height: 30px;
+	background-color: #56138B;
+	color: #8CCB1E;
+	border: none;
+	margin-top: 30px;
+}
+button.Msg-Submit {
+	height: 30px;
+	background-color: #8CCB1E;
+	border: none;
+	bottom: 8px;
+}
+button.Msg-Submit:hover {
+	height: 30px;
+	background-color: #56138B;
+	color: #8CCB1E;
+	border: none;
+	margin-top: 30px;
+}
+.text-buttons {
+	bottom: 0px;
+	width: 159px;
+	right: 350px;
+	padding: 15px;
+}
+.bottomBar-Background {
+	position: absolute;
+	width: 84%;
+	background-color: #fff;
+	/*height:180px;*/
+	height: auto;
+	/*opacity:0.9;*/
+	border: solid 4px rgba(140,203,30,1.00);
+	border-radius: 0px 0px 12px 12px;
+	border-top: none;
+	bottom: 80px;/*margin-left:100px;*/
+	/*z-index:2;*/
+}
+.bottomBar-Box {
+	padding: 5px 20px 35px 10px;
+}
+.white {
+	background-color: #fff;
+	border-top: none;
+}
+.btn-text-save {
+	margin-top: -30px;
+	margin-left: 50px;
+	position: relative;
+}
+.btn-text-submit {
+	margin-top: -30px;
+	margin-left: 50px;
+	position: relative;
+}
+/*Progress bar*/
+.all-rounded {
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+.spacer {
+	display: block;
+}
+
+#progressBar-container{
+	width:100%;
+	background-color:#e9e9e9;
+	border-bottom: 1px solid #ccc;
+}
+
+#progress-bar {
+	width: 60%;
+height: 10px;
+background: #cccccc;
+position: relative;
+float: right;
+margin-top: 3px;
+margin-right: 10px;
+border-radius: 6px;
+border: solid 1px #c2c2c2;
+}
+#progress-bar-percentage {
+	background: #56138b; /* Old browsers */
+	background: -moz-linear-gradient(top, #56138b 1%, #9e67bc 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #56138b), color-stop(100%, #9e67bc)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, #56138b 1%, #9e67bc 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, #56138b 1%, #9e67bc 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, #56138b 1%, #9e67bc 100%); /* IE10+ */
+	background: linear-gradient(to bottom, #56138b 1%, #9e67bc 100%); /* W3C */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#56138b', endColorstr='#9e67bc', GradientType=0 ); /* IE6-9 */
+	padding: 1px 0px;
+	color: #FFF;
+	text-align: center;
+	height: 13px;
+	/*line-height: 15px;*/
+	font-size: 11px;
+	font-weight: lighter;
+	margin-top: -14px;
+}
+.progress-bar-text {
+	font-size: 14px;
+	font-style:italic;
+	left: 10px;
+	top: 1px;
+	position: relative;
+}
+#progress-bar-percentage span {
+	display: inline-block;
+	position: absolute;
+	width: 100%;
+	left: 0;
+}
+/*Buuble Elements*/
+
+.userBubble {
+	box-sizing: border-box;
+/*	min-width: 200px;*/
+	max-width: 50%;
+	line-height: 20px;
+	/* min-height: 100px; */
+	background-color: #8CCB1E;
+	border-radius: 12px 12px 0px 12px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-size: 1em;
+	vertical-align: middle;
+	color: #FFFFFF;
+	float: right;
+	padding: 8px;
+	/*padding-right: 50px;*/
+	margin-bottom: 15px;
+	margin-right: 15px;
+	position: relative;
+	clear: both;
+}
+.userBubble:after {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 13px 0px 0px 10px;
+	border-color: transparent #8CCB1E;
+	display: block;
+	width: 0;
+	z-index: 0;
+	right: -9px;
+	bottom: 0px;
+}
+.opsmcBubble {
+display: table;
+box-sizing: border-box;
+/* min-width: 200px; */
+max-width: 50%;
+line-height: 20px;
+background-color: #e1e1e1;
+border-radius: 12px 12px 12px 0px;
+font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 1em;
+color: #333;
+padding: 10px;
+margin-bottom: 15px;
+margin-top: 15px;
+margin-left: 15px;
+position: relative;
+clear: both;
+}
+.opsmcBubble:before {
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 13px 9px 0px 0;
+	border-color: transparent #e1e1e1;
+	display: block;
+	width: 0;
+	z-index: 0;
+	left: -8px;
+	bottom: 0px;
+}
+.skipBubble {
+	background-color: #F4D34F;
+}
+.skipBubble:before {
+	border-color: transparent #F4D34F;
+}
+.currentBubble {
+	background-color: #56138b;
+	color: #fff;
+	max-width: 80%;
+	left: 35px;
+}
+.currentBubble:before {
+	border-color: transparent #56138b;
+}
+.opsmc-Avatar {
+	background: url(../Images/Chat/icon-OPSMC.png) white;
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	border: solid 2px #56138B;
+	-webkit-border-radius: 30px;
+	-moz-border-radius: 30px;
+	border-radius: 30px;
+	width: 30px;
+	height: 30px;
+	left: -50px;
+	bottom: 0px;
+	position: absolute;
+	z-index: 2;
+	margin-top: 0px;
+	margin-left: 10px;
+}
+.classic-text {
+	padding: 10px;
+	color: #333;
+}
+.Title {
+	font-size: 1.5em;
+	font-weight: bold;
+}
+/*#BusyBox {
+	background: #F2F2F2;
+	border-top: #8CCB1E solid 4px;
+	border-right: #8CCB1E solid 4px;
+	border-left: #8CCB1E solid 4px;
+	border-top-left-radius: 6px;
+	border-top-right-radius: 6px;
+	bottom: 0px;
+	font-size: 0.8em;
+	font-style: normal;
+	font-weight: normal;
+	left: 2%;
+	padding-top: 20px;
+	padding-bottom: 40px;
+	position: fixed;
+	text-align: center;
+	width: 94%;
+	height: auto;
+	margin-bottom: -70%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	color: #fff;
+	webkit-box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+	-moz-box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+	-o-box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+	box-shadow: 0px 5px 12px 0px rgba(50, 50, 50, 0.55);
+}*/
+
+#BusyBox {
+background: transparent;
+bottom: 0px;
+font-size: 0.95em;
+font-style: normal;
+font-weight: normal;
+left: 3%;
+right: 3%;
+/* padding-top: 20px; */
+position: absolute;
+/* text-align: center; */
+/* width: 94%; */
+height: auto;
+margin-bottom: -70%;
+background-repeat: no-repeat;
+background-position: center center;
+color: #333;
+}
+
+.reply-btn {
+	position: relative;
+	background: url(../Images/chat/icon-User.png) #fff no-repeat center;
+	background-size: cover;
+	border: solid 4px #8CCB1E;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+	width: 50px;
+	height: 50px;
+	float: right;
+	top: -10px;
+	right: 10px;
+	z-index: 2;
+}
+.reply-txt {
+position: relative;
+float: right;
+right: 6px;
+margin-top: 37px;
+}
+.ui-content{
+	top: 90px;
+padding:0px;
+width: 100%;
+}
+
+.skipLink {
+height: 30px;
+width: auto;
+background: #d9d9d9;
+border: 1px solid #d1d1d1;
+line-height: 30px;
+margin-bottom: 5px;
+margin-right: 5px;
+color:#333;
+/* bottom: 0px; */
+/* color: #333; */
+/* padding-top: 10px; */
+}
+
+#buttons-container > div
+{
+    display: inline-block;
+    border: solid 1px #c1c1c1;
+	padding: 5px;
+border-radius: 4px;
+}
+#buttons-container
+{
+    border: solid 0px #d3d3d3;
+    text-align: left;
+    margin: 0px auto;
+}
+
+.ui-field-contain div.ui-input-text {
+background-color: #fff;
+width: 86%;
+margin: 0;
+}
+
+a.ui-link {
+color: #333;
+text-shadow:none;
+cursor:pointer;
+margin-right:5px;
+}
+
+/* Smartphones (small) ----------- */
+@media only screen 
+and (max-width : 320px) {
+/* Styles */
+
+
+
+}
+
+/* Tablet Layout: 481px to 768px. Inherits styles from: Mobile Layout. */
+
+@media only screen and (min-width: 481px) {
+	
+#progressBar-container {
+width: 100%;
+background-color: #e9e9e9;
+border-bottom: 1px solid #ccc;
+}
+
+#progress-bar {
+width: 60%;
+height: 12px;
+background: #cccccc;
+position: relative;
+float: right;
+margin-top: 9px;
+margin-right: 10px;
+border-radius: 6px;
+border: solid 1px #c2c2c2;
+}
+
+.progress-bar-text {
+font-size: 16px;
+font-style: italic;
+padding: 5px;
+left: 10px;
+top: 1px;
+position: relative;
+}
+
+}
+
+/* Desktop Layout: 769px to a max of 1232px.  Inherits styles from: Mobile Layout and Tablet Layout. */
+
+@media only screen and (min-width: 769px) {
+
+
+
+}
+

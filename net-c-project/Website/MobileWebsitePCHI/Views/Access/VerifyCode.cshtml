@@ -1,0 +1,55 @@
+﻿@model WebsiteSupportLibrary.Models.TwoFactorModel
+
+@{
+    ViewBag.WelcomeMsg = "Welcome to PCHI";
+    ViewBag.Title = "Verify Code";
+}
+<!-- Content panel Begins-->
+<div id="content" style="height: 100%;overflow-y: auto;">
+
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+            <!--<div class="menu-trigger"></div>-->
+
+
+            <div data-role="page" id="loginForm">
+                @Html.Partial("Notifications")
+                <div data-role="header" data-position="">
+                    <div id="RePlay-logo"><a href="#home"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content">
+                    <p>
+                        <div data-role="fieldcontain" class="txt-home form">
+                            <span class="title-home">@ViewBag.Title</span><br />
+                            @using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl, data_ajax = "false" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                @Html.HiddenFor(m => m.UserName)
+                                <div>
+                                    @Html.LabelFor(m => m.TwoFactorCode, new { @class = "fieldName" })
+                                    @Html.PasswordFor(m => m.TwoFactorCode)
+                                    @Html.ValidationMessageFor(m => m.TwoFactorCode)
+                                    <br />
+                                    <br />
+                                    @Html.ActionLink("Resend Code", "VerifyCode", "Access", new { resendTwoFactorAuthentication = true }, null)
+                                    <input type="submit" value="Access now!" formtarget="_self" data-role="button" class="green-button" />
+                                </div>
+                            }
+
+                        </div>
+                    </p>
+
+                </div>
+            </div>
+
+        </div>
+        <div data-role="footer" data-position="">
+            <h4>Forgot your Password? <a href="#">Tap here!</a></h4>
+        </div>
+    </div>
+    <!--grid content-->
+
+</div>
+

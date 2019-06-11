@@ -1,0 +1,415 @@
+﻿@using PCHI.Model.Episodes
+@using PCHI.Model.Questionnaire
+@using PCHI.Model.Tag
+
+@{
+    ViewBag.Title = "Current Condition";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Results.css")" />
+}
+<script type="text/javascript">
+
+    function Tag(name, value) {
+        this.Name = name;
+        this.Value = value;
+    }
+
+    function Questionnaire(name) {
+        this.Name = name;
+        this.Tags = new Array();
+    }
+
+    var questionnaires = new Array();
+
+    @foreach(Questionnaire q in ViewBag.Questionnaires)
+    {
+        string query = "questionnaires[questionnaires.length] = new Questionnaire('" + q.Name + "');\n";
+        foreach(Tag tag in q.Tags)
+        {
+            query += "questionnaires[questionnaires.length-1].Tags[questionnaires[questionnaires.length-1].Tags.length] = new Tag('" + tag.TagName + "','" + tag.Value + "');\n";
+        }
+
+        @Html.Raw(query);
+    }
+
+    function UpdateTagSearch() {
+        var diagnosis = $('#Diagnosis').val()
+        var diag = diagnosis.split(',');
+        var tagQuery = $('#Tags').val();
+        var tags = tagQuery.split(',');
+        var diagnosisTagName = "Diagnosis";
+
+        var newTagQuery = '';
+        var tagFirst = true;
+        for (var i = 0; i < tags.length; i++) {
+            if (!tags[i].trim().toLowerCase().startsWith(diagnosisTagName.toLowerCase())) {
+                if (!tagFirst) newTagQuery += ",";
+                tagFirst = false;
+                newTagQuery += tags[i];
+            }
+        }
+
+        var diagQuery = '';
+        var first = true;
+        for (var i = 0; i < diag.length; i++) {
+            if (diag[i].trim() != '') {
+                if (!first) diagQuery += ", ";
+                first = false;
+                diagQuery += diagnosisTagName + ":" + diag[i].trim();
+            }
+        }
+
+        var separator = '';
+        if (diagQuery.trim() != '' && newTagQuery.trim() != '') separator = ',';
+        $('#Tags').val(diagQuery + separator + newTagQuery);
+    }
+
+    function FilterQuestionnaires() {
+        var tagQuery = $('#Tags').val();
+        var tags = tagQuery.split(',');
+        var foundQuestionnaires = new Array();
+        for (var i = 0; i < tags.length; i++) {
+            var nameValue = tags[i].split(":");
+            for (var q = 0; q < questionnaires.length; q++) {
+                for (var t = 0; t < questionnaires[q].Tags.length; t++) {
+                    if (questionnaires[q].Tags[t].Name.toLowerCase() == nameValue[0].toLowerCase() && questionnaires[q].Tags[t].Value.toLowerCase() == nameValue[1].toLowerCase()) {
+                        foundQuestionnaires[foundQuestionnaires.length] = questionnaires[q].Name;
+                    }
+                }
+            }
+        }
+
+        var html = '';
+        for (var i = 0; i < foundQuestionnaires.length; i++) {
+            html += "<li><input name=\"questionnaire." + i + "\" type=\"checkbox\" value=\"" + foundQuestionnaires[i] + "\" />" + foundQuestionnaires[i] + "</li>"
+        }
+
+        $('#FoundQuestionnaires').html(html);
+    }
+</script>
+@if (ViewBag.Patient != null)
+{
+    <!-- Content panel Begins-->
+    <div id="content">
+        <!-- RePLAY's Content-->
+        <div class="gridContainer clearfix">
+            <div id="div1" class="fluid">
+                <!--Page-->
+
+                <div data-role="page" id="myRePLAY" class="white">
+                    <div data-role="header">
+                        <!--data-position="fixed"-->
+
+                        <div id="page-title">@ViewBag.Title</div>
+                        <!--Starts Conten-->
+
+                        <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                    </div>
+                    <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+
+                        <div id="main-dashboard" class="main-dashboard">
+                            <div class="intro-dashboard">
+                                <table>
+                                    <tr>
+                                        <td colspan="2">
+                                            @*<h2>Patient Details</h2>*@
+                                            Patient: @(ViewBag.Patient.Title + " " + ViewBag.Patient.FirstName + " " + ViewBag.Patient.LastName) <br />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            Practitioner: @User.Identity.Name
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <h2>Consultation Notes</h2>
+                                            <br/>
+                                            <form action="@Url.Action("CurrentCondition", new { patientId = ViewBag.PatientId,})" method="post">
+                                                <h2>Episode:</h2> <select name="episodeId" id="episodeId" onchange="this.form.submit()">
+                                                    <option value="0"> Select a Episode</option>
+                                                    @foreach (Episode e in ViewBag.Episodes)
+                                                    {
+                                                        string selected = string.Empty;
+                                                        if (ViewBag.EpisodeId == e.Id)
+                                                        {
+                                                            selected = "selected = \"selected\"";
+                                                        }
+
+                                                        <option value="@e.Id" @selected>@e.Condition</option>
+                                                    }
+                                                </select>
+                                                <br />
+                                                @if (ViewBag.EpisodeId > 0)
+                                                {
+                                                    <text>
+                                                        <strong>Symptoms</strong><br />
+                                                        This is where the symptoms are supposed to be
+                                                        <br />
+                                                        <br />
+                                                        Pain Score:
+                                                        <br /><br />
+                                                        <strong>Diagnosis:</strong><br />
+                                                        <i>You can add multiple comma seperated code</i><br />
+                                                        <input type="text" name="Diagnosis" id="Diagnosis" value="@(ViewBag.Episode == null? ((Episode)ViewBag.Episode).DiagnosisCodes.SelectMany(d => d.Code) : string.Empty)" onblur="UpdateTagSearch()" /><br />
+                                                        @*@if (ViewBag.Episode.DiagnosisCodes.Length > 0)
+                                                            {
+                                                                <text>
+                                                                    Select a code you want to removed and press "Save"
+                                                                </text>
+                                                                <ul>
+                                                                    @foreach (DiagnosisCode code in ViewBag.Episode.DiagnosisCodes)
+                                                                    {
+                                                                        <li><input type="checkbox" value="DiagnosisCode.@code.Code" />@code.Code</li>
+                                                                    }
+                                                                </ul>
+                                                            }
+                                                            <input type="submit" name="Save Diagnosi" />*@
+                                                    </text>
+                                                }
+                                            </form>
+
+                                        </td>
+                                        <td>
+                                            @if (ViewBag.EpisodeId > 0)
+                                            {
+                                                <h2>Questionnaire Plan</h2>
+                                                <table>
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Assigned Questionnaire@(ViewBag.AssignedQuestionnaires != null && ViewBag.AssignedQuestionnaires.Count > 1 ? "s" : string.Empty)</th>
+                                                        </tr>
+                                                    </thead>
+                                                    @if (ViewBag.AssignedQuestionnaires != null && ViewBag.AssignedQuestionnaires.Count > 0)
+                                                    {
+                                                        foreach (PCHI.Model.Episodes.AssignedQuestionnaire k in ViewBag.AssignedQuestionnaires)
+                                                        {
+                                                            <tr><td align="left" colspan="1">@k.QuestionnaireName</td></tr>
+                                                        }
+                                                    }
+                                                </table>
+                                                <br />
+                                                <strong> Add Questionniare to plan</strong><br />
+                                                <text>
+                                                    Tags: <input type="text" name="Tags" id="Tags" value="@(ViewBag.Episode == null? ((Episode)ViewBag.Episode).DiagnosisCodes.SelectMany(d => d.Code) : string.Empty)gender:male" /> <input type="submit" value="Search" onclick="FilterQuestionnaires(); return false;" />
+                                                </text>
+                                                <br />
+                                                <form action="@Url.Action("ScheduleQuestionnaire", new { patientId = ViewBag.PatientId, episodeId = ViewBag.EpisodeId })" method="post">
+                                                    <ol id="FoundQuestionnaires"></ol>
+                                                    <input type="submit" value="Assign Selected" />
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">
+                                            <h2>Progress</h2>
+                                            <br/>
+                                            @if (ViewBag.DomainResultsSet != null && ViewBag.DomainResultsSet.Count > 0)
+                                            {
+                                                int counter = 0;
+                                                foreach (Episode e in ViewBag.DomainResultsSet.Keys)
+                                                {
+                                                    //if(counter == 1){ break;}
+
+                                                    foreach (string questionnaire in ViewBag.DomainResultsSet[e].Keys)
+                                                    {
+                                                        counter++;
+                                                        {
+                                                            ViewBag.DomainResultSet = ViewBag.DomainResultsSet[e][questionnaire];
+                                                            ViewBag.SetData = ViewBag.DomainResultsSetData[e][questionnaire];
+                                                            ViewBag.ChartName = e.Id + "_" + counter;
+                                                        }<div class="accordion">
+                                                            <div class="accordion-head">
+                                                                <span class="updown"></span><h3>Episode: @e.Condition  |  Start: @e.DateCreated.ToShortDateString() </h3>
+                                                            </div>
+                                                            <div class="accordion-results-table-body" style="width:100%">
+                                                                <table style="width:100%">
+                                                                    <tr style="width:100%">
+                                                                        <td style="max-width:30%;">
+                                                                            @Html.Partial("~/Views/Shared/PROResultTable.cshtml")
+                                                                        </td>
+                                                                        <td style="width:70%;height:500px">
+                                                                            @Html.Partial("~/Views/Shared/PROResultGraph.cshtml")
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <br /><h3>This patient doesn't have records with the given criteria</h3>
+                                            }
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        //Accordian
+        $('.accordion').each(function () {
+            var $accordian = $(this);
+            $accordian.find('.accordion-head').on('click', function () {
+                $accordian.find('.accordion-results-table-body').slideUp();
+                $accordian.find('span').css("backgroundPosition", '0px 0px');
+                if (!$(this).next().is(':visible')) {
+                    $(this).next().slideDown();
+                    $(this).find('span').css({ "background-position": '30px 0px' });
+                }
+            });
+        });
+
+
+        var numberOfColumns = 0;
+        var howManyColumns = @ViewBag.howManyColumns;
+        var leftColumnIndex = 0;
+        var rightColumnIndex = 0;
+        function formatTable (whichTable) {
+            /// <summary>
+            /// Sets the proper format to the given table
+            /// </summary>
+            /// <param name="whichTable">Indicates which table </param>
+            numberOfColumns = 0;
+            var results = getResults(whichTable);
+            leftColumnIndex = numberOfColumns - (howManyColumns - 1);
+            rightColumnIndex = numberOfColumns;
+            hideShowColumns();
+            $("tr[name^=belongs]").hide();
+            $("div[class=accordion-results-table-body]").slideUp();
+            // Handler for .ready() called.
+        }
+
+        function slidingUpFinished(element) {
+            $(element).hide();
+        }
+
+        function slidingDownStarted(element) {
+            $(element).show();
+        }
+
+        $(function () {
+            $("table[name^=results]").click(function (event) {
+                event.stopPropagation();
+                var $target = $(event.target);
+                if ($target.attr("class") != "scrollLeft" && $target.attr("class") != "scrollRight") {
+                    $.each($("[name='" + $target.closest("tr").attr("title") + "']"), function (key, value) {
+                        if ($(this).attr("name").indexOf("belongsToInstrument") > -1 && $(this).attr("class") == "opened") {
+                            var domainRow = $(this);
+                            $.each($("[name='" + $(this).attr("title") + "']"), function (key, value) {
+
+                                if ($(this).attr("class") == "opened") {
+                                    $(this).find("p").slideUp({ "duration": 600, "complete": slidingUpFinished($(this)) });
+                                    if (domainRow.find("td:first").html().indexOf("<") > -1) {
+                                        domainRow.find("td:first").attr("class", "EpisodeUp");
+                                    } else {
+                                        domainRow.find("td:first").attr("class", "EpisodeUp");
+                                    }
+                                    $(this).attr("class", "closed");
+                                }
+                            });
+                        }
+                        if ($(this).attr("class") == "closed") {
+                            $(this).find("p").slideDown({ "duration": 600, "start": slidingDownStarted($(this)) });
+                            if ($target.closest("tr").find("td:first").html().indexOf("<") > -1) {
+                                $target.closest("tr").find("td:first").attr("class", "EpisodeDown");
+                            } else {
+                                $target.closest("tr").find("td:first").attr("class", "EpisodeDown");
+                            }
+                            $(this).attr("class", "opened");
+                        } else {
+                            $(this).find("p").slideUp({ "duration": 600, "complete": slidingUpFinished($(this)) });
+                            if ($target.closest("tr").find("td:first").html().indexOf("<") > -1) {
+                                $target.closest("tr").find("td:first").attr("class", "EpisodeUp");
+                            } else {
+                                $target.closest("tr").find("td:first").attr("class", "EpisodeUp");
+                            }
+                            $(this).attr("class", "closed");
+                        }
+                    });
+                }
+            });
+        });
+
+        function getResults(whichTable) {
+            /// <summary>
+            /// Creates an array from the table with all the results
+            /// </summary>
+            /// <param name="whichTable">Indicates from which tables the results are going to be retrieved</param>
+            /// <returns>An array with all the results</returns>
+            var result = new Array();
+            var results = $("[id^=result_");
+            for (var i = 0; i < results.length; i++) {
+                var id = results[i].id;
+                var split = id.split("_");
+                if(split[4] == whichTable){
+                    var value = $('#' + id).html();
+                    value = value.replace("<p>", "");
+                    value = value.replace("</p>", "");
+                    result[result.length] = new resultItem(split[1], split[2], value, id, split[3]);
+                }
+            }
+            return result;
+        }
+
+        function resultItem(domainId, columnId, value, id, higherIsBetter) {
+            /// <summary>
+            /// Creates the intance of a result with all the proper information
+            /// </summary>
+            /// <param name="domainId">Domain id we are this result belongs to</param>
+            /// <param name="columnId">Column Id wo work this result belongs to</param>
+            /// <param name="value">Value of this result</param>
+            /// <param name="id">Id of the element</param>
+            /// <param name="higherIsBetter">Indicates if the result is better if it's higher or lower</param>
+            this.domainId = domainId;
+            this.columnId = parseInt(columnId, 10);
+            this.value = parseInt(value, 10);
+            this.id = id;
+            this.higherIsBetter = higherIsBetter;
+            numberOfColumns = (columnId > numberOfColumns) ? columnId : numberOfColumns;
+        }
+
+        function hideShowColumns() {
+            /// <summary>
+            /// Hides or shows the correct columns on the results table
+            /// </summary>
+            $("table[name=results]").find("[name^=results]").each(function (index, value) {
+                var cell = $(value).attr("name").split("_");
+                if (cell[2] < leftColumnIndex || cell[2] > rightColumnIndex) {
+                    $(value).hide();
+                } else {
+                    $(value).show();
+                }
+            });
+        }
+
+        function navigation(whichSide) {
+            /// <summary>
+            /// Increases or decreases the both left and right index to navigate through the table
+            /// </summary>
+            /// <param name="itemId">Indicates which side to go</param>
+            if (whichSide == "left") {
+                if ((leftColumnIndex - 1) >= 1) {
+                    leftColumnIndex--;
+                    rightColumnIndex--;
+                    hideShowColumns();
+                }
+            } else {
+                if ((rightColumnIndex + 1) <= numberOfColumns) {
+                    leftColumnIndex++;
+                    rightColumnIndex++;
+                    hideShowColumns();
+                }
+            }
+        }
+    </script>
+}

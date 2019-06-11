@@ -1,0 +1,42 @@
+﻿@{
+    ViewBag.Title = "ThankYou";
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+                    <br />
+
+                    @*<h2>ThankYou</h2>*@
+
+                    @if (((bool?)ViewBag.Submitted).Value)
+                    {
+                        <text>
+                            Your have submitted your results. You can view your score history by going to your scores.
+                        </text>
+                    }
+                    else
+                    {
+                        <text>
+                            You have saved your results, you can continue any time by logging in.
+                        </text>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

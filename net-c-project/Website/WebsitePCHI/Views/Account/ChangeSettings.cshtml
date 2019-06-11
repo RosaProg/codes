@@ -1,0 +1,67 @@
+﻿@model PCHI.WcfServices.API.PCHIServices.InterfaceContracts.Model.UserDetails
+@{
+    ViewBag.Title = "Change settings";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Admin.css")" />
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-PopUp.css")" />
+
+}
+
+<div class="MainContent">
+    <h2>Change Settings</h2>
+    <div @*class="settings-form"*@>
+
+
+        @using (Html.BeginForm("ChangeSettings", "Account", new { patientId = Request["patientId"] }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+
+            if (ViewBag.ErrorRetrieving == null)
+            {
+
+                <fieldset id="ChangeSettings-form">
+                    <ol style="list-style-type: none;">
+                        <li>
+                            <label>Title</label>
+                            @Html.TextBoxFor(m => m.Title)
+                        </li>
+                        <li>
+                            <label>First Name</label>
+                            @Html.TextBoxFor(m => m.FirstName)
+                        </li>
+                        <li>
+                            <label>Last Name</label>
+                            @Html.TextBoxFor(m => m.LastName)
+                        </li>
+                        <li>
+                            <label>Two Step Authentication method</label>
+                            @Html.DropDownListFor(m => m.TwoFactorProvider, (SelectList)ViewBag.Providers, "Disable")
+                        </li>
+                        <li>
+                            <label>Security Question</label>
+                            @Html.TextBoxFor(m => m.SecurityQuestion)
+                        </li>
+                        <li>
+                            <label>Security Answer</label>
+                            @Html.TextBoxFor(m => m.SecurityAnswer)
+                        </li>
+                    </ol>
+                </fieldset>
+            }
+            <input type="submit" id="saveSettings" value="Save settings" />
+            switch ((string)ViewBag.ShowPopUp)
+            {
+                case "PopUpAuthenticationCodeField":
+                    @Html.Partial("PopUpAuthenticationCodeField", new ViewDataDictionary() { { "top", "" }, { "patientId", Request["patientId"] } })
+                    break;
+                case "PopUpAuthenticationPassword":
+                @Html.Partial("PopUpAuthenticationPassword", new ViewDataDictionary() { { "top", "" }, { "patientId", Request["patientId"] } })
+                    break;
+            }
+        }
+    </div>
+</div>

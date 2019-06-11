@@ -1,0 +1,40 @@
+﻿@model Dictionary<string, string>
+
+@Html.Partial("PopupStart", null, ViewData)
+<div>
+    <span class="MainTitle">
+        Dear @if (TempData["UserName"] == null)
+        { @User.Identity.Name}
+        else
+        { @TempData["UserName"] },
+    </span><br /><span> Please select the role you want to log in as for this session</span> <br />
+    <br /><div class="pchi-roles">
+        @if (Model != null)
+        {
+            string[] colours = { "rgb(209, 43, 214)", "rgb(40, 200, 40)", "rgb(10, 255, 244)" };
+            int count = 0;
+            if (Model.Any(m => m.Value == string.Empty))
+            {
+                <a href="@Url.Action("SelectRole", new { UserName = TempData["UserName"], roleName = string.Empty, returnUrl = ViewBag.ReturnUrl })"><div style="background-color:@(colours[count%colours.Length]);width:300px;height:50px;">I don't want to act as a patient right now.</div></a>
+                count++;
+            }
+            foreach (string key in Model.Keys)
+            {
+                if (!string.IsNullOrWhiteSpace(Model[key]))
+                {
+                    <a style="display: inline-block;" href="@Url.Action("SelectRole", new { UserName = TempData["UserName"], roleName = key, returnUrl = ViewData["returnUrl"] })">
+                        <div class="role-opt">
+                            @{
+                    string src = "/Content/Images/RePlay-" + key + "-icon.png";
+                    <img src="@src" width="50" height="50" alt=""><br />
+                            }
+                            @Model[key]
+                            <br /><br />
+                        </div>
+                    </a>
+                }
+            }
+        }
+    </div>
+</div>
+@Html.Partial("PopupEnd")

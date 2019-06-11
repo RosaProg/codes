@@ -1,0 +1,60 @@
+﻿<!-- Question -->
+@*<script src="@Url.Content("~/Scripts/QuestionnaireChatSupport.js")"></script>*@
+<script type="text/html" id="questionnaire-template">
+    <div class="Msg-Window">
+        <!-- ko foreach: Items -->
+        
+            <!-- HISTORICAL -->
+<div data-bind="visible: DontShow">
+        <div data-bind="visible: Status() == 'Historical'" class="opsmcBubble">
+            <div data-bind="html: Question.HtmlContent"></div>
+        </div>
+
+        <div class="userBubble" data-bind="visible: Status() == 'Historical' ">
+                <div class="edit-Icon"><a href="#"><img src="../Content/images/Chat/btn-Edit.png" width="26" height="26" alt="Edit this answer" data-bind="click: EditAnswer" /></a></div>
+                <div data-bind="html: Answer().Value()"></div>
+       
+        </div>
+</div>  
+     <!-- SKIPPED-->
+<div data-bind="visible: DontShowSkipped">
+            <div class="opsmcBubble skipBubble" data-bind="visible: Status() == 'Skipped'">
+
+                <div class="skipped-Icon"><a href="#"><img src="../Content/Images/Chat/btn-Skipped.png" width="26" height="26" alt="Click to answer"  data-bind="click: EditAnswerSkipped" /></a></div>
+                <div data-bind="html: Question.HtmlContent" style="padding-right:50px;padding-left:10px;"></div>
+            </div></div>
+            <!-- CURRENT ITEM -->
+
+           <div data-bind="visible: Status() == 'Current'">
+                     <div id="opsmcBubble" class="opsmcBubble currentBubble">
+                         <div class="opsmc-Avatar"></div>
+                         <div data-bind="html: Question.HtmlContent"></div>
+                    </div>
+                    <div class="userBubble" data-bind="visible: AnsweredStatus() == 'Answered'">
+                        <div data-bind="html: Answer().Value()"></div>
+                    </div>
+           </div>
+
+
+        <!-- /ko -->        
+    </div> 
+   
+   <div id="CurrentResponsePanelTexting" style="display:none;height:68px;">
+                    <div class="opsmcBubble2 currentBubbleTexting">
+                        <div class="loadingBackground-texting">
+	                        <div class="opsmc-Avatar"></div>
+	                            <div class="loading-icon-texting">
+		                            <img src="../Content/images/Chat/RePLAY-texting.gif" />
+	                            </div>
+                        </div>
+                    </div>
+                </div>
+
+    <!--div class="editBubble" style="display:none">
+            <div class="userBubble">
+                    <div class="edit-Icon"><img src="../Content/images/Chat/btn-Edit.png" width="26" height="26" alt="Edit this answer"/></div>
+                    <div>Editando...</div>
+       
+            </div>
+    </!--div-->   
+</script>

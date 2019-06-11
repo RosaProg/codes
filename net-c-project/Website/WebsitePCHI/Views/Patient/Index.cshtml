@@ -1,0 +1,160 @@
+﻿@using PCHI.Model.Questionnaire.Response
+@using PCHI.Model.Episodes
+@{
+    ViewBag.Title = "Patient's Home page or Dashboard";
+    var pageText = new PCHI.WcfServices.API.PCHIServices.InterfaceProxies.Service.ServiceDetailsClient().GetPageText(new List<string>() { "Patient_Index_Header", "Patient_Index_Top", "Patient_NewsFeed_1", "Patient_NewsFeed_2", "Patient_NewsFeed_3" }, patientId: Request.QueryString["PatientId"]).StringDictionary;
+}
+
+@section styles{
+<link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Results.css")" />
+}
+
+<script type="text/javascript">
+    function Toggle(id) {
+        $('[data-episode="Episode_' + id + '"]').toggle();
+        $('#Episode_' + id).toggleClass('EpisodeUp EpisodeDown');
+    }
+
+</script>
+<div id="main-dashboard" class="main-dashboard">
+
+    @*QUESTIONNAIRES TABLE*@
+    <div class="intro-dashboard no-overflow">
+        <span class="pchi-IntroTitle">@(pageText["Patient_Index_Header"])</span> <br />
+        <br />
+        @if (ViewBag.Outstanding != null && ViewBag.Outstanding.Count > 0)
+        {
+            @(pageText["Patient_Index_Top"])
+            <br /><br />
+            @( (ViewBag.Outstanding == null ? string.Empty : "You have some pending questionnaires. Pass the cursor over or click on the names to know more about each of them. Thanks!"))
+
+            <br /><br />
+            <table id="introTable" class="pchi-IntroTable">
+                <thead class="pchi-IntroTable-Head">
+                    <tr>
+                        <th>Questionnaire</th>
+                        <th>Date Received</th>
+                        <th>Due Date</th>
+                        <th>Link</th>
+                    </tr>
+                </thead>
+                @foreach (PCHI.Model.Episodes.Episode k in ViewBag.Outstanding.Keys)
+                {
+                    <tr><td colspan="4" align="left"><strong>@(k.Condition == null ? "General" : k.Condition)</strong></td></tr>
+                    foreach (PCHI.Model.Questionnaire.Response.QuestionnaireUserResponseGroup q in ViewBag.Outstanding[k])
+                    {
+                        <tr>
+                            <td>@( q.Questionnaire.DisplayName)</td>
+                            <td>
+                                @q.DatetimeCreated.ToString("dd-MM-yyyy")
+                            </td>
+                            <td>@(q.DueDate.HasValue ? q.DueDate.Value.ToString("dd-MM-yyyy") : string.Empty)</td>
+                            <td>
+                                @{
+                        var patientId = Request["patientId"];
+                        @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireChat", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name, episodeId = k.Id }, new { })
+                                }
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </table>
+        }
+        @*Accordion Starts*@
+
+        <div class="accordion">
+            <div class="accordion-head">
+                <span class="updown"></span><h3>Questionnaire History</h3>
+            </div>
+            <div class="accordion-body">
+                @if (ViewBag.Completed != null && ViewBag.Completed.Count > 0)
+                {
+                    <table id="introTable" class="pchi-IntroTable">
+                        <thead class="pchi-IntroTable-Head">
+                            <tr>
+                                <th>Questionnaire</th>
+                                <th>Date Received</th>
+                                <th>Due Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        @foreach (PCHI.Model.Episodes.Episode k in ViewBag.Completed.Keys)
+                        {
+                            <tr>
+                                <td colspan="4" align="left" onclick="Toggle('@(k.Id)');">
+                                    <div id="Episode_@(k.Id)" class="EpisodeDown"></div>
+                                    <div style="margin-left:30px"><strong>@(k.Condition == null ? "General" : k.Condition)</strong></div>
+                                </td>
+                            </tr>
+                            foreach (PCHI.Model.Questionnaire.Response.QuestionnaireUserResponseGroup q in ViewBag.Completed[k])
+                            {
+                                <tr data-episode="Episode_@(k.Id)">
+                                    <td>@( q.Questionnaire.DisplayName)</td>
+                                    <td>
+                                        @q.DatetimeCreated.ToString("dd-MM-yyyy")
+                                    </td>
+                                    <td>@(q.DueDate.HasValue ? q.DueDate.Value.ToString("dd-MM-yyyy") : string.Empty)</td>
+                                    <td>
+                                        @(q.Status.ToString())
+                                    </td>
+                                </tr>
+                            }
+                        }
+
+                    </table>
+                }
+            </div>
+
+        </div>
+        @*Accordion Ends*@
+
+    </div>
+
+    @switch ((string)ViewBag.ShowPopUp)
+    {
+        case "SelectConfidentialityScope":
+            @section PopUp {
+                @Html.Partial("PopUpSelectConfidentialityScope", new ViewDataDictionary { { "patientId", Request["patientId"] } })
+            }
+            break;
+    }
+
+    @*NEWS FEED*@
+    <div class="newsfeed-dashboard">
+        <div class="newsfeed-item">
+            <h4>OPSMC News</h4>
+            <p>@Html.Raw(pageText["Patient_NewsFeed_1"])</p>
+            <div class="article-image"></div>
+        </div>
+        <div class="newsfeed-item">
+            <h4>OPSMC News 2</h4>
+            <p>@Html.Raw(pageText["Patient_NewsFeed_2"])</p>
+            <div class="article-image"></div>
+        </div>
+        <div class="newsfeed-item">
+            <h4>RePLAY</h4>
+            <p>@Html.Raw(pageText["Patient_NewsFeed_3"])</p>
+            <div class="article-image"></div>
+        </div>
+
+    </div>
+
+
+
+</div>
+
+<script>
+    //Accordian
+    $('.accordion').each(function () {
+        var $accordian = $(this);
+        $accordian.find('.accordion-head').on('click', function () {
+            $accordian.find('.accordion-body').slideUp();
+            $accordian.find('span').css("backgroundPosition", '0px 0px');
+            if (!$(this).next().is(':visible')) {
+                $(this).next().slideDown();
+                $(this).find('span').css({ "background-position": '30px 0px' });
+            }
+        });
+    });
+</script>

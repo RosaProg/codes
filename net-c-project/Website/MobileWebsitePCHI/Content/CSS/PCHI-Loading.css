@@ -1,0 +1,70 @@
+
+
+.loadingBackground {
+width: 100px;
+/* min-width: 800px; */
+/* margin: 0 auto; */
+height: 70px;
+position: absolute;
+background-color: #f3f3f3;
+opacity: 0.95;
+border: 1px #ddd solid;
+border-radius: 12px;
+text-align: center;
+-webkit-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+}
+.loadingBackground-texting {
+width: 60px;
+/* min-width: 800px; */
+/* margin: 0 auto; */
+height: 40px;
+position: absolute;
+background-color: #f3f3f3;
+opacity: 0.95;
+border: 1px #ddd solid;
+border-radius: 12px;
+margin-left: 20px;
+margin-top:33px;
+text-align: center;
+-webkit-transform: translate(-50%, -50%);
+transform: translate(-50%, -50%);
+}
+
+.loading-icon{
+position: relative;
+/* margin: auto auto; */
+}
+
+.loading-icon-texting{
+position: relative;
+/* margin: auto auto; */
+}
+
+.opsmc-Avatar{
+    background: url(http://150.101.164.133:8080//Content/images/Chat/icon-OPSMC.png) white;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    width: 30px;
+    height: 30px;
+    bottom: 0px;
+    position: absolute;
+    z-index: 2;
+    margin-top: 0px;
+    margin-left: 10px;
+}
+/*.opsmcBubble:before 
+{
+content: '';
+position: absolute;
+border-style: solid;
+border-width: 13px 9px 0px 0;
+display: block;
+width: 0;
+z-index: 0;
+
+}*/

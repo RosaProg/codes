@@ -1,0 +1,1376 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Syncfusion.EJ.MVC</name>
+    </assembly>
+    <members>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButton"/> class.
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties,System.Web.Mvc.HtmlHelper,System.String,System.Web.Routing.RouteValueDictionary,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties,System.Web.Mvc.HtmlHelper,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties,System.Web.Mvc.HtmlHelper,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties,System.Web.Mvc.HtmlHelper,System.String,System.String,System.String,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="protocol">The protocol.</param>
+            <param name="hostName">Name of the host.</param>
+            <param name="fragment">The fragment.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.CreateContainer(System.String)">
+            <summary>
+            Creates the container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.RenderControl(System.String)">
+            <summary>
+            Renders the control.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.RenderElement(System.String)">
+            <summary>
+            Renders the element.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.CreateUnObtrusiveContainer(System.String)">
+            <summary>
+            Creates the un obtrusive container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.CreateButtonContainer(System.String)">
+            <summary>
+            Creates the button container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.CreateUnObtrusiveActionLinkContainer(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates the un obtrusive action link container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <param name="htmlAttr">The HTML attribute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.CreateUnObtrusiveRouteLinkContainer(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Creates the un obtrusive route link container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <param name="htmlAttr">The HTML attribute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.actionLink(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Actions the link.
+            </summary>
+            <param name="controlID">The control identifier.</param>
+            <param name="htmlAttr">The HTML attribute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButton.routeLink(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Routes the link.
+            </summary>
+            <param name="controlID">The control identifier.</param>
+            <param name="htmlAttr">The HTML attribute.</param>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Syncfusion.JavaScript.Mobile.MobileButton.MobileButtonModel" -->
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileButton.PluginName">
+            <summary>
+            Gets the name of the plugin.
+            </summary>
+            <value>
+            The name of the plugin.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileButton.ButtonName">
+            <summary>
+            Gets or sets the name of the button.
+            </summary>
+            <value>
+            The name of the button.
+            </value>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder">
+            <summary>
+            Class for MobileButtonPropertiesBuilder
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileButton)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="MobileButton">The mobile button.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileButton,System.Web.Mvc.HtmlHelper,System.String,System.Web.Routing.RouteValueDictionary,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="MobileButton">The mobile button.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileButton,System.Web.Mvc.HtmlHelper,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="MobileButton">The mobile button.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileButton,System.Web.Mvc.HtmlHelper,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="MobileButton">The mobile button.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileButton,System.Web.Mvc.HtmlHelper,System.String,System.String,System.String,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="MobileButton">The mobile button.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="protocol">The protocol.</param>
+            <param name="hostName">Name of the host.</param>
+            <param name="fragment">The fragment.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.RenderMode(Syncfusion.JavaScript.RenderMode)">
+            <summary>
+            Renders the mode.
+            </summary>
+            <param name="renderMode">The render mode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.Theme(Syncfusion.JavaScript.Theme)">
+            <summary>
+            Themes the specified theme.
+            </summary>
+            <param name="theme">The theme.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.ImageClass(System.String)">
+            <summary>
+            Images the class.
+            </summary>
+            <param name="imageClass">The image class.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.ImagePosition(Syncfusion.JavaScript.ImagePosition)">
+            <summary>
+            Images the position.
+            </summary>
+            <param name="imagePosition">The image position.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.ContentType(Syncfusion.JavaScript.ContentType)">
+            <summary>
+            Contents the type.
+            </summary>
+            <param name="contentType">Type of the content.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.Enabled(System.Boolean)">
+            <summary>
+            Enableds the specified enabled.
+            </summary>
+            <param name="enabled">if set to <c>true</c> [enabled].</param>
+            <returns>MobileButtonPropertiesBuilder.</returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.EnablePersistence(System.Boolean)">
+            <summary>
+            Enables the persistence.
+            </summary>
+            <param name="enablePersistence">if set to <c>true</c> [enable persistence].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.Text(System.String)">
+            <summary>
+            Texts the specified text.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.IOS7(System.Action{Syncfusion.JavaScript.Mobile.MobileButtonIOS7PropertiesBuilder})">
+            <summary>
+            Ioes the s7.
+            </summary>
+            <param name="ios7Model">The ios7 model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.Android(System.Action{Syncfusion.JavaScript.Mobile.MobileButtonAndroidPropertiesBuilder})">
+            <summary>
+            Ioes the s7.
+            </summary>
+            <param name="androidModel">The android model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.Windows(System.Action{Syncfusion.JavaScript.Mobile.MobileButtonWindowsPropertiesBuilder})">
+            <summary>
+            Ioes the s7.
+            </summary>
+            <param name="windowsModel">The windows model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.Flat(System.Action{Syncfusion.JavaScript.Mobile.MobileButtonFlatPropertiesBuilder})">
+            <summary>
+            Flats the flat.
+            </summary>
+            <param name="flatModel">The Flat model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileButtonPropertiesBuilder.ClientSideEvents(System.Action{Syncfusion.JavaScript.Mobile.MobileButtonClientSideEventsBuilder})">
+            <summary>
+            Clients the side events.
+            </summary>
+            <param name="clientSideEvents">The client side events.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput">
+            <summary>
+            Class for EssentialJavaScriptMobileInput
+            </summary>
+            <summary>
+            Class for EssentialJavaScriptMobileInput
+            </summary>
+            <summary>
+            Class for EssentialJavaScriptMobileInput
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.Button(System.String)">
+            <summary>
+            Extension for the Button control
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.Button(System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties)">
+            <summary>
+            Buttons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.ActionLink(System.String,System.String)">
+            <summary>
+            Actions the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.ActionLink(System.String,System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties)">
+            <summary>
+            Actions the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.ActionLink(System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Object)">
+            <summary>
+            Actions the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.ActionLink(System.String,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Object)">
+            <summary>
+            Actions the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.ActionLink(System.String,System.String,System.String,System.String,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Object)">
+            <summary>
+            Actions the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="protocol">The protocol.</param>
+            <param name="hostName">Name of the host.</param>
+            <param name="fragment">The fragment.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RouteLink(System.String,System.String)">
+            <summary>
+            Routes the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RouteLink(System.String,System.String,Syncfusion.JavaScript.Mobile.Models.MobileButtonProperties)">
+            <summary>
+            Routes the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RouteLink(System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Object)">
+            <summary>
+            Routes the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RouteLink(System.String,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Object)">
+            <summary>
+            Routes the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RouteLink(System.String,System.String,System.String,System.String,System.String,System.String,System.Web.Routing.RouteValueDictionary,System.Object)">
+            <summary>
+            Routes the link.
+            </summary>
+            <param name="linkText">The link text.</param>
+            <param name="actionName">Name of the action.</param>
+            <param name="controllerName">Name of the controller.</param>
+            <param name="protocol">The protocol.</param>
+            <param name="hostName">Name of the host.</param>
+            <param name="fragment">The fragment.</param>
+            <param name="routeValues">The route values.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String)">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String,Syncfusion.JavaScript.Mobile.Models.MobileCheckBoxProperties)">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String,System.Boolean)">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="isChecked">if set to <c>true</c> [is checked].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String,System.Boolean,System.Object)">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="isChecked">if set to <c>true</c> [is checked].</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String,System.Object)">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.CheckBox(System.String,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            CheckBoxes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="isChecked">if set to <c>true</c> [is checked].</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.ConvertObjectToDictionary(System.Object)">
+            <summary>
+            Converts the object to dictionary.
+            </summary>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object)">
+            <summary>
+            Extension for the RadioButton Control.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object,Syncfusion.JavaScript.Mobile.Models.MobileRadioButtonProperties)">
+            <summary>
+            RadioButtons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object,System.Boolean)">
+            <summary>
+            RadioButtons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+            <param name="isChecked">if set to <c>true</c> [is checked].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object,System.Boolean,System.Object)">
+            <summary>
+            RadioButtons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+            <param name="isChecked">if set to <c>true</c> [is checked].</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object,System.Object)">
+            <summary>
+            RadioButtons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            RadioButtons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.RadioButton(System.String,System.Object,System.Boolean,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            RadioButtons the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="value">The value.</param>
+            <param name="isChecked">if set to <c>true</c> [is checked].</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextBox(System.String)">
+            <summary>
+            Texts the box.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextBox(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties)">
+            <summary>
+            Texts the box.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextBox(System.String,System.Object,System.Object)">
+            <summary>
+            Texts the box.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextBox(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Texts the box.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.PassWord(System.String)">
+            <summary>
+            Passes the word.
+            </summary>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.PassWord(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties)">
+            <summary>
+            Passes the word.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.PassWord(System.String,System.Object,System.Object)">
+            <summary>
+            Passes the word.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.PassWord(System.String,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Passes the word.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.MaskEdit(System.String)">
+            <summary>
+            Masks the edit.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.MaskEdit(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties)">
+            <summary>
+            Masks the edit.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String)">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties)">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="model">The model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String,System.String,System.Object)">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String,System.String,System.Int32,System.Int32,System.Object)">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="rows">The rows.</param>
+            <param name="columns">The columns.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.EssentialJavaScriptMobileInput.TextArea(System.String,System.String,System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Texts the area.
+            </summary>
+            <param name="name">The name.</param>
+            <param name="value">The value.</param>
+            <param name="rows">The rows.</param>
+            <param name="columns">The columns.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.CheckBox">
+            <summary>
+            Class for Check box contorl
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.CheckBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileCheckBoxProperties,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="!:MCheckBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.CheckBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileCheckBoxProperties,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.CheckBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.CheckBox.CreateContainer(System.String)">
+            <summary>
+            Creates the container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.CheckBox.RenderElement(System.String)">
+            <summary>
+            Renders the element.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.CheckBox.RenderControl(System.String)">
+            <summary>
+            Renders the control.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.CheckBox.CreateUnObtrusiveContainer(System.String)">
+            <summary>
+            Creates the un obtrusive container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.CheckBox.MobileCheckBoxModel">
+            <summary>
+            Gets or sets the m CheckBox model.
+            </summary>
+            <value>
+            The m CheckBox model.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.CheckBox.TagName">
+            <summary>
+            Gets the name of the tag.
+            </summary>
+            <value>
+            The name of the tag.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.CheckBox.PluginName">
+            <summary>
+            Gets the name of the plugin.
+            </summary>
+            <value>
+            The name of the plugin.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.CheckBox.Model">
+            <summary>
+            Gets the model.
+            </summary>
+            <value>
+            The model.
+            </value>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder">
+            <summary>
+            Class for MobileCheckBoxPropertiesBuilder
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.CheckBox,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="!:MCheckBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mCheckBox">The m CheckBox.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.CheckBox,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mCheckBox">The m CheckBox.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.RenderMode(Syncfusion.JavaScript.RenderMode)">
+            <summary>
+            Renders the mode.
+            </summary>
+            <param name="renderMode">The render mode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.Theme(Syncfusion.JavaScript.Theme)">
+            <summary>
+            Themes the specified theme.
+            </summary>
+            <param name="theme">The theme.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.Checked(System.Boolean)">
+            <summary>
+            Checks the specified check.
+            </summary>
+            <param name="check">if set to <c>true</c> [check].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.Enabled(System.Boolean)">
+            <summary>
+            Enables the specified enabled.
+            </summary>
+            <param name="enabled">if set to <c>true</c> [enabled].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.Text(System.String)">
+            <summary>
+            Texts the specified text.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.EnablePersistence(System.Boolean)">
+            <summary>
+            Enables the persistence.
+            </summary>
+            <param name="enablePersistence">if set to <c>true</c> [enable persistence].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.PreventDefault(System.Boolean)">
+            <summary>
+            Prevents the default.
+            </summary>
+            <param name="value">if set to <c>true</c> [value].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.EnableTriState(System.Boolean)">
+            <summary>
+            Enables the enabletristate.
+            </summary>
+            <param name="value">if set to <c>true</c> [value].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileCheckBoxPropertiesBuilder.ClientSideEvents(System.Action{Syncfusion.JavaScript.Mobile.MobileCheckBoxClientSideEventsBuilder})">
+            <summary>
+            Clients the side events.
+            </summary>
+            <param name="clientSideEvents">The client side events.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.RadioButton">
+            <summary>
+            Class for Radio button
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.RadioButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileRadioButtonProperties,System.Object,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="!:MRadioButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.RadioButton.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileRadioButtonProperties,System.Object,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.RadioButton"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="value">The value.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.RadioButton.CreateContainer(System.String)">
+            <summary>
+            Creates the container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.RadioButton.CreateUnObtrusiveContainer(System.String)">
+            <summary>
+            Creates the un obtrusive container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.RadioButton.MobileRadioButtonModel">
+            <summary>
+            Gets or sets the m RadioButton model.
+            </summary>
+            <value>
+            The m RadioButton model.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.RadioButton.TagName">
+            <summary>
+            Gets the name of the tag.
+            </summary>
+            <value>
+            The name of the tag.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.RadioButton.PluginName">
+            <summary>
+            Gets the name of the plugin.
+            </summary>
+            <value>
+            The name of the plugin.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.RadioButton.Model">
+            <summary>
+            Gets the model.
+            </summary>
+            <value>
+            The model.
+            </value>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder">
+            <summary>
+            Class for MobileRadioButtonPropertiesBuilder
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.RadioButton,System.Object,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="!:MRadioButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="mRadioButton">The m RadioButton.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.RadioButton,System.Object,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder"/> class.
+            </summary>
+            <param name="mRadioButton">The m RadioButton.</param>
+            <param name="value">The value.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.RenderMode(Syncfusion.JavaScript.RenderMode)">
+            <summary>
+            Renders the mode.
+            </summary>
+            <param name="renderMode">The render mode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.Theme(Syncfusion.JavaScript.Theme)">
+            <summary>
+            Themes the specified theme.
+            </summary>
+            <param name="theme">The theme.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.Checked(System.Boolean)">
+            <summary>
+            Checks the specified check.
+            </summary>
+            <param name="check">if set to <c>true</c> [check].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.Enabled(System.Boolean)">
+            <summary>
+            Enables the specified enabled.
+            </summary>
+            <param name="enabled">if set to <c>true</c> [enabled].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.EnablePersistence(System.Boolean)">
+            <summary>
+            Enables the persistence.
+            </summary>
+            <param name="enablePersistence">if set to <c>true</c> [enable persistence].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.Text(System.String)">
+            <summary>
+            Texts the specified text.
+            </summary>
+            <param name="text">The text.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.ClientSideEvents(System.Action{Syncfusion.JavaScript.Mobile.MobileRadioButtonClientSideEventsBuilder})">
+            <summary>
+            Clients the side events.
+            </summary>
+            <param name="clientSideEvents">The client side events.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileRadioButtonPropertiesBuilder.Windows(System.Action{Syncfusion.JavaScript.Mobile.MobileRadioButtonWindowsPropertiesBuilder})">
+            <summary>
+            Windowses the specified windows model.
+            </summary>
+            <param name="windowsModel">The windows model.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.MobileTextBox">
+            <summary>
+            Class for MobileTextBox
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="!:MTextBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties,System.Web.Mvc.HtmlHelper,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties,System.Web.Mvc.HtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.#ctor(System.String,Syncfusion.JavaScript.Mobile.Models.MobileTextBoxProperties,System.Web.Mvc.HtmlHelper,System.String,System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBox"/> class.
+            </summary>
+            <param name="id">The identifier.</param>
+            <param name="propModel">The property model.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="rows">The rows.</param>
+            <param name="columns">The columns.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.CreateContainer(System.String)">
+            <summary>
+            Creates the container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.RenderElement(System.String)">
+            <summary>
+            Renders the element.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.RenderControl(System.String)">
+            <summary>
+            Renders the control.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.CreateUnObtrusiveContainer(System.String)">
+            <summary>
+            Creates the un obtrusive container.
+            </summary>
+            <param name="controlId">The control identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.TextboxLink(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Textboxes the link.
+            </summary>
+            <param name="controlID">The control identifier.</param>
+            <param name="htmlAttr">The HTML attribute.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBox.TextAreaLink(System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Texts the area link.
+            </summary>
+            <param name="controlID">The control identifier.</param>
+            <param name="htmlAttr">The HTML attribute.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileTextBox.MobileTextBoxModel">
+            <summary>
+            Gets or sets the m TextBox model.
+            </summary>
+            <value>
+            The m TextBox model.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileTextBox.TagName">
+            <summary>
+            Gets the name of the tag.
+            </summary>
+            <value>
+            The name of the tag.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileTextBox.TextBoxTagName">
+            <summary>
+            Gets or sets the name of the text box tag.
+            </summary>
+            <value>
+            The name of the text box tag.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileTextBox.PluginName">
+            <summary>
+            Gets the name of the plugin.
+            </summary>
+            <value>
+            The name of the plugin.
+            </value>
+        </member>
+        <member name="P:Syncfusion.JavaScript.Mobile.MobileTextBox.Model">
+            <summary>
+            Gets the model.
+            </summary>
+            <value>
+            The model.
+            </value>
+        </member>
+        <member name="T:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder">
+            <summary>
+            Class for MobileTextBoxPropertiesBuilder
+            </summary>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="!:MTextBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m TextBox.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.String,System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="rows">The rows.</param>
+            <param name="columns">The columns.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.RenderMode(Syncfusion.JavaScript.RenderMode)">
+            <summary>
+            Renders the mode.
+            </summary>
+            <param name="renderMode">The render mode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.Theme(Syncfusion.JavaScript.Theme)">
+            <summary>
+            Themes the specified theme.
+            </summary>
+            <param name="theme">The theme.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.ShowBorder(System.Boolean)">
+            <summary>
+            Shows the border.
+            </summary>
+            <param name="showborder">if set to <c>true</c> [showborder].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.Value(System.String)">
+            <summary>
+            Values the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.WatermarkText(System.String)">
+            <summary>
+            Waters the mark text.
+            </summary>
+            <param name="watermarktext">The watermarktext.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.Enabled(System.Boolean)">
+            <summary>
+            Enableds the specified enabled.
+            </summary>
+            <param name="enabled">if set to <c>true</c> [enabled].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.EnablePersistence(System.Boolean)">
+            <summary>
+            Persists the specified persist.
+            </summary>
+            <param name="persist">if set to <c>true</c> [persist].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.ReadOnly(System.Boolean)">
+            <summary>
+            Reads the only.
+            </summary>
+            <param name="value">if set to <c>true</c> [value].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.ClientSideEvents(System.Action{Syncfusion.JavaScript.Mobile.MobileTextBoxClientSideEventsBuilder})">
+            <summary>
+            Clients the side events.
+            </summary>
+            <param name="clientSideEvents">The client side events.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileTextBoxPropertiesBuilder.Windows(System.Action{Syncfusion.JavaScript.Mobile.MobileTextBoxWindowsPropertiesBuilder})">
+            <summary>
+            Windowses the specified windows model.
+            </summary>
+            <param name="windowsModel">The windows model.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.Object,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.String,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.#ctor(Syncfusion.JavaScript.Mobile.MobileTextBox,System.Web.Mvc.HtmlHelper,System.String,System.Int32,System.Int32,System.Collections.Generic.IDictionary{System.String,System.Object})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder"/> class.
+            </summary>
+            <param name="mTextBox">The m text box.</param>
+            <param name="htmlHelper">The HTML helper.</param>
+            <param name="value">The value.</param>
+            <param name="rows">The rows.</param>
+            <param name="columns">The columns.</param>
+            <param name="htmlAttributes">The HTML attributes.</param>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.RenderMode(Syncfusion.JavaScript.RenderMode)">
+            <summary>
+            Renders the mode.
+            </summary>
+            <param name="renderMode">The render mode.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.Theme(Syncfusion.JavaScript.Theme)">
+            <summary>
+            Themes the specified theme.
+            </summary>
+            <param name="theme">The theme.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.ShowBorder(System.Boolean)">
+            <summary>
+            Shows the border.
+            </summary>
+            <param name="showborder">if set to <c>true</c> [showborder].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.Value(System.String)">
+            <summary>
+            Values the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.WatermarkText(System.String)">
+            <summary>
+            Watermarks the text.
+            </summary>
+            <param name="watermarktext">The watermarktext.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.Enabled(System.Boolean)">
+            <summary>
+            Enableds the specified enabled.
+            </summary>
+            <param name="enabled">if set to <c>true</c> [enabled].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.EnablePersistence(System.Boolean)">
+            <summary>
+            Enables the persistence.
+            </summary>
+            <param name="enablePersistence">if set to <c>true</c> [enable persistence].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.ReadOnly(System.Boolean)">
+            <summary>
+            Reads the only.
+            </summary>
+            <param name="value">if set to <c>true</c> [value].</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.Mask(System.String)">
+            <summary>
+            Masks the specified value.
+            </summary>
+            <param name="value">The value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.ClientSideEvents(System.Action{Syncfusion.JavaScript.Mobile.MobileTextBoxClientSideEventsBuilder})">
+            <summary>
+            Clients the side events.
+            </summary>
+            <param name="clientSideEvents">The client side events.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Syncfusion.JavaScript.Mobile.MobileMaskEditPropertiesBuilder.Windows(System.Action{Syncfusion.JavaScript.Mobile.MobileTextBoxWindowsPropertiesBuilder})">
+            <summary>
+            Windowses the specified windows model.
+            </summary>
+            <param name="windowsModel">The windows model.</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

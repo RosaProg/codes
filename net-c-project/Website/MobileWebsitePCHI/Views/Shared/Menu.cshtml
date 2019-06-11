@@ -1,0 +1,65 @@
+﻿@using MobileWebsitePCHI.Models
+
+<div class="menu-trigger"></div>
+<!-- Nav Menu -->
+<nav id="slide-menu">
+    <ul>
+        <li><div id="menu-logo"></div></li>
+        <li><div class="menu-title">Menu</div></li>
+@if (Request.IsAuthenticated)
+{
+    var sessionData = DSPrima.WcfUserSession.ClientSession.WcfUserClientSession.Current.Config.SessionData<PCHI.Model.Security.ClientSessionDetails>();
+    
+        
+    if (sessionData.SelectedRole == "PatientProxy")
+    {
+        @Html.MenuItem("My RePLAY", "", "Index", "Patient", new { patientId = Request["patientId"] })
+        @Html.MenuItem("My Results", "", "QuestionnaireResults", "Patient", new { patientId = Request["patientId"] })
+        @Html.MenuItem("Change Patient Details", "RePlay-Blank-tab.png", "ChangePatientDetails", "Patient", new { patientId = Request["patientId"] }, "PatientProxy")
+    }
+        
+
+
+    //Specific Index page for each role
+    @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Admin", null, "Administrator")
+    @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Telephonist", null, "Telephonist")
+    @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Practitioner", null, "Practitioner")
+    @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Researcher", null, "Researcher")
+
+    //Specific options for each roles
+    @Html.MenuItem("VIP Booking", "RePLAY-telephonist-icon.png", "Telephonist", "Telephonist", null, "Telephonist")
+    @Html.MenuItem("VIP Practitioner", "RePLAY-practitioner-icon.png", "Physician", "Practitioner", null, "Practitioner")
+    @*Html.MenuItem("Researcher", "RePLAY-researcher-icon.png", "ResearcherSearch", "Researcher", null, "Researcher")*@
+    @Html.MenuItem("Users", "RePlay-Blank-tab.png", "Users", "Admin", null, "Administrator")
+
+    if (Request.IsAuthenticated)
+    {
+        if (sessionData.AvailableRoles.Count > 1)
+        {
+            @Html.MenuItem("Change Roles", "RePlay-RePlay-tab.png", "SelectRole", "Access", new { login = false })
+        }
+        if (sessionData.AvailablePatients.Count > 1)
+        {
+            @Html.MenuItem("Change Patient", "RePlay-RePlay-tab.png", "SelectPatient", "Patient")
+        }
+    }
+
+    @Html.MenuItem("Change Password", null, "ChangePassword", "Account", new { patientId = Request["patientId"] })
+    @Html.MenuItem("Change Settings", null, "ChangeSettings", "Account", new { patientId = Request["patientId"] })
+    @Html.MenuItem("My Audit Trail", null, "MyAuditTrail", "Account", new { patientId = Request["patientId"] })
+
+
+    @Html.MenuItem("About OPSMC", "", "About", "Home", new { patientId = Request["patientId"] })
+    using (Html.BeginForm("LogOff", "Access", FormMethod.Post, new { id = "logoutForm" }))
+    {
+                @Html.AntiForgeryToken()
+                <li class="hiddenmenu"onclick="javascript: document.getElementById('logoutForm').submit()"><p>@User.Identity.Name</p><p>Logout</p></li>
+            }
+}
+else
+{
+    @Html.MenuItem("Start", "", "Index", "Home")
+    @Html.MenuItem("About OPSMC", "", "About", "Home")
+}
+</ul>
+</nav>

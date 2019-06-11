@@ -1,0 +1,19 @@
+﻿@model WebsiteSupportLibrary.Models.QuestionnaireModel
+@using WebsitePCHI.Common;
+
+@{
+    ViewBag.Title = "PRO Chat";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Chat.css")" />
+    <script type="text/html" src="~/Shared/QuestionnaireChatTemplate">
+    </script>
+}
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/Questionnaire")
+}
+
+@Html.Partial("QuestionnaireChat", Model, new ViewDataDictionary() { { "actionSubmit", "SaveChatMode" }, { "controllerSubmit", "Home" }, { "actionSave", "SaveChatMode" }, { "controllerSave", "Home" }, { "usesubmit", string.Empty } })

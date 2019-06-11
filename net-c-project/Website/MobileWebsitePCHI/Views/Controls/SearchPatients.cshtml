@@ -1,0 +1,50 @@
+﻿@{
+    Layout = null;
+}
+
+@using (Html.BeginForm("SearchPatients", "Controls", FormMethod.Post))
+{
+    List<string> MandatoryFields = ViewBag.MandatoryFields == null ? new List<string>() : ((string)ViewBag.MandatoryFields).ToLower().Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+    WebsiteSupportLibrary.Models.PatientModel Model = TempData["SearchModel"] as WebsiteSupportLibrary.Models.PatientModel;
+    @Html.Hidden("action", ViewBag.SearchParentAction as string)
+    @Html.Hidden("controller", ViewBag.SearchParentController as string)
+    @Html.Hidden("mandatoryFields", ViewBag.MandatoryFields as string)
+
+    <table class="table-Admin" cellspacing="0">
+        <tr class="table-TitleBar">
+            <th>
+                Email@(MandatoryFields.Contains("email") ? "*" : string.Empty)
+            </th>
+            <th>
+                First name@(MandatoryFields.Contains("firstname") ? "*" : string.Empty)
+            </th>
+            <th>
+                Last name@(MandatoryFields.Contains("lastname") ? "*" : string.Empty)
+            </th>
+            <th>
+                Date of birth@(MandatoryFields.Contains("dateofbirth") ? "*" : string.Empty)
+            </th>
+            <th>
+                Mobile phone@(MandatoryFields.Contains("mobile") ? "*" : string.Empty)
+            </th>
+            <th>External ID</th>
+            <th></th>
+        </tr>
+
+        <tr class="table-Input">
+            <td>
+                @Html.TextBox("Email", Model == null ? string.Empty : Model.Email as string)
+                <br /> @Html.ValidationMessageFor(m => Model.Email)
+            </td>
+            <td>@Html.TextBox("FirstName", Model == null ? string.Empty : Model.Firstname as string)</td>
+            <td>@Html.TextBox("LastName", Model == null ? string.Empty : Model.LastName as string as string)</td>
+            <td>@Html.TextBox("DateOfBirth", Model == null || !Model.DateOfBirth.HasValue ? null : Model.DateOfBirth.Value as DateTime?)</td>
+            <td>@Html.TextBox("PhoneNumber", Model == null ? string.Empty : Model.mobileNumber as string)</td>
+            <td>@Html.TextBox("ExternalId", Model == null ? string.Empty : Model.ExternalId as string)</td>
+            <td><input type="submit" value="Search" /></td>
+        </tr>
+
+    </table>
+}
+

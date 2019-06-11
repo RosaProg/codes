@@ -1,0 +1,214 @@
+﻿@using PCHI.Model.Security
+@model IEnumerable<PCHI.Model.Security.AuditTrailEntry>
+
+@{
+    ViewBag.Title = "My Audit Trail";
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+
+                    <table>
+                        @foreach (var item in Model)
+                        {
+                            if (item.AuditLog.Success == false || item.AuditLog.Action == PCHI.Model.Security.Actions.GET_AUDIT_TRAIL)
+                            {
+                                continue;
+                            }
+                            <tr>
+                                <td>@(item.AuditLog.EventDateUTC.ToLocalTime().ToString("dd-MM-yyyy HH:mm:ss"))</td>
+                                <td>
+                                    @switch (item.AuditLog.Action)
+                                    {
+                                        // System
+                                        case PCHI.Model.Security.Actions.SAVE_PAGE_TEXT:
+                                            @Html.Raw("Updated text for page section " + item.AuditLog.RecordId);
+                                                                                                                break;
+
+                                        // Questionnaires
+                                        case PCHI.Model.Security.Actions.GET_PRO_DOMAIN_RESULTS:
+                                        @("Retrieved the Pro results for " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SAVE_QUESTIONNAIRE:
+                                        @("Saved questionnaire " + item.AuditLog.RecordId)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.ADD_QUESTIONNAIRE_TAG:
+                                        @("Added a tag to the questionnaire " + item.AuditLog.RecordId)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SAVE_FORMAT_DEFINITION:
+                                        @("Saved format definition " + item.AuditLog.RecordId)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SAVE_FORMAT:
+                                        @("Saves questionnaire format " + item.AuditLog.RecordId)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SAVE_QUESTIONNAIRE_RESPONSE:
+                                        @("Saved responses to questionnaire " + item.Questionnaire.DisplayName + " for patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SUBMIT_QUESTIONNAIRE_RESPONSE:
+                                        @("Completed questionnaire " + item.Questionnaire.DisplayName + " for patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SAVE_QUESTIONNAIRE_RESPONSE_ANONYMOUS:
+                                        @("Without logging in saved responses to questionnaire " + item.Questionnaire.DisplayName + " for patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SUBMIT_QUESTIONNAIRE_RESPONSE_ANONYMOUS:
+                                        @("Without logging in completed questionnaire " + item.Questionnaire.DisplayName + " for patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.GET_COMPLETED_CURRENT_CONDITION_QUESTIONNAIRE:
+                                        @("Retrieved a completed current condition questionnaire for patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        // Episodes
+                                        case PCHI.Model.Security.Actions.VIEW_PATIENT_ASSIGNED_EPISODES:
+                                        @("Looked at which episodes have been assigend to " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.VIEW_PATIENT_ASSIGNED_EPISODES_WITH_DETAILS:
+                                        @("Looked in detail at episodes which have been assigend to " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.ASSIGN_EPISODE:
+                                        @("Has assigned a new Episode to " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.ADD_MILESTONE_TO_EPISODE:
+                                        @("Added a milestone to episode " + item.Episode.Condition + " for patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.SCHEDULE_QUESTIONNAIRE_FOR_EPISODE:
+                                        @("Has scheduled a questionnaire for patient " + item.Patient.DisplayName + " to Episode " + item.Episode.Condition)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.RETRIEVE_ASSIGNED_QUESTIONNAIRE_FOR_EPISODE:
+                                        @("Looked at what questionnaires are assigned to Episode " + item.Episode.Condition + " of patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.RETRIEVE_ASSIGNED_QUESTIONNAIRE_BY_EPISODE:
+                                        @("Retrieved an overview of all questionnaires assigned to patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        // Patient
+                                        case PCHI.Model.Security.Actions.GET_QUESTIONNAIRE_FOR_PATIENT:
+                                        @("Retreived questionnaire " + item.Questionnaire.Name + (item.Episode == null ? string.Empty : "for Episode " + item.Episode.Condition + " ") + "for patient " + item.Patient.DisplayName + " for answering")
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.GET_QUESTIONNAIRE_RESPONSES_FOR_PATIENT:
+                                        @("Loaded all questionnaire responses for Patient " + item.Patient.DisplayName)
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.GET_QUESTIONNAIRE_ANONYMOUS:
+                                        @("Without login Have retrieved questionnaire " + item.Questionnaire.DisplayName + " to answer")
+                                                                                                                break;
+
+                                        case PCHI.Model.Security.Actions.CREATE_OR_UPDATE_PATIENT:
+                                                                                                                if (item.TargetUser != null)
+                                                                                                                { @("Created user " + item.TargetUser.DisplayName + " as part of adding a new patient") }
+                            if (item.Patient != null && item.AuditLog.EventType == AuditEventType.ADD) { @("Created new patient " + item.Patient.DisplayName) }
+                            if (item.Patient != null && item.AuditLog.EventType == AuditEventType.MODIFIED) { @("Updated patient information for patient " + item.Patient.DisplayName) }
+                            if(item.Questionnaire != null) { @("Assigned questionnaire " + item.Questionnaire.DisplayName + " to patient " + item.Patient.DisplayName) }
+                            break;
+
+                                        case PCHI.Model.Security.Actions.UPDATE_PATIENT_DATA:
+                                        @("Updated the detail for patient " + item.Patient.DisplayName)
+                            break;
+
+                                        case PCHI.Model.Security.Actions.FIND_PATIENT:
+                                        @("Looked for the details for patient " + item.Patient.DisplayName)
+                            break;
+
+                                        case PCHI.Model.Security.Actions.GET_PATIENTS_ASSIGNED_TO_USER:
+                            if (item.TargetUser.Id == item.User.Id)
+                            { @("Retrieved a list of patients you could access") }
+                            else
+                            { @("Retrieved a list of patients assigned to user " + item.TargetUser.DisplayName)}
+                            break;
+
+                                        // User
+                                        case PCHI.Model.Security.Actions.GET_USER:
+                            if (item.TargetUser.Id == item.User.Id)
+                            { @("Retrieved your own user details ") }
+                            else
+                            { @("Retrieved the details for user " + item.TargetUser.DisplayName) }
+                            break;
+
+                                        case PCHI.Model.Security.Actions.CHANGE_PASSWORD:
+                            if (item.TargetUser.Id == item.User.Id)
+                            { @("Changed your password") }
+                            else
+                            { @("Changed the password for User " + item.TargetUser.DisplayName) }
+                            break;
+
+                                        case PCHI.Model.Security.Actions.UPDATE_USER_DATA:
+                            if (item.TargetUser.Id == item.User.Id)
+                            { @("Changed your user details") }
+                            else
+                            { @("Changed the user details for User " + item.TargetUser.DisplayName) }
+                            break;
+
+                                        case PCHI.Model.Security.Actions.COMPLETE_REGISTRATION:
+                                        @("Has completed the registration process")
+                            break;
+
+                                        case PCHI.Model.Security.Actions.FORGOT_PASSWORD:
+                                        @("Requested to start the forgotten password process")
+                            break;
+
+                                        case PCHI.Model.Security.Actions.GET_SECURITY_QUESTION:
+                                        @("Retrieved your security question as part of the Change Password process")
+                            break;
+
+                                        case PCHI.Model.Security.Actions.RESET_PASSWORD:
+                                        @("Have reset your own password and completed the Forgotten password process")
+                            break;
+
+                                        case PCHI.Model.Security.Actions.LOGIN_COMPLETED:
+                                        @("Have logged in")
+                            break;
+
+                                        case PCHI.Model.Security.Actions.LOGIN_STARTED:
+                                        @("Have started to login")
+                            break;
+
+                                        case PCHI.Model.Security.Actions.LOGOUT:
+                                        @("Have logged out")
+                            break;
+                            @*case PCHI.Model.Security.Actions.GET_AUDIT_TRAIL:
+                                if (item.User.Id == item.TargetUser.Id)
+                                { @("Have loaded your audit trail") }
+                                else
+                                { @("Have loaded the Audit Trail for user " + item.TargetUser.DisplayName) }
+                                break;*@
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

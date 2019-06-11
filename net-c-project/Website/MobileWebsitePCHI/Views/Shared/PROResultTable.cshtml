@@ -1,0 +1,259 @@
+﻿@{
+    var Model = ViewBag.DomainResultSet as List<PCHI.Model.Questionnaire.Response.ProDomainResultSet>;
+}
+
+<strong>PRO: @ViewBag.SetData["instrumentName"].ToString()</strong><br />
+@{
+    string tableName = "results_" + ViewBag.SetData["instrumentName"].ToString();
+}
+
+<table name="@tableName">
+    @{
+        string results = "";
+        int howManyColumns = ViewBag.howManyColumns;
+    }
+    @if (Model.Count > 1)
+    {
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td colspan="@Model.Count" style="text-align:center;">Follow Ups</td>
+        </tr>
+
+    }
+    <thead class="pchi-IntroTable-Head">
+        <tr>
+            <th style="width: 30px;"></th>
+            <th>Phase</th>
+            <th>Notes</th>
+            @*<th>Scoring Note</th>*@
+            <th>
+                <table>
+                    <tr>
+                        <td>Baseline</td>
+                    </tr>
+                    <tr>
+                        <td>@Model[0].GroupStartTime.ToString()</td>
+                    </tr>
+                </table>
+            </th>
+            @if (howManyColumns <= (Model.Count - 1))
+            {
+                <th name="navigationLeft"></th>
+            }
+            @for (int i = 1; i < Model.Count; i++)
+            {
+                results = "results_" + i;
+                <th name="@results">
+                    @i<br />@Model[i].GroupStartTime.ToString()
+                </th>
+            }
+            @for (int i = Model.Count; i <= howManyColumns; i++)
+            {
+                <th name="@results">
+                </th>
+            }
+            @if (howManyColumns <= (Model.Count - 1))
+            {
+                <th name="navigationRight"></th>
+            }
+    </thead>
+    @{
+        var byDomain = Model.SelectMany(m => m.Results).GroupBy(m => m.DomainId).ToDictionary(d => d.Key, d => d.ToList());
+        foreach (var key in byDomain.Keys)
+        {
+            var proResults = byDomain[key];
+            var domain = proResults[0].Domain;
+            string totalDomainStart = "";
+            string totalDomainEnd = "";
+
+            if (domain.IsTotalDomain)
+            {
+                @Html.Raw("<tr name=\"totalizer" + domain.Instrument.Id + "\" title=\"belongsToInstrument." + domain.Instrument.Id + "\" class=\"closed\">")
+                @Html.Raw("<td style=\"width: 30px;\" name=\"info.totalizer." + domain.Instrument.Id + "\" class=\"EpisodeUp\"></td>")
+            }
+            else
+            {
+                @Html.Raw("<tr name=\"belongsToInstrument." + domain.Instrument.Id + "\" title=\"belongsToDomain." + domain.Id + "\" class=\"closed\">")
+                totalDomainStart = "<p>";
+                totalDomainEnd = "</p>";
+                @Html.Raw("<td style=\"width: 30px;\" name=\"info.belongsToInstrument." + domain.Instrument.Id + "\" class=\"EpisodeUp\">")@Html.Raw(totalDomainStart) @Html.Raw(totalDomainEnd) @Html.Raw("</td>")
+            }
+            <td>
+                @Html.Raw(totalDomainStart) @Html.DisplayFor(m => domain.Name) @Html.Raw(totalDomainEnd)
+
+            </td>
+            <td>@Html.Raw(totalDomainStart)@Html.DisplayFor(m => domain.ScoringNote) @Html.Raw(totalDomainEnd)</td>
+
+            int columnNo = 0;
+            results = "";
+            double previousResult = 0;
+            double baseResult = 0;
+            for (int i = 0; i < proResults.Count; i++)
+            {
+                string id = "result_" + domain.Id + "_" + (i) + "_" + domain.HigherIsBetter + "_" + ViewBag.SetData["instrumentName"].ToString();
+
+                if (i == 1 && domain.IsTotalDomain && howManyColumns <= (proResults.Count - 1))
+                {
+                    <td name="navigationLeft"><p><button class="scrollLeft" onclick="navigation('left')">@Html.Raw("<-")</button></p></td>
+                }
+                else
+                {
+                    if (i == 1 && howManyColumns <= (proResults.Count - 1))
+                    {
+                        <td name="navigationLeft"><p></p></td>
+                    }
+                }
+                string lastColumnClass = "";
+                if (i == (proResults.Count - 1) && i != 0)
+                {
+                    lastColumnClass = @CalculateClassLastColumn(domain.HigherIsBetter, baseResult, previousResult, proResults[i].Score);
+                }
+                <td id="@id" class="@lastColumnClass" name="@results">@Html.Raw(totalDomainStart) @proResults[i].Score.ToString("F") @Html.Raw(totalDomainEnd)</td>
+                if (i == 0)
+                {
+                    baseResult = proResults[i].Score;
+                }
+                else
+                {
+                    previousResult = proResults[i].Score;
+                }
+                //currentResponses.Add(domain.Id + "_" + (i), result.Responses);
+                columnNo++;
+                results = tableName + "_" + (i + 1);
+
+            }
+            for (int i = proResults.Count; i <= howManyColumns; i++)
+            {
+                <td><p></p></td>
+            }
+            if (domain.IsTotalDomain && howManyColumns <= (proResults.Count - 1))
+            {
+                <td name="navigationRight"><p><button class="scrollRight" onclick="navigation('right')">@Html.Raw("->")</button></p></td>
+            }
+            else
+            {
+                if (howManyColumns <= (proResults.Count - 1))
+                {
+                    <td name="navigationRight"><p></p></td>
+                }
+            }
+            @Html.Raw("</tr>")
+            if (!domain.IsTotalDomain)
+            {
+                List<string> ActionIds = domain.ItemActionIds;
+                for (int i = 0; i < proResults[0].Responses.Count; i++)
+                {
+                    @Html.Raw("<tr name=\"belongsToDomain." + domain.Id + "\" class=\"closed\">")
+                    var firstResponse = proResults[0].Responses[i];
+                    <td><p>@firstResponse.Item.SummaryText</p></td>
+                    <td>@(firstResponse.Item.ScoringNote)</td>
+                    <td></td>
+                    for (int whichColumn = 0; whichColumn < proResults.Count; whichColumn++)
+                    {
+                        var response = proResults[whichColumn].Responses[i];
+                        if (i == 1 && howManyColumns <= (proResults.Count - 1))
+                        {
+                            <td name="navigationLeft"><p></p></td>
+                        }
+                        string id = "result_" + (response.Item.Id + 10000) + "_" + (whichColumn) + "_" + response.Item.HigherIsBetter + "_" + ViewBag.SetData["instrumentName"].ToString() + "_" + response.Id;
+                        string lastColumnClass = "";
+
+                        double value;
+                        if (response.ResponseValue == null)
+                        {
+                            value = response.Option.Value;
+                        }
+                        else
+                        {
+                            value = (double)response.ResponseValue;
+                        }
+                        if (whichColumn == (proResults.Count - 1) && whichColumn != 0)
+                        {
+                            lastColumnClass = @CalculateClassLastColumn(domain.HigherIsBetter, baseResult, previousResult, value);
+                        }
+                        <td id="@id" class="@lastColumnClass" name="@results"><p>@value</p></td>
+                        if (whichColumn == 0)
+                        {
+                            baseResult = proResults[whichColumn].Score;
+                        }
+                        else
+                        {
+                            previousResult = proResults[whichColumn].Score;
+                        }
+                        results = tableName + "_" + whichColumn;
+                    }
+                }
+                for (int i = proResults.Count; i <= howManyColumns; i++)
+                {
+                    <td><p></p></td>
+                }
+                if (howManyColumns <= (proResults.Count - 1))
+                {
+                    <td name="navigationRight"><p></p></td>
+                }
+                @Html.Raw("</tr>")
+
+               
+            }
+        }
+    }
+</table>
+
+<script>
+    $(document).ready(function () {
+        formatTable('@ViewBag.SetData["instrumentName"].ToString()');
+    });
+</script>
+
+@functions{
+    public string CalculateClassLastColumn(bool higherIsBetter, double baseResult, double previousResult, double currentResult)
+    {
+        if (higherIsBetter)
+        {
+            if (currentResult > baseResult)
+            {
+                if (currentResult > previousResult)
+                {
+                    return "columnWorse";
+                }
+                else
+                {
+                    return "columnWarning";
+                }
+            }
+            else if (currentResult == baseResult)
+            {
+                if (currentResult > previousResult) { return "columnWarning"; }
+                else { return "columnEqual"; }
+            }
+            else
+            {
+                if (currentResult > previousResult) { return "columnWarning"; }
+                else if (currentResult == previousResult) { return "columnEqual"; }
+                else { return "columnImprove"; }
+            }
+        }
+        else
+        {
+            if (currentResult < baseResult)
+            {
+                if (currentResult < previousResult) { return "columnWorse"; }
+                else { return "columnWarning"; }
+            }
+            else if (currentResult == previousResult)
+            {
+                if (currentResult < previousResult) { return "columnWarning"; }
+                else { return "columnEqual"; }
+            }
+            else
+            {
+                if (currentResult < previousResult) { return "columnWarning"; }
+                else if (currentResult == previousResult) { return "columnEqual"; }
+                else { return "columnEqual"; }
+            }
+        }
+    }
+}

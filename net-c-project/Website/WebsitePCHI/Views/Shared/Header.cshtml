@@ -1,0 +1,31 @@
+﻿<div class="mainHeader-topLine"></div>
+<div class="mainHeader">
+    <div class="mainHeader-container">
+        <div class="logo"> <a href="http://www.opsmc.com.au/" target="_blank"><img src="~/Content/images/OPSMC-logoTrans.png" width="350" height="80" alt="" /></a></div>
+        @{
+            string[] actions = {"Login", "VerifyCode", "CompleteRegistration"};
+            if (!actions.Contains(ViewContext.RouteData.GetRequiredString("action")))
+            {
+                <div class="logout-btn">
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        <text>
+                            @using (Html.BeginForm("LogOff", "Access", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="logout-txt" onclick="javascript: document.getElementById('logoutForm').submit()"><p>@User.Identity.Name</p><p>Logout</p></div>
+                            }
+                        </text>
+                    }
+                    else
+                    {
+                        <a href="@Url.Action("Login", "Access", routeValues: null)"><p class="logout-txt">Login</p></a>
+                    }
+
+                </div>
+            }
+        }
+        <div class="replay-logo"> <a href="@Url.Action("About", "Home")"><img src="~/Content/images/RePLAYlogo_logo-Header.png" width="180" height="70" alt="" /></a></div>
+    </div>
+</div>

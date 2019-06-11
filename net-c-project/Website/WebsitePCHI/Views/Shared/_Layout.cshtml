@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<!-- Identify IE 7 and below to load the ie7-support module -->
+<!--[if IE 7 ]>
+<html class="ie7">
+<![endif]-->
+<!--[if (gt IE 7)|!(IE)]><!-->
+<html>
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=9" />
+    <meta name="viewport" content="width=device-width" />
+    <!-- added upon Aaron's request to handle icon/favicon in multiple platforms -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/Content/images/icons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/Content/images/icons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/Content/images/icons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/Content/images/icons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/Content/images/icons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/Content/images/icons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/Content/images/icons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/Content/images/icons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/Content/images/icons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/Content/images/icons/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/Content/images/icons/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/Content/images/icons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/Content/images/icons/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/Content/images/icons/favicon-32x32.png" sizes="32x32">
+    <!-- end of icon/favicon config -->
+    <meta name="msapplication-TileColor" content="#56138b">
+    <meta name="msapplication-TileImage" content="/mstile-144x144.png">
+    <title>OPSMC RePlay - @ViewBag.Title</title>
+    @Styles.Render("~/Content/CSS/mainstyles")
+    @RenderSection("styles", false)
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/knockout")
+    @Scripts.Render("~/bundles/pchiScripts")
+
+    <script>
+        InitGadgets();
+    </script>
+
+</head>
+<body>
+    @RenderSection("PopUp", false)
+    @Html.Partial("Header")
+    @* JCV  ADD id=”ng-app” for IE8 and below, ng-app attribute to load the questionnaireChat app, ng-controller to set the controller *@
+    <div class="tableWrapper" id="ng-app" ng-app="questionnaireChat" ng-controller="questionnaireCtrl">
+        <table align="center" width="95%" border="0" cellspacing="0" cellpadding="0" style="display:inherit;">
+            <tbody>
+                <tr>
+                    <td rowspan="3" width="100px">
+                        <div class="menu-container">
+                            @if (Request.IsAuthenticated)
+                            {
+                                @Html.Partial("Menu")
+                            }
+                        </div>
+                    </td>
+                    <td>
+                        @RenderSection("ContentHeader", false)
+                        @if (!IsSectionDefined("ContentHeader"))
+                        {
+                            <div class="contentTitleNil"></div>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @RenderSection("ContentWindow", false)
+                        @if (!IsSectionDefined("ContentWindow"))
+                        {
+                            <div align="left" class='contentWindow'>
+                                <!-- Print error message and/or notification messages on the screen -->
+                                @if (ViewBag.ErrorMessage != null || TempData["ErrorMessage"] != null)
+                                {
+                                    <label for="" style="color:red;">@Html.Raw(ViewBag.ErrorMessage == null ? TempData["ErrorMessage"] == null ? string.Empty : (string)TempData["ErrorMessage"] : (string)ViewBag.ErrorMessage)</label>
+                                }
+                                @*@Html.Label(string.Empty, ViewBag.ErrorMessage == null ? TempData["ErrorMessage"] == null ? string.Empty : (string)TempData["ErrorMessage"] : (string)ViewBag.ErrorMessage, new Dictionary<string, object>() { { "style", "color:red;" } })*@
+                                @if (ViewBag.NotificationMessage != null || TempData["NotificationMessage"] != null)
+                                {
+                                    <label for="" style="color:green;">@Html.Raw(ViewBag.NotificationMessage == null ? TempData["NotificationMessage"] == null ? string.Empty : (string)TempData["ErrorMessage"] : (string)ViewBag.ErrorMessage)</label>
+                                }
+
+                                @*@Html.Label(string.Empty, ViewBag.NotificationMessage == null ? TempData["NotificationMessage"] == null ? string.Empty : (string)TempData["NotificationMessage"] : (string)ViewBag.NotificationMessage, new Dictionary<string, object>() { { "style", "color:green;" } })*@
+                                @RenderBody()
+                                <!--Message Box-->
+                                <div class="spacer">&nbsp;</div>
+                            </div>
+                        }
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        @RenderSection("ContentFooter", false)
+                        @if (!IsSectionDefined("ContentFooter"))
+                        {
+                            <div class="contentFooterNil"></div>
+                        }
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    @Html.Partial("Footer")
+
+    @Html.EJ().ScriptManager()
+    @RenderSection("scripts", required: false)
+
+
+    <!-- Loading Section -->
+    <div id="progress-gadget-background">
+        <div id="progress-gadget" class="ui-corner-all">
+            <img style="height:80px;margin:30px;" src="/Content/images/RePLAY-loading.gif" alt="Loading.." />
+            <h2 style="color:gray;font-weight:normal;">Please wait....</h2>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+﻿
+@Html.Partial("PopupStart", null, ViewData)
+<div>
+    <span class="MainTitle">Please type the username associated with the account</span> <br />
+    <br />
+    @using (Html.BeginForm("ResendRegistrationToken", "Access"))
+    {
+        <div class="">
+            <fieldset>
+                An email will be sent to the address of this username with your new token
+                <ol>
+                    <li>
+                        <input type="text" name="username" class="input-email" />
+                        <input type="submit" value="Resend token" class="submit-email">
+                    </li>
+                </ol>
+            </fieldset>
+        </div>
+    }
+</div>
+@Html.Partial("PopupEnd")
+<script>
+	$('[placeholder]').focus(function () {
+		var input = $(this);
+		if (input.val() == input.attr('placeholder')) {
+			input.val('');
+			input.removeClass('placeholder');
+		}
+	}).blur(function () {
+		var input = $(this);
+		if (input.val() == '' || input.val() == input.attr('placeholder')) {
+			input.addClass('placeholder');
+			input.val(input.attr('placeholder'));
+		}
+	}).blur();
+
+	$('[placeholder]').parents('form').submit(function () {
+		$(this).find('[placeholder]').each(function () {
+			var input = $(this);
+			if (input.val() == input.attr('placeholder')) {
+				input.val('');
+			}
+		})
+	});
+
+</script>

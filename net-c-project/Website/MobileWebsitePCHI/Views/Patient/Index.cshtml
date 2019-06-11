@@ -1,0 +1,174 @@
+﻿@section styles{
+    <link href="~/Content/CSS/PCHI-MyReplay.css" rel="stylesheet" type="text/css">
+}
+
+@{
+    var pageText = new PCHI.WcfServices.API.PCHIServices.InterfaceProxies.Service.ServiceDetailsClient().GetPageText(new List<string>() { "Patient_Index_Header", "Patient_Index_Top", "Patient_NewsFeed_1", "Patient_NewsFeed_2", "Patient_NewsFeed_3" }, patientId: Request.QueryString["PatientId"]).StringDictionary;
+    ViewBag.Title = "My Replay";
+    }
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+
+                    <div>
+                        <div class="btn-box">
+                            <a href="#myRePLAY"><div class="btn-01 btn-active">My Status</div></a>
+                            <a href="#myNews"><div class="btn-02">OPSMC News</div></a>
+                        </div>
+                    </div>
+
+
+                    <div id="main-dashboard" class="main-dashboard">
+                        <div class="intro-dashboard">
+                            <span class="pchi-IntroTitle">@(pageText["Patient_Index_Header"])</span>
+
+                            <p>
+                                You have some questionnaires to respond, please follow the links in the order shown.
+                                RePLAY allows you to prepare for upcoming appointments as well as track your health progress by completing questionnaires assigned by your practitioner. At OPSMC we really want to make you happy and healthy, so thank you for taking the time to fill this out.
+
+                            </p>
+
+
+                            @foreach (PCHI.Model.Episodes.Episode k in ViewBag.Outstanding.Keys)
+                            {
+                                <div class="accordion">
+                                    @foreach (PCHI.Model.Questionnaire.Response.QuestionnaireUserResponseGroup q in ViewBag.Outstanding[k])
+                                    {
+                                        <div>
+                                            @*<a href="/Patient/Chat" target="_self" data-role="button" class="green-button">*@
+                                            @{
+                                        var patientId = Request["patientId"];
+                                        @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireChat", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name, episodeId = k.Id }, new { data_role="button", @class="green-button"})
+                                            }
+                                            @*</a>*@
+                                        </div>
+
+                                        <div class="accordion-head">
+
+                                            <!--<span class="updown"></span>--><span class="updown"></span><h3>@( q.Questionnaire.DisplayName)</h3>
+                                        </div>
+                                        <div class="accordion-body">
+                                            <p><strong>Reason:</strong><br />@*( q.Questionnaire.Descriptions.FirstOrDefault().Text)*@</p>
+                                            <p><strong>Date received:</strong><br />@q.DatetimeCreated.ToString("dd-MM-yyyy")</p>
+                                            <p><strong>Due Date:</strong><br />@(q.DueDate.HasValue ? q.DueDate.Value.ToString("dd-MM-yyyy") : string.Empty)</p>
+                                        </div>
+                                    }
+                                </div>
+                            }
+
+                            <div class="accordion">
+                                <div class="accordion-head">
+                                    <span class="updown"></span><h4 style="margin-left:20px;">Questionnaire History</h4>
+                                </div>
+                                <div class="accordion-body">
+
+                                    @if (ViewBag.Completed != null && ViewBag.Completed.Count > 0)
+                                    {
+                                        foreach (PCHI.Model.Episodes.Episode k in ViewBag.Completed.Keys)
+                                        {
+                                            <div class="" title="Episode_@(k.Id)" onclick="Toggle('@(k.Id)');">
+                                                <span><h3>@(k.Condition == null ? "General" : k.Condition)</h3></span>
+                                            </div>
+                                            foreach (PCHI.Model.Questionnaire.Response.QuestionnaireUserResponseGroup q in ViewBag.Completed[k])
+                                            {
+                                                <div class="" data-episode="Episode_@(k.Id)">
+                                                    <p><strong>Questionnaire:</strong><br />@( q.Questionnaire.DisplayName)</p>
+                                                    <p><strong>Reason:</strong><br />@*( q.Questionnaire.Descriptions.FirstOrDefault().Text)*@</p>
+                                                    <p><strong>Date received:</strong><br />@q.DatetimeCreated.ToString("dd-MM-yyyy")</p>
+                                                    <p><strong>Due Date:</strong><br />@(q.DueDate.HasValue ? q.DueDate.Value.ToString("dd-MM-yyyy") : string.Empty)</p>
+                                                    <p><strong>Status:</strong><br />@(q.Status.ToString())</p>
+
+                                                </div>
+                                            }
+                                        }
+
+                                    }
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+                    <!--Ends Content-->
+
+                    <div data-role="footer">
+
+                    </div>
+                </div>
+            </div>
+            @switch ((string)ViewBag.ShowPopUp)
+            {
+                case "SelectConfidentialityScope":
+                        @Html.Partial("PopUpSelectConfidentialityScope", new ViewDataDictionary { { "patientId", Request["patientId"] } })
+                    break;
+            }
+            <!--NEWS FEED-->
+            <div data-role="page" id="myNews" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+                    <div id="page-title">My RePLAY</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+
+                    <div>
+                        <div class="btn-box">
+                            <a href="#myRePLAY"><div class="btn-01">My Status</div></a>
+                            <a href="#myNews"><div class="btn-02 btn-active">OPSMC News</div></a>
+                        </div>
+                    </div>
+                    <div class="news-dashboard" style="margin-top:70px;">
+                        <div class="newsfeed-item">
+                            <h4>OPSMC News</h4>
+                            <p>Mr Geoff Tymms Orthopaedic foot and ankle surgeon is now also consulting at OPSMC Geelong Campus.</p>
+                            <div class="article-image"></div>
+                        </div>
+                    </div>
+
+                    <div class="news-dashboard">
+                        <div class="newsfeed-item">
+                            <h4>OPSMC News 2</h4>
+                            <p>Mr Geoff Tymms Orthopaedic foot and ankle surgeon is now also consulting at OPSMC Geelong Campus.</p>
+                            <div class="article-image"></div>
+                        </div>
+                    </div>
+
+                    <div class="news-dashboard">
+                        <div class="newsfeed-item">
+                            <h4>RePLAY</h4>
+                            <p>You're what you eat, so don't be fast, cheap, easy of fake.</p><p>Remember push hard and RePLAY!</p>
+                            <div class="article-image"></div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <!--grid content-->
+            <div data-role="footer">
+
+            </div>
+        </div>
+
+        <!-- Content panel Ends -->
+    </div>
+</div>
+<script src="~/Scripts/accordion.js"></script>

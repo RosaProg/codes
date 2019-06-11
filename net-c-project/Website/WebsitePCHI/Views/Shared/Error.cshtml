@@ -1,0 +1,38 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta name="viewport" content="width=device-width" />
+        <title>Error</title>
+    </head>
+    <body>
+        <div class="MainContent">
+            <div>
+                <span id="error-title">Oops... Something went terrible wrong!</span><br />
+                <span id="error-subtitle">Well, not that much...</span><br /><br />
+            </div>
+            <div>
+                <p id="error-content">An error occurred while processing your request.<br />Please try one more time.</p>
+                <div id="error-image">
+                    <img src="~/Content/images/badThings-happen.png" alt="">
+                </div>
+            </div>
+        </div>
+        @*if (Model != null && HttpContext.Current.IsDebuggingEnabled)
+        {
+            <div>
+                <p>
+                    <b>Exception:</b> @Model.Exception.Message<br />
+                    <b>Controller:</b> @Model.ControllerName<br />
+                    <b>Action:</b> @Model.ActionName
+                </p>
+                <div style="overflow:scroll">
+                    <pre>
+@Model.Exception.StackTrace
+                </pre>
+                </div>
+            </div>
+        }*@
+    </body>
+</html>

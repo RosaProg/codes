@@ -1,0 +1,147 @@
+﻿@model PCHI.WcfServices.API.PCHIServices.InterfaceContracts.Model.PatientDetails
+@{
+    ViewBag.Title = "Change patient details";
+}
+
+@section styles{
+    <link href="Content/CSS/PCHI-Settings.css" rel="stylesheet" type="text/css">
+    <link href="../jQueryAssets/jquery.ui.core.min.css" rel="stylesheet" type="text/css">
+    <link href="../jQueryAssets/jquery.ui.theme.min.css" rel="stylesheet" type="text/css">
+    <link href="../jQueryAssets/jquery.ui.dialog.min.css" rel="stylesheet" type="text/css">
+    <link href="../jQueryAssets/jquery.ui.resizable.min.css" rel="stylesheet" type="text/css">
+}
+
+@{
+    ViewBag.Title = "Settings";
+}
+
+<script src="../jQueryAssets/jquery-ui-1.9.2.dialog.custom.min.js" type="text/javascript"></script>
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="mySettings" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+
+                    <div id="main-dashboard" class="main-dashboard">
+
+                        @using (Html.BeginForm("ChangePatientDetails", "Patient", new { patientId = Request["patientId"] }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+
+
+                            if (ViewBag.ErrorRetrieving == null)
+                            {
+                                <div class="intro-dashboard">
+                                    <div data-role="fieldcontain">
+                                        <label for="textinput">Patient:</label>
+                                        @Model.Title @Model.FirstName @Model.LastName
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.Email)
+                                        @Html.TextBoxFor(m => m.Email)
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.ShareDataForQualityAssurance, "Share data for quality assurance:")
+                                        @Html.DropDownListFor(m => m.ShareDataForQualityAssurance, new SelectList(new List<Object> { new { value = "Yes", text = "Yes" }, new { value = "No", text = "No" } }, "value", "text", Model.ShareDataWithResearcher), new { data_role = "slider" })
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.ShareDataWithResearcher, "Share data with researcher:")
+                                        @Html.DropDownListFor(m => m.ShareDataWithResearcher, new SelectList(new List<Object> { new { value = "Yes", text = "Yes" }, new { value = "No", text = "No" } }, "value", "text", Model.ShareDataWithResearcher), new { data_role = "slider" })
+                                    </div>
+                                </div>
+                            }
+                            <input type="submit" data-icon="check" data-iconpos="top" class="green-button" value="Save patient details" />
+                        }
+
+
+                        @*<div class="intro-dashboard">
+                                            <h1>Your details</h1>
+                                            <div data-role="fieldcontain">
+                                                <label for="textinput">Title:</label>
+                                                <input type="text" name="title" id="title" value="" placeholder="Mr., Mrs., Dr..." />
+                                            </div>
+                                            <div data-role="fieldcontain">
+                                                <label for="textinput">First Name:</label>
+                                                <input type="text" name="firstName" id="firstName" value="" />
+                                            </div>
+                                            <div data-role="fieldcontain">
+                                                <label for="textinput">Last Name:</label>
+                                                <input type="text" name="lastName" id="lastName" value="" />
+                                            </div>
+                                            <div data-role="fieldcontain">
+                                                <label for="flipswitch">Two steps Authentication:</label>
+                                                <select name="flipswitch" id="flipswitch" data-role="slider">
+                                                    <option value="off">No</option>
+                                                    <option value="on">Yes</option>
+                                                </select>
+                                            </div>
+
+                                            <div data-role="fieldcontain">
+                                                <label for="textinput">Security Question:</label>
+                                                <input type="text" name="securityQuestion" id="securityQuestion" value="" placeholder="ie. Who's my favourite singer?" />
+                                            </div>
+                                            <div data-role="fieldcontain">
+                                                <label for="textinput">Security Answer:</label>
+                                                <input type="text" name="securityAnswer" id="securityAnswer" value="" placeholder="ie. Britney Spears?" />
+                                            </div>
+                                            <br />
+                                            <hr />
+                                            <br />
+                                            <h1>Change password</h1>
+                                            <div data-role="fieldcontain">
+                                                <label for="passwordinput">Old Password:</label>
+                                                <input type="password" name="passwordinput" id="oldPassword" value="" />
+                                            </div>
+                                            <div data-role="fieldcontain">
+                                                <label for="passwordinput2">New Password:</label>
+                                                <input type="password" name="passwordinput2" id="newPassword" value="" />
+                                            </div>
+                                            <div data-role="fieldcontain">
+                                                <label for="passwordinput">Confirm New Password:</label>
+                                                <input type="password" name="passwordinput3" id="confirmPassword" value="" />
+                                            </div>
+                                            <div>
+                                                <a href="#popupDialog" data-rel="popup" data-position-to="window" data-transition="pop"><button data-icon="check" data-iconpos="top" class="green-button"></button></a>
+                                                <div data-role="popup" id="popupDialog" data-overlay-theme="b" data-theme="b" data-dismissible="false" style="max-width:400px;">
+                                                    <!--<div data-role="header" data-theme="a">
+                            <h1>Delete Page?</h1>
+                            </div>-->
+                                                    <div role="main" class="ui-content">
+                                                        <h6 class="ui-title">Congrats!<br />You have changed your details successfully.</h6>
+                                                        <div align="center">
+                                                            <a href="#" target="_self" data-role="button" data-rel="back" class="green-button" style="height: 20px; margin: 0px;">Close</a>
+                                                        </div>
+                                                        <!--<a href="#" class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-btn-b" data-rel="back" data-transition="flow">Delete</a>-->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                            <!--Ends Content-->
+
+                                        </div>
+                                        </div>*@
+
+
+
+
+                    </div>
+                </div>
+                <!-- Content panel Ends -->
+            </div>
+        </div>
+    </div>
+    </div>

@@ -1,0 +1,1015 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Questionnaire type="PROInstrument">
+  <ShortName>OES-LEFT</ShortName>
+  <DisplayName>Oxford Elbow Score for Left Elbow</DisplayName>
+  <Descriptions>
+    <TextVersion>
+      <SupportedInstances>Baseline</SupportedInstances>
+      <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+      <Audience>Patient</Audience>
+      <Text>Some text to be shown to patients</Text>
+    </TextVersion>
+    <TextVersion>
+      <SupportedInstances>Baseline</SupportedInstances>
+      <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+      <Audience>Physician</Audience>
+      <Text>Some text to be shown to doctors</Text>
+    </TextVersion>
+  </Descriptions>
+  <Concept>
+    <Name>LEFT-ELBOW</Name>
+    <Description>Problems with your LEFT Elbow</Description>
+  </Concept>
+  <DefaultFormatName>OESFormatv1</DefaultFormatName>
+  <MinNumberAnswers>12</MinNumberAnswers>
+  <IntroductionMessages>
+    <TextVersion>
+      <SupportedInstances>Baseline</SupportedInstances>
+      <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+      <Audience>Patient</Audience>
+      <Text>&lt;p&gt;***INTRO PROVIDED BYOPSMC GOES HERE ***.&lt;/p&gt;</Text>
+    </TextVersion>
+    <TextVersion>
+      <SupportedInstances>FollowUp</SupportedInstances>
+      <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+      <Audience>Patient</Audience>
+      <Text>&lt;p&gt;***INTRO PROVIDED BYOPSMC GOES HERE ***.&lt;/p&gt;</Text>
+    </TextVersion>
+  </IntroductionMessages>
+  <Sections>
+    <Section>
+      <ActionId>Intro</ActionId>
+      <Elements>
+        <Element type="Text">
+          <ActionId></ActionId>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;p&gt;Hello &lt;%User.FirstName%&gt;, and welcome to your first questionnaire about your &lt;strong&gt;LEFT&lt;/strong&gt; elbow condition. Please respond ALL questions; it will take you only around 6 minutes. When you finish, please click ‘submit’ to see your results. We really want to make you happy and healthy again, so thank you for taking the time to fill this out.&lt;/p&gt;</Text>
+            </TextVersion>
+            <TextVersion>
+              <SupportedInstances>FollowUp</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Hello &lt;%User.FirstName%&gt;, this is a follow up questionnaire about your &lt;strong&gt;LEFT&lt;/strong&gt; elbow condition. Please answer ALL questions, as that will let us compare against your previous answers and evaluate your progress. When you finish, please click ‘submit’ to see your results.</Text>
+            </TextVersion>
+          </TextVersions>
+        </Element>
+      </Elements>
+      <Instructions>
+        <Instruction>
+          <SupportedInstances>Baseline,Followup</SupportedInstances>
+          <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+          <Text>Please answer all questions thinking ONLY about your &lt;strong&gt;LEFT&lt;/strong&gt; elbow.</Text>
+        </Instruction>
+      </Instructions>
+    </Section>
+    <Section>
+      <ActionId>Items</ActionId>
+      <Elements>
+        <Element type="Item">
+          <ActionId>OES.1</ActionId>
+          <DisplayId>1.</DisplayId>
+          <Summary>Difficulty lifting things</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Have you had difficulty lifting things in your home, such as putting out the rubish, &lt;u&gt;because of your elbow problem&lt;/u&gt;?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q1-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No difficulty</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q1-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>A little bit of difficulty</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q1-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderate difficulty</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q1-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Extreme difficulty</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q1-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Impossible to do</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.2</ActionId>
+          <DisplayId>2.</DisplayId>
+          <Summary>Difficulty carrying bags</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Have you had difficulty carrying bags of shopping, &lt;u&gt;because of your elbow problem&lt;/u&gt;?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q2-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No difficulty</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q2-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>A little bit of difficulty</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q2-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderate difficulty</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q2-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Extreme difficulty</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q2-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Impossible to do</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.3</ActionId>
+          <DisplayId>3.</DisplayId>
+          <Summary>Difficulty washing yourself all over</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Have you had any difficulty washing yourself all over, &lt;u&gt;because of your elbow problem&lt;/u&gt;?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q3-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No difficulty</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q3-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>A little bit of difficulty</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q3-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderate difficulty</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q3-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Extreme difficulty</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q3-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Impossible to do</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.4</ActionId>
+          <DisplayId>4.</DisplayId>
+          <Summary>Difficulty dressing yourself</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Have you had any difficulty dressing yourself, &lt;u&gt;because of your elbow problem&lt;/u&gt;?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q4-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No difficulty</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q4-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>A little bit of difficulty</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q4-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderate difficulty</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q4-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Extreme difficulty</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q4-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Impossible to do</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.5</ActionId>
+          <DisplayId>5.</DisplayId>
+          <Summary>Elbow problem "controlling your life"</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Have you felt that your elbow problem is "controlling your life"?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q5-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No, not at all</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q5-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Ocassionally</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q5-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Some days</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q5-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Most days</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q5-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Every day</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.6</ActionId>
+          <DisplayId>6.</DisplayId>
+          <Summary>Elbow problem "on your mind"</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;How much has your elbow problem been "on your mind"?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q6-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Not at all</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q6-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>A little of the time</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q6-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Some of the time</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q6-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Most of the time</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q6-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>All of the time</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.7</ActionId>
+          <DisplayId>7.</DisplayId>
+          <Summary>Troubled by pain in bed</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Have you been troubled by pain from your elbow in bed at night?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q7-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Not at all</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q7-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>1 or 2 nights</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q7-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Some nights</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q7-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Most nights</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q7-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Every night</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.8</ActionId>
+          <DisplayId>8.</DisplayId>
+          <Summary>Pain interfering with sleep</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;How often has your elbow pain interfered with your sleeping?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q8-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Not at all</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q8-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Occasionally</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q8-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Some of the time</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q8-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Most of the time</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q8-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>All of the time</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.9</ActionId>
+          <DisplayId>9.</DisplayId>
+          <Summary>Interference with usual activities</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;How much has your elbow problem interfered with your usual work or every day activities?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q9-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Not at all</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q9-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>A little bit</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q9-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderately</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q9-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Greatly</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q9-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Totally</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.10</ActionId>
+          <DisplayId>10.</DisplayId>
+          <Summary>Limited leisure activities</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;Has your elbow problem limited your ability to take part in leisure activities that you enjoy doing?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q10-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No, not at all</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q10-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Occasionally</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q10-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Some of the time</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q10-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Most of the time</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q10-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>All of the time</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.11</ActionId>
+          <DisplayId>11.</DisplayId>
+          <Summary>Worst pain</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;How would you describe the &lt;u&gt;worst pain&lt;/u&gt; you had from your elbow?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q11-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No pain</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q11-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Mild pain</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q11-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderate pain</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q11-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Severe pain</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q11-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Unbearable</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+        <Element type="Item">
+          <ActionId>OES.12</ActionId>
+          <DisplayId>12.</DisplayId>
+          <Summary>Usual pain</Summary>
+          <ScoringNote>0 Worst - 4 Best</ScoringNote>
+          <BestScore>Highest</BestScore>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;strong&gt;During the past 4 weeks...&lt;/strong&gt;&lt;br/&gt;How would you describe the pain you &lt;u&gt;usually&lt;/u&gt; had from your elbow?</Text>
+            </TextVersion>
+          </TextVersions>
+          <Attributes>CanSkip</Attributes>
+          <Instructions>
+            <Instruction>
+              <SupportedInstances>Baseline,Followup</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>Choose &lt;u&gt;one&lt;/u&gt; option.</Text>
+            </Instruction>
+          </Instructions>
+          <OptionGroups>
+            <OptionGroup>
+              <ResponseType>List</ResponseType>
+              <RangeStep>0</RangeStep>
+              <TextVersion>
+                <SupportedInstances>Baseline,Followup</SupportedInstances>
+                <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+                <Text></Text>
+              </TextVersion>
+              <Options>
+                <Option>
+                  <ActionID>Q12-A1</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>No pain</Text>
+                  <Value>4</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q12-A2</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Mild pain</Text>
+                  <Value>3</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q12-A3</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Moderate pain</Text>
+                  <Value>2</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q12-A4</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Severe pain</Text>
+                  <Value>1</Value>
+                </Option>
+                <Option>
+                  <ActionID>Q12-A5</ActionID>
+                  <Action></Action>
+                  <DisplayId></DisplayId>
+                  <Text>Unbearable</Text>
+                  <Value>0</Value>
+                </Option>
+              </Options>
+            </OptionGroup>
+          </OptionGroups>
+        </Element>
+      </Elements>
+      <Instructions>
+        <Instruction>
+          <SupportedInstances>Baseline,Followup</SupportedInstances>
+          <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+          <Text>Select &lt;u&gt;one&lt;/u&gt; option for &lt;u&gt;every&lt;/u&gt; question.</Text>
+        </Instruction>
+      </Instructions>
+    </Section>
+    <Section>
+      <ActionId>Outro</ActionId>
+      <Elements>
+        <Element type="Text">
+          <ActionId>Outro.1</ActionId>
+          <TextVersions>
+            <TextVersion>
+              <SupportedInstances>Baseline,FollowUp</SupportedInstances>
+              <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+              <Text>&lt;p&gt;That was the last question. Thanks for helping us out with that &lt;%User.FirstName%&gt;.&lt;/p&gt;
+&lt;p&gt;When you click 'submit' you will see the results of this questionnaire. See you soon!&lt;/p&gt;</Text>
+            </TextVersion>
+          </TextVersions>
+        </Element>
+      </Elements>
+      <Instructions>
+        <Instruction>
+          <SupportedInstances>Baseline,Followup</SupportedInstances>
+          <SupportedPlatforms>Chat,Classic,Mobile</SupportedPlatforms>
+          <Text></Text>
+        </Instruction>
+      </Instructions>
+    </Section>
+  </Sections>
+  <Domains>
+    <Domain>
+      <Name>Total</Name>
+      <Description>Total for OES PRO</Description>
+      <Audience>Patient,Physician,Researcher</Audience>
+      <ScoreFormula>100/60*({OES.1}+{OES.2}+{OES.3}+{OES.4}+{OES.5}+{OES.6}+{OES.7}+{OES.8}+{OES.9}+{OES.10}+{OES.11}+{OES.12})</ScoreFormula>
+      <ScoringNote>0 Worst - 100 Best</ScoringNote>
+      <BestScore>Highest</BestScore>
+      <ResultRanges>
+        <ResultRange>
+          <Start>0</Start>
+          <End>60</End>
+          <Meaning>This is the total score; need details of ranges (ask Em)</Meaning>
+        </ResultRange>
+      </ResultRanges>
+    </Domain>
+    <Domain>
+      <Name>Pain</Name>
+      <Description>Pain domain for OES PRO</Description>
+      <Audience>Physician,Researcher</Audience>
+      <ScoreFormula>100/16*({OES.7}+{OES.8}+{OES.11}+{OES.12})</ScoreFormula>
+      <ScoringNote>0 Worst - 100 Best</ScoringNote>
+      <BestScore>Highest</BestScore>
+      <ResultRanges>
+        <ResultRange>
+          <Start>0</Start>
+          <End>60</End>
+          <Meaning>This is the total score; need details of ranges (ask Em)</Meaning>
+        </ResultRange>
+      </ResultRanges>
+    </Domain>
+    <Domain>
+      <Name>Elbow Function</Name>
+      <Description>Elbow function domain for OES PRO</Description>
+      <Audience>Physician,Researcher</Audience>
+      <ScoreFormula>100/16*({OES.1}+{OES.2}+{OES.3}+{OES.4})</ScoreFormula>
+      <ScoringNote>0 Worst - 100 Best</ScoringNote>
+      <BestScore>Highest</BestScore>
+      <ResultRanges>
+        <ResultRange>
+          <Start>0</Start>
+          <End>60</End>
+          <Meaning>This is the total score; need details of ranges (ask Em)</Meaning>
+        </ResultRange>
+      </ResultRanges>
+    </Domain>
+    <Domain>
+      <Name>Social-Psychological</Name>
+      <Description>Social-Psychological domain for OES PRO</Description>
+      <Audience>Physician,Researcher</Audience>
+      <ScoreFormula>100/16*({OES.5}+{OES.6}+{OES.9}+{OES.10})</ScoreFormula>
+      <ScoringNote>0 Worst - 100 Best</ScoringNote>
+      <BestScore>Highest</BestScore>
+      <ResultRanges>
+        <ResultRange>
+          <Start>0</Start>
+          <End>60</End>
+          <Meaning>This is the total score; need details of ranges (ask Em)</Meaning>
+        </ResultRange>
+      </ResultRanges>
+    </Domain>
+  </Domains>
+  <Tags>
+    <Tag>
+      <Name>Gender</Name>
+      <Value>Female</Value>
+    </Tag>
+    <Tag>
+      <Name>Gender</Name>
+      <Value>Male</Value>
+    </Tag>
+  </Tags>
+</Questionnaire>

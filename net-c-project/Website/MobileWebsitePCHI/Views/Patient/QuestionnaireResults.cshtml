@@ -1,0 +1,304 @@
+﻿@using PCHI.Model.Episodes;
+@using PCHI.Model.Questionnaire.Response
+
+@model Dictionary<Episode, Dictionary<string, List<ProDomainResultSet>>>
+
+@{
+    ViewBag.Title = "ProResult";
+    var pageText = new PCHI.WcfServices.API.PCHIServices.InterfaceProxies.Service.ServiceDetailsClient().GetPageText(new List<string>() { "Any_Score", "Score_Better_Text", "Score_Same_Text", "Score_Worse_Text" }, patientId: Request.QueryString["PatientId"]).StringDictionary;
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Results.css")" />
+}
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+                    @{int counter = 0;}
+                    @foreach (Episode e in Model.Keys)
+                    {
+                        <div class="accordion">
+                            <div class="accordion-head">
+                                <span class="progressSubtitle updown"></span><h3>Episode: @e.Condition</h3> <div id="ep-date">Start: @e.DateCreated.ToShortDateString() </div>
+                            </div>
+                            <div class="accordion-results-table-body" style="width:100%">
+                                @foreach (string questionnaire in Model[e].Keys)
+                                {
+                                    counter++;
+                                    List<ProDomainResultSet> set = Model[e][questionnaire];
+                                    ViewBag.SetData = ViewBag.Data[e][questionnaire];
+                                    ViewBag.ChartName = e.Id + "" + counter;
+                                    <div class="card">
+                                        <div class="process-introTxt">
+                                            <table align="center" width="90%" border="0" cellspacing="20" cellpadding="0">
+                                                <tbody>
+                                                    <tr>
+                                                        <td width="30%" class="progressSubtitle">@questionnaire</td>
+                                                        <td width="70%">@set[0].Group.Questionnaire.Descriptions.FirstOrDefault()</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div>
+                                            <table id="Score-Table">
+                                                <tr>
+                                                    <td width="150px">
+                                                        <p>Your current score is: </p>
+                                                        <div class="resultCircle">
+                                                            @{
+                                    int Score = 0;
+                                    //PCHI.Model.Questionnaire.Response.ProDomainResultSet resSet = set.Where(m => m.GroupEndTime == set.Max(m2 => m2.GroupEndTime)).FirstOrDefault();
+                                    List<PCHI.Model.Questionnaire.Response.ProDomainResultSet> resSet = set.OrderByDescending(m => m.GroupEndTime).ToList();
+                                    //if (resSet != null)
+                                    //{
+                                    Score = (int)(resSet[0].Results.First().Score + 0.5);
+                                    //}
+                                                            }
+                                                            <span class="resultSpan" style="font-size:@(Score<10?90:Score>100?50:78)px">
+                                                                @Score
+                                                            </span>
+                                                        </div>
+                                                    </td>
+                                                    <td width="250px">
+                                                        <div>
+
+                                                            <div id="ep-scoreTxt">
+                                                                @if (resSet.Count > 1)
+                                                                {
+                                                                    if ((resSet[0].Results.First().Score + 0.5) > (resSet[1].Results.First().Score + 0.5))
+                                                                    {
+                                                                        @(pageText["Score_Better_Text"])
+                                                                    }
+                                                                    else if ((resSet[0].Results.First().Score + 0.5) == (resSet[1].Results.First().Score + 0.5))
+                                                                    {
+                                                                        @(pageText["Score_Same_Text"])
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        @(pageText["Score_Worse_Text"])
+                                                                    }
+                                                                }
+                                                                else
+                                                                {
+                                                                    @(pageText["Any_Score"])
+                                                                }
+
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td width="350px" align="right">
+                                                        <div>
+                                                            @*Html.Partial("~/Views/Shared/PROResultGraph.cshtml", set)*@
+                                                        </div>
+                                                    </td>
+
+                                                    @*<div id="history-box">
+                                                            <h1>History</h1>
+                                                            <table id="history-table">
+                                                                <tr>
+                                                                    <td><h5>Questionnaire</h5></td>
+                                                                    <td><h5>Score</h5></td>
+                                                                </tr>
+                                                                @{int count = 0;}
+                                                                @foreach (var item in set)
+                                                                {
+                                                                    <tr>
+                                                                        <td style="padding-right:30px;">@(count == 0 ? "Baseline" : "Follow-up") @item.GroupEndTime.ToString("dd-MMM-yy")</td>
+                                                                        <td>@((int)(item.Results.First().Score + 0.5))</td>
+                                                                    </tr>
+                                                                    { count++; }
+                                                                }
+                                                            </table>
+                                                        </div>*@
+
+
+                                                </tr>
+                                            </table>
+
+                                            <div id="Results-Table">
+                                                @Html.Partial("~/Views/Shared/PROResultTablePatient.cshtml", new ViewDataDictionary { { "DomainResultSet", set }, { "QuestionnaireName", questionnaire }, { "HowManyColumns", ViewBag.howManyColumns } })
+                                            </div>
+
+                                        </div>
+                                        <div class="cardBottom" align="center">
+                                            <p>Space to include more information provided by OPSMC</p>
+                                        </div>
+                                        @*<hr>*@
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    //Accordian
+    $('.accordion').each(function () {
+        var $accordian = $(this);
+        $accordian.find('.accordion-head').on('click', function () {
+            $accordian.find('.accordion-results-table-body').slideUp();
+            $accordian.find('span').css("backgroundPosition", '0px 0px');
+            if (!$(this).next().is(':visible')) {
+                $(this).next().slideDown();
+                $(this).find('span').css({ "background-position": '30px 0px' });
+            }
+        });
+    });
+
+    var numberOfColumns = 0;
+    var howManyColumns = @ViewBag.howManyColumns;
+    var leftColumnIndex = 0;
+    var rightColumnIndex = 0;
+
+    function formatTable(whichTable) {
+
+        numberOfColumns = 0;
+        var results = getResults(whichTable);
+        leftColumnIndex = numberOfColumns - (howManyColumns - 1);
+        rightColumnIndex = numberOfColumns;
+        hideShowColumns();
+        $("tr[name^=belongs]").hide();
+        $("div[class=accordion-results-table-body]").slideUp();
+        // Handler for .ready() called.
+    }
+
+    function slidingUpFinished(element) {
+        $(element).hide();
+    }
+
+    function slidingDownStarted(element) {
+        $(element).show();
+    }
+
+    $(function () {
+        $("table[name^=results]").click(function (event) {
+            event.stopPropagation();
+            var $target = $(event.target);
+            if ($target.attr("class") != "scrollLeft" && $target.attr("class") != "scrollRight") {
+                $.each($("[name='" + $target.closest("tr").attr("title") + "']"), function (key, value) {
+                    if ($(this).attr("name").indexOf("belongsToInstrument") > -1 && $(this).attr("class") == "opened") {
+                        var domainRow = $(this);
+                        $.each($("[name='" + $(this).attr("title") + "']"), function (key, value) {
+
+                            if ($(this).attr("class") == "opened") {
+                                $(this).find("p").slideUp({ "duration": 600, "complete": slidingUpFinished($(this)) });
+                                if (domainRow.find("td:first").html().indexOf("<") > -1) {
+                                    domainRow.find("td:first").attr("class", "EpisodeUp");//.html("<p><img src=\"/Content/Images/arrows.png\"></p>");
+                                } else {
+                                    domainRow.find("td:first").attr("class", "EpisodeUp");//.html("<img src=\"/Content/Images/arrows.png\">");
+                                }
+                                $(this).attr("class", "closed");
+                            }
+                        });
+                    }
+                    if ($(this).attr("class") == "closed") {
+                        $(this).find("p").slideDown({ "duration": 600, "start": slidingDownStarted($(this)) });
+                        if ($target.closest("tr").find("td:first").html().indexOf("<") > -1) {
+                            $target.closest("tr").find("td:first").attr("class", "EpisodeDown");//.html("<p><img src=\"/Content/Images/arrows.png\"></p>");
+                        } else {
+                            $target.closest("tr").find("td:first").attr("class", "EpisodeDown");//.html(<img src=\"/Content/Images/arrows.png\">");
+                        }
+                        $(this).attr("class", "opened");
+                    } else {
+                        $(this).find("p").slideUp({ "duration": 600, "complete": slidingUpFinished($(this)) });
+                        if ($target.closest("tr").find("td:first").html().indexOf("<") > -1) {
+                            $target.closest("tr").find("td:first").attr("class", "EpisodeUp");//.html("<p><img src=\"/Content/Images/arrows.png\"></p>");
+                        } else {
+                            $target.closest("tr").find("td:first").attr("class", "EpisodeUp");//.html(<img src=\"/Content/Images/arrows.png\">");
+                        }
+                        $(this).attr("class", "closed");
+                    }
+                });
+            }
+        });
+    });
+
+    function getResults(whichTable) {
+        /// <summary>
+        /// Creates an array from the table with all the results
+        /// </summary>
+        /// <returns>An array with all the results</returns>
+        var result = new Array();
+        var results = $("[id^=result_");
+        for (var i = 0; i < results.length; i++) {
+            var id = results[i].id;
+            var split = id.split("_");
+            if(split[4] == whichTable){
+                var value = $('#' + id).html();
+                value = value.replace("<p>", "");
+                value = value.replace("</p>", "");
+                result[result.length] = new resultItem(split[1], split[2], value, id, split[3]);
+            }
+        }
+        return result;
+    }
+
+    function resultItem(domainId, columnId, value, id, higherIsBetter) {
+        /// <summary>
+        /// Creates the intance of a result with all the proper information
+        /// </summary>
+        /// <param name="domainId">Domain id we are this result belongs to</param>
+        /// <param name="columnId">Column Id wo work this result belongs to</param>
+        /// <param name="value">Value of this result</param>
+        /// <param name="higherIsBetter">Indicates if the result is better if it's higher or lower</param>
+        this.domainId = domainId;
+        this.columnId = parseInt(columnId, 10);
+        this.value = parseInt(value, 10);
+        this.id = id;
+        this.higherIsBetter = higherIsBetter;
+        numberOfColumns = (columnId > numberOfColumns) ? columnId : numberOfColumns;
+    }
+
+    function hideShowColumns() {
+        /// <summary>
+        /// Hides or shows the correct columns on the results table
+        /// </summary>
+        $("table[name=results]").find("[name^=results]").each(function (index, value) {
+            var cell = $(value).attr("name").split("_");
+            if (cell[2] < leftColumnIndex || cell[2] > rightColumnIndex) {
+                $(value).hide();
+            } else {
+                $(value).show();
+            }
+        });
+    }
+
+    function navigation(whichSide) {
+        /// <summary>
+        /// Increases or decreases the both left and right index to navigate through the table
+        /// </summary>
+        /// <param name="itemId">Indicates which side to go</param>
+        if (whichSide == "left") {
+            if ((leftColumnIndex - 1) >= 1) {
+                leftColumnIndex--;
+                rightColumnIndex--;
+                hideShowColumns();
+            }
+        } else {
+            if ((rightColumnIndex + 1) <= numberOfColumns) {
+                leftColumnIndex++;
+                rightColumnIndex++;
+                hideShowColumns();
+            }
+        }
+    }
+</script>

@@ -1,0 +1,83 @@
+﻿@model PCHI.WcfServices.API.PCHIServices.InterfaceContracts.Model.UserDetails
+@{
+    ViewBag.Title = "Change settings";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-PopUp.css")" />
+
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+                    <div @*class="settings-form"*@>
+
+
+                        @using (Html.BeginForm("ChangeSettings", "Account", new { patientId = Request["patientId"] }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary()
+
+
+                            if (ViewBag.ErrorRetrieving == null)
+                            {
+
+                                <div class="intro-dashboard" id="ChangeSettings-form">
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.Title)
+                                        @Html.TextBoxFor(m => m.Title)
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.FirstName)
+                                        @Html.TextBoxFor(m => m.FirstName)
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.LastName)
+                                        @Html.TextBoxFor(m => m.LastName)
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.TwoFactorProvider)
+                                        @Html.DropDownListFor(m => m.TwoFactorProvider, (SelectList)ViewBag.Providers, "Disable", new { data_role = "slider" })
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.SecurityQuestion)
+                                        @Html.TextBoxFor(m => m.SecurityQuestion)
+                                    </div>
+                                    <div data-role="fieldcontain">
+                                        @Html.LabelFor(m => m.SecurityAnswer)
+                                        @Html.TextBoxFor(m => m.SecurityAnswer)
+                                    </div>
+                                </div>
+                            }
+                            <input type="submit" id="saveSettings" data-icon="check" data-iconpos="top" class="green-button" value="Save settings" />
+                            switch ((string)ViewBag.ShowPopUp)
+                            {
+                                case "PopUpAuthenticationCodeField":
+                                    @Html.Partial("PopUpAuthenticationCodeField", new ViewDataDictionary() { { "top", "" }, { "patientId", Request["patientId"] } })
+                                    break;
+                                case "PopUpAuthenticationPassword":
+                                @Html.Partial("PopUpAuthenticationPassword", new ViewDataDictionary() { { "top", "" }, { "patientId", Request["patientId"] } })
+                                    break;
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

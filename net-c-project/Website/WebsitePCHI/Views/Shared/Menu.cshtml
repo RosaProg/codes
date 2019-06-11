@@ -1,0 +1,51 @@
+﻿@using Website.Models;
+
+<ul>
+    @if (Request.IsAuthenticated)
+    {
+        var sessionData = DSPrima.WcfUserSession.ClientSession.WcfUserClientSession.Current.Config.SessionData<PCHI.Model.Security.ClientSessionDetails>();
+
+        if (Request.Url.PathAndQuery != "/Patient/SelectPatient")
+        {
+            {
+                @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Patient", new { patientId = Request["patientId"] }, "PatientProxy")
+                @Html.MenuItem("My Questionnaires", "RePlay-Quest-tab.png", "MyQuestionnaires", "Patient", new { patientId = Request["patientId"] }, "PatientProxy")
+                @Html.MenuItem("My Results", "RePlay-MyResults-tab.png", "QuestionnaireResults", "Patient", new { patientId = Request["patientId"] }, "PatientProxy")
+
+                //Specific Index page for each role
+                @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Admin", null, "Administrator")
+                @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Telephonist", null, "Telephonist")
+                @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Practitioner", null, "Practitioner")
+                @Html.MenuItem("My RePLAY", "RePlay-RePlay-tab.png", "Index", "Researcher", null, "Researcher")
+
+                //Specific options for each roles
+                @Html.MenuItem("VIP Booking", "RePLAY-telephonist-icon.png", "Telephonist", "Telephonist", null, "Telephonist")
+                @Html.MenuItem("VIP Practitioner", "RePLAY-practitioner-icon.png", "Physician", "Practitioner", null, "Practitioner")
+                @Html.MenuItem("Researcher", "RePLAY-researcher-icon.png", "ResearcherSearch", "Researcher", null, "Researcher")
+                @Html.MenuItem("Users", "RePlay-Blank-tab.png", "Users", "Admin", null, "Administrator")
+            }
+
+            if (sessionData.SelectedRole == "PatientProxy")
+            {
+                @Html.MenuItem("Change Patient Details", "RePlay-Blank-tab.png", "ChangePatientDetails", "Patient", new { patientId = Request["patientId"] }, "PatientProxy")
+            }
+        }
+
+        if (Request.IsAuthenticated)
+        {
+            if (sessionData.AvailableRoles.Count > 1)
+            {
+                @Html.MenuItem("Change Roles", "RePlay-RePlay-tab.png", "SelectRole", "Access", new { login = false })
+            }
+            if (sessionData.AvailablePatients.Count > 1)
+            {
+                @Html.MenuItem("Change Patient", "RePlay-RePlay-tab.png", "SelectPatient", "Patient")
+            }
+        }
+
+        @Html.MenuSeparator("User Settings")
+        @Html.MenuItem("Change Password", null, "ChangePassword", "Account", new { patientId = Request["patientId"] })
+        @Html.MenuItem("Change Settings", null, "ChangeSettings", "Account", new { patientId = Request["patientId"] })
+        @Html.MenuItem("My Audit Trail", null, "MyAuditTrail", "Account", new { patientId = Request["patientId"] })
+    }
+</ul>

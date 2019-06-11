@@ -1,0 +1,80 @@
+﻿@model WebsiteSupportLibrary.Models.QuestionnaireModel
+@using WebsiteSupportLibrary.Common;
+
+@{
+    ViewBag.Title = "PRO Chat";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Chat.css")" />
+}
+
+<!-- ViewModel -->
+<script>
+    var viewModel;
+    $(document).ready(function () {
+        var questionnaireModel = @Html.Raw(SerializationHelper.ObjectToJson(Model));
+        viewModel = new QuestionnaireModel(questionnaireModel);
+        ko.applyBindings(viewModel);
+    });
+
+    /*
+        Supported RouteData:
+        usesubmit: If this is provided, submit is used instead of an ajax post. The given value is ignored. This makes action
+        hidesave: If this is provided, the save button is hidden. The given value is ignored
+        actionSubmit: The action to post to when making the ajax call to submit (default is SaveJsonSubmit).
+        controllerSubmit: The controller to post to when making the ajax call to submit (default is Controls).
+        actionSave: The action to post to when making the ajax call to save(default is SaveJsonSubmit).
+        controllerSave: The controller to post to when making the ajax call to save(default is Controls).
+
+        If "usesubmit" is specified: actionSubmit and controllerSubmit are mandatory (if "hidesave" is not specified, the equivalent save versions must be specified as well), the actionSubmit and controllerSubmit (and equivalent save functions) are used to specify the controller and action to redirect to after the submit has been done.
+        In this case the submit is always done to the same location and then a redirect is done to the specified action.
+        The model is then passed on in the TempData["QuestionnaireModel"]
+        Whether it is a save or submit is passed on in TempData["Submit"] as a boolean
+
+    */
+    function Save(completed)
+    {
+        @*var submit = "@(ViewContext.ViewData["usesubmit"]!=null?"Y":"N")";*@
+
+        SaveSubmit(completed);
+
+    }
+
+    var submitting = false;
+    function SaveSubmit(completed)
+    {
+        if(submitting === true) return false;
+        submitting = true;
+        viewModel.Save();
+
+        $('#modelSubmit').val(ko.toJSON(viewModel));
+        $('#modelSave').val(ko.toJSON(viewModel));
+        if(completed === true) $("#myformForKnockoutSubmit").submit();
+        else $("#myformForKnockout").submit();
+    }
+
+</script>
+<!-- Templates -->
+@Html.Partial("QuestionnaireChatTemplate")
+
+<div id="chatHistoryPanel‏" class='main-window'>
+    <div id="history" data-bind="template: { name: 'questionnaire-template', data: $data }"></div>
+</div>
+
+@Html.Raw(ViewBag.html)
+
+<form action="/Controls/SaveJsonSubmit?@Request.QueryString.ToString()" id="myformForKnockoutSubmit" method="post">
+    <input type="hidden" name="modelSubmit" id="modelSubmit" value="" />
+    <input type="hidden" name="redirectActionSubmit" id="redirectActionSubmit" value="@ViewContext.ViewData["actionSubmit"]" />
+    <input type="hidden" name="redirectControllerSubmit" id="redirectControllerSubmit" value="@ViewContext.ViewData["controllerSubmit"]" />
+</form>
+
+<form action="/Controls/SaveJson?@Request.QueryString.ToString()" id="myformForKnockout" method="post">
+    <input type="hidden" name="modelSave" id="modelSave" value="" />
+    <input type="hidden" name="redirectActionSave" id="redirectActionSave" value="@ViewContext.ViewData["actionSave"]" />
+    <input type="hidden" name="redirectControllerSave" id="redirectControllerSave" value="@ViewContext.ViewData["controllerSave"]" />
+</form>
+
+@*<script src="@Url.Content("~/Scripts/QuestionnaireChatSupport.js")"></script>*@
+

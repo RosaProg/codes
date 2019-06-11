@@ -1,0 +1,122 @@
+﻿@model WebsitePCHI.Models.ResearcherModel
+@using Website.Common;
+@{
+    ViewBag.Title = "Researcher Search";
+}
+
+@section styles {
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/QueryBuilder.css")" />
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Researcher.css")" />
+}
+<div class="MainContent">
+    <h2>Researcher</h2>
+    <div class="MainContent-Text">
+        <h1>Knockout.js Query Builder</h1>
+        <div class="alert alert-info">
+            <strong>Example Output</strong><br />
+            <span data-bind="text: text"></span>
+        </div>
+        <div data-bind="with: group">
+            <div data-bind="template: templateName"></div>
+        </div>
+
+
+        <!-- HTML Template For Conditions -->
+        <script id="condition-template" type="text/html">
+            <div class="condition">
+                <select data-bind="options: classType, value: selectedClass, event: { change: ClassChanged }"></select>
+                <select data-bind="options: fields, value: selectedField, visible: ShowPrimaryFields"></select>
+                <select data-bind="options: comparisons, value: selectedComparison"></select>
+                <select data-bind="options: fields, value: selectedField, visible: ShowSecondaryFields"></select>
+                <input type="text" data-bind="value: value, visible: ShowPrimaryFields" />
+                <button class="btn btn-danger btn-xs" data-bind="click: $parent.removeChild"><span class="glyphicon glyphicon-minus-sign"></span></button>
+            </div>
+        </script>
+
+        <!-- HTML Template For Groups -->
+        <script id="group-template" type="text/html">
+            <div class="alert alert-warning alert-group">
+                <select data-bind="options: logicalOperators, value: selectedLogicalOperator"></select>
+                <button class="btn btn-xs btn-success" data-bind="click: addCondition"><span class="glyphicon glyphicon-plus-sign"></span> Add Condition</button>
+                <button class="btn btn-xs btn-success" data-bind="click: addGroup"><span class="glyphicon glyphicon-plus-sign"></span> Add Group</button>
+                <button class="btn btn-xs btn-danger" data-bind="click: $parent.removeChild"><span class="glyphicon glyphicon-minus-sign"></span> Remove Group</button>
+                <div class="group-conditions">
+                    <div data-bind="foreach: children">
+                        <div data-bind="template: templateName"></div>
+                    </div>
+                </div>
+            </div>
+        </script>
+
+        <!-- js -->
+        @Scripts.Render("~/bundles/knockout")
+        <script src="/Scripts/QueryBuilder/condition.js"></script>
+        <script src="/Scripts/QueryBuilder/group.js"></script>
+        <script src="/Scripts/QueryBuilder/viewModel.js"></script>
+        <script>
+            var ViewModel;
+            window.addEventListener('load', function () {
+                var conditionModel = @Html.Raw(SerializationHelper.ObjectToJson(Model));
+                PatientFields = conditionModel.PatientFields;
+                QuestionnaireFields = conditionModel.QuestionnaireFields;
+                var mappingModel = @Html.Raw(ViewBag.model != null ? "'" + ViewBag.model + "'" : "''");
+                ViewModel = new QueryBuilder.ViewModel();
+                ko.applyBindings(ViewModel);
+                if(mappingModel != '')
+                {
+                    var parsed = ko.utils.parseJson(mappingModel)
+                    ViewModel.group().removeChild(ViewModel.group().children()[ViewModel.group().children().length - 1])
+                    UpdateModel(parsed, ViewModel.group());
+                    //ko.mapping.fromJSON(mappingModel, {}, ViewModel.group);
+                }
+
+                @*@Html.Raw(ViewBag.model != null ? "ko.mapping.fromJSON('" + ViewBag.Model + "', ViewModel);" : string.Empty)*@
+            }, true);
+
+            function UpdateModel(parsedGroup, currentGroup)
+            {
+                currentGroup.selectedLogicalOperator(parsedGroup.selectedLogicalOperator);
+                for(var i = 0; i<parsedGroup.children.length; i++)
+                {
+                    if(parsedGroup.children[i].__type == "group")
+                    {
+                        currentGroup.addGroup();
+                        UpdateModel(parsedGroup.children[i], currentGroup.children()[currentGroup.children().length-1]);
+                    }
+                    else
+                    {
+                        currentGroup.addCondition();
+                        UpdateCondition(parsedGroup.children[i], currentGroup.children()[currentGroup.children().length-1]);
+                    }
+                }
+            }
+
+            function UpdateCondition(condition, currentCondition)
+            {
+                currentCondition.classType(condition.classType);
+                currentCondition.selectedClass(condition.selectedClass);
+                currentCondition.ShowPrimaryFields(condition.ShowPrimaryFields);
+                currentCondition.ShowSecondaryFields(condition.ShowSecondaryFields);
+                currentCondition.fields(condition.fields);
+                currentCondition.selectedField(condition.selectedField);
+                currentCondition.comparisons(condition.comparisons);
+                currentCondition.selectedComparison(condition.selectedComparison);
+                currentCondition.value(condition.value);
+            }
+
+            function Search()
+            {
+                $('#modelSubmit').val(ko.toJSON(ViewModel.group));
+                $("#searchFormSubmit").submit();
+            }
+        </script>
+
+
+        <form action="/Researcher/ResearcherSearch?@Request.QueryString.ToString()" id="searchFormSubmit" method="post">
+            <input type="hidden" name="modelSubmit" id="modelSubmit" value="" />
+            <input type="submit" value="Search" onclick="Search(); return false;" />
+        </form>
+        <br /><br />
+        @Html.Raw(ViewBag.Result);
+    </div>
+</div>

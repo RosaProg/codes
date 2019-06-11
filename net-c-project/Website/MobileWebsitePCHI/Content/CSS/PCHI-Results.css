@@ -1,0 +1,348 @@
+﻿@charset "UTF-8";
+/* CSS Document */
+
+.progressSubtitle {
+    color: #56138B;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.chatTitle {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 0;
+    text-align: left;
+    color: #0e1839;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+.chatTitle-Txt {
+    color: #56138B;
+    padding-left: 20px;
+    float: left;
+    z-index: 5;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.chatTitle-Background {
+    position: relative;
+    width: 900px;
+    background-color: #e1e1e1;
+    height: 50px;
+    opacity: 0.99;
+    border: solid 4px rgba(140,203,30,1.00);
+    border-radius: 12px 12px 0 0;
+    border-bottom: solid 1px #56138B;
+}
+
+.results-title {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+#history-table {
+    width: 100%;
+}
+
+    #history-table td {
+        width: 100px;
+        text-align: center;
+    }
+
+.card {
+    background-color: #fff;
+    margin-bottom: 10px;
+    box-shadow: 3px 3px 3px #c9c9c9;
+}
+
+.cardBottom {
+    border-top: 1px solid #ddd;
+    /*background-color: #f8f8f8;
+*/ padding: 5px;
+    margin-top: 20px;
+}
+
+.process-introTxt {
+    border-bottom: 1px solid #f2f2f2;
+}
+
+/*#history-box{
+    background-color: #f3f3f3;
+padding-left: 20px;
+padding-right: 20px;
+padding-bottom: 20px;
+border: 1px solid #ddd;
+border-radius: 6px;
+}*/
+
+#history-box {
+    background-color: #f3f3f3;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+#status-chart {
+    max-width: 76%;
+    margin-top: 50px;
+    margin-bottom: 20px;
+}
+
+text#container_svg_ChartTitle {
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/*.resultCircle {
+border-radius: 50%;
+width: 150px;
+height: 150px;
+color: #56138b;
+border: 8px solid #ddd;
+background-color: #fff;
+line-height: 100px;
+text-align: center;
+position: relative;
+margin: 0 auto;
+margin-top: 50px;
+margin-bottom: 50px;
+}*/
+
+.resultCircle {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    color: #56138b;
+    border: 6px solid #ddd;
+    background-color: #fff;
+    line-height: 80px;
+    text-align: center;
+    position: absolute;
+    margin: 0 auto;
+    right: 0px;
+    top: 150px;
+}
+
+.resultCircle-bar {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    color: #56138b;
+    border: 4px solid #ddd;
+    background-color: #fff;
+    line-height: 40px;
+    text-align: center;
+    position: absolute;
+    margin: 0 auto;
+    right: 0px;
+    top: 0px;
+}
+
+.medium {
+    border: 6px solid orange;
+}
+
+.high {
+    border: 6px solid #8CCB1E;
+}
+
+
+/*.resultSpan {
+	font-size:100px;
+display: inline-block;
+vertical-align: middle;
+line-height: 150px;
+font-weight: bold;
+}*/
+
+.resultSpan {
+    font-size: 60px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 80px;
+    font-weight: bold;
+}
+
+.resultSpan-bar {
+    font-size: 28px;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 30px;
+    font-weight: bold;
+}
+
+text#container_svg_ChartTitle, text#container_svg_YAxisTitle_1 {
+    font-family: inherit;
+    font-size: 16px;
+    fill: #56138B;
+}
+
+/* Bottom bar */
+.save-btn {
+    margin: 0px 250px;
+    position: static;
+}
+
+.submit-btn {
+    margin: -35px 500px;
+    width: 200px;
+    top: 565px;
+}
+
+.bottomBar-Background {
+    position: fixed;
+    margin: 0 auto;
+    width: 900px;
+    background-color: #fff;
+    height: 10px;
+    opacity: 1.0;
+    border: solid 4px rgba(140,203,30,1.00);
+    border-radius: 0 0 12px 12px;
+    border-top: /*solid 1px #56138B;*/ none;
+    bottom: 80px;
+    margin-left: 100px;
+}
+
+.btn-text-save {
+    margin-top: -30px;
+    margin-left: 50px;
+    position: relative;
+}
+
+.btn-text-submit {
+    margin-top: -30px;
+    margin-left: 50px;
+    position: relative;
+}
+
+/* ACCORDION */
+
+.accordion {
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+    .accordion .accordion-head {
+        color: #333;
+        position: relative;
+        padding: 10px;
+        font-size: 0.87em;
+        cursor: pointer;
+        line-height: 30px;
+        height: 30px;
+    }
+
+        .accordion .accordion-head * {
+            cursor: pointer;
+        }
+
+        .accordion .accordion-head span {
+            position: absolute;
+            left: 13px;
+            top: 15px;
+            width: 20px;
+            height: 20px;
+            background-image: url('../Images/arrows.png');
+            background-size: cover;
+            z-index: 2;
+        }
+
+        .accordion .accordion-head:hover {
+            filter: alpha(opacity=70);
+            opacity: 0.70;
+        }
+
+    .accordion .accordion-body {
+        border: 1px solid #fff;
+        background-color: #fff;
+        border-radius: 6px;
+        /* padding: 10px; */
+        height: auto;
+        margin-top: 10px;
+        display: none;
+    }
+
+/* Result table */
+
+.EpisodeUp {
+    position: absolute;
+    /*left: -30px;*/
+    width: 30px;
+    height: 30px;
+    background-image: url('/Content/Images/arrows.png');
+    background-position: 0px 0px;
+}
+
+.EpisodeDown {
+    position: absolute;
+    /*left: -30px;*/
+    width: 30px;
+    height: 30px;
+    background-image: url('/Content/Images/arrows.png');
+    background-position: 30px 0px;
+}
+
+.columnImprove {
+    background-color: green;
+}
+
+.columnEqual {
+    background-color: gray;
+}
+
+.columnWorse {
+    background-color: red;
+}
+
+.columnWarning {
+    background-color: yellow;
+}
+
+.lastColumn {
+    background-color: purple;
+}
+
+/* Result chart */
+.tooltipDiv {
+    background-color: #E94649;
+    color: white;
+    width: 130px;
+}
+
+.Tooltip > div:first-child {
+    float: left;
+}
+
+.Tooltip .value {
+    float: right;
+    height: 50px;
+    width: 63px;
+}
+
+    .Tooltip .value > div {
+        margin: 5px 5px 5px 5px;
+    }
+
+.Tooltip .efpercentage {
+    font-size: 20px;
+    font-family: segoe ui;
+}
+
+.Tooltip #ef {
+    font-size: 12px;
+    font-family: segoe ui;
+}
+
+.eficon {
+    background-image: url("../images/chart/eficon.png");
+    height: 60px;
+    width: 60px;
+    background-repeat: no-repeat;
+}

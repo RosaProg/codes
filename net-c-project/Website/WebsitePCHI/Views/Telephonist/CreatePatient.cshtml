@@ -1,0 +1,15 @@
+﻿@model PCHI.WcfServices.API.PCHIServices.InterfaceContracts.Model.PatientDetails
+
+@{
+    ViewBag.Title = "Create Patient";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Patient.css")" />
+}
+<div class="MainContent">
+<h2>Create Patient</h2>
+    <div class="MainContent-Text">
+        @Html.Partial("PatientDetails", Model)
+    </div>
+</div>

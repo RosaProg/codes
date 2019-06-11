@@ -1,0 +1,135 @@
+﻿@model WebsiteSupportLibrary.Models.LoginModel
+
+@{
+    ViewBag.WelcomeMsg = "Welcome to RePLAY";
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LayoutSimple.cshtml";
+}
+
+@*<hgroup class="title">
+        <h1>@ViewBag.Title.</h1>
+    </hgroup>*@
+
+<div class="pchi-content">
+    <div class="login-wrapper">
+        <div class="login-panel" id="loginWelcome">
+            <div class="login-welcomemsg" id="welcomeMessage">
+                <header>@ViewBag.WelcomeMsg</header>
+                <p>RePLAY is a groundbreaking new service that allows you to track your health history and progress, as well as prepare for upcoming medical appointments, by completing questionnaires assigned by your practitioner.</p>
+                <p>Every patient is different, and at OPSMC we want to find the best possible way to treat YOU.</p>
+                <p>Log in to get started!</p>
+            </div>
+            <div class="login-video" id="loginVideo">
+                <iframe src="//www.youtube-nocookie.com/embed/fujIjTedVfs?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" allowfullscreen style="height:100%; width:100%;"></iframe>
+            </div>
+        </div>
+        <div class="login-form" id="loginForm">
+            @Html.Partial("Notifications")
+            <header>@ViewBag.Title</header>
+            @using (Html.BeginForm("Login", "Access", new { ReturnUrl = ViewBag.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset>
+                    <ol>
+                        <li>
+                            @Html.LabelFor(m => m.UserName, new { @class = "fieldName" })
+                            @Html.TextBoxFor(m => m.UserName)
+                            @Html.ValidationMessageFor(m => m.UserName)
+                        </li>
+                        <li>
+                            @Html.LabelFor(m => m.Password, new { @class = "fieldName" })
+                            @Html.PasswordFor(m => m.Password)
+                            @Html.ValidationMessageFor(m => m.Password)
+                            <div id="divMayus" style="visibility:hidden">Caps Lock is on.</div>
+                        </li>
+                        @*<li>
+                                @Html.CheckBoxFor(m => m.RememberMe)
+                                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
+                            </li>*@
+                        <li id="forgot-password">
+                            @Html.ActionLink("Forgot password?", "ForgotPassword", "Access")
+                        </li>
+                        @if (ViewBag.RegistrationNotCompleted != null && (bool)ViewBag.RegistrationNotCompleted)
+                        {
+                            <li id="resend-registration-token">
+                                @Html.ActionLink("Resend registration token", "ResendRegistrationToken", "Access")
+                            </li>
+                        }
+                    </ol>
+                    <input id="ClientSupportsJS" type="checkbox" style="visibility:hidden" />
+                    <script>$('#ClientSupportsJS').attr("checked", "true");</script>
+                    <input type="submit" value="Submit" />
+                    @*<button id="btnLogin" type="submit" class="login-form button" value="Submit" onclick="javascript:ajaxLoader()">
+                        <div id="LoginText">Submit</div>
+                        <center><img id="LoaderImg" src="~/Content/images/ajax-loader.gif" style="display: none; margin-top:0px; text-align:center;vertical-align:middle;" width="25%" height="25px" /></center>
+                        </button>*@
+                </fieldset>
+                @*<p>
+                        @Html.ActionLink("Register", "Register") if you don't have an account.
+                    </p>*@
+            }
+            @switch ((string)ViewBag.ShowPopUp)
+            {
+                case "SelectRole":
+                    @section PopUp {
+                        @Html.Partial("SelectRole", ViewData["Roles"], new ViewDataDictionary() { { "top", "" }, { "returnUrl", ViewBag.ReturnUrl } })
+                    }
+                    break;
+                case "ForgotPassword":
+                    @section PopUp {
+
+                    @Html.Partial("PopUpForgotPassword", new ViewDataDictionary() { { "top", "" } })
+                    }
+                    break;
+                case "ResendRegistrationToken":
+                    @section PopUp {
+
+                    @Html.Partial("PopUpResendRegistrationToken", new ViewDataDictionary() { { "top", "" } })
+                    }
+                    break;
+            }
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+
+
+        /*
+  * Bind to capslockstate events and update display based on state
+  */
+        $(window).bind("capsOn", function (event) {
+            if ($("#Password").is(":focus")) {
+                document.getElementById('divMayus').style.visibility = 'visible';
+            }
+        });
+        $(window).bind("capsOff", function (event) {
+            document.getElementById('divMayus').style.visibility = 'hidden';
+        });
+        $(window).bind("capsUnknown", function (event) {
+            document.getElementById('divMayus').style.visibility = 'hidden';
+        });
+
+        /*
+        * Additional event notifying there has been a change, but not the state
+        */
+        /*$(window).bind("capsChanged", function (event) {
+            $("#changetext").html("changed").show().fadeOut();
+        });*/
+
+        /*
+        * Initialize the capslockstate plugin.
+        * Monitoring is happening at the window level.
+        */
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf("MSIE ");
+        if (msie < 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) $(window).capslockstate();
+
+        // Call the "state" method to retreive the state at page load
+        var initialState = $(window).capslockstate("state");
+        $("#statetext").html(initialState);
+
+    });
+</script>

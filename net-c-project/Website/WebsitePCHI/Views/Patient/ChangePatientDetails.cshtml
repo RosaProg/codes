@@ -1,0 +1,48 @@
+﻿@model PCHI.WcfServices.API.PCHIServices.InterfaceContracts.Model.PatientDetails
+@{
+    ViewBag.Title = "Change patient details";
+}
+
+@section styles{
+    <link rel="Stylesheet" href="@Href("~/Content/CSS/PCHI-Admin.css")" />
+
+}
+
+<div class="MainContent">
+    <h2> Here is where the partial data rest for the patient details</h2>
+    <div class="settings-form">
+
+
+        @using (Html.BeginForm("ChangePatientDetails", "Patient", new { patientId = Request["patientId"] }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
+
+
+            if (ViewBag.ErrorRetrieving == null)
+            {
+                <table width="100%">
+                    <tr>
+                        <td>Patient</td>
+                        <td>@Model.Title @Model.FirstName @Model.LastName </td>
+                    </tr>
+                    <tr>
+                        <td>Email</td>
+                        <td>@Html.TextBoxFor(m => m.Email)</td>
+                    </tr>
+                    <tr>
+                        <td>Share data for quality assurance </td>
+                        <td>@Html.RadioButtonFor(m => m.ShareDataForQualityAssurance, "true") Yes</td>
+                        <td>@Html.RadioButtonFor(m => m.ShareDataForQualityAssurance, "false") No</td>
+                    </tr>
+                    <tr>
+                        <td>Share data with researcher</td>
+                        <td>@Html.RadioButtonFor(m => m.ShareDataWithResearcher, "true") Yes</td>
+                        <td>@Html.RadioButtonFor(m => m.ShareDataWithResearcher, "false") No</td>
+                    </tr>
+                </table>
+            }
+            <input type="submit" value="Save patient details" />
+        }
+    </div>
+</div>

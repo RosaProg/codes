@@ -1,0 +1,3 @@
+﻿<div class="popUp-Overlay"></div>
+<div class="popUp" style="@(!string.IsNullOrWhiteSpace(ViewData["top"] as string)?"top:" + ViewData["top"] + ";" : string.Empty)">
+    <a href="@Url.Action(ViewBag.ActionName, (string)ViewBag.ControllerName, new { patientId = (string)ViewData["patientId"], closing = true })"> <div class="closePopUp-btn">X</div> </a>

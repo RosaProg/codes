@@ -1,0 +1,49 @@
+﻿
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="ie6 oldie"> <![endif]-->
+<!--[if IE 7]>    <html class="ie7 oldie"> <![endif]-->
+<!--[if IE 8]>    <html class="ie8 oldie"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html>
+<!--<![endif]-->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#56138b">
+    <title>RePlay Mobile</title>
+    <link href="~/Content/CSS/boilerplate.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/CSS/jquery-mobile/jquery.mobile-1.4.5.min.css" rel="stylesheet" type="text/css">
+    <link href="~/Content/CSS/PCHI-Framing.css" rel="stylesheet" type="text/css">
+
+    <!--
+    To learn more about the conditional comments around the html tags at the top of the file:
+    paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
+
+    Do the following if you're using your customized build of modernizr (http://www.modernizr.com/):
+    * insert the link to your js here
+    * remove the link below to the html5shiv
+    * add the "no-js" class to the html tags at the top
+    * you can also remove the link to respond.min.js if you included the MQ Polyfill in your modernizr build
+    -->
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <script src="~/Scripts/respond.min.js"></script>
+    <script src="~/Scripts/jquery-mobile/jquery-1.8.3.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/jquery-mobile/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+    <script src="~/Scripts/slideMenu.js"></script>
+    <script src="~/Scripts/slideup.js"></script>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/pchiScripts")
+    @RenderSection("styles", false)
+</head>
+<body>
+    @Html.Partial("Menu")
+    
+    @RenderBody()
+    @Html.EJ().ScriptManager()
+    @RenderSection("scripts", required: false)
+</body>
+</html>

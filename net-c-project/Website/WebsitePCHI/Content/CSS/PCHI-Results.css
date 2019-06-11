@@ -1,0 +1,256 @@
+/* CSS Document */
+
+.progressSubtitle {
+    color: #56138B;
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.chatTitle {
+    font-family: "Open Sans", Arial, Helvetica, sans-serif !important;
+    font-size: 26px;
+    font-weight: bold;
+    padding-top: 0;
+    text-align: left;
+    color: #0e1839;
+    margin-top: 10px;
+    margin-left: 100px;
+}
+
+.chatTitle-Txt {
+    color: #56138B;
+    padding-left: 20px;
+    float: left;
+    z-index: 5;
+    margin: 0;
+    padding-top: 10px;
+}
+
+.chatTitle-Background {
+    position: relative;
+    width: 900px;
+    background-color: #e1e1e1;
+    height: 50px;
+    opacity: 0.99;
+    border: solid 4px rgba(140,203,30,1.00);
+    border-radius: 12px 12px 0 0;
+    border-bottom: solid 1px #56138B;
+}
+
+.results-title{
+    position: relative;
+margin-bottom: 30px;
+}
+
+
+.card {
+    background-color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 3px 3px 3px #c9c9c9;
+}
+
+.cardBottom{
+border-top: 1px solid #ccc;
+background-color: #fff;
+padding: 5px;
+}
+
+.process-introTxt{
+border-bottom: 1px solid #3d3d3d;
+background-color: #f2f2f2;
+}
+
+.resultCircle {
+border-radius: 50%;
+width: 80px;
+height: 80px;
+color: #56138B;
+border: 6px solid #8CCB1E;
+background-color: #fff;
+line-height: 80px;
+text-align: center;
+position: relative;
+top: 0px;
+left: 88px;
+}
+
+.resultSpan {
+display: inline-block;
+vertical-align: middle;
+line-height: 85px;
+font-weight: bold;
+}
+
+#ep-date{
+    position: relative;
+left: 20px;
+top: 0px; 
+}
+
+#ep-scoreTxt{
+left: 50px;
+top: 70px;
+font-weight: bold;
+position: relative;
+width: 180px;
+}
+
+#Score-Table{
+    width:100%;
+    padding:10px;
+}
+
+#Score-Table td{
+    vertical-align:top;
+}
+
+#Results-Table{
+top: -250px;
+position: relative;
+left: 20px;
+max-width: 500px;
+}
+
+/**Accordion**/
+
+.accordion {
+width: 94%;
+}
+
+/**Chart Fixes*/
+text#container_svg_ChartTitle, text#container91_svg_YAxisTitle_1, text#container91_svg_XAxisTitle_0 {
+font-family: inherit;
+font-size: 12px;
+font-weight:bold;
+fill: #56138B;
+}
+
+svg#container91_svg {
+max-width: 452px;
+width: 450px;
+display: block;
+height: 450px;
+}
+
+g#container91_svg_XAxisLabels_0 text{
+font-family: inherit;
+font-size: 0.8em;
+/* color: #ddd; */
+fill: #828282;
+}
+
+/* Bottom bar */
+.save-btn {
+    margin: 0px 250px;
+    position: static;
+}
+
+.submit-btn {
+    margin: -35px 500px;
+    width: 200px;
+    top: 565px;
+}
+
+.bottomBar-Background {
+    position: fixed;
+    margin: 0 auto;
+    width: 900px;
+    background-color: #fff;
+    height: 10px;
+    opacity: 1.0;
+    border: solid 4px rgba(140,203,30,1.00);
+    border-radius: 0 0 12px 12px;
+    border-top: /*solid 1px #56138B;*/ none;
+    bottom: 80px;
+    margin-left: 100px;
+}
+
+.btn-text-save {
+    margin-top: -30px;
+    margin-left: 50px;
+    position: relative;
+}
+
+.btn-text-submit {
+    margin-top: -30px;
+    margin-left: 50px;
+    position: relative;
+}
+
+/* Result table */
+
+.EpisodeUp {
+    position: absolute;
+    /*left: -30px;*/
+    width: 30px;
+    height: 30px;
+    background-image: url('/Content/Images/arrows.png');
+    background-position: 0px 0px;
+}
+
+.EpisodeDown {
+    position: absolute;
+    /*left: -30px;*/
+    width: 30px;
+    height: 30px;
+    background-image: url('/Content/Images/arrows.png');
+    background-position: 30px 0px;
+}
+
+.columnImprove {
+    background-color: green;
+}
+
+.columnEqual {
+    background-color: gray;
+}
+
+.columnWorse {
+    background-color: red;
+}
+
+.columnWarning {
+    background-color: yellow;
+}
+
+.lastColumn {
+    background-color: purple;
+}
+
+/* Result chart */
+.tooltipDiv {
+    background-color: #E94649;
+    color: white;
+    width: 130px;
+}
+
+.Tooltip > div:first-child {
+    float: left;
+}
+
+.Tooltip .value {
+    float: right;
+    height: 50px;
+    width: 63px;
+}
+
+    .Tooltip .value > div {
+        margin: 5px 5px 5px 5px;
+    }
+
+.Tooltip .efpercentage {
+    font-size: 20px;
+    font-family: segoe ui;
+}
+
+.Tooltip #ef {
+    font-size: 12px;
+    font-family: segoe ui;
+}
+
+.eficon {
+    background-image: url("../images/chart/eficon.png");
+    height: 60px;
+    width: 60px;
+    background-repeat: no-repeat;
+}

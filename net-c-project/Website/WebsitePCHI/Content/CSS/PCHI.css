@@ -1,0 +1,362 @@
+﻿body.PCHI {
+    background-color: #f2f2f2;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+.pchi-canvas{
+    width: 100%;
+    background-image: url(/Content/images/bgWebsite.jpg);
+    background-repeat: no-repeat;
+    background-position: center top;
+}
+
+.pchi-header{
+    width: 100%;
+    height: 90px;
+    background-repeat: repeat;
+    background-image: url(/Content/images/bgHeader.jpg);
+}
+
+.pchi-title-area{
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    font-size: large;
+    width: 80%;
+    text-align: left;
+}
+
+.clinic-logo { margin-top: 7px; width:400px;}
+
+.pchi-navbar{
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 94px;
+    background-repeat: no-repeat;
+    background-image: url(/Content/images/Site-draft---homepage-v3_01.jpg);
+    text-align: left;
+}
+
+.pchi-footer{
+    width: 1000px;
+    margin-top: 55px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 36px;
+    background-repeat: no-repeat;
+    background-image: url(/Content/images/Site-draft---homepage-v3_03.jpg);
+    text-align:center;
+}
+
+.pchi-title p{
+    margin: 0;
+}
+
+.pchi-title a{
+    color:white;
+    text-decoration:none;
+}
+.pchi-tile a:hover{
+    color:white;
+    text-decoration:none;
+}
+
+.pchi-footer-links{
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 8px;
+    text-align:center;
+}
+.pchi-footerseparator{
+    color: white;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.pchi-nav {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+/*.pchi-nav:before,
+.pchi-nav:after {
+  display: table;
+  content: " ";
+}*/
+
+.pchi-nav:after {
+  clear: both;
+}
+
+.pchi-nav > li {
+  position: relative;
+  display: inline-block;
+}
+
+.pchi-nav > li > a {
+  position: relative;
+  display: block;
+  color: white;
+}
+
+.pchi-nav > li > a:hover,
+.pchi-nav > li > a:focus {
+  cursor: default;
+  text-decoration: underline;
+}
+
+.pchi-nav > li.disabled > a {
+  color: #999999;
+}
+
+.pchi-nav > li.disabled > a:hover,
+.pchi-nav > li.disabled > a:focus {
+  color: #999999;
+  text-decoration: none;
+  cursor: not-allowed;
+  background-color: transparent;
+}
+
+.pchi-nav .nav-divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+.pchi-nav > li > a > img {
+  max-width: none;
+}
+
+
+.pchi-nav-tabs > li {
+  float: left;
+  margin-bottom: -1px;
+}
+
+.pchi-nav-tabs > li > a {
+  margin-right: 2px;
+  line-height: 1.428571429;
+}
+
+.pchi-nav-tabs > li.active > a,
+.pchi-nav-tabs > li.active > a:hover,
+.pchi-nav-tabs > li.active > a:focus {
+  cursor: default;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.pchi-nav-tabs.nav-justified {
+  width: 100%;
+  border-bottom: 0;
+}
+
+.pchi-nav-tabs.nav-justified > li {
+  float: none;
+}
+
+.pchi-nav-tabs.nav-justified > li > a {
+  text-align: center;
+}
+
+.pchi-content{
+    text-align:center;
+    width: 80%;
+    min-height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 15px;
+    margin-bottom: 15%;
+    border: 1px solid transparent;
+}
+
+.login-panel {
+    width: 360px;
+    height: 80%;
+    margin: 5%;
+    float: left;
+}
+
+.login-form, .login-welcomemsg{
+    border: 1px solid #8dc73f;
+    border-radius: 15px;
+    padding: 10px 20px;
+    background-color: #f2f2f2;
+}
+
+    .login-form{
+        height: 420px;
+    text-align: center;
+    }
+
+.login-form header {
+    text-align: right;
+    color: #4f2684;
+    font-size: 120%;
+    font-weight: 700;
+}
+
+.login-form ol{
+    list-style: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.login-form li
+{
+    height: 60px;
+    text-align: left;
+}
+
+.login-form .fieldName{
+    font-size: 90%;
+    font-weight: 500;
+    color: #4f2684;
+    width: 100px;
+}
+
+.login-form input[type='text'], .login-form input[type='password']
+{
+width: 250px;
+height: 30px;
+margin-left: 30px;
+border-radius: 5px;
+border: 1px solid #CCC;
+padding: 2px 8px;
+font-weight: 200;
+font-size: 100%;
+font-family: Verdana;
+}
+
+.login-form input[type='submit']
+{
+    margin-left: auto;
+    margin-right: auto;
+width: 150px;
+height: 30px;
+border: 1px solid transparent;
+border-radius: 5px;
+color: white;
+background-color:#8cc63e;
+font-size: 100%;
+font-weight: 700;
+}
+.login-form input[type='submit']:hover
+{
+background-color:#4f2684;
+color:#8cc63e;
+}
+
+    .login-welcomemsg{
+        height: 200px;
+    text-align: left;
+    }
+
+.login-welcomemsg p{
+    color: #333333;
+    font-size: 80%;
+    font-weight: normal;
+}
+
+.login-welcomemsg header {
+    text-align: right;
+    color: #4f2684;
+    font-size: 120%;
+    font-weight: bolder;
+}
+
+.login-video{
+    width: 360px;
+    height: 200px;
+    margin-top: 20px;
+}
+
+
+.pchi-tile-tabs{
+    width: 125px;
+	height: 600px;
+    background-color: #5da2bf;
+    border-top: 5px solid #5da2bf;
+    font: bold 16px arial;
+}
+
+.pchi-tile-tab{
+    width: 125px;
+    height: 95px;
+    border-top: 10px solid #5da2bf;
+    border-bottom: 10px solid #5da2bf;
+    background-color: white;
+}
+.pchi-tile-tab p{ 
+    margin: 0;
+}
+
+.pchi-tile-data{
+    background-color: #9ecb3b;
+    color: #392062;
+}
+
+.pchi-tile-content-data{
+    border: 10px solid #9ecb3b;
+}
+.pchi-tile-content-data-home{
+    background-repeat: no-repeat;
+    background-image: url(/Content/images/Site-draft---homepage-v3_04.jpg);
+    background-position: center;
+}
+.pchi-tile-content-data-result{
+    background-repeat: no-repeat;
+    background-image: url(/Content/images/Site-draft---homepage-v3_04E.jpg);
+    background-position: center;
+}
+
+    .pchi-tile-tab a {
+        color: #392062;
+    }
+    .pchi-tile-tab a:hover {
+        text-decoration: underline;
+    }
+
+
+.pchi-tile-profile{
+    background-color: #005b7f;
+    color: white;
+}
+
+.pchi-tile-content-profile{
+    border: 10px solid #005b7f;
+}
+
+.pchi-tile-tab-spare{
+    background-color: transparent;
+    height: 300px;
+}
+
+.pchi-tile-content{
+    width: 836px;
+    min-height: 600px; 
+    text-align: left;
+    background-color: white;
+}
+
+.pchi-PROIntro{
+    padding: 100px 40px 50px 320px;
+}
+
+.pchi-PROResult{
+    padding: 100px 50px 50px 60px;
+font-size: 90%;
+}
+.pchi-PROScoreValue{
+    color: red;
+    font-size: large;
+}
+.pchi-PROScoreLevelMid{
+    color: orange;
+    font-size: large;
+}

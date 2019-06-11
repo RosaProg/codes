@@ -1,0 +1,121 @@
+﻿@charset "UTF-8";
+/* CSS PCHI-Patient */
+
+.pchi-ContentData{
+        padding:10px;
+    }
+.form-horizontal{
+padding: 0px 5px 20px 5px;
+margin: 0 auto;
+margin-top: 20px;
+    }
+
+    .form-group {
+display: inline-table;
+font-size: 14px;
+font-weight:bold;
+vertical-align: -webkit-baseline-middle;
+}
+
+.col-md-10 {
+margin: 8px 2px 15px 2px;
+}
+
+.text-box, single-line {
+height: 20px;
+padding: 5px;
+font-size: 13px;
+-webkit-appearance: none;
+border: 1px solid #ddd;
+}
+
+input#Email {
+width: 240px;
+}
+
+input, button {
+    height: 30px;
+    /*width: 95%;*/
+    -moz-appearance: none;
+    -webkit-appearance: none;
+}
+input {
+height: 25px;
+-moz-appearance: none;
+-webkit-appearance: none;
+margin-bottom: 5px;
+margin-top: 5px;
+font-size: 90%;
+margin-left:0px;
+}
+
+input[type="submit"], .btn-new{
+    height: 25px;
+min-width: 65px;
+/* padding: 10px; */
+/* min-height: 20px; */
+line-height: 0px;
+vertical-align: middle;
+width: auto;
+color: #fff;
+background-color: #8CCB1E;
+border: none;
+border-radius: 6px;
+cursor: pointer;
+position: relative;
+/*top: 30px;*/
+margin: 0px 5px 0px 5px;
+}
+
+input#PracticionerId{
+    width: 46px;
+}
+
+input#PracticionerName{
+    width: 100px;
+}
+
+.btn-new{
+    top:0px;
+    padding:5px;
+}
+
+input[type="submit"]:hover, .btn-new:hover{
+	background-color:#56138B;
+	color:#8CCB1E;
+	border: none;
+}
+
+.table-Admin{
+    margin:15px auto;
+    width:100%;
+    border-radius:6px;
+    border-collapse:collapse;
+}
+
+.table-TitleBar{
+    height:30px;
+    font-weight:bold;
+    color:white;
+    background-color:#333;
+    padding:10px;
+    border-radius:4px;
+    border-left:1px solid  #888;
+    font-weight:lighter;
+}
+
+.newRow-Table td, th {
+/* padding-top: 5px; */
+line-height: 30px;
+border: 1px solid #ddd;
+font-weight: lighter;
+}
+
+
+/* Large screens ----------- */
+@media only screen 
+and (min-width : 1824px) {
+/* Styles */
+
+
+}

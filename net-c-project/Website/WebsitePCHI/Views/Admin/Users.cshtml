@@ -1,0 +1,163 @@
+﻿@model IEnumerable<PCHI.WcfServices.API.PCHIServices.InterfaceContracts.Model.UserDetails>
+
+@{
+    ViewBag.Title = "Users";
+}
+<div class="pchi-ContentData" style="overflow: auto;">
+    <script type="text/javascript">
+
+        function HideNew() {
+            $("#NewRow").hide();
+        }
+
+        function ShowNew() {
+            $("#NewRow").show();
+            /*
+            if (!$("#NewRow").hidden) {
+                $("#NewRow").hide();
+            }
+            else {
+                $("#NewRow").show();
+            }*/
+        }
+
+        function Submit() {
+            if (Date.parse($('#Date').val()) < new Date()) {
+                $('#ErrorMessage').text("The appointment date must not be in the past");
+                $('#ErrorMessage').show();
+            }
+            else if ($('#Condition').val() == '') {
+                $('#ErrorMessage').text("The condition cannot be empty");
+                $('#ErrorMessage').show();
+            }
+            else {
+                document.getElementById('NewEpisodeForm').submit();
+            }
+        }
+    </script>
+
+    @using (Html.BeginForm(ViewContext.RouteData.GetRequiredString("action"), ViewContext.RouteData.GetRequiredString("controller"), FormMethod.Post, new { id = "NewEpisodeForm" }))
+    {
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.IsExternalUser)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.TwoFactorProvider)
+                    </th>*@
+                <th>
+                    Password
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ExternalId)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.SecurityQuestion)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.SecurityAnswer)
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.Roles)
+                </th>
+                <th>@*Action <br />*@ <a href="#" class="btn-new" onclick="ShowNew()">New</a></th>
+            </tr>
+            <tr id="NewRow" @(ViewBag.NewIsOpen != null && ((bool)ViewBag.NewIsOpen) == true ? string.Empty : "style=\"display: none;\"") class="newRow-Table">
+                <td>@Html.TextBox("UserName", ViewBag.UserName as string)</td>
+                <td>@Html.CheckBox("IsExternalUser", ViewBag.IsExternalUser as bool?)</td>
+                <td>@Html.TextBox("UserTitle", ViewBag.UserTitle as string)</td>
+                <td>@Html.TextBox("FirstName", ViewBag.FirstName as string)</td>
+                <td>@Html.TextBox("LastName", ViewBag.LastName as string)</td>
+                <td>@Html.TextBox("Email", ViewBag.Email as string)</td>
+                @*<td>Two factor provider dropdown</td>*@
+                <td>@Html.Password("Password")</td>
+                <td>@Html.TextBox("PhoneNumber", ViewBag.PhoneNumber as string)</td>
+                <td>@Html.TextBox("ExternalId", ViewBag.ExternalId as string)</td>
+                <td>@Html.DropDownList("Role", new SelectList(ViewBag.Roles as List<string>, ViewBag.Role == null ? string.Empty : ViewBag.Role as string))</td>
+                @*<td>@Html.TextBox("SecurityQuestion")</td>
+                    <td>@Html.TextBox("SecurityAnswer")</td>*@
+                <td>
+                    @*<input type="submit" value="New" onclick="VerifyData()" />*@
+                    <a onclick="Submit()">Save</a>
+                    / <a href="#" onclick="HideNew()">Cancel</a>
+                </td>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsExternalUser)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.TwoFactorProvider)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ExternalId)
+                    </td>
+                    <td></td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.SecurityQuestion)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SecurityAnswer)
+                        </td>*@
+                    <td>
+                        @{
+                item.Roles.Sort();
+                        }
+                        @Html.Raw(item.Roles.Count > 1 ? "<ul>" + item.Roles.Aggregate((s1, s2) =>
+               {
+                   return (!string.IsNullOrWhiteSpace(s1) && !s1.Contains("<li>") ? "<li>" + s1 + "</li>" : s1.Contains("<li>") ? s1 : string.Empty) + (!string.IsNullOrWhiteSpace(s2) ? "<li>" + s2 + "</li>" :
+                       string.Empty);
+               }) + "</ul>" :
+                    item.Roles.Count == 1 ? "<ul><li>" + item.Roles[0] + "</li></ul>" :
+                   "&lt;No roles found&gt;")
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Edit", "EditUser", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+                    </td>
+                </tr>
+            }
+
+        </table>
+    }
+</div>

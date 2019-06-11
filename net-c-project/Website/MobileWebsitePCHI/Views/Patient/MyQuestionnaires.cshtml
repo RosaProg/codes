@@ -1,0 +1,140 @@
+﻿@{
+    ViewBag.Title = "MyQuestionnaires";
+}
+
+<!-- Content panel Begins-->
+<div id="content">
+    <!-- RePLAY's Content-->
+    <div class="gridContainer clearfix">
+        <div id="div1" class="fluid">
+
+            <!--Page-->
+
+            <div data-role="page" id="myRePLAY" class="white">
+                <div data-role="header">
+                    <!--data-position="fixed"-->
+
+                    <div id="page-title">@ViewBag.Title</div>
+                    <div id="RePlay-logo"><a href="/Access/Login" target="_self"><img src="~/Content/Images/RePLAYlogo_logo-Header.png" height="45px" alt="" /></a></div>
+                </div>
+                <div data-role="content" class="content-frame" style="position: absolute; overflow-y: auto; left: 0px; right: 0px; top: 70px; bottom: 0px;background-color: #ddd;">
+                    <!--Starts Conten-->
+
+                    <table id="introTable" class="pchi-IntroTable">
+                        <thead class="pchi-IntroTable-Head">
+                            <tr>
+                                <th>Condition</th>
+                                <th>Questionnaire</th>
+                                <th>Date Completed</th>
+                                <th>Action</th>
+                                <th>Classic Version</th>
+                            </tr>
+                        </thead>
+                        @if (ViewBag.General != null && ViewBag.General.Count > 0)
+                        {
+                            <tr><td class="pchi-IntroTable-td" colspan="4">General questionnaires</td></tr>
+                            foreach (PCHI.Model.Questionnaire.Response.QuestionnaireUserResponseGroup q in ViewBag.General)
+                            {
+                                <tr>
+                                    <td></td>
+                                    @*<td>@Html.ActionLink(q, "PatientQuestionnaireClassic", "Patient", new { PRO = q }, new { })</td>*@
+                                    <td>@q.Questionnaire.Name</td>
+                                    <td>
+                                        @if (q.Completed)
+                                        {
+                                            <text>
+                                                @q.DateTimeCompleted.Value.ToString("dd-MM-yyyy HH:mm:ss")
+                                            </text>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @if (!q.Completed)
+                                        {
+                                            @*var patientId = Request["patientId"];
+                                                @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireChat", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name }, new { })*@
+
+                                            var patientId = Request["patientId"];
+                                            <noscript>
+                                                <style>
+                                                    .jsonly {
+                                                        display: none;
+                                                    }
+                                                </style>
+                                                @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireClassic", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name }, new { })
+                                            </noscript>
+                                            <div class="jsonly">
+                                                @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireChat", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name }, new { })
+                                            </div>
+
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!q.Completed)
+                                        {
+                                            var patientId = Request["patientId"];
+                                            @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireClassic", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name }, new { })
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        @if (ViewBag.Outstanding != null && ViewBag.Outstanding.Count > 0)
+                        {
+                            foreach (PCHI.Model.Episodes.Episode k in ViewBag.Outstanding.Keys)
+                            {
+                                <tr><td class="pchi-IntroTable-td" colspan="4">@k.Condition</td></tr>
+
+                                foreach (PCHI.Model.Questionnaire.Response.QuestionnaireUserResponseGroup q in ViewBag.Outstanding[k])
+                                {
+                                    <tr>
+                                        <td></td>
+                                        @*<td>@Html.ActionLink(q, "PatientQuestionnaireClassic", "Patient", new { PRO = q }, new { })</td>*@
+                                        <td>
+                                            @q.Questionnaire.Name <br />
+                                            @(q.Questionnaire.IntroductionMessages.Count > 0 ? q.Questionnaire.IntroductionMessages.First().Text : string.Empty)
+                                        </td>
+                                        <td>
+                                            @if (q.Completed)
+                                            {
+                                                <text>
+                                                    @q.DateTimeCompleted.Value.ToString("dd-MM-yyyy HH:mm:ss")
+                                                </text>
+                                            }
+                                        </td>
+
+                                        <td>
+                                            @if (!q.Completed)
+                                            {
+                                                var patientId = Request["patientId"];
+                                                <noscript>
+                                                    <style>
+                                                        .jsonly {
+                                                            display: none;
+                                                        }
+                                                    </style>
+                                                    @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireClassic", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name, episodeId = k.Id }, new { })
+                                                </noscript>
+                                                <div class="jsonly">
+                                                    @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireChat", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name, episodeId = k.Id }, new { })
+                                                </div>
+                                            }
+                                        </td>
+                                        <td>
+                                            @if (!q.Completed)
+                                            {
+                                                var patientId = Request["patientId"];
+                                                @Html.ActionLink(q.Responses.Count > 0 ? "Continue" : "Begin", "PatientQuestionnaireClassic", "Patient", new { patientId = patientId, PRO = q.Questionnaire.Name, episodeId = k.Id }, new { })
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

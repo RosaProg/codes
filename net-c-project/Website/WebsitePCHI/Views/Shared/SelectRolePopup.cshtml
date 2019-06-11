@@ -1,0 +1,9 @@
+﻿@Html.Partial("PopupStart", null, ViewData)
+<span class="MainTitle">Dear @TempData["UserName"],</span><br /><span> Please select the function you want to log in as for this session</span> <br />
+<br />
+<div class="pchi-roles">
+    <div class="role-opt"><img src="/Content/Images/RePlay-RePlay-tab.png" width="50" height="50" alt=""><br />Practitioner</div>
+    <div class="role-opt"><img src="/Content/Images/RePlay-RePlay-tab.png" width="50" height="50" alt=""><br />Researcher</div>
+    <div class="role-opt"><img src="/Content/Images/RePlay-RePlay-tab.png" width="50" height="50" alt=""><br />Patient</div>
+</div>
+@Html.Partial("PopupEnd")

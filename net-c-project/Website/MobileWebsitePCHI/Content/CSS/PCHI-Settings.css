@@ -1,0 +1,46 @@
+@charset "UTF-8";
+/* CSS Document */
+
+label {
+font-size: 14px;
+font-weight: 100;
+margin-bottom: 15px;
+color: #4f2684;
+}
+
+
+input#oldPassword, #newPassword, #confirmPassword, #title, #firstName, #lastName, #securityQuestion, #securityAnswer {
+border-bottom: 1px solid #8CCB1E;
+border-radius:0px;
+font-weight: bold;
+font-size: 100%;
+font-family: Verdana;
+-webkit-appearance:none;
+appearance:none:
+}
+
+.ui-shadow-inset {
+-webkit-box-shadow: none; 
+-moz-box-shadow: none;
+box-shadow: none; 
+}
+
+span.ui-slider-label.ui-slider-label-b {
+background-color: #ccc;
+text-shadow: 0 0px 0 #059;
+}
+
+span.ui-slider-label.ui-slider-label-a.ui-btn-active {
+background-color: #8CCB1E;
+border-color: #ddd;
+color: #fff;
+text-shadow: 0 0px 0 #059;
+}
+
+.ui-slider.ui-slider-switch.ui-slider-track.ui-shadow-inset.ui-bar-inherit.ui-corner-all {
+float: right;
+}
+
+.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset {
+border: none;
+}

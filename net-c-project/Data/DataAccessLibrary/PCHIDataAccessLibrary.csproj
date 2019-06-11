@@ -1,0 +1,627 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{70202B6E-CAA4-428B-AB84-1697426C48AA}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PCHI.DataAccessLibrary</RootNamespace>
+    <AssemblyName>PCHIDataAccessLibrary</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Development|AnyCPU'">
+    <OutputPath>bin\Development\</OutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="LinqKit, Version=1.0.0.0, Culture=neutral, PublicKeyToken=bc217f8844052a91, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\LinqKit.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.1.0\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.1.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.1.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccessHandelers\EpisodeAccessHandler.cs" />
+    <Compile Include="AccessHandelers\MessageHandler.cs" />
+    <Compile Include="AccessHandelers\NotificationHandler.cs" />
+    <Compile Include="AccessHandelers\AuditHandler.cs" />
+    <Compile Include="AccessHandelers\QuestionnaireAccessHandler.cs" />
+    <Compile Include="AccessHandelers\QuestionnaireFormatAccessHandler.cs" />
+    <Compile Include="AccessHandelers\SearchHandler.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="AccessHandelers\SecuritySessionStorage.cs" />
+    <Compile Include="AccessHandelers\TagAccessHandler.cs" />
+    <Compile Include="AccessHandelers\UserAccessHandler.cs" />
+    <Compile Include="AccessHandlerManager.cs" />
+    <Compile Include="Context\MainDatabaseContext.cs" />
+    <Compile Include="Migrations\201407291859445_ProModel.cs" />
+    <Compile Include="Migrations\201407291859445_ProModel.Designer.cs">
+      <DependentUpon>201407291859445_ProModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407300227079_Pro_Renamed_To_Questionaire.cs" />
+    <Compile Include="Migrations\201407300227079_Pro_Renamed_To_Questionaire.Designer.cs">
+      <DependentUpon>201407300227079_Pro_Renamed_To_Questionaire.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407300353310_QuestionareSpellingFix.cs" />
+    <Compile Include="Migrations\201407300353310_QuestionareSpellingFix.Designer.cs">
+      <DependentUpon>201407300353310_QuestionareSpellingFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407301645251_QuestionnaireResponseAdded.cs" />
+    <Compile Include="Migrations\201407301645251_QuestionnaireResponseAdded.Designer.cs">
+      <DependentUpon>201407301645251_QuestionnaireResponseAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407301953444_ModelUpdate.cs" />
+    <Compile Include="Migrations\201407301953444_ModelUpdate.Designer.cs">
+      <DependentUpon>201407301953444_ModelUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407310200213_SurveyNameFix.cs" />
+    <Compile Include="Migrations\201407310200213_SurveyNameFix.Designer.cs">
+      <DependentUpon>201407310200213_SurveyNameFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408050358248_ResponseTypeNameFix_migration.cs" />
+    <Compile Include="Migrations\201408050358248_ResponseTypeNameFix_migration.Designer.cs">
+      <DependentUpon>201408050358248_ResponseTypeNameFix_migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408091434503_QuestionnaireFormatAdded.cs" />
+    <Compile Include="Migrations\201408091434503_QuestionnaireFormatAdded.Designer.cs">
+      <DependentUpon>201408091434503_QuestionnaireFormatAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408192253105_tmp.cs" />
+    <Compile Include="Migrations\201408192253105_tmp.Designer.cs">
+      <DependentUpon>201408192253105_tmp.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408201749504_RequiredAttributesAddedWhereNeeded.cs" />
+    <Compile Include="Migrations\201408201749504_RequiredAttributesAddedWhereNeeded.Designer.cs">
+      <DependentUpon>201408201749504_RequiredAttributesAddedWhereNeeded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408211656124_Users_Added.cs" />
+    <Compile Include="Migrations\201408211656124_Users_Added.Designer.cs">
+      <DependentUpon>201408211656124_Users_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408220316491_FormatDefinitions_ForeignKeysAdded.cs" />
+    <Compile Include="Migrations\201408220316491_FormatDefinitions_ForeignKeysAdded.Designer.cs">
+      <DependentUpon>201408220316491_FormatDefinitions_ForeignKeysAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408221744028_AnonymousQuestionnaireLoading_Added.cs" />
+    <Compile Include="Migrations\201408221744028_AnonymousQuestionnaireLoading_Added.Designer.cs">
+      <DependentUpon>201408221744028_AnonymousQuestionnaireLoading_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408261742110_User_MultiStepVerificationEnabled_MappingRemoved.cs" />
+    <Compile Include="Migrations\201408261742110_User_MultiStepVerificationEnabled_MappingRemoved.Designer.cs">
+      <DependentUpon>201408261742110_User_MultiStepVerificationEnabled_MappingRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408280003139_TwoStepAuthenticationProvider_AddedToUser.cs" />
+    <Compile Include="Migrations\201408280003139_TwoStepAuthenticationProvider_AddedToUser.Designer.cs">
+      <DependentUpon>201408280003139_TwoStepAuthenticationProvider_AddedToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408290213449_OrderOfObjectsInQuestionniareAndFormatAndDefinitions_Added.cs" />
+    <Compile Include="Migrations\201408290213449_OrderOfObjectsInQuestionniareAndFormatAndDefinitions_Added.Designer.cs">
+      <DependentUpon>201408290213449_OrderOfObjectsInQuestionniareAndFormatAndDefinitions_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201408292057503_FormatSupportForDifferentPlatformsAdded.cs" />
+    <Compile Include="Migrations\201408292057503_FormatSupportForDifferentPlatformsAdded.Designer.cs">
+      <DependentUpon>201408292057503_FormatSupportForDifferentPlatformsAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409030403303_OrderingOfOptions_Added.cs" />
+    <Compile Include="Migrations\201409030403303_OrderingOfOptions_Added.Designer.cs">
+      <DependentUpon>201409030403303_OrderingOfOptions_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409081554573_PCHIError_Added.cs" />
+    <Compile Include="Migrations\201409081554573_PCHIError_Added.Designer.cs">
+      <DependentUpon>201409081554573_PCHIError_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409101818205_DateOfBirth_added.cs" />
+    <Compile Include="Migrations\201409101818205_DateOfBirth_added.Designer.cs">
+      <DependentUpon>201409101818205_DateOfBirth_added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409120349233_TextDefinitionsAndSupport_Added.cs" />
+    <Compile Include="Migrations\201409120349233_TextDefinitionsAndSupport_Added.Designer.cs">
+      <DependentUpon>201409120349233_TextDefinitionsAndSupport_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409121631228_DobIsNowADate_Changed.cs" />
+    <Compile Include="Migrations\201409121631228_DobIsNowADate_Changed.Designer.cs">
+      <DependentUpon>201409121631228_DobIsNowADate_Changed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409121830175_Functionalities_Added.cs" />
+    <Compile Include="Migrations\201409121830175_Functionalities_Added.Designer.cs">
+      <DependentUpon>201409121830175_Functionalities_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409180247340_Episodes_Added.cs" />
+    <Compile Include="Migrations\201409180247340_Episodes_Added.Designer.cs">
+      <DependentUpon>201409180247340_Episodes_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409221659559_RequiredRestrictionRemovedOn_ScheduleQuestionniareDate_In_QuestionnaireUserResponseGroup.cs" />
+    <Compile Include="Migrations\201409221659559_RequiredRestrictionRemovedOn_ScheduleQuestionniareDate_In_QuestionnaireUserResponseGroup.Designer.cs">
+      <DependentUpon>201409221659559_RequiredRestrictionRemovedOn_ScheduleQuestionniareDate_In_QuestionnaireUserResponseGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201409291758515_QuestionnaireDefaultFormatName_Added.cs" />
+    <Compile Include="Migrations\201409291758515_QuestionnaireDefaultFormatName_Added.Designer.cs">
+      <DependentUpon>201409291758515_QuestionnaireDefaultFormatName_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410031353360_PMSFields_Added.cs" />
+    <Compile Include="Migrations\201410031353360_PMSFields_Added.Designer.cs">
+      <DependentUpon>201410031353360_PMSFields_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410061718299_IsPatientFlag_addedToUser.cs" />
+    <Compile Include="Migrations\201410061718299_IsPatientFlag_addedToUser.Designer.cs">
+      <DependentUpon>201410061718299_IsPatientFlag_addedToUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410061744176_UserResponseGroup_DateTimeCompleted_Added.cs" />
+    <Compile Include="Migrations\201410061744176_UserResponseGroup_DateTimeCompleted_Added.Designer.cs">
+      <DependentUpon>201410061744176_UserResponseGroup_DateTimeCompleted_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410062201411_UserResponseGroup_DateTimeCompleted_Nullable_Added.cs" />
+    <Compile Include="Migrations\201410062201411_UserResponseGroup_DateTimeCompleted_Nullable_Added.Designer.cs">
+      <DependentUpon>201410062201411_UserResponseGroup_DateTimeCompleted_Nullable_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410081551050_AppliesToNameChange_Domain.cs" />
+    <Compile Include="Migrations\201410081551050_AppliesToNameChange_Domain.Designer.cs">
+      <DependentUpon>201410081551050_AppliesToNameChange_Domain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410091813090_AttributesAddedTo_Item_Format.cs" />
+    <Compile Include="Migrations\201410091813090_AttributesAddedTo_Item_Format.Designer.cs">
+      <DependentUpon>201410091813090_AttributesAddedTo_Item_Format.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410101803278_FirstNotificationSystemPass.cs" />
+    <Compile Include="Migrations\201410101803278_FirstNotificationSystemPass.Designer.cs">
+      <DependentUpon>201410101803278_FirstNotificationSystemPass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410101825396_NotificationSendTime_MadeNullable.cs" />
+    <Compile Include="Migrations\201410101825396_NotificationSendTime_MadeNullable.Designer.cs">
+      <DependentUpon>201410101825396_NotificationSendTime_MadeNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410110504421_QuestionnaireUserResponseGroup_StartTimeNullable.cs" />
+    <Compile Include="Migrations\201410110504421_QuestionnaireUserResponseGroup_StartTimeNullable.Designer.cs">
+      <DependentUpon>201410110504421_QuestionnaireUserResponseGroup_StartTimeNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410150309211_ModelOverhaul.cs" />
+    <Compile Include="Migrations\201410150309211_ModelOverhaul.Designer.cs">
+      <DependentUpon>201410150309211_ModelOverhaul.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410150317207_SupportedPlatformsNameChange.cs" />
+    <Compile Include="Migrations\201410150317207_SupportedPlatformsNameChange.Designer.cs">
+      <DependentUpon>201410150317207_SupportedPlatformsNameChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410170152311_NotificationCreationDateTime_Added.cs" />
+    <Compile Include="Migrations\201410170152311_NotificationCreationDateTime_Added.Designer.cs">
+      <DependentUpon>201410170152311_NotificationCreationDateTime_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410171738268_DefaultValuesAdded_ToOptionGroup_AndOptions.cs" />
+    <Compile Include="Migrations\201410171738268_DefaultValuesAdded_ToOptionGroup_AndOptions.Designer.cs">
+      <DependentUpon>201410171738268_DefaultValuesAdded_ToOptionGroup_AndOptions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410180340226_ItemOptionActionIdAdded.cs" />
+    <Compile Include="Migrations\201410180340226_ItemOptionActionIdAdded.Designer.cs">
+      <DependentUpon>201410180340226_ItemOptionActionIdAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410201510518_ActionIdMaxLengthRemoved.cs" />
+    <Compile Include="Migrations\201410201510518_ActionIdMaxLengthRemoved.Designer.cs">
+      <DependentUpon>201410201510518_ActionIdMaxLengthRemoved.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201410281808085_Security_Framework_Added_ToBusinessLogic.cs" />
+    <Compile Include="Migrations\201410281808085_Security_Framework_Added_ToBusinessLogic.Designer.cs">
+      <DependentUpon>201410281808085_Security_Framework_Added_ToBusinessLogic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411040326138_Questionnaire_DisplayName_IntroductionMessages_Added.cs" />
+    <Compile Include="Migrations\201411040326138_Questionnaire_DisplayName_IntroductionMessages_Added.Designer.cs">
+      <DependentUpon>201411040326138_Questionnaire_DisplayName_IntroductionMessages_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411040404443_UserSecurityQuestionAndAnswerAdded.cs" />
+    <Compile Include="Migrations\201411040404443_UserSecurityQuestionAndAnswerAdded.Designer.cs">
+      <DependentUpon>201411040404443_UserSecurityQuestionAndAnswerAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411110703583_UserSecurityTokenAdded.cs" />
+    <Compile Include="Migrations\201411110703583_UserSecurityTokenAdded.Designer.cs">
+      <DependentUpon>201411110703583_UserSecurityTokenAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411130405245_FunctionalityReplacedWithPermissionSystem.cs" />
+    <Compile Include="Migrations\201411130405245_FunctionalityReplacedWithPermissionSystem.Designer.cs">
+      <DependentUpon>201411130405245_FunctionalityReplacedWithPermissionSystem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411131919358_SecurityCode_UserAndPurpose_AreNowKey.cs" />
+    <Compile Include="Migrations\201411131919358_SecurityCode_UserAndPurpose_AreNowKey.Designer.cs">
+      <DependentUpon>201411131919358_SecurityCode_UserAndPurpose_AreNowKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411140659094_AuditLogs_Added.cs" />
+    <Compile Include="Migrations\201411140659094_AuditLogs_Added.Designer.cs">
+      <DependentUpon>201411140659094_AuditLogs_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411181600415_TotalDomainSpecifier_Added.cs" />
+    <Compile Include="Migrations\201411181600415_TotalDomainSpecifier_Added.Designer.cs">
+      <DependentUpon>201411181600415_TotalDomainSpecifier_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411181639465_OriginalValue_RemovedFromAuditlog.cs" />
+    <Compile Include="Migrations\201411181639465_OriginalValue_RemovedFromAuditlog.Designer.cs">
+      <DependentUpon>201411181639465_OriginalValue_RemovedFromAuditlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411181840521_MessageAddedToAuditlog.cs" />
+    <Compile Include="Migrations\201411181840521_MessageAddedToAuditlog.Designer.cs">
+      <DependentUpon>201411181840521_MessageAddedToAuditlog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411200132515_PageTexts_Added_And_AuditLog_Enhanced.cs" />
+    <Compile Include="Migrations\201411200132515_PageTexts_Added_And_AuditLog_Enhanced.Designer.cs">
+      <DependentUpon>201411200132515_PageTexts_Added_And_AuditLog_Enhanced.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411250505075_PractitionerName_NoLongerMapped_EpisodeMilestone.cs" />
+    <Compile Include="Migrations\201411250505075_PractitionerName_NoLongerMapped_EpisodeMilestone.Designer.cs">
+      <DependentUpon>201411250505075_PractitionerName_NoLongerMapped_EpisodeMilestone.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411260035065_QuestionnaireUserResponseGroup_DueDateAndStatus_Added.cs" />
+    <Compile Include="Migrations\201411260035065_QuestionnaireUserResponseGroup_DueDateAndStatus_Added.Designer.cs">
+      <DependentUpon>201411260035065_QuestionnaireUserResponseGroup_DueDateAndStatus_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411270212220_AuditLog_ActionAndEventChangeToEnums.cs" />
+    <Compile Include="Migrations\201411270212220_AuditLog_ActionAndEventChangeToEnums.Designer.cs">
+      <DependentUpon>201411270212220_AuditLog_ActionAndEventChangeToEnums.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411282352108_QuestionniareTagDataCollectingClasses_Added.cs" />
+    <Compile Include="Migrations\201411282352108_QuestionniareTagDataCollectingClasses_Added.Designer.cs">
+      <DependentUpon>201411282352108_QuestionniareTagDataCollectingClasses_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412030432265_StorageOfProDomainResults_Added.cs" />
+    <Compile Include="Migrations\201412030432265_StorageOfProDomainResults_Added.Designer.cs">
+      <DependentUpon>201412030432265_StorageOfProDomainResults_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412040343389_QuestionnaireDescription_Added.cs" />
+    <Compile Include="Migrations\201412040343389_QuestionnaireDescription_Added.Designer.cs">
+      <DependentUpon>201412040343389_QuestionnaireDescription_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412050319104_DomainDiscloseTo_RenamedTo_Audience.cs" />
+    <Compile Include="Migrations\201412050319104_DomainDiscloseTo_RenamedTo_Audience.Designer.cs">
+      <DependentUpon>201412050319104_DomainDiscloseTo_RenamedTo_Audience.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412081832266_ExternalUser_PatientPrivacySettings_Added.cs" />
+    <Compile Include="Migrations\201412081832266_ExternalUser_PatientPrivacySettings_Added.Designer.cs">
+      <DependentUpon>201412081832266_ExternalUser_PatientPrivacySettings_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412121733229_QuestionnaireUserResponseGroup_DateFields_Added.cs" />
+    <Compile Include="Migrations\201412121733229_QuestionnaireUserResponseGroup_DateFields_Added.Designer.cs">
+      <DependentUpon>201412121733229_QuestionnaireUserResponseGroup_DateFields_Added.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412151918501_SpecialDateFields_Removed.cs" />
+    <Compile Include="Migrations\201412151918501_SpecialDateFields_Removed.Designer.cs">
+      <DependentUpon>201412151918501_SpecialDateFields_Removed.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412230358267_UserName_IsRequired_And_Unique.cs" />
+    <Compile Include="Migrations\201412230358267_UserName_IsRequired_And_Unique.Designer.cs">
+      <DependentUpon>201412230358267_UserName_IsRequired_And_Unique.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\CreatingAuditLogsEventHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Test.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\DSPrima.TextReplacable\DSPrima.TextReplaceable.csproj">
+      <Project>{5adede10-6fd3-4a8f-bdde-642a28db95bd}</Project>
+      <Name>DSPrima.TextReplaceable</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Models\Model\PCHIModels.csproj">
+      <Project>{40db3249-1159-4c36-b304-d18e06e3ed84}</Project>
+      <Name>PCHIModels</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\WcfServices\Api\DSPrima.WcfUserSession\DSPrima.WcfUserSession.csproj">
+      <Project>{cdb621df-e1e4-46ba-ad18-58e1b132147c}</Project>
+      <Name>DSPrima.WcfUserSession</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201407291859445_ProModel.resx">
+      <DependentUpon>201407291859445_ProModel.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407300227079_Pro_Renamed_To_Questionaire.resx">
+      <DependentUpon>201407300227079_Pro_Renamed_To_Questionaire.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407300353310_QuestionareSpellingFix.resx">
+      <DependentUpon>201407300353310_QuestionareSpellingFix.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407301645251_QuestionnaireResponseAdded.resx">
+      <DependentUpon>201407301645251_QuestionnaireResponseAdded.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407301953444_ModelUpdate.resx">
+      <DependentUpon>201407301953444_ModelUpdate.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407310200213_SurveyNameFix.resx">
+      <DependentUpon>201407310200213_SurveyNameFix.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408050358248_ResponseTypeNameFix_migration.resx">
+      <DependentUpon>201408050358248_ResponseTypeNameFix_migration.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408091434503_QuestionnaireFormatAdded.resx">
+      <DependentUpon>201408091434503_QuestionnaireFormatAdded.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408192253105_tmp.resx">
+      <DependentUpon>201408192253105_tmp.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408201749504_RequiredAttributesAddedWhereNeeded.resx">
+      <DependentUpon>201408201749504_RequiredAttributesAddedWhereNeeded.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408211656124_Users_Added.resx">
+      <DependentUpon>201408211656124_Users_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408220316491_FormatDefinitions_ForeignKeysAdded.resx">
+      <DependentUpon>201408220316491_FormatDefinitions_ForeignKeysAdded.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408221744028_AnonymousQuestionnaireLoading_Added.resx">
+      <DependentUpon>201408221744028_AnonymousQuestionnaireLoading_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408261742110_User_MultiStepVerificationEnabled_MappingRemoved.resx">
+      <DependentUpon>201408261742110_User_MultiStepVerificationEnabled_MappingRemoved.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408280003139_TwoStepAuthenticationProvider_AddedToUser.resx">
+      <DependentUpon>201408280003139_TwoStepAuthenticationProvider_AddedToUser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408290213449_OrderOfObjectsInQuestionniareAndFormatAndDefinitions_Added.resx">
+      <DependentUpon>201408290213449_OrderOfObjectsInQuestionniareAndFormatAndDefinitions_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201408292057503_FormatSupportForDifferentPlatformsAdded.resx">
+      <DependentUpon>201408292057503_FormatSupportForDifferentPlatformsAdded.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409030403303_OrderingOfOptions_Added.resx">
+      <DependentUpon>201409030403303_OrderingOfOptions_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409081554573_PCHIError_Added.resx">
+      <DependentUpon>201409081554573_PCHIError_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409101818205_DateOfBirth_added.resx">
+      <DependentUpon>201409101818205_DateOfBirth_added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409120349233_TextDefinitionsAndSupport_Added.resx">
+      <DependentUpon>201409120349233_TextDefinitionsAndSupport_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409121631228_DobIsNowADate_Changed.resx">
+      <DependentUpon>201409121631228_DobIsNowADate_Changed.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409121830175_Functionalities_Added.resx">
+      <DependentUpon>201409121830175_Functionalities_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409180247340_Episodes_Added.resx">
+      <DependentUpon>201409180247340_Episodes_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409221659559_RequiredRestrictionRemovedOn_ScheduleQuestionniareDate_In_QuestionnaireUserResponseGroup.resx">
+      <DependentUpon>201409221659559_RequiredRestrictionRemovedOn_ScheduleQuestionniareDate_In_QuestionnaireUserResponseGroup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201409291758515_QuestionnaireDefaultFormatName_Added.resx">
+      <DependentUpon>201409291758515_QuestionnaireDefaultFormatName_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410031353360_PMSFields_Added.resx">
+      <DependentUpon>201410031353360_PMSFields_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410061718299_IsPatientFlag_addedToUser.resx">
+      <DependentUpon>201410061718299_IsPatientFlag_addedToUser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410061744176_UserResponseGroup_DateTimeCompleted_Added.resx">
+      <DependentUpon>201410061744176_UserResponseGroup_DateTimeCompleted_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410062201411_UserResponseGroup_DateTimeCompleted_Nullable_Added.resx">
+      <DependentUpon>201410062201411_UserResponseGroup_DateTimeCompleted_Nullable_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410081551050_AppliesToNameChange_Domain.resx">
+      <DependentUpon>201410081551050_AppliesToNameChange_Domain.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410091813090_AttributesAddedTo_Item_Format.resx">
+      <DependentUpon>201410091813090_AttributesAddedTo_Item_Format.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410101803278_FirstNotificationSystemPass.resx">
+      <DependentUpon>201410101803278_FirstNotificationSystemPass.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410101825396_NotificationSendTime_MadeNullable.resx">
+      <DependentUpon>201410101825396_NotificationSendTime_MadeNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410110504421_QuestionnaireUserResponseGroup_StartTimeNullable.resx">
+      <DependentUpon>201410110504421_QuestionnaireUserResponseGroup_StartTimeNullable.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410150309211_ModelOverhaul.resx">
+      <DependentUpon>201410150309211_ModelOverhaul.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410150317207_SupportedPlatformsNameChange.resx">
+      <DependentUpon>201410150317207_SupportedPlatformsNameChange.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410170152311_NotificationCreationDateTime_Added.resx">
+      <DependentUpon>201410170152311_NotificationCreationDateTime_Added.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410171738268_DefaultValuesAdded_ToOptionGroup_AndOptions.resx">
+      <DependentUpon>201410171738268_DefaultValuesAdded_ToOptionGroup_AndOptions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410180340226_ItemOptionActionIdAdded.resx">
+      <DependentUpon>201410180340226_ItemOptionActionIdAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410201510518_ActionIdMaxLengthRemoved.resx">
+      <DependentUpon>201410201510518_ActionIdMaxLengthRemoved.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201410281808085_Security_Framework_Added_ToBusinessLogic.resx">
+      <DependentUpon>201410281808085_Security_Framework_Added_ToBusinessLogic.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411040326138_Questionnaire_DisplayName_IntroductionMessages_Added.resx">
+      <DependentUpon>201411040326138_Questionnaire_DisplayName_IntroductionMessages_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411040404443_UserSecurityQuestionAndAnswerAdded.resx">
+      <DependentUpon>201411040404443_UserSecurityQuestionAndAnswerAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411110703583_UserSecurityTokenAdded.resx">
+      <DependentUpon>201411110703583_UserSecurityTokenAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411130405245_FunctionalityReplacedWithPermissionSystem.resx">
+      <DependentUpon>201411130405245_FunctionalityReplacedWithPermissionSystem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411131919358_SecurityCode_UserAndPurpose_AreNowKey.resx">
+      <DependentUpon>201411131919358_SecurityCode_UserAndPurpose_AreNowKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411140659094_AuditLogs_Added.resx">
+      <DependentUpon>201411140659094_AuditLogs_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411181600415_TotalDomainSpecifier_Added.resx">
+      <DependentUpon>201411181600415_TotalDomainSpecifier_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411181639465_OriginalValue_RemovedFromAuditlog.resx">
+      <DependentUpon>201411181639465_OriginalValue_RemovedFromAuditlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411181840521_MessageAddedToAuditlog.resx">
+      <DependentUpon>201411181840521_MessageAddedToAuditlog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411200132515_PageTexts_Added_And_AuditLog_Enhanced.resx">
+      <DependentUpon>201411200132515_PageTexts_Added_And_AuditLog_Enhanced.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411250505075_PractitionerName_NoLongerMapped_EpisodeMilestone.resx">
+      <DependentUpon>201411250505075_PractitionerName_NoLongerMapped_EpisodeMilestone.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411260035065_QuestionnaireUserResponseGroup_DueDateAndStatus_Added.resx">
+      <DependentUpon>201411260035065_QuestionnaireUserResponseGroup_DueDateAndStatus_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411270212220_AuditLog_ActionAndEventChangeToEnums.resx">
+      <DependentUpon>201411270212220_AuditLog_ActionAndEventChangeToEnums.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411282352108_QuestionniareTagDataCollectingClasses_Added.resx">
+      <DependentUpon>201411282352108_QuestionniareTagDataCollectingClasses_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412030432265_StorageOfProDomainResults_Added.resx">
+      <DependentUpon>201412030432265_StorageOfProDomainResults_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412040343389_QuestionnaireDescription_Added.resx">
+      <DependentUpon>201412040343389_QuestionnaireDescription_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412050319104_DomainDiscloseTo_RenamedTo_Audience.resx">
+      <DependentUpon>201412050319104_DomainDiscloseTo_RenamedTo_Audience.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412081832266_ExternalUser_PatientPrivacySettings_Added.resx">
+      <DependentUpon>201412081832266_ExternalUser_PatientPrivacySettings_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412121733229_QuestionnaireUserResponseGroup_DateFields_Added.resx">
+      <DependentUpon>201412121733229_QuestionnaireUserResponseGroup_DateFields_Added.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412151918501_SpecialDateFields_Removed.resx">
+      <DependentUpon>201412151918501_SpecialDateFields_Removed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412230358267_UserName_IsRequired_And_Unique.resx">
+      <DependentUpon>201412230358267_UserName_IsRequired_And_Unique.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Libraries\LinqKit.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
