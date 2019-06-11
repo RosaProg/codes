@@ -1,0 +1,119 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp">
+
+        <EditText
+            android:id="@+id/edt_order_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/customer_name"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+
+        <EditText
+            android:id="@+id/edt_order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_order_name"
+            android:hint="@string/order_details"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+
+        <EditText
+            android:id="@+id/edt_order_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_order"
+            android:hint="@string/amount"
+            android:inputType="numberDecimal"
+            android:minHeight="80dp" />
+
+        <EditText
+            android:id="@+id/edt_customer_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_order_amount"
+            android:hint="@string/customer_contact_no"
+            android:inputType="phone"
+            android:minHeight="80dp" />
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_customer_number"
+            android:layout_marginTop="10dp"
+            android:minHeight="80dp"
+            android:prompt="@string/spinner_title" />
+
+        <EditText
+            android:id="@+id/edt_order_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinner"
+            android:hint="@string/complete_address"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+
+        <AutoCompleteTextView
+            android:id="@+id/autocomplete"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_order_address"
+            android:hint="Type in your exact Location"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+        <EditText
+            android:id="@+id/edt_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autocomplete"
+            android:hint="City"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+        <EditText
+            android:id="@+id/edt_pincode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_city"
+            android:hint="@string/pincode"
+            android:inputType="text"
+            android:minHeight="80dp" />
+
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edt_pincode"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_inside_app_bg"
+            android:text="@string/request_pickup"
+            android:textColor="@android:color/white" />
+
+
+        <Button
+            android:id="@+id/btn_submit1"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@+id/btn_submit"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/button_inside_app_bg"
+            android:text="@string/request_pickup"
+            android:textColor="@android:color/white"
+            android:visibility="invisible" />
+
+
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/rest_details"
+                style="@style/WizardPageTitle"
+                android:text="@string/rest_details" />
+
+
+            <EditText
+                android:id="@+id/name_of_rest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_of_rest"
+                android:inputType="text"
+                android:minHeight="50dp" />
+
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type in your Restaurant Location" />
+
+
+            <EditText
+                android:id="@+id/address_of_rest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/address_of_rest"
+                android:inputType="text"
+                android:minHeight="50dp" />
+
+
+            <EditText
+                android:id="@+id/pincode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/pincode"
+                android:inputType="text"
+                android:minHeight="50dp" />
+
+
+
+            <EditText
+                android:id="@+id/email_of_rest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email_of_rest"
+                android:inputType="textEmailAddress"
+                android:minHeight="50dp" />
+
+            <TextView
+                android:id="@+id/bills_notes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/email_note" />
+
+
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

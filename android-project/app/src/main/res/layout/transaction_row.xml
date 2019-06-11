@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:layout_margin="16dp"
+    android:background="@drawable/order_bg">
+
+    <TextView
+        android:id="@+id/txt_order_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:text="Order Name"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txt_credit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txt_order_name"
+        android:layout_below="@+id/txt_order_name"
+        android:text="10000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txt_debit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dp"
+        android:text="chennai"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txt_rest_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/txt_debit"
+        android:layout_below="@+id/txt_debit"
+        android:text="11111111"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>

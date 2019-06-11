@@ -1,0 +1,181 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.registration.AgentRefDetailsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/WizardPageTitle"
+                android:text="@string/references" />
+
+
+            <TextView
+                android:id="@+id/edt_reference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/reference1"
+                android:minHeight="50dp" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_full_name_reference"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name_of_reference"
+                    android:inputType="textPersonName"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/id_full_name_ref_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/edt_full_name_reference"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_relationship"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/relationship"
+                    android:inputType="text"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/edt_relationship_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/edt_relationship"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/mobile_number1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile_number"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/mobile_number1_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/mobile_number1"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/edt_reference2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/reference2"
+                android:minHeight="50dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_full_name_reference1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name_of_reference"
+                    android:inputType="textPersonName"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/id_full_name_ref_mic1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/edt_full_name_reference1"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_relationship2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/relationship"
+                    android:inputType="text"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/id_relationship2_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/edt_relationship2"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/mobile_number2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/mobile_number"
+                    android:inputType="phone"
+                    android:maxLength="10"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/mobile_number2_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/mobile_number2"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>

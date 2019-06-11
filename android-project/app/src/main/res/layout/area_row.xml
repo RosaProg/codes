@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_margin="16dp"
+    android:background="@drawable/order_bg"
+    android:descendantFocusability="blocksDescendants">
+
+
+    <ImageView
+        android:id="@+id/client_logo"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/txt_area_from_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="3"
+        android:maxWidth="80dp"
+        android:text="10/10/2016"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView4"
+        android:layout_alignLeft="@+id/textView4"
+        android:layout_alignStart="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/txt_area_to_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="11/10/2016"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView"
+        android:layout_alignLeft="@+id/textView"
+        android:layout_alignStart="@+id/textView" />
+
+
+    <TextView
+        android:id="@+id/txt_area_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="5"
+        android:maxWidth="120dp"
+        android:text="53, KK Birla Marg, Lodhi Gardens, Lodhi Estate, New Delhi, Delhi 110003, India"
+        android:textSize="14sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/client_logo"
+        android:layout_toRightOf="@+id/client_logo"
+        android:layout_marginLeft="20dp"
+        android:textColor="#666666" />
+
+    <TextView
+        android:id="@+id/area_start_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:drawablePadding="10dp"
+        android:text="11:00AM"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView5"
+        android:layout_alignRight="@+id/textView5"
+        android:layout_alignEnd="@+id/textView5" />
+
+    <TextView
+        android:id="@+id/area_end_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoLink="phone"
+        android:drawablePadding="10dp"
+        android:text="18:00PM"
+        android:textSize="14sp"
+        android:layout_below="@+id/textView6"
+        android:layout_alignLeft="@+id/area_start_time"
+        android:layout_alignStart="@+id/area_start_time" />
+
+    <Button
+        android:id="@+id/btn_accept"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@color/theme_green"
+        android:text="Accept"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/btn_closed"
+        android:layout_alignLeft="@+id/btn_closed"
+        android:layout_alignStart="@+id/btn_closed" />
+
+    <Button
+        android:id="@+id/btn_closed"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@color/theme_green"
+        android:text="Closed"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="From Date"
+        android:id="@+id/textView"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/client_logo"
+        android:layout_alignLeft="@+id/txt_area_address"
+        android:layout_alignStart="@+id/txt_area_address" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="To Date"
+        android:id="@+id/textView4"
+        android:textStyle="bold"
+        android:layout_below="@+id/txt_area_to_date"
+        android:layout_alignLeft="@+id/txt_area_to_date"
+        android:layout_alignStart="@+id/txt_area_to_date" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="Start time"
+        android:id="@+id/textView5"
+        android:textStyle="bold"
+        android:layout_alignBottom="@+id/client_logo"
+        android:layout_alignRight="@+id/btn_accept"
+        android:layout_alignEnd="@+id/btn_accept" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:text="End time"
+        android:id="@+id/textView6"
+        android:textStyle="bold"
+        android:layout_below="@+id/area_start_time"
+        android:layout_alignRight="@+id/area_start_time"
+        android:layout_alignEnd="@+id/area_start_time" />
+
+
+</RelativeLayout>

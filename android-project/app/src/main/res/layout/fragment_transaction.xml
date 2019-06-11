@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.TransactionFragment">
+
+    <TextView
+        android:id="@+id/sum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/monthSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sum"
+        android:layout_margin="5dp"
+        android:textSize="15sp" />
+
+
+    <TextView
+        android:id="@+id/user_total"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/sum"
+        android:layout_margin="5dp"
+        android:textSize="15sp" />
+
+
+    <Button
+        android:layout_margin="10dp"
+        android:id="@+id/view_file"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/user_total"
+        android:text="Export"
+        android:textSize="15sp" />
+
+    <ListView
+        android:id="@+id/transaction_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_file"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:scrollbars="vertical">
+
+    </ListView>
+
+</RelativeLayout>

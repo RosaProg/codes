@@ -1,0 +1,259 @@
+<resources>
+    <string name="app_name">DeliveryTrack</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_delivery_track_registration">DeliveryTrackRegistration</string>
+    <string name="title_activity_delivery_track_login">"DeliveryTrack"</string>
+    <string name="registration_process">Add user registration process</string>
+    <string name="login_process">Add login process</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_delivery_boy">DeliveryBoyActivity</string>
+    <string name="title_activity_restaurant_user">RestaurantUserActivity</string>
+    <string name="title_activity_delivery_freelancers">DeliveryFreelancersActivity</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="my_transactions">My Transactions</string>
+    <string name="trainings">Trainings</string>
+    <string name="assigned_trainings">My Assigned Training</string>
+    <string name="complete_trainings">My Completed Training</string>
+    <string name="gps_disabled">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="gps_network_not_enabled">GPS Not enabled</string>
+    <string name="open_location_settings">Open location Settings</string>
+    <string name="cancel">Cancel</string>
+
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>My Transactions</item>
+        <item>Orders Placed</item>
+        <item>Orders Accepted</item>
+        <item>Orders- Delivery Agent Arrived</item>
+        <item>Orders Picked Up</item>
+        <item>Orders Delivered</item>
+        <item>MG Areas For Today</item>
+        <item>My Settings</item>
+        <item>My Trainings</item>
+        <item>Support</item>
+        <item>Logout</item>
+    </string-array>
+    <string name="title_activity_training">My Training</string>
+    <string name="title_areas">MG Areas For Today</string>
+    <string name="title_activity_signature">SignatureActivity</string>
+
+    <string name="external_dir">DeliveryTrack</string>
+    <string name="title_activity_rating">RatingActivity</string>
+    <string name="title_activity_rating_order">RatingOrderActivity</string>
+
+    <string name="request_pickup">Request Pickup</string>
+    <string name="create_delivery_order">Create Delivery Order</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="order_details">Order Details</string>
+    <string name="please_sign_here">Please Sign Here</string>
+    <string name="feedback">Feedback</string>
+    <string name="address">Address</string>
+    <string name="complete_address">Complete Address</string>
+
+    <string name="amount">Amount</string>
+    <string name="customer_contact_no">Customer Contact Number</string>
+    <string name="title_activity_order_creation">OrderCreationActivity</string>
+    <string name="picked_by">Picked By</string>
+    <string name="agent_id">Agent Id</string>
+    <string name="rest_id">Restaurant  Id</string>
+    <string name="delivered_by">Delivered By</string>
+    <string name="rest_ordered">Ordered By</string>
+    <string name="agent_contact">Agent Contact</string>
+    <string name="rest_contact">Restaurant  Contact</string>
+    <string name="deliver">Deliver</string>
+    <string name="pickup">Pick up</string>
+    <string name="title_activity_route_login">RouteLoginActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+
+
+    <string name="order_saved">The order was successfully saved </string>
+    <string name="order_not_saved">The order was not saved!!! Please Try Again</string>
+    <string name="no_network_connected">No network is connected </string>
+    <string name="username_password_not_empty">Username,password should not be empty </string>
+    <string name="congratulations">Congratulations! You passed test! Test score is</string>
+    <string name="test_score">Test score is</string>
+    <string name="try_again">Try Again</string>
+    <string name="hindi">हिंदी</string>
+    <string name="english">English</string>
+    <string name="orders_pending_to_accept">Orders Pending to Accept</string>
+    <string name="orders_pending_to_pickup">Orders Pending to Pickup</string>
+    <string name="prepaid_or_postpaid">Enter Prepaid or Postpaid</string>
+    <string name="order_detailed_title">Order Details</string>
+    <string name="orders_pending_for_delivery_title">Orders Picked Up</string>
+    <string name="orders_delivered_title">Orders Delivered</string>
+    <string name="my_training_title">My Trainings</string>
+    <string name="my_transactions_title">My Transactions</string>
+    <string name="spinner_title">Select payment mode</string>
+    <string name="months_earning">Month\'s Earning</string>
+    <string name="your_balance">Your Balance</string>
+    <string name="status">Status</string>
+    <string name="agent_location">Agent Location</string>
+    <string name="view_agent_location">View Agent Loacation</string>
+    <string name="pending">Pending</string>
+    <string name="postpaid">Postpaid</string>
+    <string name="prepaid">Prepaid</string>
+    <string name="no_pick_up_has_been_done">No pick up has been done</string>
+    <string name="error_intro">Error!</string>
+    <string name="error_blank_username">Error</string>
+    <string name="error_join">Error</string>
+    <string name="error_blank_password">Error Blank</string>
+    <string name="error_mismatched_passwords">Error</string>
+    <string name="error_end">Error End</string>
+    <string name="progress_signup">Progress</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="signup">Sign Up</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_password_again">Confirm password</string>
+    <string name="prompt_branch">Branch</string>
+    <string name="prompt_username">username</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_area">Area</string>
+    <string name="finish">Finish</string>
+    <string name="next">Next</string>
+    <string name="review">Your information</string>
+    <string name="prev">Previous</string>
+
+    <string name="label_your_name">Name</string>
+    <string name="label_your_email">Email</string>
+    <string name="hint_your_name">e.g. Name</string>
+    <string name="hint_your_email">Optional</string>
+    <string name="title_activity_landing_screen">DeliveryTrack</string>
+
+
+    <string name="instruction_title">Complete registration to sign up on the Delivery Track platform</string>
+    <string name="instruction1">1. Fill details by typing / speaking</string>
+    <string name="instruction2">2. Scan documents where asked</string>
+    <string name="instruction3">3. You can SAVE partly filled form for later submission</string>
+    <string name="instruction4">4. Activation will be done only after complete registration"</string>
+
+    <string name="personal_details">PERSONAL DETAILS</string>
+    <string name="documents">DOCUMENTS</string>
+    <string name="references">REFERENCES</string>
+    <string name="bank_details">BANK DETAILS</string>
+
+    <string name="restaurant_details">RESTAURANT DETAILS</string>
+    <string name="restaurant_documents">RESTAURANT DOCUMENTS</string>
+    <string name="manager_details">MANAGER DETAILS</string>
+
+
+    <string name="full_name">Full name</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="mobile_number_instruction">This mobile number will be your UserId. Please input carefully</string>
+    <string name="area_you_want">Area you want</string>
+    <string name="branch">Branch</string>
+    <string name="base_location_address">Base location address</string>
+
+
+    <string name="enter_your_adhar_number">Enter your adhar number</string>
+    <string name="scan_adhar">Scan Adhar</string>
+
+
+    <string-array name="entity">
+        <item>Individual</item>
+        <item>Proprietorship</item>
+        <item>Partnership</item>
+        <item>Private Limited Company</item>
+        <item>Public Limited Company</item>
+        <item>Others</item>
+
+
+    </string-array>
+
+
+    <string-array name="user_type">
+        <item>Delivery Agent</item>
+        <item>Restaurant</item>
+
+    </string-array>
+
+
+    <string-array name="addtional_docs">
+        <item>Passport</item>
+        <item>Driving Licence</item>
+        <item>Voter Id</item>
+    </string-array>
+
+
+    <string name="scan_add_docs">Scan Docs</string>
+    <string name="take_photo">Take a selfie</string>
+
+    <string name="reference1">Reference 1</string>
+    <string name="full_name_of_reference">Full Name of Reference</string>
+    <string name="relationship">Relationship with reference</string>
+    <string name="mobile_number_of_reference">Mobile number of reference</string>
+    <string name="reference2">Reference 2</string>
+    <string name="email_note">Note that all bills and communication would be sent to this email address only. Enter carefully.</string>
+
+    <string name="commissions">All commissons will be credited directly to this account. Please provide details carefully</string>
+    <string name="exact_name">Exact name in bank account</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="account_number">Account Number</string>
+    <string name="select_doc_type">Additional Documents</string>
+
+
+    <string name="rest_details">Restaurant Details</string>
+    <string name="name_of_rest">Name of the Restaurant</string>
+    <string name="address_of_rest">Address of the Restaurant</string>
+    <string name="email_of_rest">Email Id</string>
+    <string name="pincode">Pincode</string>
+    <string name="ifsc_code">IFSCCode</string>
+    <string name="scan">Scan</string>
+    <string name="type_legal">Type of Legal Entity</string>
+    <string name="name_of_manager">Manager Name</string>
+    <string name="manager_number">Manager Number</string>
+    <string name="language_settings">Select a language</string>
+    <string name="my_permanent_address">My permanent address</string>
+    <string name="my_current_address">My current address</string>
+
+    <string name="proceed">Proceed</string>
+    <string name="agent_registered">You have Registered as Agent Successfully</string>
+    <string name="agent_updated">You have Updated as Agent Successfully</string>
+
+    <string name="supervisor_registered">You have Registered as Restaurant Successfully</string>
+    <string name="supervisor_update">You have Updated as Restaurant Successfully</string>
+
+    <string name="password_error">Password and Confirm password doesn\'t match</string>
+    <string name="mobilenumber_error">User Mobile Number and Reference Mobile Number must not be the same </string>
+    <string name="register">Register</string>
+    <string name="inactive_user_error">Kindly provide your Details from Settings</string>
+    <string name="mandatory_fields">Please Enter All the Fields</string>
+    <string name="instruction">Instructions </string>
+    <string name="login_type">Login Type</string>
+    <string name="delivery_freelancer_register">Register as Delivery Freelancer</string>
+    <string name="restaurant_register">Register as Restaurant</string>
+    <string name="mode_of_deliver">Mode of Delivery</string>
+    <string name="car">Car/3 wheeler</string>
+    <string name="motor_bike">Moterbike/scooty</string>
+    <string name="bicycle">Bicycle</string>
+    <string name="rikshaw">Rickshaw</string>
+    <string name="foot">Foot</string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="order_pickedup">Order Successfully PickedUp</string>
+    <string name="order_delivered">Order Successfully Delivered</string>
+    <string name="bankdetails">MY FOOD CREDIT ACCOUNT DETAILS</string>
+    <string name="profile_details">PROFILE DETAILS</string>
+    <string name="my_account_details">In order to top up your FOOD CREDIT account and continue receiving orders and earning money, please remit money to the following account by NEFT / RTGS / IMPS:</string>
+    <string name="my_settings">My Settings</string>
+    <string name="bank_details_frag">Bank Details</string>
+    <string name="title_activity_auto_complete">AutoCompleteActivity</string>
+    <string name="title_activity_fresh_desk">FreshDesk</string>
+    <string name="support">Support</string>
+    <string name="title_activity_pdf">PDFActivity</string>
+    <string name="search">Search</string>
+    <string name="agent_name">Agent Name</string>
+    <string name="rest_name">Restaurant Name</string>
+    <string name="rest_address">Restaurant Address</string>
+    <string name="title_activity_pay_one_web_view">PayOneWebViewActivity</string>
+
+
+</resources>

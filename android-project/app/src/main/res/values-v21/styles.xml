@@ -1,0 +1,29 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+                
+        <item name="colorPrimary">@color/theme_green</item>
+                
+        <item name="colorPrimaryDark">@color/statusbar_green</item>
+
+    </style>
+
+    <style name="foodRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/food_ratingbar_full</item>
+        <item name="android:minHeight">50dp</item>
+        <item name="android:maxHeight">50dp</item>
+        <item name="android:minWidth">50dp</item>
+        <item name="android:maxWidth">50dp</item>
+    </style>
+    >
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+
+</resources>

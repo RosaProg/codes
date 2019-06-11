@@ -1,0 +1,70 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.registration.BankDetailsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/WizardPageTitle"
+                android:text="@string/bank_details" />
+
+
+            <!-- TODO: Update blank fragment layout -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="@string/commissions" />
+
+
+            <EditText
+                android:id="@+id/exact_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/exact_name"
+                android:inputType="text"
+                android:minHeight="50dp" />
+
+            <EditText
+                android:id="@+id/bank_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/bank_name"
+                android:inputType="text"
+                android:minHeight="50dp" />
+
+            <EditText
+                android:id="@+id/account_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/account_number"
+                android:inputType="number"
+                android:minHeight="50dp" />
+
+
+            <EditText
+                android:id="@+id/ifsc_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/ifsc_code"
+                android:inputType="text"
+                android:imeOptions="actionDone"
+                android:maxLength="11"
+                android:minHeight="50dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

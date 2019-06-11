@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pay_one_user"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <Button
+        android:id="@+id/button_recharge"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="rechargeButton"
+
+        android:text="Request For Recharge" />
+
+    <Button
+        android:id="@+id/button_check_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Check Your Transaction Status" />
+
+
+    <Button
+        android:id="@+id/button_cancel_txn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:onClick="cancelTransaction"
+        android:text="Cancel Transaction"
+        android:visibility="gone" />
+
+    <Button
+        android:id="@+id/btn_nearby_stores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="nearByStores"
+        android:text="Click Here To See Nearby Pay1 Stores" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Note- Your Request for recharge is valid for 7 days from generated date. After this it will cancelled automatically."
+        android:textColor="#FF0000" />
+
+</LinearLayout>

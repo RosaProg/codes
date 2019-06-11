@@ -1,0 +1,19 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.orders.OrderPendingAccept">
+
+
+    <ListView
+        android:id="@+id/pickedup_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:scrollbars="vertical">
+
+    </ListView>
+
+
+</FrameLayout>

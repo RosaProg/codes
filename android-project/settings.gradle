@@ -1,0 +1,1 @@
+include ':app', ':mobihelp_sdk_android_v1.5.4'

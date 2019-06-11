@@ -1,0 +1,68 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.registration.AgentDocumentsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/documents"
+                style="@style/WizardPageTitle"
+                android:text="@string/documents" />
+
+
+            <Spinner
+                android:id="@+id/spinnerrest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edt_customer_number"
+                android:layout_marginTop="10dp"
+                android:minHeight="80dp"
+                android:prompt="@string/type_legal" />
+
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/documents" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp">
+
+                <Button
+                    android:id="@+id/id_doc_upload_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/scan" />
+
+
+                <ImageView
+                    android:id="@+id/doc_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_below="@id/id_doc_upload_btn"
+                    android:layout_marginBottom="16dp"
+                    android:saveEnabled="false" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

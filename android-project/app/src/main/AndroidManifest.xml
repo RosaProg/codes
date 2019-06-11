@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="deliverytrack.vss.com.deliverytrack">
+
+    <permission
+        android:name="deliverytrack.vss.com.deliverytrack.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="deliverytrack.vss.com.deliverytrack.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:name=".application.DeliveryTrackApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcherlogo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".DeliveryTrackRegistration"
+            android:label="@string/title_activity_delivery_track_registration"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DeliveryTrackLogin"
+            android:configChanges="keyboardHidden|screenSize"
+            android:label="@string/title_activity_delivery_track_login"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RouteLoginActivity"
+            android:configChanges="keyboardHidden|screenSize|locale"
+            android:label="@string/title_activity_delivery_track_login"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".SignUpActivity"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden"
+            android:label="SignUp"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BaseActivity"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden"
+            android:label="@string/title_activity_delivery_boy"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".PayOneActivityOptions"
+            android:label="PayOneActivity" />
+
+        <service android:name="com.parse.PushService" />
+
+        <receiver android:name=".receivers.DeliveryTrackBroadcast">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+                <action android:name="deliverytrack.vss.com.deliverytrack.receivers.ACCOUNT_GENERATION" />
+                <action android:name="deliverytrack.vss.com.deliverytrack.receivers.ORDER" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".receivers.AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <!-- Will not be called unless the application explicitly enables it -->
+        <receiver
+            android:name=".receivers.DeviceBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".Services.RegistrationService" />
+        <service android:name=".Services.TrackLocationService" />
+        <service android:name=".Services.BillGenerationService" />
+
+        <activity
+            android:name=".SignatureActivity"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden"
+            android:label="@string/title_activity_signature"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".RatingActivity"
+            android:label="@string/title_activity_rating" />
+        <activity
+            android:name=".OrderCreationActivity"
+            android:configChanges="locale|orientation|screenSize|keyboardHidden"
+            android:label="@string/title_activity_order_creation"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".MapActivity"
+            android:label="@string/title_activity_map" />
+        <activity
+            android:name=".VideoFullScreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Training Video" />
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="AIzaSyD9zxJHQ3cZC0SV4fKISbYdgcBLDvQmptA" />
+
+        <service
+            android:name=".Services.LocationUpdateService"
+            android:exported="false" />
+        <service
+            android:name=".Services.UploadAdharService"
+            android:exported="false" />
+        <service
+            android:name=".Services.SignatureUploadService"
+            android:exported="false" />
+
+        <activity
+            android:name=".LandingScreenActivity"
+            android:configChanges="locale"
+            android:label="@string/title_activity_landing_screen" />
+        <activity
+            android:name=".QuickRegistrationActivity"
+            android:label="@string/signup"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FreshDesk"
+            android:label="@string/title_activity_fresh_desk" />
+        <activity
+            android:name=".PDFActivity"
+            android:label="@string/title_activity_pdf"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TrainingActivity"
+            android:label="@string/title_activity_training" />
+        <activity
+            android:name=".PayOneWebViewActivity"
+            android:label="@string/title_activity_pay_one_web_view"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+    </application>
+
+</manifest>

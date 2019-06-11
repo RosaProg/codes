@@ -1,0 +1,302 @@
+<!--
+  Copyright 2013 Google Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+  
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WizardPageContainer">
+
+    <TextView style="@style/WizardPageTitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:scrollbarStyle="outsideOverlay">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="@string/hint_your_name"
+                    android:inputType="textCapWords"
+                    android:saveEnabled="false" />
+
+                <ImageButton
+                    android:id="@+id/id_your_name_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_name"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/your_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your username"
+                android:inputType="text"
+                android:saveEnabled="false" />
+
+
+            <EditText
+                android:id="@+id/your_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your email"
+                android:inputType="textEmailAddress"
+                android:saveEnabled="false" />
+
+            <EditText
+                android:id="@+id/your_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your password"
+                android:inputType="textPassword"
+                android:saveEnabled="false" />
+
+            <EditText
+                android:id="@+id/your_cpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your password again"
+                android:inputType="textPassword"
+                android:saveEnabled="false" />
+
+
+            <EditText
+                android:id="@+id/your_alternatenumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your password again"
+                android:inputType="textPassword"
+                android:saveEnabled="false" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="phone number"
+                    android:inputType="number"
+                    android:saveEnabled="false" />
+
+                <ImageButton
+                    android:id="@+id/id_your_phone_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_phone"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_resturant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="enter your resturant"
+                    android:inputType="text"
+                    android:saveEnabled="false" />
+
+
+                <ImageButton
+                    android:id="@+id/id_your_resturant_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_resturant"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_supervisor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="enter your supervisor name"
+                    android:inputType="text"
+                    android:saveEnabled="false" />
+
+
+                <ImageButton
+                    android:id="@+id/id_your_supervisor_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_supervisor"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="enter area you want"
+                    android:inputType="text"
+                    android:saveEnabled="false" />
+
+
+                <ImageButton
+                    android:id="@+id/id_your_area_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_area"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="enter your address"
+                    android:inputType="text"
+                    android:saveEnabled="false" />
+
+
+                <ImageButton
+                    android:id="@+id/id_your_address_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_address"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/your_branch"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:hint="enter your branch"
+                    android:inputType="text"
+                    android:saveEnabled="false" />
+
+
+                <ImageButton
+                    android:id="@+id/id_your_branch_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/your_branch"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/adhar_card_upload"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="16dp"
+                    android:saveEnabled="false" />
+
+
+                <Button
+                    android:id="@+id/id_adhar_card_upload_btn"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignRight="@id/adhar_card_upload"
+                    android:text="Scan Adhar" />
+
+            </RelativeLayout>
+
+
+            <EditText
+                android:id="@+id/bank_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your bank name"
+                android:inputType="text"
+                android:saveEnabled="false" />
+
+
+            <EditText
+                android:id="@+id/bank_ifsc_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your ifsc code"
+                android:inputType="text"
+                android:saveEnabled="false" />
+
+
+            <EditText
+                android:id="@+id/bank_account_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="enter your bank account number"
+                android:inputType="text"
+                android:saveEnabled="false" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

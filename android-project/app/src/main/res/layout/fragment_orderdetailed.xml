@@ -1,0 +1,188 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:orientation="vertical"
+        tools:context="deliverytrack.vss.com.deliverytrack.fragments.orders.OrderdetailedFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/thumbnail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/temp_img" />
+
+        </LinearLayout>
+
+
+        <!-- TODO: Update blank fragment layout -->
+        <TextView
+            android:id="@+id/txt_order_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="OrderName"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_amount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="amount"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="map"
+            android:drawableRight="@drawable/location_tint_color"
+            android:text="location"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/txt_agentId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/agent_id"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_agentname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="@string/picked_by"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_rest_id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+
+            android:text="@string/rest_id"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_agent_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="phone"
+            android:drawableRight="@drawable/call_tint_color"
+            android:text="@string/agent_contact"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/agent_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="map"
+            android:drawableRight="@drawable/location_tint_color"
+            android:text="Agent Location"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_rest_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="phone"
+            android:drawableRight="@drawable/call_tint_color"
+            android:text="@string/rest_contact"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_rest_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="phone"
+            android:text="@string/rest_contact"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_rest_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:minLines="3"
+
+            android:text="@string/rest_contact"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_cust_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:autoLink="phone"
+            android:drawableRight="@drawable/call_tint_color"
+            android:text="@string/customer_contact_no"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/txt_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="5dp"
+            android:text="Status"
+            android:textSize="16sp" />
+
+
+        <TextView
+            android:id="@+id/payment_mode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/payment_mode"
+            android:textSize="16sp" />
+
+
+        <Button
+            android:id="@+id/deliver"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:padding="5dp"
+            android:text="@string/deliver" />
+
+
+        <Button
+            android:id="@+id/pickup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:padding="5dp"
+            android:text="@string/pickup" />
+
+    </LinearLayout>
+</ScrollView>

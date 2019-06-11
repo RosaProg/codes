@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="20dp"
+        android:text="@string/instruction_title"
+        android:textSize="18dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/point1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/instruction1"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/point2"
+        android:layout_width="match_parent"
+
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginTop="5dp"
+        android:text="@string/instruction2"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/point3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+        android:layout_marginTop="5dp"
+        android:text="@string/instruction3"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/point4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+
+        android:layout_marginTop="5dp"
+        android:text="@string/instruction4"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/next_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_inside_app_bg"
+        android:padding="5dp"
+        android:textColor="@android:color/white"
+        android:text="@string/proceed" />
+
+
+</LinearLayout>

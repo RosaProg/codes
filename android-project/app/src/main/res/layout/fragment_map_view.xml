@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.MapViewFragment">
+
+    <RelativeLayout
+        android:id="@+id/map_container"
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_height="match_parent">
+
+        <!-- The map fragments will go here -->
+    </RelativeLayout>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+
+        <ImageView
+            android:id="@+id/imageView1"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:onClick="sendToHome"
+            android:src="@drawable/moto" />
+
+        <TextView
+            android:id="@+id/EstimatedTime"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/CarType"
+            android:layout_toEndOf="@+id/imageView1"
+            android:layout_toRightOf="@+id/imageView1"
+            android:backgroundTint="@color/button_material_light"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/CarType"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/imageView1"
+            android:layout_toRightOf="@+id/imageView1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+        <TextView
+            android:id="@+id/Username"
+            style="@style/Base.TextAppearance.AppCompat.Body1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imageView1"
+            android:layout_alignLeft="@+id/CarType"
+            android:layout_alignStart="@+id/CarType"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,64 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="20dp"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.registration.AgentRefDetailsFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/WizardPageTitle"
+                android:text="@string/manager_details" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <EditText
+                    android:id="@+id/edt_full_name_manager"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/name_of_manager"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/id_full_name_manager_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/edt_full_name_manager"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/edt_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp" />
+
+
+            <TextView
+                android:id="@+id/mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number_instruction"
+                android:minHeight="50dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</FrameLayout>

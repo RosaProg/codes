@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    android:paddingBottom="16dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="16dp"
+    tools:context="deliverytrack.vss.com.deliverytrack.DeliveryTrackLogin">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:background="@drawable/ic_launcherlogo" />
+
+    <EditText
+        android:id="@+id/edt_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_bg"
+        android:drawableLeft="@drawable/user"
+        android:drawablePadding="1dp"
+        android:hint="@string/username"
+        android:inputType="phone"
+        android:padding="15dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/edt_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edt_username"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="3dp"
+        android:background="@drawable/button_bg"
+        android:drawableLeft="@drawable/ic_action_secure"
+        android:drawablePadding="1dp"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        android:padding="15dp"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/btn_login"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edt_password"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_bg"
+        android:text="@string/login"
+
+        android:textColor="@android:color/black" />
+
+</RelativeLayout>

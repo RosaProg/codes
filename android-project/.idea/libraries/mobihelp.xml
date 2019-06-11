@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="mobihelp">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/mobihelp_sdk_android_v1.5.4/libs/mobihelp.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

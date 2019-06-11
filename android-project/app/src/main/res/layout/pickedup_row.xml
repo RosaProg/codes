@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_margin="16dp"
+    android:background="@drawable/order_bg"
+
+    android:descendantFocusability="blocksDescendants">
+
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/txt_order_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:layout_below="@+id/thumbnail"
+        android:maxLines="3"
+        android:maxWidth="80dp"
+        android:text="veg briyani 2 sets"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txt_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txt_order_name"
+        android:layout_below="@+id/txt_order_name"
+        android:text="1000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/txt_agent_name_rest_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txt_order_name"
+        android:layout_below="@+id/txt_amount"
+        android:maxLines="2"
+        android:maxWidth="80dp"
+        android:text="Rest name Rest name Rest name"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/payment_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/txt_order_name"
+        android:layout_below="@+id/txt_agent_name_rest_name"
+        android:textSize="14sp" />
+
+
+    <TextView
+        android:id="@+id/txt_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:maxLines="5"
+        android:maxWidth="120dp"
+        android:text="4/364, first street saravana bava nagar old perungalathur chennai 600063"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/call_customer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignRight="@+id/txt_location"
+        android:layout_below="@+id/txt_location"
+        android:autoLink="phone"
+        android:drawableLeft="@drawable/call_tint_color"
+        android:drawablePadding="10dp"
+        android:text="99999999999"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btn_deliver"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/call_customer"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/theme_green"
+        android:text="Deliver"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btn_pickup"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/call_customer"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/theme_green"
+        android:text="Pick Up"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/btn_accept_pickup"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/call_customer"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/theme_green"
+        android:text="Accept"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/btn_arrived"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/call_customer"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/theme_green"
+        android:text="Arrived"
+        android:textColor="@android:color/white"
+        android:textStyle="bold" />
+
+
+    <Button
+        android:id="@+id/btn_detail"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/ic_chevron_right_black_36dp" />
+
+
+</RelativeLayout>

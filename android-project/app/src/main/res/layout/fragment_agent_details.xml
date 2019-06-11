@@ -1,0 +1,155 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="deliverytrack.vss.com.deliverytrack.fragments.registration.AgentDetailsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/personal_details"
+                style="@style/WizardPageTitle"
+                android:text="@string/personal_details" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/full_name"
+                    android:inputType="textPersonName"
+                    android:minHeight="50dp" />
+
+
+                <ImageButton
+                    android:id="@+id/id_your_name_mic"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignRight="@id/edt_full_name"
+                    android:background="@drawable/mic_tint_color" />
+
+            </RelativeLayout>
+
+
+            <TextView
+                android:id="@+id/edt_mobile_number"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number"
+                android:maxLength="10"
+                android:minHeight="50dp" />
+
+
+            <TextView
+                android:id="@+id/txt_mobile_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/mobile_number_instruction"
+                android:minHeight="50dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_area_you_want"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/area_you_want"
+                    android:inputType="textShortMessage"
+                    android:minHeight="50dp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_per_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/my_permanent_address"
+                    android:inputType="textPostalAddress"
+                    android:minHeight="50dp" />
+
+
+            </RelativeLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_per"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type in your permanent Location" />
+
+
+            <EditText
+                android:id="@+id/edt_pincode_per"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Permanent Pincode"
+                android:inputType="number"
+                android:minHeight="50dp" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_cur_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/my_current_address"
+                    android:inputType="textPostalAddress"
+                    android:minHeight="50dp" />
+
+
+            </RelativeLayout>
+
+            <AutoCompleteTextView
+                android:id="@+id/autocomplete_cur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Type in your Cur Location" />
+
+
+            <EditText
+                android:id="@+id/edt_pincode_cur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Current Pincode"
+                android:inputType="number"
+                android:minHeight="50dp" />
+
+
+            <EditText
+                android:id="@+id/edt_email_agent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/prompt_email"
+                android:inputType="textEmailAddress"
+                android:minHeight="50dp" />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</FrameLayout>

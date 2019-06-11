@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_background"
+    tools:context="deliverytrack.vss.com.deliverytrack.LandingScreenActivity">
+
+    <Button
+        android:id="@+id/sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:background="@drawable/button_bg"
+        android:minHeight="50dp"
+        android:text="@string/signup" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sign_up"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_bg"
+        android:minHeight="50dp"
+        android:text="@string/login" />
+
+
+    <Button
+        android:id="@+id/forgotpwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:layout_centerInParent="true"
+        android:layout_margin="20dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_bg"
+        android:minHeight="50dp"
+        android:text="Forgot Password" />
+
+</RelativeLayout>

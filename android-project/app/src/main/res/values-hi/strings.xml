@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">डिलीवरीट्रै</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_delivery_track_registration">DeliveryTrackRegistration</string>
+    <string name="title_activity_delivery_track_login">"DeliveryTrack"</string>
+    <string name="registration_process">Add user registration process</string>
+    <string name="login_process">Add login process</string>
+    <string name="complete_address">Complete Address</string>
+    <string name="title_activity_auto_complete">AutoCompleteActivity</string>
+    <string name="title_areas"> आज गारंटी के लिए क्षेत्ों </string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_delivery_boy">DeliveryBoyActivity</string>
+    <string name="title_activity_restaurant_user">RestaurantUserActivity</string>
+    <string name="title_activity_delivery_freelancers">DeliveryFreelancersActivity</string>
+
+
+    <string name="agent_updated">आप सफलतापूर्वक एजेंट के रूप में अद्यतन किया है</string>
+    <string name="supervisor_update">आप सफलतापूर्वक रेस्तरां के रूप में अद्यतन किया है</string>
+
+
+    <string name="username">उपयोगकर्ता का नाम</string>
+    <string name="password">पासवर्ड</string>
+    <string name="login">लॉग इन करें</string>
+    <string name="my_transactions">मेरा लेनदेन</string>
+    <string name="trainings">ट्रैनिंग्स</string>
+    <string name="assigned_trainings">मेरे लिए ट्रैनिंग्स</string>
+    <string name="complete_trainings">पास की गयी ट्रैनिंग्स</string>
+    <string name="gps_disabled">आपका जीपीएस बंद है, क्या आप इसे चालू करना चाहते हैं?</string>
+    <string name="gps_network_not_enabled">जीपीएस चालू नहीं है </string>
+    <string name="open_location_settings">लोकेशन सेटिंग खोलें</string>
+    <string name="cancel">रद्द करना</string>
+
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>मेरे लेनदेन</item>
+        <item>आर्डर दिया</item>
+        <item>आर्डर उठाया</item>
+        <item>आर्डर अपूर्ण</item>
+        <item>Order Pending to Accept</item>
+        <item>Order Arrived at location</item>
+        <item>मेरा सेटिंग</item>
+        <item>मेरी ट्रैनिंग्स</item>
+        <item>लॉग आउट</item>
+    </string-array>
+
+    <string name="title_activity_fresh_desk">FreshDesk</string>
+    <string name="title_activity_pdf">PDFActivity</string>
+
+
+    <string name="title_activity_training">मेरी ट्रेनिंग </string>
+    <string name="title_activity_signature">SignatureActivity</string>
+
+    <string name="external_dir">DeliveryTrack</string>
+    <string name="title_activity_rating">RatingActivity</string>
+    <string name="title_activity_rating_order">RatingOrderActivity</string>
+
+    <string name="request_pickup">रिक्वेस्ट पिकअप </string>
+    <string name="create_delivery_order">डिलीवरी आर्डर </string>
+    <string name="customer_name">ग्राहक का नाम</string>
+    <string name="order_details">ऑर्डर का विवरण</string>
+    <string name="please_sign_here">कृपया यहां हस्ताक्षर करें</string>
+    <string name="feedback">प्रतिक्रिया</string>
+    <string name="address">पता</string>
+    <string name="amount">राशि </string>
+    <string name="customer_contact_no">ग्राहक फ़ोन नंबर</string>
+    <string name="title_activity_order_creation">OrderCreationActivity</string>
+    <string name="picked_by">पिक किया गया </string>
+    <string name="agent_id">एजेंट पहचान पत्र</string>
+    <string name="rest_id">रेस्टोरेंट पहचान पत्र</string>
+    <string name="delivered_by">डिलीवरी किया गया </string>
+    <string name="rest_ordered">आर्डर किया गया </string>
+    <string name="agent_contact">एजेंट फ़ोन नंबर </string>
+    <string name="rest_contact">रेस्टोरेंट फ़ोन नंबर </string>
+    <string name="deliver">डिलीवर </string>
+    <string name="pickup">पिकअप</string>
+    <string name="title_activity_route_login">RouteLoginActivity</string>
+    <string name="title_activity_map">MapActivity</string>
+    <string name="order_saved">आपका आर्डर सेव हो गया </string>
+    <string name="order_not_saved">आपका आर्डर सेव नहीं हुआ!!! कृपया पुन: प्रयास करें</string>
+    <string name="no_network_connected">नेटवर्क नहीं है </string>
+    <string name="username_password_not_empty">यूजर का नाम, पासवर्ड खाली नहीं रख सकते </string>
+    <string name="congratulations">बधाई हो! अपने टेस्ट पास कर लिया है ! टेस्ट स्कोर है</string>
+    <string name="test_score">टेस्ट स्कोर है</string>
+    <string name="try_again">पुनः प्रयास करें</string>
+    <string name="hindi">हिंदी</string>
+    <string name="english">अंग्रेज़ी</string>
+    <string name="orders_pending_to_pickup">आर्डर अपूर्ण</string>
+    <string name="prepaid_or_postpaid">प्रीपेड या पोस्टपेड</string>
+    <string name="order_detailed_title">आर्डर विवरण</string>
+    <string name="orders_pending_for_delivery_title">आर्डर उठाया</string>
+    <string name="orders_delivered_title">आर्डर दिया</string>
+    <string name="my_training_title">मेरी ट्रैनिंग्स</string>
+    <string name="my_transactions_title">मेरे लेनदेन</string>
+    <string name="spinner_title">Select payment mode</string>
+
+
+    <string name="months_earning">महीने की कमाई</string>
+    <string name="your_balance">आपकी बकाया रकम </string>
+    <string name="status">स्थिति</string>
+    <string name="agent_location">एजेंट का स्थान</string>
+    <string name="view_agent_location">एजेंट का देखें </string>
+    <string name="pending">अधूरा </string>
+    <string name="postpaid">Postpaid</string>
+    <string name="prepaid">Prepaid</string>
+    <string name="no_pick_up_has_been_done">यह आर्डर नहीं उठाया गया </string>
+    <string name="error_intro">Error!</string>
+    <string name="error_blank_username">Error</string>
+    <string name="error_join">Error</string>
+    <string name="error_blank_password">Error Blank</string>
+    <string name="error_mismatched_passwords">Error</string>
+    <string name="error_end">Error End</string>
+    <string name="progress_signup">Progress</string>
+    <string name="prompt_phone">Phone</string>
+    <string name="signup">रजिस्टर करें</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="prompt_password_again">Confirm password</string>
+    <string name="prompt_branch">Branch</string>
+    <string name="prompt_username">username</string>
+    <string name="prompt_address">Address</string>
+    <string name="prompt_area">Area</string>
+    <string name="finish">अंत</string>
+    <string name="next">आगे </string>
+    <string name="review">Your information</string>
+    <string name="prev">पीछे </string>
+
+
+    <string name="label_your_name">Name</string>
+    <string name="label_your_email">Email</string>
+    <string name="hint_your_name">e.g. Name</string>
+    <string name="hint_your_email">Optional</string>
+
+    <string name="title_activity_landing_screen">DeliveryTrack</string>
+
+
+    <string name="instruction_title">डिलीवरी ट्रैक मे रजिस्टर  करने के लिए रजिस्टर  फॉर्म को पूर्ण  भरें </string>
+    <string name="instruction1">टाइप करके अथवा बोल कर फॉर्म भरेI</string>
+    <string name="instruction2">जहा पूछा गया है, वहाँ दस्तावेजो को स्कैन करेंI</string>
+    <string name="instruction3">आप अपने अधूरे भरे गए फॉर्म को भी सेव कर सकते हैI</string>
+    <string name="instruction4">पूर्ण रेजिस्ट्रेशन के बाद ही आपको एक्टिवेट  किया जायेगा </string>
+
+
+    <string name="personal_details">व्यक्तिगत विवरण</string>
+    <string name="documents">दस्तावेजों</string>
+    <string name="references">संदर्भ</string>
+    <string name="bank_details">बैंक विवरण</string>
+    <string name="my_current_address">My current address</string>
+
+
+
+
+    <string name="restaurant_details">रेस्तरां विवरण</string>
+    <string name="restaurant_documents">RESTAURANT DOCUMENTS</string>
+    <string name="manager_details">प्रबंधक विवरण</string>
+
+    <string name="full_name">पूरा नाम</string>
+    <string name="confirm_password">पासवर्ड की पुष्टि कीजिये</string>
+    <string name="mobile_number">मोबाइल नंबर</string>
+    <string name="mobile_number_instruction">यह मोबाइल नंबर ही आपका यूजर आईडी है. कृपया ध्यान से डालेंI</string>
+    <string name="area_you_want">एरिया जो आप चाहते हैं</string>
+    <string name="branch">शाखा</string>
+    <string name="base_location_address">आपका वर्तमान पता </string>
+
+
+    <string name="enter_your_adhar_number">अपना आधार संख्या दर्ज करें</string>
+    <string name="scan_adhar">स्कैन आधार</string>
+
+
+    <string-array name="addtional_docs">
+        <item>पासपोर्ट</item>
+        <item>ड्राइविंग लाइसेंस</item>
+        <item>वोटर आईडी</item>
+    </string-array>
+
+    <string-array name="user_type">
+        <item>एजेंट</item>
+        <item>रेस्टोरेंट</item>
+
+    </string-array>
+
+
+    <string name="scan_add_docs">स्कैन दस्तावेज़</string>
+    <string name="take_photo">अपनी फोटो खीचें </string>
+
+    <string name="reference1">संदर्भ १</string>
+    <string name="full_name_of_reference">संदर्भ का पूरा नाम</string>
+    <string name="relationship">संदर्भ के साथ रिश्ता</string>
+    <string name="mobile_number_of_reference">संदर्भ का मोबाइल नंबर</string>
+    <string name="reference2">संदर्भ २ </string>
+
+    <string name="commissions">सभी कमीशन इस खाते में सीधे जमा की जाएगी। ध्यान से विवरण प्रदान करें।</string>
+    <string name="exact_name">नाम (जो बैंक मे उपयोग होता है)</string>
+    <string name="bank_name">बैंक का नाम</string>
+    <string name="account_number">खाता संख्या</string>
+    <string name="select_doc_type">Additional Documents</string>
+
+    <string name="email_note">Note that all bills and communication would be sent to this email address only. Enter carefully.</string>
+    <string name="scan">स्कैन</string>
+    <string name="name_of_manager">प्रबंधक का नाम</string>
+    <string name="manager_number">प्रबंधक का नंबर</string>
+
+    <string name="agent_registered">आप सफलतापूर्वक एजेंट के रूप में दर्ज कर लिया है</string>
+    <string name="supervisor_registered">आप सफलतापूर्वक रेस्तरां के रूप में दर्ज कर लिया है</string>
+    <string name="password_error">पासवर्ड और पासवर्ड की पुष्टि करें मेल नहीं खाता</string>
+    <string name="mobilenumber_error">User Mobile Number and Reference Mobile Number must not be the same </string>
+
+
+    <string-array name="entity">
+        <item>Individual</item>
+        <item>Proprietorship</item>
+        <item>Partnership</item>
+        <item>Private Limited Company</item>
+        <item>Public Limited Company</item>
+        <item>Others</item>
+
+    </string-array>
+
+    <string name="rest_details">रेस्टोरेंट विवरण</string>
+    <string name="name_of_rest">Name of the Restaurant</string>
+    <string name="address_of_rest">Address of the Restaurant</string>
+    <string name="email_of_rest">Email Id</string>
+    <string name="pincode">Pincode</string>
+    <string name="ifsc_code">IFSC कोड</string>
+    <string name="type_legal">Type of Legal Entity</string>
+    <string name="language_settings">Select a language</string>
+    <string name="my_permanent_address">स्थायी पता</string>
+    <string name="proceed">बढ़ना</string>
+    <string name="register">रजिस्टर</string>
+    <string name="inactive_user_error">कृपया सेटिंग्स से अपने विवरण प्रदान</string>
+    <string name="mandatory_fields">Please Enter All the Fields</string>
+    <string name="instruction">निर्देश</string>
+    <string name="login_type">लॉग इन प्रकार</string>
+    <string name="delivery_freelancer_register">डिलीवरी फ्रीलांसर के रूप में रजिस्टर करें</string>
+    <string name="restaurant_register">रेस्तरां के रूप में रजिस्टर करें</string>
+    <string name="mode_of_deliver">डिलीवरी का तरीका</string>
+    <string name="car">कार / 3 व्हीलर द्वारा </string>
+    <string name="motor_bike">मोटर साइकिल / स्कूटी द्वारा </string>
+    <string name="bicycle">साइकिल द्वारा </string>
+    <string name="rikshaw">रिक्शा द्वारा </string>
+    <string name="foot">पैर द्वारा </string>
+    <string name="payment_mode">Payment Mode</string>
+    <string name="order_pickedup">आदेश सफलतापूर्वक उठाया</string>
+    <string name="order_delivered">आदेश सफलतापूर्वक वितरित</string>
+    <string name="bankdetails">MY FOOD CREDIT ACCOUNT DETAILS</string>
+    <string name="profile_details">PROFILE DETAILS</string>
+    <string name="my_account_details">In order to top up your FOOD CREDIT account and continue receiving orders and earning money, please remit money to the following account by NEFT / RTGS / IMPS:</string>
+    <string name="my_settings">My Settings</string>
+    <string name="bank_details_frag">Bank Details</string>
+    <string name="orders_pending_to_accept">Orders Pending to Accept</string>
+    <string name="support">Support</string>
+    <string name="search">Search</string>
+    <string name="agent_name">Agent Name</string>
+    <string name="rest_name">Restaurant Name</string>
+    <string name="rest_address">Restaurant Address</string>
+    <string name="title_activity_pay_one_web_view">PayOneWebViewActivity</string>
+
+
+
+</resources>
