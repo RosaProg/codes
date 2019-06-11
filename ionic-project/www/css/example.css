@@ -1,0 +1,43 @@
+.inline-form {
+}
+
+.inline-form .wrapper {
+  float: left;
+  width: 100%;
+}
+
+.inline-form .wrapper .content {
+  margin: 0 140px 0 150px;  /* 0 RC 0 LC */
+}
+
+.inline-form .left {
+  float: left;
+  width: 92px; /* LC */
+  margin-left: -100%;
+}
+
+.inline-form .text {
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  display: block;
+  font-size: 16px;
+}
+
+.inline-form .right {
+  float: left;
+  width: 120px; /* RC */
+  margin-left: -120px; /* -RC */
+}
+
+.inline-form .footer{
+  clear: left;
+}
+
+.fixedFooter {
+position: fixed !important;
+left: 0px !important;
+right: 0px !important;
+bottom: 0px !important;
+z-index: 999 !important;
+}
+
