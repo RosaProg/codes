@@ -1,0 +1,21 @@
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.Form1.resources
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.Properties.Resources.resources
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.csproj.GenerateResource.Cache
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\bin\Debug\DSPClientDeamon.exe
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\bin\Debug\DSPClientDeamon.pdb
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.exe
+C:\Users\casa\AppData\Local\Temporary Projects\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.pdb
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.exe
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.pdb
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\bin\Debug\DSPClientDeamon.exe
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\bin\Debug\DSPClientDeamon.pdb
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.Form1.resources
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.Properties.Resources.resources
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.csproj.GenerateResource.Cache
+C:\Users\casa\documents\visual studio 2010\Projects\DSPClientDeamon\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.About.resources
+C:\Users\casa\Documents\Visual Studio 2010\Projects\DSPClientDeamon - Copy\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.exe
+C:\Users\casa\Documents\Visual Studio 2010\Projects\DSPClientDeamon - Copy\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.pdb
+C:\Users\casa\Documents\Visual Studio 2010\Projects\DSPClientDeamon2\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.exe
+C:\Users\casa\Documents\Visual Studio 2010\Projects\DSPClientDeamon2\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.pdb
+C:\Users\August\Documents\Visual Studio 2012\Projects\DSPClientDeamon2\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.exe
+C:\Users\August\Documents\Visual Studio 2012\Projects\DSPClientDeamon2\DSPClientDeamon\obj\x86\Debug\DSPClientDeamon.pdb
