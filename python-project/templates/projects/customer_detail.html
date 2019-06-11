@@ -1,0 +1,217 @@
+
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% load thumbnail %}
+{% load bootstrap3 %}
+{% block title %}Projects | Export Abroad{% endblock %}
+{% block body %}
+
+{% block extra_head %}
+
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+
+{% block sidebartwo %}
+    <nav id="side-nav" class="lead-side">
+
+        <!-- <div class="lead-detail-category lead-green">
+            Customer
+        </div> -->
+
+         <img src="https://logo.clearbit.com/exportabroad.com" class="co-img">
+        <h1>Prins Staalhandel B.V.</h1>
+        <h2>Kousenmarkersweg 2 2031 ED.</h2>
+        <h2>6th Floor</h2>
+        <h2>Haarlem, Waarderpolder, NL</h2>
+        <a href="#" target="_blank" id="lead-link">http://prinsstaalhandel.nl</a>
+
+        <div id="lead-val">
+            <h6>$32,750</h6>
+        </div>
+
+        <br/>
+
+        <a class="action-btn"><i class="ion-edit"></i> Edit Customer</a>
+    </nav>
+{% endblock %}
+
+
+
+{% block content %}
+
+<div id="content" class="content-sidebar">
+
+
+
+
+     <div class="section-header-wrap">
+         <div class="s-h-w-50">
+             <h3>2 Products</h3>
+         </div><!--
+         --><div class="s-h-w-50" style="padding-top:11px;">
+             <a class="display-toggle select-display-active" id="display-list"><i class="ion-navicon-round"></i></a><!--
+             --><a class="display-toggle" id="display-grid"><i class="ion-grid"></i></a>
+         </div>
+     </div>
+
+     <div class="grid-list-display">
+     {% if products %}
+
+     {% for product in products %}
+
+         <div class="gld-item gld-l gld-hover">
+             <span class="prod-title">{{ product.product_name }}</span>
+             <span class="prod-hs">HS #{{ product.product_hs_code}}</span>
+             <span class="prod-val">$20,000</span>
+         </div>
+    {% endfor %}
+
+    {% else %}
+
+    {% endif %}
+
+     </div>
+    
+    
+
+
+
+
+
+<br/>
+
+
+
+     <div class="section-header-wrap">
+         <div class="s-h-w-50">
+             <h3>Contacts</h3>
+         </div><!--
+         --><div class="s-h-w-50" style="padding-top:11px;">
+             <a class="action-btn" style="margin-left:15px;"><i class="ion-plus"></i> Add Person</a>
+         </div>
+     </div>
+
+     <div class="grid-list-display">
+         <div class="gld-item gld-l">
+             <span class="ld-title">Heinrik Scholler</span>
+             <span class="ld-sub">VP of Sale</span>
+             <span class="ld-deet"><b>Phone:</b> +31235319519</span>
+             <span class="ld-deet"><b>Email:</b> heinrik@prinsstaalhandel.nl</span>
+             <span class="ld-deet"><b>Skype:</b> Heinrik.Scholler</span>
+         </div><!--
+         --><div class="gld-item gld-l">
+             <span class="ld-title">Kurt Haans</span>
+             <span class="ld-sub">CTO, Founder</span>
+             <span class="ld-deet"><b>Phone:</b> +31235319518</span>
+             <span class="ld-deet"><b>Email:</b> Kurt@prinsstaalhandel.nl</span>
+             <span class="ld-deet"><b>Skype:</b> Kurt.Haans</span>
+         </div>
+
+     </div>
+
+
+     <div class="section-header-wrap">
+         <div class="s-h-w-50">
+             <h3>5 Files</h3>
+         </div><!--
+         --><div class="s-h-w-50" style="padding-top:11px;">
+             <button class="action-btn" href="#" id="add-note" style="position:relative; top:6px;"><i class="ion-plus"></i> Add File</button>
+         </div>
+     </div>
+     <div id="file-display" class="fd-l">
+
+         <div class="file-item">
+             <i class="ion-document"></i>
+             <b>sales-agreement.docx</b>
+         </div><!--
+
+         --><div class="file-item">
+             <i class="ion-document"></i>
+             <b>fy2015.xls</b>
+         </div><!--
+
+         --><div class="file-item">
+             <i class="ion-document"></i>
+             <b>fy2015-revised.xls</b>
+         </div><!--
+
+         --><div class="file-item">
+             <i class="ion-document"></i>
+             <b>distribution-agreement.docx</b>
+         </div><!--
+
+         --><div class="file-item">
+             <i class="ion-document"></i>
+             <b>research-x001.docx</b>
+         </div>
+
+     </div>
+
+
+
+
+
+
+
+     <div class="note-display" style="display:none;">
+
+         <div class="section-header-wrap">
+             <div class="s-h-w-50">
+                 <h3>Notes</h3>
+             </div><!--
+             --><div class="s-h-w-50" style="padding-top:11px;">
+                 <button class="action-btn" href="#" id="add-note" style="position:relative; top:6px;"><i class="ion-plus"></i> Add Note</button>
+             </div>
+         </div>
+
+
+         <ul style="margin-bottom:25px;">
+             <li><b class="note-TS">06/22/2015</b> &nbsp; Metus fames proin fusce sapien ad eros semper mi sapien pretium. <i class="ion-close"></i></li>
+             <li><b class="note-TS">06/29/2015</b> &nbsp; Class vitae. Lacus metus maecenas vulputate purus ad porta id venenatis a sem porttitor tempor senectus. <i class="ion-close"></i></li>
+             <li><b class="note-TS">06/30/2015</b> &nbsp; Neque fames ullamcorper interdum orci dictum luctus nam mi nulla class. Netus proin. Ipsum felis dolor cum odio at nisi pulvinar bibendum. Fames ullamcorper interdum orci dictum luctus nam mi nulla class. <i class="ion-close"></i></li>
+             <li><b class="note-TS">07/04/2015</b> &nbsp; Neque porta bibendum lacus et tempor risus ac. <i class="ion-close"></i></li>
+         </ul>
+
+         <input type="text" placeholder="Type a new note then hit enter to save" id="note-entry">
+
+         <!-- <a class="action-btn" href="#" style="position:relative; left:1%;"><i class="ion-plus"></i> Add Note</a> -->
+
+
+     </div>
+
+
+
+ </div>
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+    $("#display-list").click(function(){
+        $(".display-toggle").removeClass("select-display-active");
+        $(this).addClass("select-display-active");
+        $(".gld-item").removeClass("gld-g");
+        $(".gld-item").addClass("gld-l");
+        $("#file-display").removeClass("fd-g");
+        $("#file-display").addClass("fd-l");
+    })
+    $("#display-grid").click(function(){
+        $(".display-toggle").removeClass("select-display-active");
+        $(this).addClass("select-display-active");
+        $(".gld-item").removeClass("gld-l");
+        $(".gld-item").addClass("gld-g");
+        $("#file-display").removeClass("fd-l");
+        $("#file-display").addClass("fd-g");
+    })
+
+    $("#add-note").click(function(){
+        $("#note-entry").toggle();
+        $("#note-entry").focus();
+        $(window).scrollTop($(document).height());
+    });
+    </script>
+{% endblock %}
+
+
+{% endblock %}

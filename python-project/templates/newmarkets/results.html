@@ -1,0 +1,433 @@
+{% extends "dashboard_base.html" %}
+{% load url from future %}
+{% load static from staticfiles %}
+{% block title %}Export Abroad | Making Exporting Easy.{% endblock %}
+{% load humanize %}
+{% block body %}
+
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/pages/data.css' %}">
+    <!-- Map Glyphs -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/mapglyphs/mapglyphs.css' %}">
+{% endblock %}
+{% block sidebar %}
+    <nav id="sidebar">
+
+        <span class="heading">
+            Top Countries
+        </span>
+
+        <ul class="sidebar-nav">
+            <li class="active"><a href="#">All Countries <i class="ion-chevron-right"></i></a></li>
+            {%if top_five %}
+    	    	{% for market in top_five %}
+    	        	<li><a href="/newmarkets/country/{{market.country_id}}/">{{ market.country_id.country_name }} <i class="ion-chevron-right"></i></a></li>
+    	        {% endfor %}
+    	    {% endif %}
+            <li>&nbsp;</li>
+            <li class="spacer"><a href="/newmarkets/pdf/"><i class="ion-arrow-down-c"></i> Download Report</a></li>
+            <li><a href="{% static 'newmarkets/UK-Layout-UPS-Approved.pdf' %}"><i class="ion-arrow-down-c"></i> UPS UK Report</a></li>
+
+        </ul>
+
+        <hr/>
+
+        <i class="mg map-wrld" id="overview-globe"></i>
+
+    </nav>
+{% endblock %}
+
+
+{% block content %}
+
+<main>
+    <div class="scroll-header">
+        <h1 id="scroll-header-title">{{hsdescript.product_descript}} (HS#{{hsdescript.hs_number}}) - <b>Top Markets</b></h1>
+    </div>
+
+
+
+	<!-- {%if top_five %}
+        <ol id="overview-map-legend">
+            {% for market in top_five %}
+				<li><a href="/newmarkets/country/{{market.country_id}}/">#{{ forloop.counter }} {{ market.country_id.country_name }}</a></li>
+			{% endfor %}
+        </ol>
+    {% endif %} -->
+
+
+
+		<div class="data-table">
+				<table cellspacing=0>
+						<tr>
+							<th>Country<small>Name</small></th>
+							<th>Imported Value<small>For HS #{{hsdescript.hs_number}} in USD</small></th>
+							<th>GDP<small>$ Amount</small></th>
+							<th>GDP Growth<small>% change</small></th>
+							<th>Inflation<small>% Change 2013</small></th>
+							<!-- <th>Documents<small>for importing</small></th> -->
+							<th>Population<small>Total</small></th>
+						</tr>
+
+					{% for market in top_five %}
+						<tr>
+							<td>{{ market.country_id.country_name }}</td>
+							<td id="table_market_share_{{ forloop.counter }}"></td>
+							<td>${{ market.country_id.gdp|intword }}</td>
+							<td>{{ market.country_id.gdp_growth }}%</td>
+							<td>{{ market.country_id.inflation }}%</td>
+							<!-- <td>{{ market.country_id.imports_docs }}</td> -->
+							<td>{{ market.country_id.population|intword }}</td>
+						</tr>
+					{% endfor %}
+
+
+				</table>
+			</div>
+
+
+
+
+
+			<div class="tri-graph">
+                <div class="economic-graph">
+                    <h1>GDP Growth 2013 (%)</h1>
+                    <div class="tri_canvas_wrap">
+	                    <canvas id="gdp_graph" ></canvas>
+    				</div>
+                </div><!--
+
+                --><div class="economic-graph">
+                    <h1>Market Share 2012 (%)</h1>
+                    <div class="tri_canvas_wrap">
+	                    <canvas id="market_share_graph" ></canvas>
+    				</div>
+                </div><!--
+
+                --><div class="economic-graph">
+                    <h1>Import Documents</h1>
+                    <div class="tri_canvas_wrap">
+	                    <canvas id="docs_graph"></canvas>
+    				</div>
+                </div>
+            </div>
+
+
+            <!-- LARGE COMPARRISON LINE GRAPH -->
+            <div class="country-data-section">
+            	<div class="section-inner">
+            		<h3>GDP Growth (% Change)</h3>
+            		<div class="canvas_wrap">
+	            		<canvas id="compare_gdp_growth" width="1250" height="300"></canvas>
+    				</div>
+            		<ul id="line-graph-legend">
+            			{% for market in top_five %}<!--
+                        --><li><i class="ion-ios-circle-filled"></i> {{ market.country_id.country_name }}</li><!--
+						-->{% endfor %}
+            		</ul>
+            	</div>
+            </div>
+
+
+
+            <div style="width:100%; height:25px;"></div>
+
+
+
+
+
+        </div><!-- End Grid Container -->
+
+
+
+
+
+
+
+
+
+</main>
+
+
+        <!-- <script src="{% static 'scripts/pages/data-overview.js' %}"></script> -->
+
+        <script>
+            $("#nav-link-data").addClass("active");
+        </script>
+
+
+
+        <script type="text/javascript" src="{% static 'newmarkets/js/Chart.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'newmarkets/js/charts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'newmarkets/js/highcharts.js' %}"></script>
+
+
+
+        <script>
+
+
+        $("#nav-link-data").addClass("active");
+
+
+
+
+        //GDP BAR GRAPH
+        var gdp_data = {
+	        labels: [
+						{% for market in top_five %}
+								"{{ market.country_id.country_id }}",
+						{% endfor %}
+	        ],
+	        datasets: [
+	            {
+	                label: "My First dataset",
+	                fillColor: "#4776e6",
+	                strokeColor: "rgba(18,83,164,0.0)",
+	                highlightFill: "rgba(18,83,164,0.75)",
+	                highlightStroke: "rgba(18,83,164,0)",
+	                data: [
+	                				{% for market in top_five %}
+	                						{{ market.country_id.gdp_growth }},
+	                				{% endfor %}
+	                			]
+	            }
+	        ]
+	    };
+
+	    var gdp_graph = document.getElementById("gdp_graph").getContext("2d");
+	    new Chart(gdp_graph).Bar(gdp_data, {
+	      scaleBeginAtZero : false,
+	      showScaleLabels: true,
+	      scaleLabel: "<%=value%>%",
+	      tooltipTemplate: "<%= value %>%",
+	      tooltipCornerRadius: 0,
+	      responsive:true
+	    });
+
+
+
+
+
+
+
+		//DOC NUMBERS BAR
+	    var docs_data = {
+	        labels: [
+	        			{% for market in top_five %}
+									"{{ market.country_id.country_id }}",
+								{% endfor %}
+	        		],
+	        datasets: [
+	            {
+	                fillColor: "#825AE8",
+	                strokeColor: "rgba(18,83,164,0)",
+	                highlightFill: "rgba(18,83,164,0.75)",
+	                highlightStroke: "rgba(18,83,164,0)",
+	                data: [{% for market in top_five %}
+								{{ market.country_id.imports_docs }},
+							{% endfor %}]
+	            }
+	        ]
+	    };
+	    var docs_graph = document.getElementById("docs_graph").getContext("2d");
+	    new Chart(docs_graph).Bar(docs_data, {tooltipCornerRadius: 0, responsive:true});
+
+
+
+
+
+
+
+
+
+
+			//SIDEBAR TAB ACTIVE
+			$("#sidebar_results_link").addClass("active-item");
+
+
+
+
+
+  </script>
+
+  <script>
+
+
+  			var x1 = "";
+  			var x2 = "";
+  			var x3 = "";
+  			var x4 = "";
+  			var x5 = "";
+
+
+				{% for market in top_five %}
+
+					$.getJSON("{% static "" %}newmarkets/factbook/{{market.country_id.country_id}}.json").done(function(jsondata{{ forloop.counter }}){
+
+			            var getjson{{ forloop.counter }} = jsondata{{ forloop.counter }};
+
+
+
+			            gdp_growth_data = getjson{{ forloop.counter }}.econ.gdp_real_growth_rate.text.replace(/ *\([^)]*\) */g, "");
+		                gdp_growth_data_split = gdp_growth_data.split(";");
+
+
+			            growth_rate_10_{{ forloop.counter }} = gdp_growth_data_split[2].replace("%", "");
+
+			            growth_rate_11_{{ forloop.counter }} = gdp_growth_data_split[1].replace("%", "");
+
+			            growth_rate_12_{{ forloop.counter }} = gdp_growth_data_split[0].replace("%", "");
+
+
+
+
+			            	//GDP GROWTH
+				        	//DOC NUMBERS BAR
+						    var compare_gdp_data = {
+						        labels: [2010,2011,2012],
+						        datasets: [
+						            {
+						                fillColor: "rgba(0,0,0,0)",
+						                strokeColor: "#e53935",
+						                data: [growth_rate_10_1, growth_rate_11_1, growth_rate_12_1]
+						            },{
+						                fillColor: "rgba(0,0,0,0)",
+						                strokeColor: "#749dfa",
+						                data: [growth_rate_10_2, growth_rate_11_2, growth_rate_12_2]
+						            },{
+						                fillColor: "rgba(0,0,0,0)",
+						                strokeColor: "#43cea2",
+						                data: [growth_rate_10_3, growth_rate_11_3, growth_rate_12_3]
+						            },{
+						                fillColor: "rgba(0,0,0,0)",
+						                strokeColor: "#F9D423",
+						                data: [growth_rate_10_4, growth_rate_11_4, growth_rate_12_4]
+						            },{
+						            	label: "red",
+						                fillColor: "rgba(0,0,0,0)",
+						                strokeColor: "#feadd7",
+						                data: [growth_rate_10_5, growth_rate_11_5, growth_rate_12_5]
+						            }
+						        ]
+						    };
+						    var gdp_growth_graph = document.getElementById("compare_gdp_growth").getContext("2d");
+						    new Chart(gdp_growth_graph).Line(compare_gdp_data, {
+						      scaleBeginAtZero : false,
+						      showScaleLabels: true,
+						      scaleLabel: "<%=value%>%",
+						      tooltipTemplate: "yeah",
+						      tooltipCornerRadius: 0,
+                              scaleLineColor: "rgba(0,0,0,.25)",
+                              scaleGridLineColor : "rgba(0,0,0,.12)",
+						      pointDotRadius : 5,
+                              scaleFontColor: "#3e454c",
+						      pointDotStrokeWidth : 2,
+						      responsive:true
+						    });
+
+
+
+			        });
+
+				{% endfor %}
+
+
+
+
+
+                $.get('/newmarkets/api/results/').done(function(data){
+                	var getMarketShare = data;
+
+
+                	//PIE GRAPH
+        			var remaining_world_market_share = Math.round((((getMarketShare[0].imported_value2012 - getMarketShare[1].imported_value2012 - getMarketShare[2].imported_value2012 - getMarketShare[3].imported_value2012 - getMarketShare[4].imported_value2012 - getMarketShare[5].imported_value2012) / getMarketShare[0].imported_value2012)*100)*10)/10;
+
+        			var market_share_c1 = Math.round(((getMarketShare[1].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        			var market_share_c2 = Math.round(((getMarketShare[2].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        			var market_share_c3 = Math.round(((getMarketShare[3].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        			var market_share_c4 = Math.round(((getMarketShare[4].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        			var market_share_c5 = Math.round(((getMarketShare[5].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+
+
+        			var table_market_1 = Math.round(getMarketShare[1].imported_value2012);
+        			var table_market_2 = Math.round(getMarketShare[2].imported_value2012);
+        			var table_market_3 = Math.round(getMarketShare[3].imported_value2012);
+        			var table_market_4 = Math.round(getMarketShare[4].imported_value2012);
+        			var table_market_5 = Math.round(getMarketShare[5].imported_value2012);
+
+        			function commaSeparateNumber(val){
+        			    while (/(\d+)(\d{3})/.test(val.toString())){
+        			      val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+        			    }
+        			    return val;
+        			}
+
+        			$("#table_market_share_1").text("$"+commaSeparateNumber(table_market_1)+",000");
+        			$("#table_market_share_2").text("$"+commaSeparateNumber(table_market_2)+",000");
+        			$("#table_market_share_3").text("$"+commaSeparateNumber(table_market_3)+",000");
+        			$("#table_market_share_4").text("$"+commaSeparateNumber(table_market_4)+",000");
+        			$("#table_market_share_5").text("$"+commaSeparateNumber(table_market_5)+",000");
+
+
+                	var market_share_data = [
+        			    {
+        			        value: remaining_world_market_share,
+        			        color:"#8E54E9",
+        			        highlight: "#8E54E9",
+        			        label: "Rest of world"
+        			    },
+        			    {
+        			        value: market_share_c1,
+        			        color: "#8C3CEE",
+        			        highlight: "#8C3CEE",
+        			        label: getMarketShare[1].country_id
+        			    },
+        			    {
+        			        value: market_share_c2,
+        			        color: "#6A65E7",
+        			        highlight: "#6A65E7",
+        			        label: getMarketShare[2].country_id
+        			    },
+        			    {
+        			        value: market_share_c3,
+        			        color: "#5D6CE7",
+        			        highlight: "#5D6CE7",
+        			        label: getMarketShare[3].country_id
+        			    },
+        			    {
+        			        value: market_share_c4,
+        			        color: "#5470E7",
+        			        highlight: "#5470E7",
+        			        label: getMarketShare[4].country_id
+        			    },
+        			    {
+        			        value: market_share_c5,
+        			        color: "#4776E6",
+        			        highlight: "#4776E6",
+        			        label: getMarketShare[5].country_id
+        			    }
+        			]
+        		    var market_share_graph = document.getElementById("market_share_graph").getContext("2d");
+        				new Chart(market_share_graph).Pie(market_share_data, {
+        										    segmentShowStroke : true,
+        										    segmentStrokeWidth : 0,
+        										    tooltipCornerRadius: 0,
+        										    responsive:true
+        										});
+
+
+                });
+
+
+
+
+
+
+
+
+</script>
+
+
+{% endblock %}
+{% endblock %}

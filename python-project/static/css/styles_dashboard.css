@@ -1,0 +1,67 @@
+#nav-accounts-links li a {
+		text-align: left;
+		padding: 12px 35px 12px 25px;
+		text-decoration: none;
+	}
+	#nav-accounts-links li a:hover {
+		text-decoration: none;
+	}
+	.glyphicon { padding-right: 5px; }
+	a:hover {text-decoration: none;}
+	
+	
+	.account_settings {
+			margin:20px;
+			padding:20px;
+			background-color:#fff;
+			border: solid 1px #CCC;
+			border-radius:7px;
+		}
+		.panel {
+			margin:20px;
+		}
+		.result_top {
+			/*background-image: url("../../static/img/dark-blue.jpg");*/
+			/*background-size: 100% 100%;*/
+			background-color:rgba(51,122,183,1);
+			border-radius:7px;
+			/*width:300px;rgba(51,122,183,0.8)*/
+			/*width:100%;150px*/
+			height:230px;
+			/*opacity: 0.5;*/
+			color:#fff;
+			padding:20px;
+			margin-right:10px;
+			text-align:center;
+			box-shadow: 2px 2px 5px #071F3E;
+			transition: background .25s ease-in-out;
+		   -moz-transition: background .25s ease-in-out;
+		   -webkit-transition: background .25s ease-in-out;
+		}
+		.result_top:hover {
+			background:#3F7CF4;
+			cursor:pointer;
+		}
+		.style_buttons2 {
+			background-color: #76F5A2;
+			/*padding:20px;*/
+			text-align:center;
+			margin-bottom:10px;
+			padding-top:10px;
+			padding-bottom:10px;
+			padding-left:5px;
+			color:#fff;
+			font-weight:bold;
+			border-radius:5px;
+			height:70px;
+			font-size:14px;
+			box-shadow: 10px 10px 5px #888888; /*#071F3E*/
+			opacity: 1;
+		   transition: background .25s ease-in-out;
+		   -moz-transition: background .25s ease-in-out;
+		   -webkit-transition: background .25s ease-in-out;
+		}
+		.style_buttons2:hover {
+			background: #071F3E; /*#3F7CF4  */
+			cursor:pointer;
+		}

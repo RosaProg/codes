@@ -1,0 +1,43 @@
+{% extends "dashboard_base.html" %}
+{% load staticfiles %}
+{% block title %}Add Product | Export Abroad{% endblock %}
+{% block body %}
+
+{% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'styles/universal/forms.css' %}">
+{% endblock %}
+
+<main class="nosidebar nosubnav">
+
+	<div id="form-wrapper">
+
+        <img src="{% static 'main/universal/visuals/globe.png' %}" id="form-globe" onclick="location.href='/'">
+
+        <h1>Add Your Product</h1>
+
+
+		<form action="/company/add_product/" method="post" class="add_product_form">
+			{% csrf_token %}
+			<div class="form-group">
+				{{ form }}
+			</div>
+			<button type="submit"value="Submit" class="form_submit">Submit</button>
+
+		</form>
+
+
+    </div>
+
+
+
+
+</main>
+
+
+    {% block extra_scripts %}
+        <script>
+            $("#nav-link-data").addClass("active");
+        </script>
+    {% endblock %}
+
+{% endblock %}

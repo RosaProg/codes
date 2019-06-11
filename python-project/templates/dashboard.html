@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+{% extends "dashboard_base.html" %}
+{% load staticfiles %}
+{% block title %}Dashboard | Export Abroad{% endblock %}
+{% block body %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/pages/widgets.css' %}">
+    <!-- Map Glyphs -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/mapglyphs/mapglyphs.css' %}">
+{% endblock %}
+
+
+{% block sidebartwo %}
+
+{% endblock %}
+
+<main class="nosidebar nosubnav">
+
+
+    <div id="welcome-message">
+        {% if request.user.is_authenticated %}
+            {% if request.user.first_name %}
+                <h2>Hello, {{ request.user.first_name }} <i class="ion-close" id="close-welcome-message"></i></h2>
+            {% else %}
+                <h2>Hello, {{ request.user.username }} <i class="ion-close" id="close-welcome-message"></i></h2>
+            {% endif %}
+        {% endif %}
+        <p>
+            Thank you for choosing Export Abroad. In the last economic downturn, there are many companies that perished just because they put their eggs in one basket by only selling to their domestic market.
+            At Export Abroad, we are working hard to find the best markets and help you hedge your bets by growing your international sales. Our Big data algorithms will constantly be working in the background to recommend new markets and prospect for new buyers for you.
+        </p>
+        <!-- <h3>Thanks,<br/>The Export Abroad Team</h3> -->
+    </div>
+
+
+    <div id="dash-stats" style="display:none;">
+        <h1>Your Overview</h1>
+        <div class="dash-stat-item">
+            <b>1</b>
+            <h2>Customer</h2>
+        </div><!--
+        --><div class="dash-stat-item">
+            <b>$135,820</b>
+            <h2>In the pipeline</h2>
+        </div><!--
+        --><div class="dash-stat-item">
+            <b>8</b>
+            <h2>Leads</h2>
+        </div>
+        <div id="dash-stat-canvas">
+            <canvas id="dash-stat-graph" width="1250" height="130"></canvas>
+        </div>
+        <h3 id="dash-stat-graph-title">Your Productivity This Week</h3>
+    </div>
+
+
+    <div id="exchange-rate">
+        <span class="widget-header">Exchange Rates</span>
+        <div id="exchange-rate-first"><b>1</b><small>United States Dollar</small></div>
+        <div id="exchange-rate-currencies">
+            <span class="exchange-rate-item" id="ex-AUD"></span>
+            <!-- <span class="exchange-rate-item" id="ex-BGN"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-BRL"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-CAD"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-CHF"></span>  -->
+            <span class="exchange-rate-item" id="ex-CNY"></span>
+            <!-- <span class="exchange-rate-item" id="ex-CZK"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-DKK"></span> -->
+            <span class="exchange-rate-item" id="ex-EUR"></span>
+            <span class="exchange-rate-item" id="ex-GBP"></span>
+            <!-- <span class="exchange-rate-item" id="ex-HKD"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-HRK"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-HUF"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-IDR"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-ILS"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-INR"></span> -->
+            <span class="exchange-rate-item" id="ex-JPY"></span>
+            <!-- <span class="exchange-rate-item" id="ex-KRW">0</span> -->
+            <!-- <span class="exchange-rate-item" id="ex-MXN"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-MYR"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-NOK"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-NZD">0</span> -->
+            <!-- <span class="exchange-rate-item" id="ex-PHP"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-PLN"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-RON"></span> -->
+            <span class="exchange-rate-item" id="ex-RUB"></span>
+            <!-- <span class="exchange-rate-item" id="ex-SEK"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-SGH"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-THB"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-TRY"></span> -->
+            <!-- <span class="exchange-rate-item" id="ex-ZAR"></span> -->
+        </div>
+    </div><!--
+    --><div id="news-wrapper">
+        <span class="widget-header">Top World Headlines</span>
+        <div id="news-feed"></div>
+    </div>
+
+
+
+    <div id="dashboard-notes" style="display:none;">
+        <span class="widget-header">Quick Notes</span>
+        <ul id="dashboard-notes-ul">
+            <li>Call Kurt Haans about 05/25 order.</li>
+            <li>Research Hakken LLC - may be interested in x100 for ~$150,000</li>
+            <li>Email Heinrick Scholler before Friday</li>
+            <li>Redeploy main site with updates</li>
+            <li>Call Logius about status of order and shipment</li>
+        </ul>
+
+        <input type="text" placeholder="Enter a new note here..." id="dashboard-note-input">
+
+
+
+    </div><!--
+
+
+
+    --><div id="dashboard-faq" style="display:none;">
+        <span class="widget-header">F.A.Q.</span>
+        <ul>
+            <li>What is the difference between a lead and a customer?</li>
+            <li>Can I upgrade to get more leads?</li>
+            <li>How do I find my HS Number?</li>
+            <li>Is there anyone I can contact for help?</li>
+            <li>How can I delete my account?</li>
+            <li>How can I add another use that I can manage?</li>
+        </ul>
+    </div>
+
+
+
+</main>
+
+
+
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+
+    <script src="{% static 'main/universal/scripts/jquery-2.1.3.min.js' %}"></script>
+    <script src="{% static 'main/universal/scripts/jquery.rss.js' %}"></script>
+    <script src="{% static 'main/universal/scripts/moment.js' %}"></script>
+    <script src="{% static 'main/universal/scripts/moment-timezone.js' %}"></script>
+    <script src="{% static 'main/universal/scripts/jquery.simpleWeather.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'newmarkets/js/Chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'newmarkets/js/charts.js' %}"></script>
+    <script src="{% static 'main/app/scripts/dashboard.js' %}"></script>
+
+    <script>
+        $( document ).ready(function() {
+            $("#nav-link-overview").addClass("active");
+        });
+    </script>
+
+{% endblock %}

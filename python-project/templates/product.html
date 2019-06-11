@@ -1,0 +1,106 @@
+{% extends "basex.html" %}
+{% load static from staticfiles %}
+{% block title %}Product | Export Abroad{% endblock %}
+
+
+{% block body %}
+
+
+    <div id="product_hero" class="hero-gradient">
+		<div id="youtube_outer">
+			<div class="video-container">
+			    <iframe id="youtube_iframe" src="http://www.youtube.com/embed/-bMN_UEDRtk?rel=0&amp;controls=0&amp;showinfo=0" frameborder="0" width="560" height="315"></iframe>
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<section>
+
+        <div class="tour-item">
+            <img src="{% static 'img/product_data.png' %}">
+			<div class="tour-item-text">
+				<h2>organize your data</h2>
+				<p>
+					<ul>
+						<li>Our patented system finds the best international markets for you based on your company's product line and metrics. Everything is customized, up to date, and you never have to worry about a stale white paper again.</li><br>
+						<li>We keep track of markets around the world and alert you to any new opportunities as they happen. Never miss another sale again. </li>
+					</ul>
+				</p>
+			</div>
+        </div>
+
+        <div class="tour-item tour-item-right">
+			<div class="tour-item-text">
+				<h2>plan your strategy</h2>
+				<p>
+					<ul>
+                        <li>Build a go-to-market strategy with your business goals in mind. We walk you through the entire process, from identifying sales targets to alerting you to any compliance issues.</li><br>
+						<li>Collaborate with the entire team to build the best strategy possible. Everyone can contribute and have their ideas heard.</li>
+					</ul>
+				</p>
+			</div>
+            <img src="{% static 'img/product_plan.png' %}">
+        </div>
+
+
+        <div id="product-experts">
+			<img src="{% static 'img/team/austin.jpg' %}">
+			<img src="{% static 'img/team/hayden.png' %}">
+			<div id="pe-text">
+				<h1>Your Export Experts</h1>
+				<p>
+					 Each subscription includes lead generation, advice, and guidance from our team of export experts. We work alongside and collaborate with your team to help you close more sales and stay compliant with all trade laws.
+				</p>
+			</div>
+		</div>
+
+
+
+        <div class="tour-item">
+            <img src="{% static 'img/product_track.png' %}">
+			<div class="tour-item-text">
+				<h2>track your sales and leads</h2>
+				<p>
+					<ul>
+                        <li>Store all of your contacts, customers, and leads in one cohesive spot. Stop trading your sales materials and targets through excel and email.</li><br>
+						<li>We suggest potential customers for your company based on what markets you are targeting. All leads are vetted for quality.</li>
+					</ul>
+				</p>
+			</div>
+        </div>
+
+        <div class="tour-item tour-item-right">
+			<div class="tour-item-text">
+				<h2>sell your products</h2>
+				<p>
+					<ul>
+                        <li>Utilize your research, plan, and contacts to make sales and find partners in your target market. Once you make deal, leverage the guidance we provide to avoid any market pitfalls and stay compliant.</li><br>
+						<li>Need help with the final piece? Use our export experts to help make your next deal go smoothly. We help book logistics, find service providers, and provide guidance when dealing with companies abroad.</li>
+					</ul>
+				</p>
+			</div>
+            <img src="{% static 'img/product_sell.png' %}">
+        </div>
+        <br/><br/>
+
+
+
+
+
+
+
+
+		<div class="c_t_a" style="border-top: 1px solid #D8E6F2; background-color:#F3F9FE;">
+			<h1>Ready to get started? Click below to schedule a demo.<br/><a style="background-color:#fff;" href="/accounts/login#request">Request a demo</a></h1>
+		</div>
+
+
+
+	</section>
+
+
+
+{% endblock %}

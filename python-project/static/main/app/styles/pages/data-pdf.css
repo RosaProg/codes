@@ -1,0 +1,336 @@
+
+@import url(https://fonts.googleapis.com/css?family=Inconsolata:400,700);
+
+
+
+
+#pdf-intro{
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: lighter;
+    position: relative; top:20px;
+    font-family: 'Lato', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+}
+    #pdf-intro h5{
+        font-size: 16pt;
+        font-weight: lighter;
+    }
+    #pdf-intro h6{
+        font-size: 12pt;
+        font-weight: lighter;
+        padding-top: 10px;
+        margin-bottom: 100px;
+    }
+    #printitnow{
+        font-size: 100pt;
+        width: 200px; height:200px;
+        text-align: center;
+        line-height: 200px;
+        color:#fff;
+        border-radius: 100px;
+        background: -webkit-linear-gradient(90deg, #4776E6 10%, #8E54E9 90%); /* Chrome 10+, Saf5.1+ */
+        background:    -moz-linear-gradient(90deg, #4776E6 10%, #8E54E9 90%); /* FF3.6+ */
+        background:     -ms-linear-gradient(90deg, #4776E6 10%, #8E54E9 90%); /* IE10 */
+        background:      -o-linear-gradient(90deg, #4776E6 10%, #8E54E9 90%); /* Opera 11.10+ */
+        background:         linear-gradient(90deg, #4776E6 10%, #8E54E9 90%); /* W3C */
+    }
+        #printitnow:hover{
+            cursor: pointer;
+            transform: scale(1.05);
+            -webkit-transform:scale(1.05);
+        }
+
+
+#pdf-width{
+    float: none;
+    width: 100%;
+    display: block;
+    height: auto;
+    z-index: 500;
+    position: absolute; top:0; left: 0;
+}
+
+#generating-popover{
+    width: 100%; height: 100%;
+    z-index: 500000000000;
+    position: fixed;
+    background-color: red;
+}
+
+
+
+
+
+
+
+
+hr{
+    margin-bottom: 20px;
+}
+
+
+
+
+#pdf_header{
+    width: 100%;
+}
+    #pdf_logo{
+        width: 35px;
+        height: 30px;
+        position: relative; top:6px;
+        margin-right: 10px;
+        vertical-align: middle;
+    }
+        #pdf_header_brand{
+            font-size: 20pt;
+            font-weight: 400;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 1px;
+            display: inline-block;
+            vertical-align: middle;
+            position: relative; top:5px;
+        }
+    .pdf_header_right{
+        float: right;
+        position: relative; top:2px;
+    }
+
+
+
+
+#report_cover{
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 25px 10px 25px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+    #report_cover small{
+        display: block;
+        font-size: 10pt;
+        letter-spacing: 2px;
+        font-weight: lighter;
+        margin-top:125px;
+        margin-bottom:15px;
+    }
+    #report_cover b{
+        display: block;
+        font-size: 18pt;
+        letter-spacing: 1px;
+        margin-bottom: 125px;
+    }
+
+/*Page 1 Styles*/
+#pdf_map_wrap{
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    display: block;
+}
+    #pdf_map_list_header{
+        font-size: 14pt;
+        margin-bottom: 6px;
+        text-align: center;
+        display: block;
+        width: 100%;
+    }
+
+    #pdf_map_list{
+        text-align: center;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+        #pdf_map_list li{
+            display: inline-block;
+            font-size: 9pt;
+            font-weight: 400;
+            letter-spacing: 1px;
+            padding: 0 8px 0 8px;
+        }
+
+
+
+/*PDF Data Table*/
+.pdf_table{
+    width: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-bottom: 20px;
+}
+    .pdf_table{
+        width: 100%;
+    }
+        .pdf_table tr{
+            text-align: left;
+        }
+        .pdf_table table tr th{
+            font-weight: bolder;
+            font-size: 11pt;
+            text-align: center;
+        }
+            .pdf_table table tr th small{
+                display: block;
+                font-weight: 300;
+                font-size: 8pt;
+            }
+        .pdf_table table tr td{
+            box-sizing: border-box;
+            padding: 6px 24px 6px 24px;
+            font-size: 9pt;
+        }
+
+
+
+
+
+#pdf-footer{
+    page-break-after: always !important;
+}
+
+    #pdf_page_counter{
+        float: right;
+        font-size: 10pt;
+    }
+    #pdf_page_counter p{
+        font-size: 8pt;
+        letter-spacing: 1px;
+    }
+    #pdf-footer-text{
+        font-size: 7pt;
+        letter-spacing: 1px;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-top: 45px;
+    }
+    .pdf-pages{
+        width: 100%;
+        display: block;
+        text-align: center;
+        font-size: 10pt;
+        page-break-after: always;
+    }
+
+
+
+/*Country Specific PDF Styles*/
+.pdf-country-name{
+    width: 100%;
+    display: block;
+    font-size: 28pt;
+    page-break-before: always !important;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+    .pdf-country-info-header{
+        font-size: 12pt;
+        text-transform: uppercase;
+        font-weight: 300;
+        display: block;
+        text-align: center;
+        letter-spacing: 2px;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+
+    .overview_paragraph{
+        font-family: 'Source Sans Pro', sans-serif;
+        font-weight: 400;
+        font-size: 10pt;
+        letter-spacing: 2px;
+        line-height: 1.6em;
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .twoxtwo{
+        width: 50%;
+        box-sizing: border-box;
+        padding: 15px;
+        text-align: center;
+        display: inline-block;
+        font-family: 'Source Sans Pro', sans-serif;
+    }
+        .twoxtwo h3{
+            font-size: 12pt;
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+        .twoxtwo h4{
+            font-size: 22pt;
+            letter-spacing: 2px;
+        }
+
+
+.itemfullwidth{
+    width: 100%;
+    font-family: 'Source Sans Pro', sans-serif;
+    margin-bottom: 15px;
+}
+    .itemfullwidth h1{
+        display: inline-block;
+        font-size: 14pt;
+        border: 1px solid black;
+        width: 32px; height: 32px; border-radius: 32px;
+        text-align: center; line-height: 32px;
+        margin-right: 20px;
+        position: relative; top: 2px;
+    }
+        .itemfullwidth p{
+            font-size: 10pt;
+            vertical-align: middle;
+            font-weight: 300;
+            display: inline-block;
+            float: right;
+            letter-spacing: 2px;
+        }
+
+
+
+
+
+
+
+
+@media print {
+
+	#click_to_print, #results_top_bar, #content, #main-nav, #side-nav{
+		display: none;
+	}
+	#body-row, .dashboard_wrap{
+		width:100% !important;
+	}
+	#pdf_instructions{
+		display: none !important;
+	}
+	#sidebar{
+		display: none !important;
+	}
+
+    body{
+
+    }
+    .hidePDF{
+    	display: block !important;
+    	visibility: visible;
+    }
+
+
+    #pdf-width{
+        width: 100% !important;
+        display: block !important;
+        height: auto !important;
+        position: absolute; top:0; left: 0 !important;
+        margin-left: 0px; margin-top: 0px !important;
+        color: rgba(0,0,0,1) !important;
+        opacity: 1;
+    }
+    /*.pdf_page_wrap {page-break-after: always;}*/
+
+    .pdf-footer{
+        page-break-after: always !important;
+    }
+
+    .pdf_country_left{
+        page-break-after:always;
+    }
+
+
+}

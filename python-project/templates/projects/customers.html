@@ -1,0 +1,229 @@
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% load humanize}
+{% block title %}Your Customers | Export Abroad{% endblock %}
+{% block body %}
+
+{% block extra_head %}
+
+{% endblock %}
+
+{% block sidebartwo %}
+<nav id="side-nav" class="lead-side">
+
+    <span class="sidebar-header" style="padding-top:35px;">
+        Countries:
+    </span>
+    <ol id="sidebar-countries-list">
+        <li><a class="sidebar-countries-link active sidebar-countries-all">All</a></li>
+        <!-- DELETE THIS NEXT LINE- MOCKUP -->
+        <li><a class="sidebar-countries-link active sidebar-countries-all">United States of America</a></li>
+        {% if customers %}
+        {% for customer in customers %}
+        <li><a class="sidebar-countries-link" id="sidebar-country-{{ customer.country }}">{{ customer.country.name }}</a></li>
+        {% endfor %}
+        {% else %}
+        {% endif %}
+    </ol>
+
+    <span class="sidebar-header" style="position:relative; top:20px;">
+        Total Pipeline Value:
+    </span>
+    <div id="lead-val" class="gradient-lb-lr">
+        <h6 class="pipeline-value">$32,750</h6>
+    </div>
+
+    <div class="request-lead-sidebar">
+        Request Leads
+    </div>
+
+
+</nav>
+{% endblock %}
+
+{% block content %}
+
+    <div id="lightbox-bg"></div>
+    <div class="lead-request-dialog">
+        <h1>Request Leads</h1>
+        <input type="text" placeholder="Customer Name" id="lead-r-customer">
+        <input type="text" placeholder="For which country?" id="lead-r-country">
+        <input type="text" placeholder="For which product? (HS #)" id="lead-r-product">
+
+        <button id="lead-request-send">Submit</button>
+        <div id="lead-request-cancel">Cancel/Close</div>
+    </div>
+
+
+    <div id="content" class="content-sidebar">
+
+
+
+            <div class="section-header-wrap">
+                    <div class="s-h-w-50">
+                        <h3 class="lead-emp lead-green" id="main-lead-header">1 Customer</h3>
+                    </div><!--
+                    --><div class="s-h-w-50" style="padding-top:11px;">
+                        <input type="text" placeholder="Type to search..." id="search-grid">
+                        <!--<a class="display-toggle select-display-active" id="display-list"><i class="ion-navicon-round"></i></a>
+                        <a class="display-toggle" id="display-grid"><i class="ion-grid"></i></a>-->
+                        <a class="action-btn" style="margin-left:15px;" href="/projects/new-customer/"><i class="ion-plus"></i> New Customer</a>
+                    </div>
+                </div>
+                <div class="grid-list-display">
+
+                    {% if customers %}
+
+                    {% for customer in customers %}<!--
+                    --><div class="gld-item gld-l gld-hover sidebar-country-{{ customer.country }}" onclick="location.href='/projects/customer-detail/{{ customer.slug }}/'">
+                        <span class="lead-title">{{ customer.company_name }}</span>
+                        <span class="lead-addy">Contacted: <em>July 2</em></span>
+                        <span class="lead-addy">{{ customer.city }}, {{ customer.state_province }}, {{ customer.country }}</span>
+                        <span class="lead-val">$12,000</span>
+                    </div><!--
+                    -->{% endfor %}
+
+        	        {% else %}
+
+
+        	{% endif %}
+
+
+
+    </div>
+
+
+
+{% endblock %}
+
+{% block extra_scripts %}
+    <script>
+        $("#link_customers").addClass("active");
+
+        // Toggle Grid/list
+        $("#display-list").click(function(){
+            $(".display-toggle").removeClass("select-display-active");
+            $(this).addClass("select-display-active");
+            $(".gld-item").removeClass("gld-g");
+            $(".gld-item").addClass("gld-l");
+        })
+        $("#display-grid").click(function(){
+            $(".display-toggle").removeClass("select-display-active");
+            $(this).addClass("select-display-active");
+            $(".gld-item").removeClass("gld-l");
+            $(".gld-item").addClass("gld-g");
+        })
+
+
+
+
+// Search
+            $('#search-grid').keyup(function(event) {
+                $(".gld-item").hide();
+
+                var search_input = $('#search-grid').val();
+                $("#main-lead-header").html("Search: <b>"+search_input+"</b>");
+
+                $('.gld-item').each(function(){
+                    if($(this).children(".lead-title").text().toLowerCase().indexOf(search_input) >= 0 || $(this).children(".lead-addy").text().toLowerCase().indexOf(search_input) >= 0){
+                        $(this).show();
+                    }
+                 });
+
+                 if(search_input == ""){
+                     $("#main-lead-header").html("Tag For Total");
+                 }
+            });
+
+
+            //Request Leads
+                    $(".request-lead-sidebar").click(function(){
+                        $("#lightbox-bg").show();
+                        $(".lead-request-dialog").show();
+                    });
+                    $("#lead-request-cancel, #lightbox-bg").click(function(){
+                        $("#lightbox-bg").hide();
+                        $(".lead-request-dialog").hide();
+                    });
+
+                    $("#lead-request-send").click(function () {
+
+            			$(this).text("Sending");
+
+                        var empty = "";
+                        var customer = $("#lead-r-customer").val();
+                        var country = $("#lead-r-country").val();
+                        var product = $("#lead-r-product").val();
+                            $.ajax({
+                                type: 'POST',
+                                url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                                data: {
+                                    'key': 'lq4msOm2tOT7-hPl3fBw6A',
+                                    'message': {
+                                        'from_email': 'mitch@exportabroad.com',
+                                        'to': [
+                                    {
+                                        'email': 'mitch@exportabroad.com',
+                                        'name': 'Austin Grandt',
+                                        'type': 'to'
+                                    }
+                                    ],
+                                    'autotext': 'true',
+                                    'subject': 'Lead Request - {{ request.user.username }}',
+                                    'html': 'Yo <b>{{ request.user.username }}</b> needs leads for HS# <b>'+product+'</b> in <b>'+country+'</b> for <b>'+customer+'</b>'
+                                }
+                            }
+            	            }).done(function(response) {
+            					$("#lead-request-send").html("Sent! <i class='ion-checkmark-round'></i>");
+                                setTimeout(
+                                  function()
+                                  {
+                                      $("#lightbox-bg").delay(500).hide();
+                                      $(".lead-request-dialog").delay(500).hide();
+                                  }, 1000);
+
+
+            	            });
+
+
+
+            	    });
+
+
+
+
+// Sort by country
+$(document).ready(function() {
+  $('ol').each(function() {
+    var seen = {};
+    $(this).children('li').each(function() {
+        var txt = $(this).text();
+        if (seen[txt])
+            $(this).remove();
+        else
+            seen[txt] = true;
+    });
+  });
+});
+
+
+    $(".sidebar-countries-link").click(function(){
+        $(".sidebar-countries-link").removeClass('active');
+        $(this).addClass('active');
+        $(".gld-item").hide();
+        var itemToHide = $(this).attr("id");
+        $("."+itemToHide).show();
+        var sortCountrySelected = $(this).text();
+        $("#main-lead-header").text(sortCountrySelected);
+        // $(".section-header-wrap").hide();
+    });
+    $(".sidebar-countries-all").click(function(){
+        $(".gld-item").show();
+        $("#main-lead-header").text("Tag with total");
+    });
+
+    </script>
+{% endblock %}
+
+
+{% endblock %}

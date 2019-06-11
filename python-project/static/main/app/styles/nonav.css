@@ -1,0 +1,11 @@
+main{
+	width: 100%;
+	position: absolute; left: 00px; top: 60px;
+}
+header{
+	width: 100%;
+	z-index: 10000000;
+}
+nav{
+	display: none !important;
+}

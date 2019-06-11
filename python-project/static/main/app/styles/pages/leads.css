@@ -1,0 +1,579 @@
+/*Leads Details Sidebar*/
+.lead-side{
+    text-align: center;
+    color: #fff;
+}
+    /*Prospect, contacted, etc*/
+    .lead-detail-category{
+        width: 100%;
+        box-sizing: border-box;
+        padding: 10px 0 10px 0;
+        font-size: 10pt;
+        font-family: 'Source Sans Pro', sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        margin-bottom: 25px;
+        font-weight: 300;
+        background-color: #3463D7;
+        color:#fff;
+    }
+    .co-img{
+        display: none;
+        height: 50px;
+        border-radius: 25px;
+        margin-top: 30px;
+    }
+    .lead-side h1,
+    .lead-side h2,
+    .lead-side a{
+        box-sizing:border-box;
+        padding: 0 15px 0 15px;
+    }
+    .lead-side h1{
+        margin-top: 25px;
+        font-size: 14pt;
+        letter-spacing: 1px;
+        font-weight: 400;
+        margin-bottom: 6px;
+    }
+    .lead-side h2{
+        font-size: 9pt;
+        font-weight: 300;
+        letter-spacing: 1px;
+        line-height: 1.25em;
+    }
+    #lead-link{
+        margin-top: 6px;
+        display: inline-block;
+        font-size: 9pt;
+        width: auto;
+        color: #3B6DD1;
+    }
+
+    #lead-val{
+        /*background-color: rgba(0,0,200,0.005);*/
+        background-color: #f1f1f1;
+        color: #161B25;
+        letter-spacing: 1px;
+        margin-top: 30px; margin-bottom: 30px;
+        box-sizing: border-box;
+        padding-top: 32px; padding-bottom: 32px;
+    }
+        #lead-val h6{
+            font-size: 13pt;
+            letter-spacing: 1px;
+            font-weight: 500 !important;
+        }
+
+/*Leads Details Notes*/
+.note-display{
+
+}
+    .note-display ul{
+        list-style-type: none;
+        margin: 0 auto;
+        padding:0;
+        margin-top: -20px;
+
+    }
+        .note-display ul li{
+            box-sizing:border-box;
+            padding: 12px 10px 12px 10px;
+            line-height: 1.75em;
+            font-size: 11pt;
+            /*border-bottom: 1px solid #D8E6F2;*/
+            /*border-left: 1px solid #D8E6F2;*/
+            /*border-right: 1px solid #D8E6F2;*/
+            background-color: #fff;
+        }
+                .note-display ul li:first-child{
+                    /*border-top: 1px solid #D8E6F2;*/
+                }
+            .note-display ul li b{
+                font-weight: bolder;
+                display: inline-block;
+                background-color: #3C6DD1;
+                color: #fff;
+                font-size: 9pt;
+                box-sizing:border-box;
+                padding: 2px 8px 2px 8px;
+                border-radius: 3px;
+                transition: 0.1s;
+                letter-spacing: 1px;
+                font-weight: 300;
+            }
+            .note-display ul li i{
+                opacity: 0.15;
+                margin-left: 10px;
+                transition: 0.2s;
+            }
+                .note-display ul li i:hover{
+                    opacity: 0.8;
+                    color: #ed0041;
+                    transition: 0.2s;
+                    cursor: pointer;
+                }
+
+    #note-entry{
+        width: 98%;
+        margin-left: 1%;
+        font-size: 10pt;
+        letter-spacing: 1px;
+        display: inline-block;
+        padding: 12px;
+        box-sizing: border-box;
+        margin-top: -20px;
+        margin-bottom: 25px;
+        border-radius: 4px;
+        display: none;
+        font-weight: 300;
+    }
+        #note-entry:focus{
+            border-color: #DAE6F1;
+            background-color: #F4F9FD;
+        }
+
+
+
+/*
+============================
+Leads  Grid Display
+============================
+*/
+
+.lead-emp{
+    box-sizing: border-box;
+    display: inline-block;
+    clear: both;
+    padding: 9px 20px 9px 20px;
+    position: relative; top:14px;
+    color: #000;
+    font-size: 11pt !important;
+    left: 1.5%;
+    letter-spacing: 2px !important;
+    font-weight: 300 !important;
+    opacity: 1;
+    margin-top: 0 !important;
+}
+.lead-blue{
+    background-color: #4776E6;
+    background: -webkit-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* IE10 */
+    background:      -o-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* Opera 11.10+ */
+    background:         linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* W3C */
+    color: #fff;
+}
+.lead-green{
+    background-color: #43cea2;
+    background: -webkit-linear-gradient(90deg, #43cea2 10%, #30ba8e 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(90deg, #43cea2 10%, #30ba8e 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(90deg, #43cea2 10%, #30ba8e 90%); /* IE10 */
+    background:      -o-linear-gradient(90deg, #43cea2 10%, #30ba8e 90%); /* Opera 11.10+ */
+    background:         linear-gradient(90deg, #43cea2 10%, #30ba8e 90%); /* W3C */
+    color: #fff;}
+.lead-red{
+    background-color: #e14650;
+    background: -webkit-linear-gradient(90deg, #e14650 10%, #dc2430 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(90deg, #e14650 10%, #dc2430 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(90deg, #e14650 10%, #dc2430 90%); /* IE10 */
+    background:      -o-linear-gradient(90deg, #e14650 10%, #dc2430 90%); /* Opera 11.10+ */
+    background:         linear-gradient(90deg, #e14650 10%, #dc2430 90%); /* W3C */
+    color: #fff;
+}
+.lead-black{background-color: #4B4F51; color: #fff;}
+
+/*Large blue, bottom*/
+.gld-g .lead-title{
+    font-size: 13pt;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+}
+.gld-g .lead-addy{
+    font-size: 9pt;
+    display: block;
+    line-height: 1.5em;
+}
+.gld-g .lead-val{
+    margin-top: 5px;
+    letter-spacing: 1px;
+    font-size: 10pt;
+    background-color: #4776E6;
+    background: -webkit-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* IE10 */
+    background:      -o-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* Opera 11.10+ */
+    background:         linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* W3C */
+    color: #fff;
+    display: inline-block;
+    box-sizing:border-box;
+    padding: 5px 8px 5px 8px;
+    border-radius: 3px;
+}
+
+/*
+============================
+Leads  List Display
+============================
+*/
+
+/*Large blue, bottom*/
+.gld-l .lead-title{
+    font-size: 13pt;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    width: 30%;
+    display: table-cell;
+}
+.gld-l .lead-addy{
+    font-size: 9pt;
+    display: block;
+    line-height: 1.5em;
+    display: table-cell;
+    width: 25%;
+}
+.gld-l .lead-val{
+    margin-top: 5px;
+    letter-spacing: 1px;
+    font-size: 10pt;
+    background-color: #3C6DD1;
+    background: -webkit-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* Chrome 10+, Saf5.1+ */
+    background:    -moz-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* FF3.6+ */
+    background:     -ms-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* IE10 */
+    background:      -o-linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* Opera 11.10+ */
+    background:         linear-gradient(90deg, #4776E6 10%, #225be1 90%); /* W3C */
+    color: #fff;
+    display: table-cell;
+    text-align: center;
+    width: 20%;
+    box-sizing:border-box;
+    padding: 5px 8px 5px 8px;
+    border-radius: 3px;
+}
+
+/*
+============================
+Leads Details Grid Display
+============================
+*/
+/*Larger, bold title*/
+.gld-g .ld-title{
+    font-size: 11pt;
+    letter-spacing: 1px;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+/*Super small subtitle - position*/
+.gld-g .ld-sub{
+    display: block;
+    margin-top: 3px;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    font-size: 8pt;
+    font-style: normal;
+}
+/*Basic Details*/
+.gld-g .ld-deet{
+    line-height: 1.6em;
+    letter-spacing: 1px;
+    font-size: 9pt;
+    font-weight: 400;
+    display: block;
+}
+/*
+============================
+Leads Details List Display
+============================
+*/
+/*Large bold title*/
+.gld-l .ld-title{
+    display: inline-block;
+    font-size: 11pt;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-right: 16px;
+    position: relative; top: 10px;
+}
+/*Super small subtitle - position*/
+.gld-l .ld-sub{
+    position: relative; top:10px;
+    display: inline-block;
+    letter-spacing: 1px;
+    font-size: 11pt;
+    font-style: normal;
+    margin-right: 10px;
+}
+/*Basic details*/
+.gld-l .ld-deet{
+    width: 20%;
+    display: inline-block;
+    line-height: 1.6em;
+    letter-spacing: 1px;
+    font-size: 9pt;
+    font-weight: 400;
+    margin-right: 10px;
+    display: table-cell;
+}
+    .gld-l b{
+        display: block;
+    }
+
+
+
+#sidebar-countries-list{
+    box-sizing: border-box;
+    text-align: left;
+    padding: 10px 15px 10px 15px;
+    list-style-type: none;
+}
+    #sidebar-countries-list li{
+        display: inline-block;
+    }
+    #sidebar-countries-list a{
+        box-sizing: border-box;
+        display: inline-block;
+        font-size: 8pt;
+        background-color: #ECEEF4;
+        padding: 5px 11px 5px 11px;
+        margin: 0 5px 10px 0;
+        font-weight: bolder;
+        border-radius: 15px;
+    }
+        #sidebar-countries-list .active{
+            background-color: #ECEEF4;
+            color: #141A25;
+        }
+        #sidebar-countries-list a:hover{
+            background-color: #fff;
+            cursor: pointer;
+            color: rgba(0,0,0,0.69);
+        }
+
+#lead_status{
+    width: 100%;
+    font-size: 12pt;
+    box-sizing: border-box;
+    padding: 0px 0 20px 0;
+    font-weight: bolder;
+    text-align: right;
+    margin-bottom: 10px;
+
+}
+    #lead_status select{
+        font-size: 12pt;
+        color: #4A4F51;
+        font-weight: bold;
+        border: 1px solid #D5E6F3;
+    }
+
+
+
+
+    #add-your-first-lead{
+        font-size: 12pt;
+        text-transform: lowercase;
+        text-align: center;
+        font-weight: 300;
+        transition:0.2s;
+        opacity: 0.5;
+    }
+        #add-your-first-lead i{
+            font-size: 34pt;
+            display: block;
+            padding-bottom: 6px;
+        }
+        #add-your-first-lead:hover{
+            cursor: pointer;
+            opacity: 0.85;
+            transition:0.2s;
+        }
+
+
+
+
+
+
+
+
+
+
+/*Lightbox to convert to customer*/
+/*Button*/
+#convert-to-customer{
+    width: auto;
+    box-sizing: border-box;
+    padding: 11px 35px 9px 35px;
+    font-size: 10pt;
+    background-color: #fff;
+    border: 1px solid #D8E6F2;
+    border-radius: 40px;
+    letter-spacing: 1px;
+    color: #4B4F51;
+    vertical-align: middle;
+    float: right;
+    margin-bottom: 25px;
+}
+    #convert-to-customer i{
+        font-size: 16pt;
+        margin-right: 15px;
+        vertical-align: middle;
+        position: relative; top:-2px;
+    }
+    #convert-to-customer:hover{
+        cursor: pointer;
+        border-color: rgba(50,50,50,0.8);
+        transform: scale(1.05);
+        -webkit-transform: scale(1.05);
+    }
+#to-customer{
+    width: 80%;
+    margin-left: 10%;
+    text-align: center;
+    letter-spacing: 2px;
+    box-sizing: border-box;
+    padding-top: 5%;
+    display:none;
+}
+
+    #to-customer h1{
+        font-size: 22pt;
+        color: #fff;
+        font-weight: 300;
+    }
+        #to-customer h1 b{
+            font-weight: 700;
+        }
+    #to-customer h2{
+        font-size: 12pt;
+        padding-top: 45px;
+        color: rgba(255,255,255,0.75);
+        font-weight: 300;
+        line-height: 1.6em;
+    }
+    #to-customer-confirm{
+        width: 100%;
+        margin-top: 35px;
+    }
+        #to-customer-confirm-no,
+        #to-customer-confirm-yes{
+            height: 80px;
+            width: 80px;
+            border: 3px solid rgba(213,230,243,0.9);
+            text-align: center;
+            display: inline-block;
+            line-height: 80px;
+            border-radius: 46px;
+            margin: 15px;
+            color: #fff;
+            font-size: 22pt;
+            background-color: white;
+        }
+            #to-customer-confirm-no:hover,
+            #to-customer-confirm-yes:hover{
+                cursor: pointer;
+                transition:0.2s;
+                -webkit-transform: scale(1.05);
+                transform: scale(1.05);
+            }
+        #to-customer-confirm-yes{background-color: #43cea2;}
+        #to-customer-confirm-no{background-color: #e14650;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*Add Lead Form*/
+#add-lead-title{
+    font-size: 16pt;
+    font-weight: 300;
+    text-align: center;
+    width: 80%;
+    margin-left: 10%;
+    letter-spacing: 1px;
+    line-height: 1.6em;
+}
+#add-lead-form{
+    width: 40%;
+    margin-left: 30%;
+    margin-top: 25px; margin-bottom: 55px;
+}
+    #add-lead-form label{
+        display: block;
+        font-size: 10pt;
+        font-weight: 400;
+        letter-spacing: 1px;
+        margin-bottom: 3px;
+    }
+    #add-lead-form input,
+    #add-lead-form select,
+    #add-lead-form textarea{
+        font-size: 16pt;
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+        box-sizing: border-box;
+        padding: 11px 15px 11px 15px;
+        font-weight: 300;
+        border: 1px solid #DAE6F1;
+        border-radius: 4px;
+        color: #4B4F51;
+        letter-spacing: 1px;
+    }
+        #add-lead-form input:hover,
+        #add-lead-form select:hover,
+        #add-lead-form textarea:hover{
+            border-color: rgba(50,50,50,0.48);
+        }
+        #add-lead-form input:focus,
+        #add-lead-form select:focus,
+        #add-lead-form textarea:focus{
+            border-color: #000;
+        }
+    #add-lead-form select{
+        height: 50px !important;
+    }
+
+    #add-lead-form .form_submit{
+        width: 100%;
+        background-color: #3C6DD1;
+        font-size: 14pt;
+        text-align: center;
+        color: #fff;
+        box-sizing: border-box;
+        padding: 10px 15px 10px 15px;
+        font-weight: 300;
+        letter-spacing: 1px;
+        border: 1px solid #DAE6F1;
+        border-radius: 4px;
+        font-family: 'Lato', sans-serif;
+        margin-top: 25px;
+        transition: 0.2s;
+    }
+        #add-lead-form .form_submit:hover{
+            cursor: pointer;
+            -webkit-transform:scale(1.05);
+            transform: scale(1.05);
+            transition: 0.2s;
+        }

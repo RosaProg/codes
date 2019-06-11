@@ -1,0 +1,44 @@
+
+    {% csrf_token %}
+    <div class="form-group">
+    	{{ form|as_bootstrap }}
+    </div>
+    <button type="submit"value="Submit" class="form_submit">Submit</button>
+</form>
+
+
+{% extends "main/base.html" %}
+{% load staticfiles %}
+{% block title %}Add Customer | Export Abroad{% endblock %}
+{% block body %}
+
+{% block extra_head %}
+{% endblock %}
+
+
+{% block sidebartwo %}
+
+{% endblock %}
+
+<div id="content">
+
+        <h1 id="add-lead-title">Add a new File</h1>
+		<form action="/projects/add-file/" method="post" enctype="multipart/form-data" id="add-lead-form">
+            {% csrf_token %}
+            <div class="form-group">
+            	{{ form }}
+            </div>
+            <button type="submit"value="Submit" class="form_submit">Submit</button>
+
+
+		</form>
+</div>
+
+
+    {% block extra_scripts %}
+        <script>
+            $("#link_customers").addClass("active");
+        </script>
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,128 @@
+{% extends "basex.html" %}
+{% load static from staticfiles %}
+{% block title %}Export Abroad | Global Growth Software{% endblock %}
+{% block body %}
+
+<style>
+body{
+    background-color: #F4F9FD;
+}
+</style>
+
+
+    <div id="home_hero" style="background-image:url('{% static 'img/van.jpg' %}')">
+
+		<h1 style="font-weight:lighter;">Tools to kickstart and manage your international growth.</h1>
+		<h2>Global sales leads, data, and customer management all in one spot. <br>Export Abroad is your business's global dashboard. </h2>
+		<a href="/accounts/login/#request" class="hero_button">See the demo</a>
+
+	</div>
+
+
+
+	<div id="home-tagline">
+		<h1>Exporting shouldn't feel like the wild west.</h1>
+		<p>
+			International trade can be daunting. Identifying leads, vetting partners, and managing the paperwork can quickly become frustrating. We walk you through the entire process and manage everything. Grow you business fast with as little headache as possible.
+		</p>
+	</div>
+
+
+	<section style="">
+
+
+        <div id="how-it-works-wrapper">
+    		<h1 class="sec_header" id="benefits_header">How it works</h1>
+
+    		<div id="home_tri">
+    			<div class="home_tri_item">
+    				<h2>1. We Learn About You</h2>
+    				<i class="ion-android-textsms"></i>
+    				<p>
+    				We do a deep dive with every company to figure out their needs and goals. We then assign you an account manager to work alongside your team. They ensure that the platform has all the information you need to be successful in a new market.
+    				</p>
+    			</div><!--
+    			--><div class="home_tri_item">
+    				<h2>2. Find Leads and Qualify </h2>
+    				<i class="ion-android-people"></i>
+    				<p>
+    					Figuring out what country to target, who to sell to, and who is a serious buyer can be extremely difficult. Let our team of experts find you sales leads and qualify the buyers. Spend your time with only the warmest of leads to close more deals, faster.
+    				</p>
+    			</div><!--
+    			--><div class="home_tri_item">
+    				<h2>3. Make Sales, Manage Customers</h2>
+    				<i class="ion-android-boat"></i>
+    				<p>
+    					When a lead becomes a customer we provide the tools for you to manage and delight your buyer. Our customer managment tool tracks and stores sales volume, paperwork, compliance, and notes about your customers so operations can run smoothly.
+    				</p>
+    			</div>
+    		</div>
+        </div>
+
+
+		<div id="home-screenshot">
+            <img src="{% static 'img/research2.png' %}">
+            <div id="home-screenshot-text">
+                <h1>Data Informed Decisions</h1>
+                <p>
+                    Everything on our platform is 100% customized for your company. Our proprietary algorithms and software guide you through the entire process from identifying a market to making a sale. Once you dominate a new market, we'll even help you find the next one.
+                    <br/>
+                    <a href="{% static 'img/heatworks.pdf' %}" target="_blank" class="btn-normal">Example Report</a>
+                </p>
+            </div>
+        </div>
+
+<!--
+		<div id="home_tri">
+			<div class="home_tri_item">
+				<h2>Customized Lead Generation</h2>
+				<i class="ion-android-textsms"></i>
+				<p>
+					We leverage technology and human curation to build lists of leads in the countries you want to penetrate. Every lead we bring to you is customized for your sales targets within a company.
+				</p>
+			</div>
+				<div class="home_tri_item">
+				<h2>Curate and Handoff</h2>
+				<i class="ion-android-people"></i>
+				<p>
+					Our team of curation specialists save you time by taking care of prospecting on your list of leads. Once a lead is qualified, we bring the warm leads to your sales team to make the sale.
+				</p>
+			</div>
+			<div class="home_tri_item">
+				<h2>Manage and Execute</h2>
+				<i class="ion-android-boat"></i>
+				<p>
+					Export Abroad also has the tools you need to manage your global sales. Users can store documents, paperwork, and track customer converstions seamlessly for visiblity company wide.
+				</p>
+			</div>
+		</div>
+		-->
+
+
+		<div id="home_quote">
+			<img src="{% static 'img/lynnhyjar.jpg' %}">
+			<p>
+				After the initial demo, I was blown away by this great tool. Not only is it easy to use, but effective. The information is tailored to the user’s needs, and Export Abroad takes into consideration all the moving parts that comprise very well executed market research. We are excited about Export Abroad and highly recommend it.
+			</p>
+			<h2>- Lynn Hijar, <b>iBiz247</b></h2>
+		</div>
+
+
+		<div id="as_seen_in">
+			<h1>As seen in</h1>
+			<img src="{% static 'img/media/forbes.png' %}">
+			<img src="{% static 'img/media/ft.png' %}">
+			<img src="{% static 'img/media/startribune.png' %}">
+			<img src="{% static 'img/media/techmn.png' %}">
+			<img src="{% static 'img/media/captimes.png' %}">
+			<img src="{% static 'img/media/statejournal.png' %}">
+		</div>
+
+
+	</section>
+
+	<div class="c_t_a">
+		<h1>Ready to get started? <i>It's simple.</i><br/><a style="background-color:#fff;" href="/accounts/login#request">Request Access Now</a></h1>
+	</div>
+
+{% endblock %}

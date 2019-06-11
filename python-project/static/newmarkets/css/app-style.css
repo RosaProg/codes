@@ -1,0 +1,554 @@
+/*  ======================================================
+
+        .css
+
+        styles for ExportAbroad.com
+
+        Table of Contents:
+        #0. Technical: body/html, imports, etc;
+        #1. Universal, cross-page styles for everything
+        #2. Specific page element styles
+        #3. Media queries
+
+    ====================================================== */
+
+
+/*=============================================================================================
+   #   #    000           XXXXX  XXXXX  XXXXX  X   X  X   X  XXXXX  XXXXX  XXXXX  X
+ ########  00  0            X    X      X      X   X  XX  X    X    X      X   X  X
+  #   #    0 0 0            X    XXX    X      XXXXX  X X X    X    X      XXXXX  X
+########   0  00            X    X      X      X   X  X  XX    X    X      X   X  X
+ #   #      000             X    XXXXX  XXXXX  X   x  X   X  XXXXX  XXXXX  X   X  XXXXX
+==============================================================================================*/
+
+
+
+/* =======================================================
+              Below this line is Sidebar Code
+   ======================================================= */
+
+/*Body row is the entier body content, wrapped in a bootstrap .row div*/
+
+
+
+
+
+
+
+/*To Do stuff:*/
+/*TODO Style Links*/
+
+/*Body Tweaks*/
+body{
+    overflow-x: hidden;
+    font-weight: 300;
+    background-color:#f7f7f7;
+    color:#353535;
+    font-family: 'Lato', sans-serif;
+}
+/*Heading styles for app*/
+h1, h2, h3, h4, h5, h6{
+    font-weight: 400;
+    padding: 5;
+    margin: 0 auto;
+}
+
+
+a:link, a:visited{
+    color:#59A1C9;
+}
+
+
+
+
+/* =======================================================
+              Overall Page Styles
+   ======================================================= */
+
+/*Page Header for Apps*/
+.app-page-head{
+    font-size:24pt;
+    padding-left:50px;
+    height:101px;
+    line-height: 98px;
+    color:#313a43;
+    background-color:transparent;
+    font-weight: 300;
+    margin-bottom:40px;
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(219, 219, 219, 0.75); -moz-box-shadow:    0px 1px 2px 0px rgba(219, 219, 219, 0.75); box-shadow:         0px 1px 2px 0px rgba(219, 219, 219, 0.75);
+}.app-page-head i{
+    color:#313a43;
+    padding-right:15px; padding-left:15px;
+    position:relative; top:1px;
+}
+.with-categories{
+    box-shadow: none;
+    margin-bottom: 0;
+}
+
+
+.bottom-border {
+    border-bottom:1px solid #e5e5e5;
+}
+
+#app-page-underhead{
+   font-size:14pt;
+    padding-left:50px;
+    height:45px;
+    line-height: 44px;
+    color:#313a43;
+    background-color:#fff;
+    margin-bottom:40px;
+    font-weight: 300;
+    border-bottom:1px solid #e5e5e5;
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(219, 219, 219, 0.75); -moz-box-shadow:    0px 1px 2px 0px rgba(219, 219, 219, 0.75); box-shadow:         0px 1px 2px 0px rgba(219, 219, 219, 0.75);
+}#app-page-underhead a:link, #app-page-underhead a:visited{
+    padding-right:30px;
+}#app-page-underhead a:hover, #app-page-underhead a:active{
+    font-weight: 700;
+    text-decoration: none;
+}#app-page-underhead .active{font-weight: 700;}
+
+.card-space {
+
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+
+
+
+
+.content{
+    background-color:white;
+    margin-top: 20px; margin-bottom: 20px;
+    padding-top:15px; padding-bottom: 15px;
+    border-radius: 3px;
+    border:1px solid #e5e5e5;
+    -webkit-box-shadow: 0px 1px 2px 0px rgba(219, 219, 219, 0.75); -moz-box-shadow:    0px 1px 2px 0px rgba(219, 219, 219, 0.75); box-shadow:         0px 1px 2px 0px rgba(219, 219, 219, 0.75);
+    padding:15px;
+}
+.content h4{
+    font-size: 14pt;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    color:#8596a7;
+    font-weight: 700;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #F4F4F4;
+}
+
+.content .links{
+
+    font-size: 13pt;
+
+}
+
+#toolt {
+    text-transform: none !important;
+}
+
+
+
+/*Styles for individual boxes*/
+.app-box{
+    background-color:white;
+    padding:0; margin:0 auto;
+    border-radius: 2px;
+    margin-bottom: 30px;
+}
+/*The inner portion of the boxes, containing EVERYTHING*/
+.inner-app-box{
+    padding:25px;
+    font-size: 14pt;
+    font-weight: 400;
+}
+/*Center the title, and give it a bg and padding*/
+.app-box-title{
+    border-top-right-radius: 2px; border-top-left-radius: 2px;
+    width:100%;
+    height:50px;
+    line-height: 50px;
+    color:#fff;
+    font-size: 14pt; font-weight: 400;
+    text-align: center;
+}
+
+
+/*Various color options for title bg*/
+.greenbox{background-color:#39D1B4;}
+.bluebox{background-color:#59A1C9;}
+.redbox{background-color:#F65A5B;}
+.blackbox{background-color:#1c1c1c;}
+
+
+/*  =======================================
+                Specific Boxes
+
+    The classes below this specify specific
+                Data boxes.
+    ======================================= */
+
+/*Box containing hs number input*/
+
+.hs-number input{
+    margin-top:10px;
+    width:250px;
+    border:none;
+    background-color:#F6F6F6;
+    outline: 0;
+    padding-left:10px; padding-right:10px;
+    height: 45px;
+    font-family: 'Lato', sans-serif;
+    font-size: 30px;
+}
+
+.hs-number button{
+    border:none;
+    height:45px;
+    margin: 0 auto;
+    font-weight: 700;
+    position: relative; top:-8px;
+}
+
+.hs-number small{font-size: 10pt;}
+
+
+
+
+/* =======================================================
+                Results Page!!!!!
+   ======================================================= */
+.data-row{
+    margin-top:70px;
+}
+.accordion .inner-app-box{
+    /*display: none;*/
+}
+
+
+
+
+/* =======================================================
+                User Settings Page!!!!!
+   ======================================================= */
+
+#user-info{
+    width:100%;
+    font-size: 32pt;
+    font-family: 'Lato', sans-serif;
+    font-weight: 300;
+    color:#353535;
+    padding-bottom: 15px;
+}
+#user-info img{
+    width:100px; height:100px;
+    margin-right: 30px; margin-left: 15px;
+    float:left;
+}
+.user-text{
+    line-height: 25px;
+    padding-top:25px;
+}
+.user-text small{
+    font-size: 12pt;
+    font-weight: 700;
+    padding-left:3px;
+}
+
+.security-settings input{
+    margin-top:3px; margin-bottom: 6px;
+    font-size: 14pt; color:#39D1B4;
+    padding-left:5px; padding-right: 5px;
+    border-radius: 3px;
+    border:1px solid #bcbcbc;
+}
+
+
+
+
+
+/* =======================================================
+             Styles for List/Logistics Page
+   ======================================================= */
+
+.list-instructions{
+    font-size: 18pt;
+    font-weight: 200;
+    color: #7a7a7a;
+}
+.list-instructions select{
+    background-color: rgba(0,0,0,0.02);
+    color: #353535;
+    border: 1px solid #adadad;
+    text-align: center;
+}
+
+
+.listitem{
+    font-weight: 400;
+    padding-top: 25px; padding-bottom: 25px;
+    border-top: 1px solid #d2d5d5;
+    color: #788181;
+    border-collapse: collapse;
+}
+.list-border-bottom{border-bottom: 1px solid #d2d5d5; height: 1px; margin-bottom: 55px;}
+
+.listitem:hover{cursor: pointer;}
+.listname{
+    color: #353535;
+}
+.listname img{
+    padding-right: 20px;
+}
+.listdeets{
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.listdeets b{font-style:oblique;}
+.listdeets a{font-weight: 400; font-style: normal; color: #848484; background-color: rgba(0,0,0,0.025);  padding: 4px; position: relative; top:5px;}
+.listdeets a:link, .listdeets a:visited{color:#848484;}
+.listdeets a:hover, .listdeets a:active{color:#39D1B4;}
+.expandlist{
+    text-align: center;
+    margin-bottom: 20px;
+    padding-top: 20px;
+}
+.expandedcontent{
+    display: none;
+}
+
+
+
+/* ===================================
+            Help Page
+   =================================== */
+
+
+.faqlinks a{
+    font-size: 13pt; font-weight: lighter;
+}
+.faqlinks ul{padding-top: 10px;}
+
+.faqcontactlink{
+    font-size: 16pt;
+    width:100%;
+    text-align: center;
+    font-weight: 700;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.faqcontactlink a{
+    color:#353535;
+}
+
+.faqs{
+    font-size: 12pt;
+}
+.faqhead{
+    margin-top: 45px;
+}
+
+.contactbox{
+    margin-bottom: 75px;
+}
+
+
+/* ===================================
+           COUNTRY PAGE
+   =================================== */
+
+   .data-info {
+    font-size:64pt;
+    height:101px;
+    line-height: 98px;
+    color:white;
+
+   }
+
+    .data-underinfo {
+    font-size:20pt;
+    color:white;
+
+   }
+
+   .card-outline-b {
+    background-color: #59A1C9;
+    color: #353535;
+    border: 1px solid #adadad;
+    text-align: center;
+
+   }
+
+    .card-outline-g {
+    background-color: #39D1B4;
+    color: #353535;
+    border: 1px solid #adadad;
+    text-align: center;
+
+
+
+   }
+
+    .card-outline-r {
+    background-color: #F65A5B;
+    color: #353535;
+    border: 1px solid #adadad;
+    text-align: center;
+   }
+
+
+   /* ===================================
+           RESOURCES PAGE
+   =================================== */
+
+.resource-space {
+    margin: 10px;
+}
+
+<<<<<<< HEAD
+
+
+
+/* ========================================
+   ========================================
+   ========================================
+       New Universal Styles as of 9/14
+       Organize later
+   ========================================
+   ========================================
+   ======================================== */
+
+.app-head-wrap{
+    background-color:white;
+}
+
+/* text under the header bar */
+.app-page-subhead{
+    font-size:14pt;
+    font-weight:700;
+    text-transform:uppercase;
+    padding-left:15px;
+    margin-top:15px;
+    padding-top:8px;
+}
+
+/* De emphasize text, lighten it */
+.de-emp{
+    text-transform:none;
+    font-weight:400;
+    color:#353535;
+}
+
+/* Float Right */
+.text-r {
+    text-align:right;
+    float:right;
+}
+
+/* Actual card styles */
+.card-item{
+    background-color:white;
+    margin-top:25px;
+    padding:0;
+    border:1px solid #f2f2f2;
+    border-radius:4px;
+}
+/* Card item title */
+.card-item h3{
+    background-color: #353F49;
+    margin:0 auto;
+    padding:0 auto;
+    text-transform:uppercase;
+    font-size:11pt;
+    padding-left:25px;
+    padding-top:25px;
+    padding-bottom:22px;
+    font-weight:700;
+    color:#fff;
+    border-top-right-radius:3px; border-top-left-radius:3px;
+    border-bottom:2px solid #20262c;
+}
+/* Card item text/contents */
+.card-item p{
+    padding:25px;
+    padding-bottom:20px;
+}
+
+/* Circular Data display, large number with label below */
+.data-circle{
+    height:180px; width:180px;
+    border-radius:90px;
+    line-height:165px;
+    font-size:38pt;
+    font-weight:700;
+    text-align:center;
+    color:#fff;
+    position:relative; left:50%; margin-left:-90px;
+
+}
+
+.data-circle-multi{
+    height:180px; width:180px;
+    border-radius:90px;
+    line-height:60px;
+    font-size:30pt;
+    font-weight:700;
+    text-align:center;
+    color:#fff;
+    position:relative; left:50%; margin-left:-90px;
+
+}
+
+.data-circle-small{
+    height:180px; width:180px;
+    border-radius:90px;
+    line-height:165px;
+    font-size:25pt;
+    font-weight:700;
+    text-align:center;
+    color:#fff;
+    position:relative; left:50%; margin-left:-90px;
+
+}
+.circle-label{
+    font-size:12pt;
+    color:#fff;
+    position:relative; top:-140px;
+}
+.bluebg{
+    background-color: #59A1C9;
+}
+.redbg{
+    background-color: #F65A5B;
+}
+.greenbg{
+    background-color: #39D1B4;
+}
+
+.data-circle-wrap{
+    text-align:center;
+}
+
+/* The header/title under circle data display */
+.data-circle-head{
+    width:100%;
+    padding-top:20px;
+    font-weight:700;
+    color:#353f49;
+    font-size:14pt;
+}
+
+
+
+   /* ===================================
+          COUNTRY RESULTS
+   =================================== */
+
+ .result-name {
+    font-size:20pt;
+    height:25px;
+    line-height: 25px;
+    color:#1c1c1c;
+
+}

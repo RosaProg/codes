@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load analytical %}
+<html>
+  <head>
+    {% analytical_head_top %}
+    <meta name="theme-color" content="#1253A4">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="Export Abroad is a global intelligence and emerging markets advisory firm. Our mission is to break down the barriers of international expansion. We currently operate out of our headquarters in Madison, WI with satellite offices in Silicon Valley and Minneapolis." name="description" />
+    <meta content="Mitch Samuels" name="author" />
+    <title>{% block title %}Export Abroad{% endblock %}</title>
+
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/globe.png' %}" />
+
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/promo.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/media_specifics.css' %}">
+    <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+
+    <!-- Export Abroad Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Clear+Sans:200,400,500,700/Muli:200,300,400,600,700">
+
+
+    <!-- END CSS TEMPLATE -->
+    {% block extra_head %}
+    {% endblock %}
+    {% analytical_head_bottom %}
+</head>
+<!-- END HEAD -->
+<body>
+{% analytical_body_top %}
+
+
+
+
+    <!-- <div id="promo">
+		<a href="/promo/">Saw us at White House Demo Day? Click here to stay updated.</a>
+	</div>
+	<i class="ion-ios-close-empty" id="close_promo"></i> -->
+
+
+
+    <nav>
+		<a href="/">
+	    	<span id="branding">
+	      		<img src="{% static 'img/globe.png' %}">
+	      		ExportAbroad
+	    	</span>
+		</a>
+	    <ul id="nav_menu">
+	      <li><a href="{% url "product" %}" id="product_link">Product</a></li>
+	      <!-- <li><a href="/pricing/" id="pricing_link">Pricing</a></li> -->
+	      <li><a href="http://blog.exportabroad.com">Blog</a></li>
+          <li><a href="{% url "about" %}" id="team_link">About</a></li>
+	      <li><a href="{% url "contact" %}" id="contact_link">Contact</a></li>
+	    </ul>
+	   	<div id="nav_accounts">
+	      <a href="/accounts/login/">Dashboard</a>
+	   	</div>
+		<i class="ion-navicon" id="show_mobile_nav_btn"></i>
+	</nav>
+
+
+
+    {% block body %}
+
+    {% block content %}
+
+    {% endblock content %}
+
+    {% endblock body %}
+
+
+    {% block extra_body %}
+    {% endblock extra_body %}
+
+
+
+
+
+
+    <footer>
+    	<a href="/">home</a>
+    	<a href="{% url 'product' %}">product</a>
+        <a href="http://blog.exportabroad.com">blog</a>
+    	<a href="{% url 'about' %}">about</a>
+
+    	<!-- <a href="/pricing/">pricing</a> -->
+    	<a href="{% url 'contact' %}">contact</a>
+
+    	<h2>copyright 2015 export abroad</h2>
+    </footer>
+
+
+
+    <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        $("#close_promo").click(function(){
+            $(this).slideUp();
+            $("#promo").slideUp();
+        });
+    </script>
+
+
+    {% analytical_body_bottom %}
+  </body>
+</html>

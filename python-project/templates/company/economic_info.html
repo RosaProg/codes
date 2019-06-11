@@ -1,0 +1,27 @@
+{% extends "dashboard_base.html" %}
+{% block title %}Dashboard | Export Abroad{% endblock %}
+
+{% load bootstrap_tags %}
+{% block body %}
+<div class="container-fluid">
+<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+<section class="row">
+ 	<div class="jumbotron">
+        <h1>Tell us more about your company</h1>
+        <p class="lead">We gather more information so we can customize our research to fit your needs.</p>
+    </div>
+</section>
+
+<section class="row">
+<form action="/company/economic/" method="post" class="col-xs-9">
+	{% csrf_token %}
+	<div class="form-group">
+		{{ form | as_bootstrap }}
+	</div>
+	<input type="submit"value="Submit" class="btn btn-lg btn-success">
+	
+</form>
+</section>
+</div>
+</div>
+{% endblock %}

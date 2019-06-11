@@ -1,0 +1,185 @@
+{% load static from staticfiles %}
+
+<html>
+	<head>
+		<title>Export Abroad</title>
+
+        <meta name="theme-color" content="#1253A4">
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta content="Export Abroad is a global intelligence and emerging markets advisory firm. Our mission is to break down the barriers of international expansion. We currently operate out of our headquarters in Madison, WI with satellite offices in Silicon Valley and Minneapolis." name="description" />
+        <meta content="Mitch Samuels" name="author" />
+        <title>Techweek! | Export Abroad</title>
+
+		<!-- Responsive viewport -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="{% static 'img/globe.png' %}" />
+
+        <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/promo.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+        <link rel="stylesheet" type="text/css" href="{% static 'css/media_specifics.css' %}">
+        <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+
+        <!-- Export Abroad Fonts -->
+        <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Clear+Sans:200,400,500,700/Muli:200,300,400,600,700">
+
+
+	</head>
+	<body>
+
+
+    <style>
+    @media only screen and (max-width: 1040px) {
+        #sign_in_modal{
+            width:60%; margin-left: 20%;
+            padding:35px 35px 15px 35px;
+        }
+    }
+    @media only screen and (max-width: 840px) {
+        #sign_in_modal{
+            width:70%; margin-left: 15%;
+            padding:35px 35px 15px 35px;
+        }
+    }
+    @media only screen and (max-width: 640px) {
+        #sign_in_modal{
+            width:80%; margin-left: 10%;
+            padding:35px 35px 15px 35px;
+        }
+    }
+    @media only screen and (max-width: 440px) {
+        #sign_in_modal{
+            width:90%; margin-left: 5%;
+            padding:35px 35px 15px 35px;
+        }
+    }
+    </style>
+
+
+
+	<div id="sign_in_page">
+
+		<div id="sign_in_modal">
+	      	<a href="/"><img src="{% static 'img/globe.png' %}"></a>
+
+			<p class="promo_instructions" id="promo_head">
+				<span>Fill out the form below if you'd like to stay updated or if you're interested in any of our services.</span>
+			</p>
+
+			<div id="promo_form">
+				<input placeholder="Full Name" id="promo_name">
+				<input placeholder="Email Address" id="promo_email">
+				<input placeholder="Phone Number" id="promo_phone">
+
+				<select id="promo_work">
+					<option value="NA">What brings you here?</option>
+					<option value="startup">Startup</option>
+					<option value="investor">Investor</option>
+					<option value="InterestedInServices">Interested in services</option>
+					<option value="Media">Media</option>
+					<option value="Other">Other</option>
+				</select>
+
+				<textarea id="promo_comments" placeholder="Do you have any comments for us?"></textarea>
+
+				<button id="promo_form_submit">Submit</button>
+				<br/><br/>
+			</div>
+
+
+
+			<div id="request_success">
+				<i class="ion-ios-checkmark-outline"></i>
+				<h2>Success!</h2>
+				<p>
+					You will hear from us shortly! If you'd like to read more about international trade in the meantime, <a href="http://blog.exportabroad.com" target="_blank">check out our blog.</a>
+				</p>
+				<a href="/" id="return_home">Return Home</a>
+				<br/><br/><br/>
+			</div>
+
+		</div>
+
+	</div>
+
+    <div id="demo_form_error">
+		Sorry, you must fill out every field.
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+	<script src="src/jquery-1.8.3.min.js"></script>
+	<script src="src/main.js"></script>
+
+	<script>
+
+
+
+
+		$("#promo_form_submit").click(function () {
+
+
+
+                var empty = "";
+                var name = $("#promo_name").val();
+                var email = $("#promo_email").val();
+                var phone = $("#promo_phone").val();
+                var business = $("#promo_work").val();
+                var comments = $("#promo_comments").val();
+                if (empty == name || empty == email || empty == phone || empty == business || empty == comments)
+                {
+                    $("#demo_form_error").show(400).delay(8000).hide(400);
+                    e.preventDefault();
+                }
+                else
+               {
+					$("#promo_form_submit").text("Submitting...");
+                    $.ajax({
+                          type: 'POST',
+                          url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                          data: {
+                            'key': 'WKXdbEwmpCgbrFai8a10Ag',
+                            'message': {
+                              'from_email': 'mitch@exportabroad.com',
+                              'to': [
+                                  {
+                                    'email': 'austin@exportabroad.com',
+                                    'name': 'Austin Grandt',
+                                    'type': 'to'
+                                  }
+                                ],
+                              'autotext': 'true',
+                              'subject': '#WHDemoDay - '+name,
+                              'html': '<b>Message From:</b> '+name+'<br/><b>Email Address:</b> '+email+'<br/><b>Phone:</b> '+phone+'<b><br/><br/>Business:</b><br/>'+business+'<b><br/><br/>Comments:</b><p>'+comments
+                            }
+                          }
+                         }).done(function(response) {
+							$("#promo_form").slideUp();
+							$("#promo_instructions").slideUp();
+							$("#promo_head").slideUp();
+							$("#request_success").slideDown();
+                    });
+
+
+                }
+
+
+        });
+
+
+
+	</script>
+
+
+
+	</body>
+</html>

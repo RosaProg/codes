@@ -1,0 +1,182 @@
+/*Grid View*/
+.gld-g .prod-first{
+    display: inline-block;
+    width: 100%;
+    vertical-align: middle;
+}
+    .gld-g .prod-second{
+        display: inline-block; width: 100%;
+        text-align: right;
+    }
+    .gld-g .prod-title{
+        display: block;
+        font-size: 14pt;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-bottom: 0px;
+    }
+    .gld-g .prod-desc{
+        display: block;
+        font-size: 10pt;
+        font-weight: 300;
+        letter-spacing: 1px;
+        line-height: 1.6em;
+        margin-bottom: 15px;
+    }
+    .gld-g .prod-date{
+        vertical-align: middle;
+        font-size: 9pt;
+        font-weight: 300;
+        float: left;
+        position: relative; top:4px;
+        letter-spacing: 1px;
+    }
+    .gld-g .prod-hs{
+        font-size: 10pt;
+        background-color: #3C6DD1;
+        color: #fff;
+        margin-left: 25px;
+        display: inline-block;
+        box-sizing:border-box;
+        padding: 5px 8px 5px 8px;
+        border-radius: 3px;
+    }
+
+/*List View*/
+.gld-l .prod-first{
+    display: inline-block;
+    width: 60%;
+    vertical-align: middle;
+}
+    .gld-l .prod-second{
+        display: inline-block; width: 40%;
+        text-align: right;
+    }
+    .gld-l .prod-title{
+        display: block;
+        font-size: 14pt;
+        letter-spacing: 1px;
+        font-weight: 700;
+        margin-bottom: 0px;
+    }
+    .gld-l .prod-desc{
+        display: block;
+        font-size: 10pt;
+        font-weight: 300;
+        letter-spacing: 1px;
+        line-height: 1.6em;
+    }
+    .gld-l .prod-date{
+        vertical-align: middle;
+        font-size: 9pt;
+        font-weight: 300;
+        letter-spacing: 1px;
+    }
+    .gld-l .prod-hs{
+        font-size: 10pt;
+        background-color: #3C6DD1;
+        color: #fff;
+        margin-left: 25px;
+        display: inline-block;
+        box-sizing:border-box;
+        padding: 5px 8px 5px 8px;
+        border-radius: 3px;
+    }
+
+
+
+
+.request-lead-sidebar{
+    box-sizing: border-box;
+    padding: 15px;
+    width: 90%;
+    margin-left: 4.5%;
+    color:#fff;
+    border: 2px solid #fff;
+    margin-top: 45px;
+    border-radius: 30px;
+    letter-spacing: 1px;
+    font-size: 11pt;
+    font-weight: 400;
+    transition: 0.15s;
+}
+    .request-lead-sidebar:hover{
+        cursor: pointer;
+        border-color: rgba(255,255,255,1);
+        color: rgba(0,0,0,1);
+        background-color:#fff;
+        transition: 0.15s;
+    }
+
+
+#lightbox-bg{
+    background-color: rgba(0,0,100,0.35);
+    z-index: 500000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%; height: 100%;
+    display: none;
+}
+
+.lead-request-dialog{
+    display: none;
+    width: 400px;
+    height: auto;
+    box-sizing: border-box;
+    padding: 25px;
+    position: absolute; left: 50%;
+    top: 5%;
+    z-index: 500001;
+    margin-left: -200px;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+    .lead-request-dialog h1{
+        display: block;
+        text-align: center;
+        font-weight: 400;
+        padding: 0; margin: 0; margin-bottom: 25px;
+        color: rgba(0,0,50,0.75);
+        font-size: 14pt;
+    }
+    .lead-request-dialog input{
+        width: 100%;
+        margin: 0 auto;
+        padding: 0;
+        box-sizing: border-box;
+        padding: 15px;
+        margin-bottom: 15px;
+        letter-spacing: 1px;
+        font-weight: 300;
+        border: 1px solid #DAE6F1;
+    }
+    #lead-request-send{
+        width: 100%;
+        margin: 0 auto;
+        box-sizing: border-box;
+        padding: 15px;
+        text-align: center;
+        margin-bottom: 8px;
+        margin-top: 15px;
+        background-color: #161B25;
+        color: #fff;
+        border: none;
+        font-size: 12pt;
+        letter-spacing: 1px;
+        transition: 0.1s;
+    }
+        #lead-request-send:hover{
+            cursor: pointer;
+            opacity: 0.89;
+            transition: 0.1s;
+        }
+    #lead-request-cancel{
+        text-align: center;
+        font-size: 8pt;
+        letter-spacing: 1px;
+    }
+        #lead-request-cancel:hover{
+            cursor: pointer;
+            color: #4CB0EB;
+        }

@@ -1,0 +1,55 @@
+{% extends "basex.html" %}
+{% load static from staticfiles %}
+{% block title %}Contact | Export Abroad{% endblock %}
+
+
+{% block body %}
+
+<div id="contact_hero" style="background-image:url('{% static 'img/madison.jpg' %}');">
+
+    <h1 id="contact_header">
+        Contact Us
+    </h1>
+
+</div>
+
+
+<section style="background-color:#F4F9FD; padding-top:55px;">
+
+
+
+    <div id="contact_form_top_two">
+        <input type="text" placeholder="Name" id="contact_form_name"><!--
+        --><input type="text" placeholder="Email" id="contact_form_email">
+    </div>
+    <textarea id="contact_form_message" placeholder="Message"></textarea>
+
+    <button id="contact_form_submit"><i class="ion-ios-paperplane-outline" id="contact_form_submit_icon"></i></button>
+
+    <div id="demo_form_error">
+		Sorry, you must fill out every field.
+	</div>
+
+
+    <div id="contact_location">
+        <div class="contact_location_item">
+            Email:<br/>
+            info@exportabroad.com
+        </div><!--
+        --><div class="contact_location_item">
+            104 King Street<br/>
+            suite 202<br/>
+            Madison WI 53703
+        </div><!--
+        --><div class="contact_location_item">
+            Phone:<br/>
+            (608)520-0227<br/>
+            (772)222-7623
+        </div>
+    </div>
+
+
+</section>
+
+
+{% endblock %}

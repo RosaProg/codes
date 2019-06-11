@@ -1,0 +1,561 @@
+
+
+#pdf-wrapper{
+    opacity: 0;
+}
+
+body,
+html{
+    background-color: #fff;
+}
+
+#sidebar{
+    z-index: 500;
+}
+main{
+    z-index: 50000;
+}
+
+#pdf-wrapper{
+    height: auto;
+    float: none;
+    width: 10.3in;
+}
+.pdf-page{
+    width: 10.3in;
+    height:7.36in;
+    overflow: hidden;
+    overflow: none;
+    z-index: 500000;
+    color: #3E454C;
+    page-break-after: always;
+}
+.pdf-page h1,
+.pdf-page h2,
+.pdf-page h3,
+.pdf-page h4,
+.pdf-page h5,
+.pdf-page h6{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0; padding: 0;
+    letter-spacing: 1px;
+    color: #3E454C;
+
+}
+
+.pdf-page nav{
+    height: 7.36in;
+    width: 3in;
+    position: absolute;
+    right: 0;
+    box-sizing: border-box;
+    border-left: 1px solid #F3FAFB;
+    font-family: 'Montserrat', sans-serif;
+    display: inline-block;
+    background-color: #222c3e;
+}
+
+.pdf-page .pdf-body{
+    width: 7.3in;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0.5in;
+}
+
+.pdf-header{
+    background-color: #3794F8;
+    height: 0.6in;
+    width: 10.3in;
+}
+    .pdf-header img{
+        height: 0.3in;
+        margin-top: 0.15in;
+        margin-left: 0.25in;
+    }
+    .pdf-header h1{
+        float: right;
+        height: 0.6in;
+        line-height: 0.6in;
+        color: #fff;
+        margin-right: 0.25in;
+        font-size: 14pt;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+/*
+    =========================================
+    =========================================
+                Cover Page
+    =========================================
+    =========================================
+                                                */
+#pdf-page-cover{
+    top: 0; left:0%;
+    height: 7.96in;
+    background-color: #3794F8;
+}
+    #pdf-page-cover nav{
+        text-align: center;
+        background-color: #fff;
+        height: 7.96in;
+    }
+        #pdf-page-cover nav h1{
+            font-size: 12pt;
+            margin-top: 5.5in;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        #pdf-page-cover nav img{
+            width: 1.5in;
+        }
+    #pdf-page-cover .pdf-body{
+        text-align: left;
+    }
+        #pdf-page-cover .pdf-body h1{
+            font-size: 16pt;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 20px;
+        }
+        #pdf-page-cover .pdf-body h2{
+            font-size: 22pt;
+            text-transform: capitalize;
+            color: #fff;
+            line-height: 1.4em;
+        }
+        #pdf-page-cover i.mg{
+            color: rgba(255,255,255,0.6);
+            width: 100%;
+            text-align: center;
+            font-size: 200pt;
+            margin-top: 135px;
+        }
+
+/*
+    =========================================
+    =========================================
+                Page Two
+    =========================================
+    =========================================
+                                                */
+#pdf-page-2{
+    top: 7.8in; left:0%;
+}
+    #pdf-page-2 .pdf-body{
+        width: 10.3in;
+        height: 7.36in;
+    }
+    #table-of-contents{
+        width: 100%;
+        height: 5in;
+    }
+        #table-of-contents .left{
+            width: 3.5in;
+            margin-left: 207px;
+            display: inline-block;
+        }
+        #table-of-contents .right{
+            width: 1.5in;
+            display: inline-block;
+            text-align: right;
+        }
+            #table-of-contents .left h1,
+            #table-of-contents .right h1{
+                box-sizing: border-box;
+                padding-bottom: 6px;
+                text-transform: uppercase;
+                border-bottom: 1px solid black;
+                font-size: 14pt;
+                margin-bottom: 12px;
+                margin-top: 135px;
+            }
+            #table-of-contents .left ul,
+            #table-of-contents .right ul{
+                margin-top: 35px;
+                padding: 0;
+                margin: 0;
+                list-style-type: none;
+            }
+                #table-of-contents .left ul li,
+                #table-of-contents .right ul li{
+                    box-sizing: border-box;
+                    padding: 8px 0 8px 0;
+                    font-size: 10pt;
+                    font-weight: bolder;
+                    font-family: 'Montserrat', sans-serif;
+                    letter-spacing: 1px;
+                }
+
+
+/*
+    =========================================
+    =========================================
+                Page Three
+    =========================================
+    =========================================
+                                                */
+#pdf-page-3{
+    top: 7.8in; left:0%;
+}
+    #pdf-page-3 nav{
+        text-align: center;
+    }
+        #pdf-page-3 nav h1{
+            font-size: 16pt;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.4in;
+            margin-bottom: 0.15in;
+            letter-spacing: 2px;
+        }
+        #pdf-page-3 nav ul{
+            padding: 0; margin: 0 auto;
+            list-style-type: none;
+        }
+            #pdf-page-3 nav ul li{
+                box-sizing: border-box;
+                padding: 20px 20px 20px 20px;
+                font-family: 'Montserrat', sans-serif;
+                color: #fff;
+                text-transform: uppercase;
+                font-size: 12pt;
+                letter-spacing: 1px;
+                font-weight: bolder;
+            }
+    #pdf-page-3 .pdf-body{
+        height: 7.36in;
+    }
+        #pdf-page-3 .pdf-body h2{
+            font-size: 12pt;
+            color: rgba(62,69,76,0.6);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        #pdf-page-3 .pdf-body p{
+            font-size: 10pt;
+            line-height: 1.8em;
+            color: #3E454C;
+            box-sizing: border-box;
+            padding: 10px 0 30px 0;
+        }
+            #pdf-page-3 .pdf-body p img{
+                height: 30px; width: auto;
+                vertical-align: middle;
+                position: relative; top: 0px;
+            }
+            #pdf-page-3 .pdf-body p a{
+                text-decoration: none;
+                margin-right: 10px;
+                color: #3794F8;
+            }
+
+
+/*
+=========================================
+=========================================
+            Page Four
+=========================================
+=========================================
+                                            */
+#pdf-page-4{
+top: 7.8in; left:0%;
+}
+#pdf-page-4 .pdf-body{
+    padding: 0.25in;
+}
+#pdf-page-4 nav{
+    text-align: center;
+}
+    #pdf-page-4 nav h1{
+        font-size: 16pt;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.6);
+        margin-top: 0.4in;
+        margin-bottom: 0.15in;
+        letter-spacing: 2px;
+    }
+    #pdf-page-4 nav ul{
+        padding: 0; margin: 0 auto;
+        list-style-type: none;
+    }
+        #pdf-page-4 nav ul li{
+            box-sizing: border-box;
+            padding: 20px 20px 20px 20px;
+            font-family: 'Montserrat', sans-serif;
+            color: #fff;
+            text-transform: uppercase;
+            font-size: 12pt;
+            letter-spacing: 1px;
+            font-weight: bolder;
+        }
+
+    #about-overview i{
+        color:#3E454C;
+        font-size: 32pt;
+        width: 20%;
+        position: relative; top: -8px;
+        text-align: center;
+        padding-top: 5px; padding-bottom: 15px;
+    }
+    .overview-table{
+        width: 100%;
+        margin: 0px 0% 0 0%;
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 0px;
+    }
+    .overview-table table{
+        width:100%;
+        border: 1px solid #F3FAFB;
+    }
+    .overview-table tr{
+        width: 100%;
+        background-color: #fff;
+        font-weight: bold;
+    }
+        .overview-table tr:nth-child(even){
+            background-color: #F3FAFB;
+        }
+    .overview-table tr th{
+        font-size: 9pt;
+        text-align: left;
+        box-sizing: border-box;
+        padding: 4px 8px 6px 8px;
+        font-weight: normal;
+        background-color: rgba(55,148,248,1);
+        letter-spacing: 1px;
+        color: #fff;
+    }
+        .overview-table tr th:nth-child(1),
+        .overview-table tr th:nth-child(2),
+        .overview-table tr th:nth-child(3),
+        {
+            text-align: left;
+        }
+    .overview-table tr th small{
+        display: block;
+        font-size: 5pt;
+    }
+
+    .overview-table tr td{
+        font-size: 9pt;
+        box-sizing: border-box;
+        padding: 4px 8px 4px 8px;
+    }
+
+
+
+    /*Tri Graphs*/
+    .pdf-double-graph{
+        width: 100%;
+        margin: 0px 0% 0px 2.5%;
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 10px 0 0px 0;
+    }
+    .economic-graph{
+        width: 45%;
+        overflow: hidden;
+        display: inline-block;
+    }
+    .economic-graph h1{
+        margin-top: 2px;
+        font-size: 8pt;
+        text-transform: uppercase;
+        margin: 0 0 5px 0;
+        padding: 10px 0 6px 35px;
+        text-align: center;
+    }
+
+    .overview-line{
+        width: 92%;
+        margin: 0 4% 0 4%;
+        background-color: #fff;
+        box-sizing: border-box;
+        padding: 15px;
+    }
+        .overview-line .section-inner h3{
+            font-size: 8pt;
+            text-transform: uppercase;
+            margin: 0 0 10px 0;
+            padding: 10px 0 0 0;
+            letter-spacing: 1px;
+            text-align: center;
+        }
+
+
+        #line-legend{
+            list-style-type: none;
+        }
+            #line-legend li{
+                display: inline-block;
+                text-transform: uppercase;
+                vertical-align: middle;
+                box-sizing: border-box;
+                font-weight: bolder;
+                padding: 0px;
+                text-align: center;
+                width: 20%;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 7pt;
+            }
+                #line-legend li:nth-child(1){color:#e53935;}
+                #line-legend li:nth-child(2){color:#749dfa;}
+                #line-legend li:nth-child(3){color:#43cea2;}
+                #line-legend li:nth-child(4){color:#F9D423;}
+                #line-legend li:nth-child(5){color:#feadd7;}
+
+
+/*
+=========================================
+=========================================
+            Page Five (Repeats)
+=========================================
+=========================================
+                                            */
+.pdf-page-5{
+top: 7.8in; left:0%;
+}
+.pdf-page-5 .pdf-body{
+    padding: 0.25in;
+}
+.pdf-page-5 nav{
+    text-align: center;
+}
+    .pdf-page-5 nav h1{
+        font-size: 16pt;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.6);
+        margin-top: 0.4in;
+        margin-bottom: 0.15in;
+        letter-spacing: 2px;
+    }
+    .pdf-page-5 nav i{
+        color: #fff;
+        opacity: 1;
+        font-size: 84pt;
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+    .pdf-page-5 p{
+        display: none;
+        box-sizing: border-box;
+        padding: 10px 15px 0 15px;
+        color: #fff;
+        line-height: 1.75em;
+        text-align: justify;
+        font-family: 'Open Sans', sans-serif;
+        font-weight: lighter;
+        font-size: 9pt;
+        letter-spacing: 1px;
+    }
+
+
+    .country-background-data{
+        width: 100%;
+        margin: 0px 0% 10px 0%;
+        box-sizing: border-box;
+        padding: 0px 0 5px 0;
+    }
+        .country-background-data .item{
+            width: 33.333%;
+            display: inline-block;
+            box-sizing: border-box;
+            vertical-align: middle;
+            padding: 10px 10px 10px 10px;
+            text-align: center;
+            color: #3E454C;
+        }
+            .country-background-data .item h2{
+                font-size: 9pt;
+                font-family: 'Montserrat', sans-serif;
+                margin: 0 auto;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #000;
+                padding: 0 0 6px 0;
+            }
+            .country-background-data .item h3{
+                margin: 0 auto;
+                padding: 0;
+                letter-spacing: 1px;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 8pt;
+            }
+
+
+    /*Tri Graphs*/
+    .tri-graph{
+        background-color: #F3FAFB;
+        width: 100%;
+        margin: 10px 0% 30px 0%;
+        box-sizing: border-box;
+        padding: 10px 0 10px 0;
+    }
+    .economic-graph2{
+        width: 30.333%;
+        display: inline-block;
+        margin: 0 1.5% 0 1.5%;
+    }
+    .economic-graph2 h1{
+        font-size: 8pt;
+        text-transform: uppercase;
+        margin: 0 0 15px 0;
+        padding: 10px 0 0 0;
+        text-align: center;
+    }
+
+    .data-four{
+        width: 100%;
+        margin: 10px 0% 10px 0%;
+        background-color: #F3FAFB;
+    }
+        .data-four .item{
+            display: inline-block;
+            width: 25%;
+            border-radius: 50%;
+            box-sizing: border-box;
+            text-align: center;
+            box-sizing: border-box;
+            padding: 28px 5px 32px 5px;
+            color: #3E454C;
+        }
+            .data-four .item h1{
+                font-size: 7pt;
+                font-family: 'Montserrat', sans-serif;
+                margin: 0 auto;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                color: #3E454C;
+                padding: 0 0 6px 0;
+            }
+            .data-four .item h2{
+                margin: 0 auto;
+                padding: 5px 0 0 0;
+                letter-spacing: 1px;
+                color: #3E454C;
+                font-family: 'Montserrat', sans-serif;
+                font-size: 13pt;
+            }
+
+
+
+
+@media print {
+
+
+    #lightbox-background,
+    .popup-modal,
+    #main-nav,
+    #sidebar,
+    main{
+        display: none;
+    }
+
+    #pdf-wrapper{
+        opacity: 1;
+    }
+
+}

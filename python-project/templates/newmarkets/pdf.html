@@ -1,0 +1,977 @@
+{% extends "dashboard_base.html" %}
+{% load url from future %}
+{% load static from staticfiles %}
+{% block title %}Export Abroad | Making Exporting Easy.{% endblock %}
+{% load humanize %}
+{% block body %}
+
+
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/pages/data.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/pages/pdf.css' %}">
+    <!-- Map Glyphs -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/mapglyphs/mapglyphs.css' %}">
+
+    <!-- <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script> -->
+    <!-- <script src="https://d3js.org/topojson.v1.min.js"></script> -->
+    <!-- <script type="text/javascript" src="{% static 'newmarkets/js/datamaps.world.min.js' %}"></script> -->
+
+
+    <script type="text/javascript" src="{% static 'newmarkets/js/Chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'newmarkets/js/charts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'newmarkets/js/highcharts.js' %}"></script>
+
+
+    <style>
+        body,html{
+            background-color: #fff;
+        }
+    </style>
+
+{% endblock %}
+
+{% block sidebar %}
+    <nav id="sidebar">
+
+        <span class="heading">
+            Top Countries
+        </span>
+
+        <ul class="sidebar-nav">
+            <li><a href="#">All Countries <i class="ion-chevron-right"></i></a></li>
+            {%if top_five %}
+    	    	{% for market in top_five %}
+    	        	<li><a href="/newmarkets/country/{{market.country_id}}/">{{ market.country_id.country_name }} <i class="ion-chevron-right"></i></a></li>
+    	        {% endfor %}
+    	    {% endif %}
+            <li class="spacer active"><a href="/newmarkets/pdf/"><i class="ion-arrow-down-c"></i> Download Report</a></li>
+            <li><a href="{{ MEDIA_URL }}/assets/UK-Layout-UPS-Approved.pdf"><i class="ion-arrow-down-c"></i> UPS UK Report</a></li>
+        </ul>
+
+        <hr/>
+
+        <i class="mg map-wrld" id="overview-globe"></i>
+
+    </nav>
+{% endblock %}
+
+
+
+
+
+{% block content %}
+
+
+<main>
+
+    <div class="scroll-header">
+        <h1 id="scroll-header-title">Comprehensive PDF report for <b>{{hsdescript.product_descript}}</b> - HS No. <b>{{hsdescript.hs_number}}</b></h1>
+    </div>
+
+
+    <div id="pdf-intro">
+        <h5>Your PDF is being generated.<br/><Br/>Read the instructions to download your PDF report.</h5>
+
+        <ul>
+            <li>Click the download button.</li>
+            <li>In the popup, click <b>Change</b> under Destination and change to <b>Save as PDF<b>.</li>
+            <li>Change <b>Layout</b> to <b>Landscape</b>.</li>
+            <li>Make sure <b>Paper Size</b> is set to <b>Letter</b>.</li>
+            <li>Set the <b>Margins</b> to <b>None</b>.</li>
+            <li>Check the box to <b>Enable Background Graphics</b>.</li>
+        </ul>
+
+        <button id="download-pdf" onclick="printFunction();" disabled>Download in 5</button>
+
+    </div>
+
+
+
+
+
+
+
+
+</main>
+
+
+<div id="pdf-wrapper">
+
+    <!-- =================================
+                PAGE COVER
+         ================================= -->
+
+    <section class="pdf-page" id="pdf-page-cover">
+        <nav>
+            <h1>Compliments of</h1>
+            <img src="{% static 'media/pages/ups_shield.png' %}">
+        </nav><!--
+
+        --><div class="pdf-body">
+            <h1>Comprehensive Report For</h1>
+            <h2>{{hsdescript.product_descript}} (HS#{{hsdescript.hs_number}})</h2>
+            <i class="mg map-glb-at"></i>
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+                PAGE TWO
+         ================================= -->
+
+    <section class="pdf-page" id="pdf-page-2">
+        <div class="pdf-header">
+            <img src="{% static 'main/universal/visuals/globe.png' %}">
+            <h1>02 - Table of Contents</h1>
+        </div>
+
+        <div class="pdf-body">
+            <div id="table-of-contents">
+                <div class="left">
+                    <h1>Content</h1>
+                    <ul>
+                        <li>Purpose & Methods</li>
+                        <li>Data Overview</li>
+                        {%if top_five %}
+                	    	{% for market in top_five %}
+                	        	<li>{{ market.country_id.country_name }}</li>
+                	        {% endfor %}
+                	    {% endif %}
+                    </ul>
+                </div><!--
+                --><div class="right">
+                    <h1>Page</h1>
+                    <ul>
+                        <li>03</li>
+                        <li>04</li>
+                        <li>05</li>
+                        <li>06</li>
+                        <li>07</li>
+                        <li>08</li>
+                        <li>09</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+                PAGE THREE
+         ================================= -->
+
+    <section class="pdf-page" id="pdf-page-3">
+
+        <div class="pdf-header">
+            <img src="{% static 'main/universal/visuals/globe.png' %}">
+            <h1>03 - Purpose & Methods</h1>
+        </div>
+
+
+        <nav>
+            <h1>Sources</h1>
+            <ul>
+                <li>World Bank</li>
+                <li>CIA Intelligence Unit</li>
+                <li>World Trade Organization</li>
+                <li>International Monetary Fund</li>
+            </li>
+        </nav><!--
+
+        --><div class="pdf-body">
+
+            <h2>Purpose</h2>
+            <p>To provide insight into top markets for <b>{{hsdescript.product_descript}} - HS#{{hsdescript.hs_number}})</b>.</p>
+
+            <h2>Method</h2>
+            <p>Our process utilizes a hybrid model of digital computation and human interaction to provide and display trade data. We first compile the data using our proprietary computation process. Our analysts then add their own insights. All insights are tailored precisely for the customer’s industry and are verified and backed by our analysts working on the project.</p>
+
+            <h2>How do I use this report?</h2>
+            <p>This report is primarily geared towards manufacturing companies interested in finding opportunities for their company throughout the world. We start at a high level of the business landscape and present some industry statistics. Whether you are in sales or operations, you will leave this report with a deeper understanding of the opportunities and insights to keep in mind as you look towards the global marketplace.</p>
+
+            <h2>Computation and Analysis Provided by</h2>
+            <p id="by-exportabroad"><b>Export Abroad | <a href="http://exportabroad.com">http://exportabroad.com</a></b><img src="{% static 'main/universal/visuals/globe.png' %}"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================
+                PAGE FOUR
+         ================================= -->
+
+    <section class="pdf-page" id="pdf-page-4">
+
+        <div class="pdf-header">
+            <img src="{% static 'main/universal/visuals/globe.png' %}">
+            <h1>04 - Data Overview</h1>
+        </div>
+
+
+        <nav>
+            <h1>Top 5 Countries</h1>
+            <ul>
+                {%if top_five %}
+        	    	{% for market in top_five %}
+        	        	<li>{{ market.country_id.country_name }}</li>
+        	        {% endfor %}
+        	    {% endif %}
+            </li>
+        </nav><!--
+
+        --><div class="pdf-body">
+
+
+            <div id="about-overview">
+                {%if top_five %}
+        	    	{% for market in top_five %}<!--
+                    --><i class="mg map-{{market.country_id.country_id}}"></i><!--
+        	        -->{% endfor %}
+        	    {% endif %}
+            </div>
+
+
+
+            <div class="overview-table">
+                    <table cellspacing=0>
+                            <tr>
+                                <th>Country<small>Name</small></th>
+                                <th>Imported Value<small>For HS #{{hsdescript.hs_number}} in USD</small></th>
+                                <th>GDP<small>$ Amount</small></th>
+                                <th>GDP Growth<small>% change</small></th>
+                                <th>Inflation<small>% Change 2013</small></th>
+                                <!-- <th>Documents<small>for importing</small></th> -->
+                                <th>Population<small>Total</small></th>
+                            </tr>
+
+                        {% for market in top_five %}
+                            <tr>
+                                <td>{{ market.country_id.country_name }}</td>
+                                <td id="table_market_share_{{ forloop.counter }}"></td>
+                                <td>${{ market.country_id.gdp|intword }}</td>
+                                <td>{{ market.country_id.gdp_growth }}%</td>
+                                <td>{{ market.country_id.inflation }}%</td>
+                                <!-- <td>{{ market.country_id.imports_docs }}</td> -->
+                                <td>{{ market.country_id.population|intword }}</td>
+                            </tr>
+                        {% endfor %}
+
+
+                    </table>
+                </div>
+
+
+                <div class="pdf-double-graph">
+                    <div class="economic-graph">
+                        <h1>GDP Growth 2013 (%)</h1>
+                        <div class="tri_canvas_wrap">
+    	                    <canvas id="gdp_graph" height="120"></canvas>
+        				</div>
+                    </div><!--
+                    --><div class="economic-graph">
+                        <h1>Import Documents</h1>
+                        <div class="tri_canvas_wrap">
+    	                    <canvas id="docs_graph" height="120"></canvas>
+        				</div>
+                    </div>
+                </div>
+
+                <!-- LARGE COMPARRISON LINE GRAPH -->
+                <div class="overview-line">
+                    <div class="section-inner">
+                        <h3>GDP Growth (% Change)</h3>
+                        <div class="canvas_wrap">
+                            <canvas id="compare_gdp_growth" width="1250" height="300"></canvas>
+                        </div>
+                        <ul id="line-legend">
+                            {% for market in top_five %}<!--
+                            --><li>{{ market.country_id.country_name }}</li><!--
+                            -->{% endfor %}
+                        </ul>
+                    </div>
+                </div>
+
+
+
+
+
+        </div>
+
+    </section>
+
+
+
+
+    <!-- =================================
+                PAGE FIVE (REPEAT 5 TIMES)
+         ================================= -->
+
+{% for market in top_five %}
+
+    <section class="pdf-page pdf-page-5">
+
+        <div class="pdf-header">
+            <img src="{% static 'main/universal/visuals/globe.png' %}">
+            <h1>0<span class="top-page-counter"></span> - Country Data</h1>
+        </div>
+
+
+        <nav>
+            <h1>{{ market.country_id.country_name }}</h1>
+            <i class="mg map-{{market.country_id.country_id}}"></i>
+            <p><span id="fill_specific_desc{{market.country_id.country_id}}">Background info Unavailable.</span></p>
+        </nav><!--
+
+        --><div class="pdf-body">
+
+
+            <div class="country-background-data" style="margin-top:18px;">
+                <div class="item">
+                    <h2>Capital</h2>
+                    <h3 id="capital_entry{{market.country_id.country_id}}">Unavailable.</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Population</h2>
+                    <h3>{{market.country_id.population|intcomma}}</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Languages</h2>
+                    <h3 id="language_entry{{market.country_id.country_id}}">Unavailable.</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Currency</h2>
+                    <h3 id="currency_entry{{market.country_id.country_id}}">Unavailable.</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Government</h2>
+                    <h3 id="government_entry{{market.country_id.country_id}}">Unavailable.</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Time Zone</h2>
+                    <h3 id="time_entry{{market.country_id.country_id}}">Unavailable.</h3>
+                </div>
+            </div>
+
+
+            <div class="tri-graph" style="margin-top:30px;">
+                <div class="economic-graph2">
+                    <h1>GDP (% Change)</h1>
+                    <div class="tri_canvas_wrap">
+                        <canvas id="gdp_growth_graph{{market.country_id.country_id}}"></canvas>
+                    </div>
+                </div><!--
+
+                --><div class="economic-graph2">
+                    <h1>GDP Per Capita ($)</h1>
+                    <div class="tri_canvas_wrap">
+                        <canvas id="gdp_capita_graph{{market.country_id.country_id}}"></canvas>
+                    </div>
+                </div><!--
+
+                --><div class="economic-graph2">
+                        <h1>Inflation (% Change)</h1>
+                    <div class="tri_canvas_wrap">
+                        <canvas id="inflation_graph{{market.country_id.country_id}}"></canvas>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="country-background-data" style="margin-top:30px; margin-bottom: 30px;">
+                <div class="item">
+                    <h2>Business Index</h2>
+                    <h3>{{market.country_id.bizindex|intword}}</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Import Cost</h2>
+                    <h3>${{market.country_id.imports_cost}}</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Import Time</h2>
+                    <h3>{{market.country_id.imports_time|intword}} Days</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Import Docs</h2>
+                    <h3>{{market.country_id.imports_docs|intword}}</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>&nbsp;</h2>
+                    <h3>&nbsp;</h3>
+                </div><!--
+                --><div class="item">
+                    <h2>Logistics Index</h2>
+                    <h3>{{market.country_id.logistics_index}}/5</h3>
+                </div>
+            </div>
+
+
+
+            <div class="data-four">
+                <div class="item">
+                    <h1>GDP 2013<br/><small>Total in $</small></h1>
+                    <h2>{{market.country_id.gdp|intword}}</h2>
+                </div><!--
+                --><div class="item">
+                    <h1>Income<br/><small>Per Capita</small></h1>
+                    <h2>${{market.country_id.gdp_per_capita}}</h2>
+                </div><!--
+                --><div class="item">
+                    <h1>GDP Growth<br/><small>% Change 2013</small></h1>
+                    <h2>{{market.country_id.gdp_growth}}</h2>
+                </div><!--
+                --><div class="item">
+                    <h1>Inflation<br/><small>% Change 2013</small></h1>
+                    <h2>{{market.country_id.inflation}}</h2>
+                </div>
+            </div>
+
+
+
+
+        </div>
+
+    </section>
+{% endfor %}
+
+
+    {% block extra_scripts %}
+
+    <script type="text/javascript" src="{% static 'scripts/universal/mapglyphs.js' %}"></script>
+
+
+
+    <script type="text/javascript" src="{% static 'newmarkets/js/Chart.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'newmarkets/js/charts.js' %}"></script>
+    <script type="text/javascript" src="{% static 'newmarkets/js/highcharts.js' %}"></script>
+
+<script>
+
+    function printFunction(){
+        $("#pdf-wrapper").show();
+        window.print();
+        $("#pdf-wrapper").hide();
+    }
+    $( document ).ready(function() {
+        setTimeout(function() {
+            $("#download-pdf").text("Download in 4");
+            setTimeout(function() {
+                $("#download-pdf").html("Download in 3");
+                setTimeout(function() {
+                    $("#download-pdf").html("Download in 2");
+                    setTimeout(function() {
+                        $("#download-pdf").html("Download in 1");
+                        setTimeout(function() {
+                            $("#download-pdf").html("Download");
+                            $("#download-pdf").prop("disabled",false);
+                        }, 1000);
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }, 1000);
+
+
+    });
+</script>
+
+
+<script>
+
+var topCounter = 5;
+
+$('.top-page-counter').each(function(){
+    $(this).text(topCounter);
+    topCounter++;
+ });
+
+
+ $("#nav-link-data").addClass("active");
+
+
+
+
+
+var xoptions =
+    {
+        tooltipTemplate: "<%= value %>",
+        showTooltips: true,
+        showScaleLabels: true,
+        scaleLabel: "<%=value%>",
+        tooltipTemplate: "<%= value %>",
+        tooltipXPadding: 3,
+        scaleBeginAtZero: false,
+        responsive: true,
+        tooltipYPadding: 3,
+        tooltipFillColor: '#4E99F2',
+        tooltipFontColor: '#fff',
+        tooltipFontFamily: "'Montserrat', sans-serif",
+        tooltipFontStyle: 'normal',
+        tooltipFontSize: 12,
+        tooltipCaretSize: 2,
+        tooltipCornerRadius: 2,
+        onAnimationComplete: function()
+        {
+            this.showTooltip(this.datasets[0].bars, true);
+        },
+        tooltipEvents: []
+    }
+
+
+//GDP BAR GRAPH
+var gdp_data = {
+    labels: [
+                {% for market in top_five %}
+                        "{{ market.country_id.country_id }}",
+                {% endfor %}
+    ],
+    datasets: [
+        {
+            label: "My First dataset",
+            fillColor: "rgba(36,45,61,0.8)",
+            strokeColor: "rgba(18,83,164,0.0)",
+            highlightFill: "rgba(18,83,164,0.75)",
+            highlightStroke: "rgba(18,83,164,0)",
+            data: [
+                            {% for market in top_five %}
+                                    {{ market.country_id.gdp_growth }},
+                            {% endfor %}
+                        ]
+        }
+    ]
+};
+
+var gdp_graph = document.getElementById("gdp_graph").getContext("2d");
+new Chart(gdp_graph).Bar(gdp_data, xoptions);
+
+
+//DOC NUMBERS BAR
+var docs_data = {
+    labels: [
+                {% for market in top_five %}
+                            "{{ market.country_id.country_id }}",
+                        {% endfor %}
+            ],
+    datasets: [
+        {
+            fillColor: "rgba(36,45,61,0.8)",
+            strokeColor: "rgba(18,83,164,0)",
+            highlightFill: "rgba(18,83,164,0.75)",
+            highlightStroke: "rgba(18,83,164,0)",
+            data: [{% for market in top_five %}
+                        {{ market.country_id.imports_docs }},
+                    {% endfor %}]
+        }
+    ]
+};
+var docs_graph = document.getElementById("docs_graph").getContext("2d");
+new Chart(docs_graph).Bar(docs_data, xoptions);
+
+
+
+
+var x1 = "";
+var x2 = "";
+var x3 = "";
+var x4 = "";
+var x5 = "";
+
+
+    {% for market in top_five %}
+
+
+        $.getJSON("{% static "" %}newmarkets/factbook/{{ market.country_id.country_id }}.json").done(function(jsondata){
+            var getjson = jsondata;
+
+
+            gdp_growth_data = getjson.econ.gdp_real_growth_rate.text.replace(/ *\([^)]*\) */g, "");
+            gdp_growth_data_split = gdp_growth_data.split(";");
+
+
+            growth_rate_10_{{ forloop.counter }} = gdp_growth_data_split[2].replace("%", "");
+
+            growth_rate_11_{{ forloop.counter }} = gdp_growth_data_split[1].replace("%", "");
+
+            growth_rate_12_{{ forloop.counter }} = gdp_growth_data_split[0].replace("%", "");
+
+
+
+
+                //GDP GROWTH
+                //DOC NUMBERS BAR
+                var compare_gdp_data = {
+                    labels: [2010,2011,2012],
+                    datasets: [
+                        {
+                            fillColor: "rgba(0,0,0,0)",
+                            strokeColor: "#e53935",
+                            data: [growth_rate_10_1, growth_rate_11_1, growth_rate_12_1]
+                        },{
+                            fillColor: "rgba(0,0,0,0)",
+                            strokeColor: "#749dfa",
+                            data: [growth_rate_10_2, growth_rate_11_2, growth_rate_12_2]
+                        },{
+                            fillColor: "rgba(0,0,0,0)",
+                            strokeColor: "#43cea2",
+                            data: [growth_rate_10_3, growth_rate_11_3, growth_rate_12_3]
+                        },{
+                            fillColor: "rgba(0,0,0,0)",
+                            strokeColor: "#F9D423",
+                            data: [growth_rate_10_4, growth_rate_11_4, growth_rate_12_4]
+                        },{
+                            label: "red",
+                            fillColor: "rgba(0,0,0,0)",
+                            strokeColor: "#feadd7",
+                            data: [growth_rate_10_5, growth_rate_11_5, growth_rate_12_5]
+                        }
+                    ]
+                };
+                var gdp_growth_graph = document.getElementById("compare_gdp_growth").getContext("2d");
+                new Chart(gdp_growth_graph).Line(compare_gdp_data, {
+                  scaleBeginAtZero : false,
+                  showScaleLabels: true,
+                  scaleLabel: "<%=value%>%",
+                  tooltipTemplate: "yeah",
+                  tooltipCornerRadius: 0,
+                  scaleLineColor: "rgba(0,0,0,.25)",
+                  scaleGridLineColor : "rgba(0,0,0,.12)",
+                  pointDotRadius : 5,
+                  scaleFontColor: "#3e454c",
+                  pointDotStrokeWidth : 2,
+                  responsive:true
+                });
+
+
+
+        });
+
+    {% endfor %}
+
+
+
+    $.getJSON('/newmarkets/api/results/').done(function(data){
+        var getMarketShare = data;
+
+
+        //PIE GRAPH
+        var remaining_world_market_share = Math.round((((getMarketShare[0].imported_value2012 - getMarketShare[1].imported_value2012 - getMarketShare[2].imported_value2012 - getMarketShare[3].imported_value2012 - getMarketShare[4].imported_value2012 - getMarketShare[5].imported_value2012) / getMarketShare[0].imported_value2012)*100)*10)/10;
+
+        var market_share_c1 = Math.round(((getMarketShare[1].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        var market_share_c2 = Math.round(((getMarketShare[2].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        var market_share_c3 = Math.round(((getMarketShare[3].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        var market_share_c4 = Math.round(((getMarketShare[4].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+        var market_share_c5 = Math.round(((getMarketShare[5].imported_value2012 / getMarketShare[0].imported_value2012)*100)*10)/10;
+
+
+        var table_market_1 = Math.round(getMarketShare[1].imported_value2012);
+        var table_market_2 = Math.round(getMarketShare[2].imported_value2012);
+        var table_market_3 = Math.round(getMarketShare[3].imported_value2012);
+        var table_market_4 = Math.round(getMarketShare[4].imported_value2012);
+        var table_market_5 = Math.round(getMarketShare[5].imported_value2012);
+
+        function commaSeparateNumber(val){
+            while (/(\d+)(\d{3})/.test(val.toString())){
+              val = val.toString().replace(/(\d+)(\d{3})/, '$1'+','+'$2');
+            }
+            return val;
+        }
+
+        $("#table_market_share_1").text("$"+commaSeparateNumber(table_market_1)+",000");
+        $("#table_market_share_2").text("$"+commaSeparateNumber(table_market_2)+",000");
+        $("#table_market_share_3").text("$"+commaSeparateNumber(table_market_3)+",000");
+        $("#table_market_share_4").text("$"+commaSeparateNumber(table_market_4)+",000");
+        $("#table_market_share_5").text("$"+commaSeparateNumber(table_market_5)+",000");
+
+
+
+    });
+
+
+
+
+{% for market in top_five %}
+
+    $.getJSON("{% static "" %}newmarkets/factbook/{{ market.country_id.country_id }}.json").done(function(jsondata){
+        var getjson = jsondata;
+
+        // $("#specific_desc").text(getjson.intro.background.text);
+        var shortdesc = getjson.intro.background.text;
+        shortdesc = shortdesc.substring(0,720);
+        $("#fill_specific_desc{{market.country_id.country_id}}").text(shortdesc + "...");
+
+
+        $("#capital_entry{{market.country_id.country_id}}").text(getjson.govt.capital.name);
+
+        var lang = getjson.people.languages.text;
+        var splitlang = lang.split(/[(,]+/);
+        var lang2 = splitlang[0];
+        var splitlang2 = lang2.split("or");
+        var lang3 = splitlang2[0];
+        var splitlang3 = lang3.split("lang");
+        var finallang = splitlang3[0];
+        $("#language_entry{{market.country_id.country_id}}").text(finallang);
+
+        var currency = getjson.econ.exchange_rates.text;
+        var splitcurrency = currency.split("(");
+        var finalcurrency = splitcurrency[0];
+        $("#currency_entry{{market.country_id.country_id}}").text(finalcurrency);
+
+        $("#government_entry{{market.country_id.country_id}}").text(getjson.govt.government_type.text);
+
+        var time = getjson.govt.capital.time_difference;
+        var splittime = time.split("(");
+        var finaltime = splittime[0];
+        $("#time_entry{{market.country_id.country_id}}").text(finaltime);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //
+        //  GRAPH 1 DATA
+        //
+        var gdp_growth_1 = getjson.econ.gdp_real_growth_rate.text.replace(/ *\([^)]*\) */g, "");
+        gdp_growth_1_split = gdp_growth_1.split(";");
+
+        var gdp_growth_data_1 = gdp_growth_1_split[0];
+        gdp_growth_data_1 = gdp_growth_data_1.replace("%", "");
+
+        var gdp_growth_data_2 = gdp_growth_1_split[1];
+        gdp_growth_data_2 = gdp_growth_data_2.replace("%", "");
+
+        var gdp_growth_data_3 = gdp_growth_1_split[2];
+        gdp_growth_data_3 = gdp_growth_data_3.replace("%", "");
+
+        var gdp_growth_data = {
+            labels: ["2010", "2011", "2012"],
+            datasets: [
+                {
+                    fillColor: "#3794F8",
+                    strokeColor: "#3794F8",
+                    highlightFill: "#1561c1",
+                    data: [gdp_growth_data_3,gdp_growth_data_2,gdp_growth_data_1]
+                }
+            ]
+        };
+        var gdp_growth_graph = document.getElementById("gdp_growth_graph{{market.country_id.country_id}}").getContext("2d");
+        new Chart(gdp_growth_graph).Bar(gdp_growth_data, xoptions);
+
+        //
+        //  GRAPH 3 DATA
+        //
+        var inflation_1 = getjson.econ.inflation_rate_consumer_prices.text.replace(/ *\([^)]*\) */g, "");
+        inflation_1_split = inflation_1.split(";");
+
+        var inflation_data_1 = inflation_1_split[0];
+        inflation_data_1 = inflation_data_1.replace("%", "");
+
+        var inflation_data_2 = inflation_1_split[1];
+        inflation_data_2 = inflation_data_2.replace("%", "");
+
+
+        var inflation_data = {
+            labels: ["2011", "2012"],
+            datasets: [
+                {
+                    fillColor: "#3794F8",
+                    strokeColor: "#3794F8",
+                    highlightFill: "#1561c1",
+                    data: [inflation_data_2,inflation_data_1]
+                }
+            ]
+        };
+        var inflation_graph = document.getElementById("inflation_graph{{market.country_id.country_id}}").getContext("2d");
+        new Chart(inflation_graph).Bar(inflation_data, xoptions);
+
+        //
+        //  GRAPH 2 DATA
+        //
+        var gdp_capita_data = getjson.econ.gdp_per_capita_ppp.text.replace(/ *\([^)]*\) */g, "");
+        gdp_capita_data = gdp_capita_data.split(";");
+
+        var gdp_capita_data_1 = gdp_capita_data[0];
+        gdp_capita_data_1 = gdp_capita_data_1.replace("%", "").replace(",", "").replace("$", "");
+
+        var gdp_capita_data_2 = gdp_capita_data[1];
+        gdp_capita_data_2 = gdp_capita_data_2.replace("%", "").replace(",", "").replace("$", "");
+
+        var gdp_capita_data_3 = gdp_capita_data[2];
+        gdp_capita_data_3 = gdp_capita_data_3.replace("%", "").replace(",", "").replace("$", "");
+
+        var gdp_capita_data = {
+            labels: ["2010", "2011", "2012"],
+            datasets: [
+                {
+                    label: "My First dataset",
+                    fillColor: "rgba(0,0,0,0)",
+                    strokeColor: "#3794F8",
+                    highlightFill: "rgba(220,220,220,0.0)",
+                    highlightStroke: "rgba(220,220,220,1)",
+                    data: [gdp_capita_data_3,gdp_capita_data_2,gdp_capita_data_1]
+                }
+            ]
+        };
+        var gdp_capita_graph = document.getElementById("gdp_capita_graph{{market.country_id.country_id}}").getContext("2d");
+        new Chart(gdp_capita_graph).Line(gdp_capita_data, xoptions);
+
+
+
+
+
+
+
+
+
+
+
+
+            $("#at_a_glance").hide();
+            $("#at_a_glance_tab").removeClass("active_specific");
+            $("#economic").show();
+            $("#economic_info_tab").addClass("active_specific");
+
+
+            //
+            //  GRAPH 1 DATA
+            //
+            var gdp_growth_1 = getjson.econ.gdp_real_growth_rate.text.replace(/ *\([^)]*\) */g, "");
+            gdp_growth_1_split = gdp_growth_1.split(";");
+
+            var gdp_growth_data_1 = gdp_growth_1_split[0];
+            gdp_growth_data_1 = gdp_growth_data_1.replace("%", "");
+
+            var gdp_growth_data_2 = gdp_growth_1_split[1];
+            gdp_growth_data_2 = gdp_growth_data_2.replace("%", "");
+
+            var gdp_growth_data_3 = gdp_growth_1_split[2];
+            gdp_growth_data_3 = gdp_growth_data_3.replace("%", "");
+
+            var gdp_growth_data = {
+                labels: ["2010", "2011", "2012"],
+                datasets: [
+                    {
+                        fillColor: "#3794F8",
+                        strokeColor: "#3794F8",
+                        highlightFill: "#1561c1",
+                        data: [gdp_growth_data_3,gdp_growth_data_2,gdp_growth_data_1]
+                    }
+                ]
+            };
+            var gdp_growth_graph = document.getElementById("gdp_growth_graph").getContext("2d");
+            new Chart(gdp_growth_graph).Bar(gdp_growth_data, {
+                      responsive:true,
+                      scaleBeginAtZero : false
+                    });
+
+            //
+            //  GRAPH 3 DATA
+            //
+            var inflation_1 = getjson.econ.inflation_rate_consumer_prices.text.replace(/ *\([^)]*\) */g, "");
+            inflation_1_split = inflation_1.split(";");
+
+            var inflation_data_1 = inflation_1_split[0];
+            inflation_data_1 = inflation_data_1.replace("%", "");
+
+            var inflation_data_2 = inflation_1_split[1];
+            inflation_data_2 = inflation_data_2.replace("%", "");
+
+
+            var inflation_data = {
+                labels: ["2011", "2012"],
+                datasets: [
+                    {
+                        fillColor: "#3794F8",
+                        strokeColor: "#3794F8",
+                        highlightFill: "#1561c1",
+                        data: [inflation_data_2,inflation_data_1]
+                    }
+                ]
+            };
+            var inflation_graph = document.getElementById("inflation_graph").getContext("2d");
+            new Chart(inflation_graph).Bar(inflation_data, {
+                      responsive:true,
+                      scaleBeginAtZero : false
+                    });
+
+            //
+            //  GRAPH 2 DATA
+            //
+            var gdp_capita_data = getjson.econ.gdp_per_capita_ppp.text.replace(/ *\([^)]*\) */g, "");
+            gdp_capita_data = gdp_capita_data.split(";");
+
+            var gdp_capita_data_1 = gdp_capita_data[0];
+            gdp_capita_data_1 = gdp_capita_data_1.replace("%", "").replace(",", "").replace("$", "");
+
+            var gdp_capita_data_2 = gdp_capita_data[1];
+            gdp_capita_data_2 = gdp_capita_data_2.replace("%", "").replace(",", "").replace("$", "");
+
+            var gdp_capita_data_3 = gdp_capita_data[2];
+            gdp_capita_data_3 = gdp_capita_data_3.replace("%", "").replace(",", "").replace("$", "");
+
+            var gdp_capita_data = {
+                labels: ["2010", "2011", "2012"],
+                datasets: [
+                    {
+                        label: "My First dataset",
+                        fillColor: "rgba(0,0,0,0)",
+                        strokeColor: "#3794F8",
+                        highlightFill: "rgba(220,220,220,0.0)",
+                        highlightStroke: "rgba(220,220,220,1)",
+                        data: [gdp_capita_data_3,gdp_capita_data_2,gdp_capita_data_1]
+                    }
+                ]
+            };
+            var gdp_capita_graph = document.getElementById("gdp_capita_graph").getContext("2d");
+            new Chart(gdp_capita_graph).Line(gdp_capita_data, {
+                      responsive:true,
+                      scaleBeginAtZero : false
+                    });
+
+
+
+
+
+    });
+
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+
+</script>
+    {% endblock %}
+
+
+
+{% endblock %}
+{% endblock %}

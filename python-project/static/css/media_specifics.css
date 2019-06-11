@@ -1,0 +1,826 @@
+@media only screen and (max-width: 1550px) {
+    #youtube_outer{
+        width:44%;
+        margin-left: 28%;
+    }
+
+    #product_experts_text p{
+        font-size: 14pt;
+    }
+}
+@media only screen and (max-width: 1350px) {
+    #youtube_outer{
+        width:44%;
+        margin-left: 28%;
+    }
+
+    #product_experts_text p{
+        font-size: 14pt;
+    }
+
+    /*Pricing page fixes*/
+    #pricing_most_popular{
+        display: none;
+    }
+    .pricing_selector{
+        width:30.333%;
+    }
+        .pricing_selector:nth-child(1){
+            margin-left: 2.5%;
+        }
+}
+
+@media only screen and (max-width: 1160px) {
+
+    /*
+    =======================================
+    ========                       ========
+    ========        Home           ========
+    ========                       ========
+    =======================================
+    */
+      #home_hero h2{
+        font-size: 12pt;
+      }
+
+              .home_tri_item h2{
+                  font-size: 11pt;
+              }
+              .home_tri_item i{
+                  font-size: 84pt;
+              }
+              .home_tri_item p{
+                  font-size:9pt;
+                  line-height: 1.7em;
+              }
+
+                  #home_quote p{
+                      font-size: 11pt;
+                      line-height: 1.5em;
+                  }
+                      #home_quote h2{
+                          margin-top: -10px;
+                          font-size: 12pt;
+                      }
+      /*
+      =======================================
+      ========                       ========
+      ========      Product          ========
+      ========                       ========
+      =======================================
+      */
+          /*Youtube Embedded*/
+          #youtube_outer{
+              width:52%;
+              margin-left: 24%;
+          }
+          .tour_item img{
+              width:40%;
+              box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+              display: inline-block;
+              vertical-align: top;
+              position: relative; top:-20px;
+          }
+          .tour_item_text{
+              display: inline-block;
+              width: 50%;
+          }
+              .tour_item_left .tour_item_text{margin-left: 5%;}
+              .tour_item_right .tour_item_text{margin-right: 5%;}
+              .tour_item h2{
+                  font-weight: 400;
+                  text-align: left;
+                  letter-spacing: 2px;
+              }
+              .tour_item p{
+                  text-align: left;
+                  font-weight: 300;
+                  line-height: 2.4em;
+                  letter-spacing: 1px;
+                  font-size: 11pt;
+              }
+              .tour_item ul{
+                  font-size: 11pt;
+                  letter-spacing: 1px;
+                  font-weight: 300;
+                  padding: 0;
+              }
+                  .tour_item ul li{
+                      font-weight: 300 !important;
+                      line-height: 1.8em;
+                      list-style-type: none;
+                      text-align: left;
+                  }
+
+
+      #product_experts{
+          background-color: #F4F9FD;
+          border-bottom: 1px solid #D8E6F2;
+          border-top: 1px solid #D8E6F2;
+          box-sizing:border-box;
+          padding: 55px 2% 55px 3%;
+          margin-bottom: 60px;
+      }
+
+          #product_experts img{
+              width: 13%; height: auto;
+              border-radius: 50%;
+              vertical-align: top;
+              border: 4px solid #fff;
+          }
+              #product_experts img:nth-child(2){
+                  margin-left: 3%; margin-right: 3%;
+              }
+
+          #product_experts_text{
+              display: inline-block;
+              width: 63%;
+          }
+              #product_experts_text h2{
+                  font-weight: 400;
+                  font-size: 18pt;
+              }
+                  #product_experts_text p{
+                      font-weight: 400;
+                      line-height: 2em;
+                      font-size: 11pt;
+                      letter-spacing: 1px;
+                  }
+
+
+
+
+    /*TEAM CHANGES*/
+    #team_hero p{
+        width:60%;
+        margin-left: 10%;
+        font-size: 11pt;
+    }
+
+
+
+
+}
+
+/*Pricing page fix only*/
+@media only screen and (max-width: 1160px) {
+
+            .pricing_overview h2{
+                font-size: 13pt;
+                letter-spacing: 4px;
+            }
+
+            .pricing_overview sup{
+                display: inline-block;
+                font-size: 14pt;
+                font-weight: 300;
+                position: relative; top:-20px; left:4px;
+                padding-left: 12px;
+            }
+            .pricing_overview h3{
+                font-size: 38pt;
+            }
+            .pricing_overview small{
+                font-size: 9pt;
+            }
+
+}
+
+
+
+
+/*Team only changes*/
+@media only screen and (max-width: 950px) {
+        .member{
+            width:30.3%;
+            margin: 0 1.5% 0 1.5%;
+            display: inline-block;
+        }
+            .member:nth-child(4),
+            .member:nth-child(5){
+                margin-top: 35px;
+            }
+}
+
+
+
+@media only screen and (max-width: 880px) {
+
+    #team_hero p{
+        width:70%;
+        margin-left: 15%;
+        font-size: 11pt;
+    }
+
+
+    /*
+    =======================================
+    ========                       ========
+    ========        Home           ========
+    ========                       ========
+    =======================================
+    */
+      #home_hero h1{
+          text-align: center;
+          padding: 100px 0 10px 0;
+          margin-left: 0;
+      }
+      #home_hero h2{
+          text-align: center;
+          font-size: 10pt;
+          font-weight: 300;
+          padding-left: 0;
+          margin-left: 10%;
+      }
+
+              .home_tri_item h2{
+                  font-size: 10pt;
+              }
+              .home_tri_item i{
+                  font-size: 64pt;
+              }
+              .home_tri_item p{
+                  font-size:9pt;
+                  line-height: 1.4em;
+                  font-weight: 300;
+                  letter-spacing: 0px;
+              }
+
+              #home_quote p{
+                  font-size: 10pt;
+              }
+
+      /*
+      =======================================
+      ========                       ========
+      ========      Product          ========
+      ========                       ========
+      =======================================
+      */
+
+          /*Youtube Embedded*/
+          #youtube_outer{
+              width:64%;
+              margin-left: 18%;
+          }
+
+
+          .tour_item img{
+              width:35%;
+          }
+          .tour_item_text{
+              width: 55%;
+          }
+
+
+              .tour_item h2{
+                  font-size: 15pt;
+              }
+              .tour_item ul{
+                  font-size: 9pt;
+                  letter-spacing: 1px;
+                  font-weight: 300;
+                  padding: 0;
+              }
+
+
+      #product_experts{
+          margin-bottom: 60px;
+      }
+
+              #product_experts_text h2{
+                  font-size: 14pt;
+              }
+                  #product_experts_text p{
+                      line-height: 1.5em;
+                      font-size: 9pt;
+                  }
+
+      /*
+      =======================================
+      ========                       ========
+      ========      Pricing          ========
+      ========                       ========
+      =======================================
+      */
+
+
+      .pricing_overview h2{
+          font-size: 12pt;
+          letter-spacing: 4px;
+      }
+
+      .pricing_overview sup{
+          font-size: 14pt;
+          font-weight: 300;
+          position: relative; top:-20px; left:4px;
+          padding-left: 12px;
+      }
+      .pricing_overview h3{
+          font-size: 28pt;
+      }
+      .pricing_overview small{
+          font-size: 8pt;
+      }
+
+          .pricing_selector ul li{
+              font-size: 8pt;
+              line-height: 1.3em;
+          }
+
+}
+
+@media only screen and (max-width: 750px) {
+
+    /*
+    =======================================
+    ========                       ========
+    ========        Home           ========
+    ========                       ========
+    =======================================
+    */
+    #home_quote{
+        display: none;
+    }
+
+
+    /*
+    =======================================
+    ========                       ========
+    ========      Product          ========
+    ========                       ========
+    =======================================
+    */
+
+        /*Youtube Embedded*/
+        #youtube_outer{
+            width:84%;
+            margin-left: 8%;
+        }
+
+    /*
+    =======================================
+    =======================================
+    ========                       ========
+    ========        Pricing        ========
+    ========                       ========
+    =======================================
+    =======================================
+    */
+    #pricing_most_popular{
+        display: none;
+    }
+    .pricing_selector{
+        display: block;
+        width:90%;
+        margin-left: 5% !important;
+        margin-top: 25px;
+    }
+        .pricing_selector:nth-child(1){
+            margin-left: 0%;
+            margin-top: 0;
+        }
+        .pricing_selector:nth-child(2){
+            margin-left: 0%; margin-right: 0%;
+        }
+    #pricing_cta{
+        position:relative; top:55px; border-bottom:none; background-color:#fff;
+        padding-top: 35px;
+        padding-bottom: 35px;
+    }
+        #pricing_cta a{
+            margin-top: 25px;
+        }
+
+        .pricing_overview h2{
+            font-size: 14pt;
+        }
+
+        .pricing_overview sup{
+            font-size: 14pt;
+        }
+        .pricing_overview h3{
+            font-size: 68pt;
+        }
+        .pricing_overview small{
+            font-size: 10pt;
+            letter-spacing: 2px;
+        }
+        .pricing_overview h4{
+            font-size: 8pt;
+            line-height: 1.6em;
+        }
+            #enterprise_price{
+                padding-top: 11px; padding-bottom: 11px;
+            }
+            .pricing_selector ul li{
+                font-size: 14pt;
+                line-height: 1.6em;
+            }
+
+
+    /*
+    =======================================
+    ========                       ========
+    ========       Contact         ========
+    ========                       ========
+    =======================================
+    */
+    #contact_hero{
+        height: 150px;
+    }
+    #contact_header{
+        font-size: 22pt;
+        top:60px;
+    }
+
+
+        #contact_form_top_two{
+            width:90%;
+            margin-left: 5%;
+        }
+            #contact_form_message{
+                width:90%; margin-left: 5%;
+            }
+
+            #contact_location{
+                padding-left: 5%; padding-right: 5%;
+                padding:35px 0 35px 0;
+            }
+                .contact_location_item{
+                    font-size: 8pt;
+                }
+
+
+    /*
+    =======================================
+    ========                       ========
+    ========       Log  in         ========
+    ========                       ========
+    =======================================
+    */
+
+        #sign_in_modal{
+            width:70%; margin-left: 15%;
+        }
+
+}
+
+
+/*FULL MOBILE*/
+@media only screen and (max-width: 560px) {
+
+    /*
+    =======================================
+    ========                       ========
+    ========        Home           ========
+    ========                       ========
+    =======================================
+    */
+    #home_hero{height: 450px;}
+      #home_hero h1{
+          font-size: 18pt;
+          text-align: center;
+          padding: 30px 0 10px 10px;
+      }
+      #home_hero h2{
+        font-size: 11pt;
+        width: 90%;
+        margin-left: 5%;
+        padding: 20px 0 0 0;
+        text-align: center;
+        line-height: 1.6em;
+      }
+
+    #home_dashboard_large{
+        width: 90%;
+        margin-left: 5%;
+    }
+        #home_dashboard_large_desc{
+            padding: 30px 5% 0px 5%;
+        }
+            #home_dashboard_large_desc h1{
+                font-size: 14pt;
+            }
+            #home_dashboard_large_desc p{
+                font-size: 9pt;
+                text-align: justify;
+                line-height: 1.8em;
+                padding: 20px 5% 10px 5%;
+            }
+
+
+
+    #benefits_header{
+        position: relative;
+        top:-120px;
+    }
+
+    #home_tri{
+        width:90%;
+        position:relative; top:-80px; left:5%;
+
+    }
+        .home_tri_item{
+            width:100%;
+            margin: 0 0% 20px 0%;
+        }
+            .home_tri_item:nth-child(2){
+                width:100%;
+                margin: 0 0% 20px 0%;
+            }
+            .home_tri_item h2{
+                font-size: 12pt;
+            }
+            .home_tri_item i{
+                font-size: 64pt;
+            }
+            .home_tri_item p{
+                font-size: 9pt;
+                line-height: 1.8em;
+                padding: 0 5% 0 5%;
+            }
+
+
+    #home_quote{
+        display: none;
+    }
+
+    #as_seen_in{
+        padding: 0px 5% 0px 5%;
+        background-color: #fff;
+        text-align: center;
+        position:relative; top: -35px;
+    }
+        #as_seen_in h1{
+            margin-bottom: 50px;
+            font-size: 14pt;
+        }
+        #as_seen_in img{
+            display:inline-block;
+            height: 40px;
+            margin-bottom: 25px;
+        }
+            #as_seen_in img:nth-child(3){margin: 0 20px 25px 20px;}
+
+    /*
+    =======================================
+    ========                       ========
+    ========       Product         ========
+    ========                       ========
+    =======================================
+    */
+    #product_hero{
+      height: 330px;
+      margin-bottom: 0px;
+    }
+        .hero-gradient{
+            background-image: url('https://static.pexels.com/photos/2391/dirty-industry-stack-factory.jpg');
+        }
+
+        /*Youtube Embedded*/
+        #youtube_outer{
+            width:90%;
+            margin-left: 5%;
+            margin-bottom: 30px;
+            border-radius: 4px;
+        }
+
+
+    .tour_item{
+        width:100%;
+        margin-bottom: 55px;
+    }
+        .tour_item_right{
+            text-align: center;
+        }
+        .tour_item img{
+            width:90%;
+            display: block;
+        }
+            #tour1mobile,
+            #tour2mobile{display: block; float:right; margin-bottom: 25px;}
+            #tour1full,
+            #tour2full{display: none;}
+        .tour_item_text{
+            display: block;
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 25px;
+        }
+            .tour_item h2{
+                font-weight: 400;
+                font-size: 14pt;
+                text-align: left;
+                letter-spacing: 2px;
+            }
+            .tour_item p{
+                text-align: justify;
+                line-height: 2em;
+                letter-spacing: 1px;
+                font-size: 10pt;
+            }
+
+
+    #product_experts{
+        padding: 35px 0 35px 0;
+        margin-bottom: 60px;
+    }
+
+        #product_experts img{
+            width: 35%; height: auto;
+            margin-left: 10%;
+        }
+
+        #product_experts_text{
+            display: block;
+            width: 90%;
+            margin-left: 5%;
+        }
+            #product_experts_text h2{
+                margin-top: 25px;
+                text-align: center;
+                font-weight: 400;
+                font-size: 14pt;
+            }
+                #product_experts_text p{
+                    font-weight: 300;
+                    text-align: justify;
+                    font-size: 9pt;
+                }
+
+                #product_cta{
+                    position:relative; top:-5px;
+                    border-bottom: 1px solid #D8E6F2;
+                    padding-bottom: 25px;
+                    font-size: 12pt;
+                }
+                    #product_cta a{
+                        margin-top: 25px;
+                    }
+
+
+
+        /*
+        =======================================
+        =======================================
+        ========                       ========
+        ========        Team           ========
+        ========                       ========
+        =======================================
+        =======================================
+        */
+        #team_hero{
+            padding:45px 0 45px 0;
+        }
+            #team_hero h1{
+                font-size: 14pt;
+            }
+            #team_hero p{
+                width:90%;
+                margin-left: 5%;
+                line-height: 2em;
+                text-align: justify;
+                font-size: 11pt;
+            }
+
+
+        #member_wrapper{
+            width:84%;
+            margin-left: 0;
+            padding: 20px 5% 20px 5%;
+            position: relative; top:8px;
+            margin-left: 8%;
+        }
+            .member{
+                width:100%;
+                margin: 0 0% 0 0%;
+                display: block;
+                margin-bottom: 45px;
+            }
+                .member:last-child{
+                    margin-bottom: 0;
+                }
+                .member img{
+                    width:80%;
+                    margin-left: 10%;
+                }
+
+
+
+
+
+        /*
+        =======================================
+        =======================================
+        ========                       ========
+        ========        Contact        ========
+        ========                       ========
+        =======================================
+        =======================================
+        */
+
+        #contact_hero{
+            height: 200px;
+        }
+        #contact_header{
+            font-size: 18pt;
+            left:-0px; top:90px;
+        }
+
+            #contact_form_top_two{
+                width:90%;
+                margin-left: 5%;
+            }
+                #contact_form_top_two input{
+                    width:100%;
+                    display:block;
+                    font-size: 18pt;
+                    margin-bottom: 15px;
+                    float: left;
+                }
+                #contact_form_message{
+                    width:90%; margin-left: 5%;
+                    margin-top: 0px;
+                    font-size: 12pt;
+                    padding: 10px;
+                }
+                    #contact_form_top_two input:nth-child(1){margin-right: 0%;}
+                    #contact_form_top_two input:nth-child(2){margin-left: 0%;}
+
+            #contact_location{
+                width:100%;
+                margin-left: 0%;
+                padding: 35px 5% 35px 5%;
+                margin-top: 30px;
+                position: relative; top:55px;
+            }
+                .contact_location_item{
+                    width:100%;
+                    display: block;
+                    margin-bottom: 15px;
+                }
+
+
+
+
+        /*
+        =======================================
+        =======================================
+        ========                       ========
+        ========        Pricing        ========
+        ========                       ========
+        =======================================
+        =======================================
+        */
+        .pricing_overview sup{
+            font-size: 14pt;
+        }
+        .pricing_overview h3{
+            font-size: 48pt;
+        }
+        .pricing_overview small{
+            font-size: 10pt;
+            letter-spacing: 2px;
+        }
+        .pricing_overview h4{
+            font-size: 8pt;
+            line-height: 1.6em;
+        }
+            #enterprise_price{
+                padding-top: 11px; padding-bottom: 11px;
+            }
+            .pricing_selector ul li{
+                font-size: 10pt;
+                line-height: 1.6em;
+            }
+
+
+
+
+
+
+
+    /*
+    =======================================
+    =======================================
+    ========                       ========
+    ========        Signin         ========
+    ========                       ========
+    =======================================
+    =======================================
+    */
+    #sign_in_page{
+        padding-top:25%;
+        padding-bottom: 25%;
+    }
+
+        #sign_in_modal{
+            width:90%; margin-left: 5%;
+            padding:35px 35px 15px 35px;
+        }
+
+
+
+
+}

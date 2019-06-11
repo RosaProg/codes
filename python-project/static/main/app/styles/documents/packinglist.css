@@ -1,0 +1,448 @@
+.document{
+	overflow: hidden;
+}
+	.document p{
+		line-height: 1.6em;
+	} 
+
+	.document i{
+		color: #1235A4;
+	}
+
+	.document h2{
+		font-size: 12pt;
+		display: block;
+		width: 100%;
+		clear: both;
+		text-align: center;
+		padding-top: 20px;
+		padding: 20px 0 10px 0px;
+		font-weight: 300;
+		letter-spacing: 1px;
+		border-bottom: 1px solid rgba(0,0,0,0.05);
+	}
+
+	.document textarea{
+		width: 80%;
+		height: 120px;
+	}
+
+	#invoice_preview_table{
+		width: 100%;
+	}
+		
+		#invoice_preview_table td,
+		#invoice_preview_table th{
+			box-sizing:border-box;
+			padding: 8px;
+			font-size: 10pt;
+			line-height: 1.35em;
+		}
+			#invoice_preview_table td:nth-child(1),
+			#invoice_preview_table td:nth-child(2),
+			#invoice_preview_table td:nth-child(4),
+			#invoice_preview_table td:nth-child(5),
+			#invoice_preview_table td:nth-child(6){text-align: center;}
+
+			#invoice_preview_table td:nth-child(1){
+				color: #ca1645;
+			}
+
+		#invoice_preview_table th{
+			text-transform: uppercase;
+			font-size: 8pt;
+			text-align: center;
+		}
+
+		#invoice_preview_table tr:nth-child(1){
+			border-bottom: 1px solid rgba(0,0,0,0.25);
+		}
+		#invoice_preview_table tr:nth-child(even) td,
+		#invoice_preview_table tr:nth-child(even){
+			background-color: #f9f9f9;
+		}
+
+
+		#invoice_preview_table tr:nth-child(2){
+			width: 100%;
+		}
+
+
+		#generate_invoice{
+			width: 80%;
+			margin-top: 54px;
+			padding: 16px;
+			letter-spacing: 2px;
+			font-size: 11pt;
+			font-weight: 300;
+		}
+
+
+
+
+#full_width{
+	width: 100%;
+	text-align: left;
+	font-weight: 400;
+	font-size: 11pt;
+	letter-spacing: 1px;
+}
+
+
+#place_and_date{
+	float: right;
+	font-weight: 400;
+}
+	#place_and_date small{
+		display: block;
+		font-size: 7pt;
+		font-weight: 700; 
+		padding-right: 144px;
+		text-transform: uppercase;
+	}
+#form_order_no{
+	display:inline-block;
+	padding-left: 25px; padding-right: 25px;
+	border-bottom: 1px solid black;
+}
+
+
+#form_shipto{
+	padding-left: 30px;
+}
+
+
+
+#packing_contents{
+	width: 100%;
+	height: 100%;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	margin: 12px 0 12px 0;
+	overflow: hidden;
+}
+	#packing_contents small{
+		text-transform: uppercase;
+		font-size: 7pt;
+		text-align: center;
+		display: block;
+		font-weight: 700;
+		letter-spacing: 1px;
+		padding: 6px 12px 6px 12px;
+	}
+	#packing_contents .leftthird{
+		border-right: 1px solid black;
+		width: 33%;
+		float: left;
+	}
+	#packing_contents .righttwothirds{
+		width: 66.5%;
+		float: right;
+	}
+
+	#packing_contents p{
+		text-align: left;
+		padding-bottom: 13px;
+		font-size: 9pt;
+
+	}
+		#packing_contents .content{
+			display: inline-block;
+			font-weight: 700;
+			letter-spacing: 1px;
+			border-bottom: 1px solid black;
+			box-sizing:border-box;
+			width: 52px;
+			line-height: 2.2em;
+			text-align: center;
+		}
+			#packing_contents .rightx{
+				float: right;
+				padding-right: 10px;
+			}
+		.content_other{
+			border-bottom: 1px solid black;
+			float: right;
+			display: inline-block;
+			width: 105px; 
+			position: relative; top:26px;
+			margin-right: 10px;
+		}
+
+	#form_marks{
+		padding-left: 12px; padding-right: 12px;
+		letter-spacing: 1px;
+	}
+
+
+
+	#star_info{
+		text-transform: uppercase;
+		letter-spacing: 0px;
+		text-align: center;
+		width: 100%;
+		box-sizing:border-box;
+		padding: 2px 0 2px 0;
+		font-size: 6pt;
+		font-weight: 700;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+.form50{
+	width:50%;
+	text-align: center;
+	float: left;
+}
+	.form50 input{
+		width: 80%;
+	}
+	.form50 label{
+		text-align: left;
+		padding-left: 8%;
+	}
+	.morepad li{
+		padding-bottom: 14px !important;
+	}
+		.morepad li:nth-child(2),
+		.morepad li:nth-child(3){
+			padding-bottom: 13px !important;
+		}
+
+		textarea{
+			border: 1px solid rgba(0,0,0,0.25);
+			box-sizing:border-box;
+			padding: 5px;
+			font-size: 10pt;
+			width: 84% !important;
+		}
+
+.form50 button{
+	width:80%;
+	margin-left: 10%;
+	display: block;
+	padding: 10px;
+	background-color: #1253A4;
+	color:#fff;
+	border: none;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 700;
+	transition:0.25s;
+}
+	.form50 button i{
+		color:#fff;
+	}
+	.form50 button:hover{
+		cursor: pointer;
+		opacity: 0.88;
+		transition:0.25s;
+	}
+
+
+
+
+	
+
+
+/*
+==================================
+		Print Page
+==================================
+*/
+
+
+
+label b{
+	font-weight: 300;
+	text-transform: none;
+	line-height: 1.3em;
+	font-style: normal;
+	color: #000;
+	width: 90%;
+	margin-left: 0%;
+	display: none;
+	clear: both;
+}
+
+
+label i:hover{
+	cursor: pointer;
+	opacity: 0.85;
+	transition:0.25s;
+}
+
+#invoice_page{
+
+	display: none;
+
+	padding: 0; margin: 0 auto;
+	width:7.23in;
+	mso-header-margin:.5in; mso-footer-margin:.5in; mso-paper-source:0;
+	z-index: 504400;
+	background-color: #fff;
+	text-align: center;
+	font-weight: 300;
+	overflow: visible !important;
+
+	position: absolute;
+	left: 0; top: 0;
+	z-index: 500000000000;
+}
+	
+	/*Page title*/
+	#invoice_page h1{
+		width: 100%;
+		text-align: center;
+		text-transform: uppercase;
+		font-size: 16pt;
+		margin-bottom: 35px;
+		margin-top: 15px;
+	}
+
+
+
+	
+
+#invoice_table{
+	width: 100%;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-bottom: 1px solid black;
+	border-top: 1px solid black;
+	padding: 0; margin: 0 auto;
+	cellpadding:0;
+	cellspacing:0;
+	margin-top: 12px;
+}
+	#invoice_table tr th:nth-child(1),
+	#invoice_table tr th:nth-child(2),
+	#invoice_table tr th:nth-child(3),
+	#invoice_table tr th:nth-child(4),
+	#invoice_table tr th:nth-child(5),
+	#invoice_table tr th:nth-child(6),
+	#invoice_table tr th:nth-child(7),
+	#invoice_table tr th:nth-child(8),
+	#invoice_table tr th:nth-child(9){
+		border-right: 1px solid black;
+		border-bottom: 1px solid black;
+		font-size: 6pt;
+		font-weight: 700;
+		text-transform: uppercase;
+		width: 40px;
+		box-sizing:border-box;
+		padding: 4px;
+		line-height: 1.25em;
+	}
+		#invoice_table tr th:nth-child(10){
+			font-size: 6pt;
+			font-weight: 700;
+			text-transform: uppercase;
+			box-sizing:border-box;
+			padding: 4px;
+			line-height: 1.25em;
+			border-bottom: 1px solid black;
+		}
+
+	#invoice_table tr td:nth-child(1),
+	#invoice_table tr td:nth-child(2),
+	#invoice_table tr td:nth-child(3),
+	#invoice_table tr td:nth-child(4),
+	#invoice_table tr td:nth-child(5),
+	#invoice_table tr td:nth-child(6),
+	#invoice_table tr td:nth-child(7),
+	#invoice_table tr td:nth-child(8),
+	#invoice_table tr td:nth-child(9){
+		border-right: 1px solid black;
+		width: 40px;
+		box-sizing:border-box;
+		padding: 4px;
+		height: 380px;
+	}
+
+
+#byline{
+	width: 100%;
+	padding-top: 20px;
+	font-size: 6pt;
+	font-weight: 700;
+	text-transform: uppercase;
+	margin-top: 15px;
+	display: block;
+	text-align: left;
+}
+
+
+@media print {
+	body,html{
+		padding: 0; margin: 0 auto;
+		background-color: #fff !important;
+	}
+	header, main, aside, nav{
+		display: none !important;
+	}
+	#invoice_page{
+		display: block;
+		box-sizing:border-box;
+
+		/*Disabled  these in print query*/
+		z-index: 10000;
+		padding: 0;
+		box-shadow: none;
+		top:0px; left:0;
+		position: absolute;
+		margin-left: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		background-color: rgba(255,0,255,0.25);
+	}
+	#pdf_experience_section h2,
+	#job_1_employer,
+	#job_1_loc,
+	#job_1_time,
+	#job1_title,
+	#job_2_employer,
+	#job_2_loc,
+	#job_2_time,
+	#job2_title,
+	#job_3_employer,
+	#job_3_loc,
+	#job_3_time,
+	#job3_title,
+	#pdf_education_section h2,
+	#pdf_edu_1,
+	#pdf_edu_2,
+	#pdf_edu_3,
+	#pdf_skills_section
+	{
+		page-break-inside: avoid;
+	}
+	#pdf_statement,
+	#pdf_job1_emp_desc,
+	#pdf_job1_job_desc,
+	#pdf_job2_emp_desc,
+	#pdf_job2_job_desc,
+	#pdf_job3_emp_desc,
+	#pdf_job4_job_desc{
+		page-break-inside:always;
+	}
+	hr{
+		page-break-after: avoid;
+		page-break-before: always;
+	}
+
+}
+@page {
+	size: auto;   
+	margin: 10mm; 
+}
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+{% extends "dashboard_base.html" %}
+{% load staticfiles %}
+{% block title %}Feasibility | Export Abroad{% endblock %}
+{% block body %}
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/pages/data.css' %}">
+{% endblock %}
+
+
+
+<!-- add class content-sidebar if sidebar -->
+<main class="nosidebar">
+
+    <div class="scroll-header">
+        <h1 id="scroll-header-title">Your Products</h1>
+        <input type="text" id="header-search" placeholder="Type to search" />
+        <!-- <i class="ion-ios-keypad-outline" id="display-grid"></i>
+        <i class="ion-ios-list-outline" id="display-list"></i> -->
+        <i class="ion-android-add" id="header-add-item" onclick="location.href='/company/add_product/'"></i>
+        <i class="ion-android-search" id="show-search" ></i>
+    </div>
+
+
+
+    <div class="list-wrapper list-list clickable">
+
+            <div id="sort-list">
+                <button id="sort-by-name">Name <i class="sort-icon ion-arrow-down-c"></i></button>
+            </div>
+
+            <div id="list-content">
+
+                {% if user_products %}
+
+                {% for product in user_products %}<!--
+
+                --><div class="list-item" ondblclick="location.href='/newmarkets/results/{{product.product_hs_code}}'">
+                    <i class="list-item-icon ion-android-radio-button-on"></i>
+                    <h2>{{ product.product_name }}</h2>
+                    <h3><a onclick="location.href='/main/product-delete/{{product.id}}'"><i class="ion-android-close"></i></a></h3>
+                    <h3>HS#{{ product.product_hs_code}}</h3>
+                </div><!--
+``
+                -->{% endfor %}
+
+        	    {% else %}
+                    <div class="list-item" ondblclick="location.href='/company/add_product/'">
+                        <i class="list-item-icon ion-android-radio-button-on"></i>
+                        <h2>You have no items. Double click here to add your first.</h2>
+                    </div>
+                {% endif %}
+
+                <div id="list-no-results">
+                    No Results
+                </div>
+            </div>
+        </div>
+
+                <!-- <span class="prod-hs gradient-blue">HS #xx{{ product.product_hs_code}}</span> -->
+
+</main>
+
+
+
+    {% block extra_scripts %}
+
+    <script>
+        $( document ).ready(function() {
+            $("#nav-link-data").addClass("active");
+            $("#sort-by-name").click();
+        });
+    </script>
+
+    {% endblock %}
+
+{% endblock %}

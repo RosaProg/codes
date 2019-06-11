@@ -1,0 +1,134 @@
+@media only screen and (max-width: 1160px) {
+
+
+
+  #branding{font-size: 16pt;}
+    #branding img{padding-right: 5px;}
+    nav ul li{display: inline;padding: 12px 7px 12px 0;}
+      nav ul li a{padding-right: 9px; padding-left: 9px; font-size: 9pt;}
+
+
+      #nav_accounts{font-size: 9pt;}
+            #nav_accounts a:first-child{margin-right: 0px;}
+
+
+
+
+}
+
+
+
+@media only screen and (max-width: 880px) {
+
+
+    nav{
+      padding: 25px 25px 0 25px;
+    }
+
+  #branding{font-size: 16pt;}
+    #branding img{padding-right: 5px;}
+    nav ul{padding: 8px 0 8px 35px;}
+    nav ul li{display: inline;padding: 12px 3px 12px 0;}
+      nav ul li a{padding-right: 4px; padding-left: 4px; font-size: 9pt;}
+
+
+      #nav_accounts{font-size: 9pt;}
+            #nav_accounts a:first-child{margin-right: 5px; position:relative; top:2px;}
+
+
+    .hero_button{
+        display: block;
+        width: 200px;
+        text-align: center;
+        position: relative;
+        left:50%;
+        margin-left: -100px;
+    }
+
+}
+
+@media only screen and (max-width: 740px) {
+
+
+    nav{
+      padding: 25px 15px 0 15px;
+    }
+
+  #branding{font-size: 14pt;}
+    #branding img{padding-right: 3px;}
+    nav ul{padding: 8px 0 8px 15px;}
+    nav ul li{display: inline;padding: 12px 3px 12px 0;}
+      nav ul li a{padding-right: 4px; padding-left: 4px; font-size: 8pt;}
+
+
+      #nav_accounts{font-size: 9pt;}
+            #nav_accounts a:first-child{margin-right: 5px; position:relative; top:2px;}
+
+}
+
+
+
+@media only screen and (max-width: 660px) {
+
+
+    nav{padding: 25px 20px 25px 20px;}
+    #show_mobile_nav_btn{display: block;}
+        #branding{font-size: 16pt;}
+            #branding img{padding-right: 5px;}
+      nav ul{
+          display:none;
+          list-style-type: none;
+          background-color: #F3F9FE;
+          position: absolute; left:0; top:90px;
+          border-top: 1px solid #C1C8CC;
+          width:100%;
+          margin: 0 auto;
+          padding: 0;
+          box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+      }
+        nav ul li{display: block;padding: 0px 0px 0px 0;}
+        nav ul li:last-child{padding: 0px 0px 0 0;}
+          nav ul li a{
+              text-align: center;
+              display: block;
+              color:#6F7274;
+              width:100%;
+          }
+                nav ul li a:hover{
+                    color: #4e7ac7;
+                    background-color: rgba(255,255,255,0.8);
+                    transition:0.2s;
+                    border-bottom: 1px solid transparent;;
+                }
+
+            nav ul li .active{
+              color: #4e7ac7;
+              border-bottom: 1px solid transparent;
+              background-color: rgba(255,255,255,0.8);
+            }
+    #nav_accounts{display:none;}
+
+
+    .hero_button{
+        display: block;
+        width: 200px;
+        text-align: center;
+        position: relative;
+        left:50%;
+        margin-left: -100px;
+    }
+
+
+    /*Call to Action Div*/
+    .c_t_a{
+        padding: 55px 15px 55px 15px;
+    }
+
+        .c_t_a h1{
+            font-size: 13pt;
+        }
+
+
+
+
+}

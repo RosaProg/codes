@@ -1,0 +1,100 @@
+{% extends "templatebase.html" %}
+{% load static from staticfiles %}
+{% block title %}Customized Market Research | Export Abroad{% endblock %}
+
+
+{% block body %}
+
+<div id="contact_hero" style="background-image:url({% static 'img/harbor.jpg' %})">
+
+    <h1 id="contact_header">
+    Custom research for only $99<br>
+    <a href="https://plasso.co/s/sD6IJlOf1D" class="plo-button buy_button"><i class="ion-card" id="contact_form_submit_icon"></i> Buy Now</a>
+    </h1>
+
+
+</div>
+
+    <div class="tour_item tour_item_left" style="margin-top: 30px;">
+            <img src="{% static 'img/research.png' %}">
+            <div class="tour_item_text">
+                <h2>Preview</h2>
+                <p>
+                    <ul>
+                        <li>Our researchers utilize information about your company, product, and sales goals to tailor our research. We then deliver your report within 48 hours for a fraction of the cost of using a consulting firm.</li>
+                    </ul>
+                    <a href="{% static 'img/heatworks.pdf' %}" target="_blank" class="preview_button">Example Report</a>
+
+                </p>
+            </div>
+    </div>
+
+
+        <div id="home_tri" style="margin-top: 160px;">
+        <h3 style="text-align:center; margin-bottom: 30px; text-transform: none;">We identify the top 5 countries based on your company and product</h3>
+            <div class="home_tri_item">
+                <h2>Import Data</h2>
+                <i class="ion-android-boat"></i>
+                <p>
+                We tell you exactly how much of your product is being imported and consumed in any country so you know how big the market is.
+                </p>
+            </div><!--
+            --><div class="home_tri_item">
+                <h2>Economic Information</h2>
+                <i class="ion-android-globe"></i>
+                <p>
+                    We look at the current status and future growth of the economy to ensure that the market will be strong and stable for years to come. 
+                </p>
+            </div><!--
+            --><div class="home_tri_item">
+                <h2>Indicies and Information</h2>
+                <i class="ion-clipboard"></i>
+                <p>
+                    Know what to expect when conducting business, shipping, and getting your products through customs in your new target market. 
+                </p>
+            </div>
+        </div>
+
+
+<div id="home_quote" style="margin-bottom: 20px;">
+            <h1 style="text-align: center;">What users say</h1>
+            <img src="http://www.ibiz247.com/wp-content/uploads/012.jpg">
+            <p>
+                The information is tailored to the user’s needs, and Export Abroad takes into consideration all the moving parts that comprise very well executed market research. We are excited about Export Abroad and highly recommend it.
+            </p>
+            <h2>- Lynn Hijar, <b>iBiz247</b></h2>
+</div>
+
+
+<section id="buynow" style="background-color:#F4F9FD;">
+    <h1>Increase your global sales, buy today</h1>
+<!--
+    <div id="buy_form">
+            <h6>Please describe your product to us.</h4>
+            <input type="text" placeholder="What is your product?">
+            <h6>What is the composition of your product? (Example: steel, rubber, etc.)</h6>
+            <input type="text" placeholder="What is it made of?">
+            <h6>If you don't know this number, please leave it blank and we will help you!</h6>
+            <input type="text" placeholder="What is your products HS Number?">
+            <h6>Giving us a link helps us get a deeper understanding of your product.</h6>
+            <input type="URL" placeholder="Do you have a link to your product line?">
+        
+        <h6>Any other information you would like to share that would help us tailor your report?</h6>
+        <textarea id="buy_form_message" placeholder="Message"></textarea>
+    </div>
+    -->
+
+    <center><a  href="https://plasso.co/s/sD6IJlOf1D" class="plo-button" id="buy_form_submit">&nbsp;<i class="ion-card" id="contact_form_submit_icon"></i> Purchase</a></center>
+
+<!--
+    <div id="demo_form_error">
+		Sorry, you must fill out every field.
+	</div>
+
+    -->
+
+
+</section>
+
+
+{% endblock %}

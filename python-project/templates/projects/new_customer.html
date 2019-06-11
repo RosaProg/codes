@@ -1,0 +1,35 @@
+{% extends "main/base.html" %}
+{% load bootstrap_tags %}
+{% block title %}Projects - add a project | Export Abroad{% endblock %}
+{% block body %}
+{% block extra_head %}
+
+    <link href='http://fonts.googleapis.com/css?family=Shadows+Into+Light' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+
+{% block content %}
+<div id="content">
+    <h1 id="add-lead-title">Add a customer</h1>
+
+    <form action="/projects/new-customer/" method="post" class="new_project_form" id="add-lead-form">
+    	{% csrf_token %}
+    	<div class="form-group">
+    		{{ form|as_bootstrap }}
+    	</div>
+    	<button type="submit"value="Submit" class="form_submit">Submit</button>
+
+    </form>
+</div>
+
+
+{% endblock %}<!--block content-->
+
+{% block extra_scripts %}
+    <script>
+        $("#link_customers").addClass("active");
+    </script>
+{% endblock %}
+
+
+{% endblock %}<!--block body-->

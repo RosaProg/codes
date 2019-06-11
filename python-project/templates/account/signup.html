@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+{% load static from staticfiles %}
+{% load i18n %}
+
+<head>
+
+    <meta name="theme-color" content="#1253A4">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta content="Export Abroad is a global intelligence and emerging markets advisory firm. Our mission is to break down the barriers of international expansion. We currently operate out of our headquarters in Madison, WI with satellite offices in Silicon Valley and Minneapolis." name="description" />
+    <meta content="Mitch Samuels" name="author" />
+    <title>Sign Up! | Export Abroad</title>
+
+    <!-- Responsive viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/globe.png' %}" />
+
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/techweek.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/media.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/ionicons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/media_specifics.css' %}">
+    <link rel="stylesheet" type="text/css" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+
+
+    <!-- Export Abroad Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//brick.a.ssl.fastly.net/Clear+Sans:200,400,500,700/Muli:200,300,400,600,700">
+
+    <style>
+        label{
+            display:block !important;
+        }
+    </style>
+
+
+
+</head>
+<body>
+
+<div id="sign_in_page">
+
+    <div id="sign_in_modal">
+        <a href="/"><img src="{% static 'img/globe.png' %}"></a>
+
+        <br/>
+
+        <h1 id="request_demo_h1">New to Export Abroad? Creating an account is easy!</h1>
+
+        <div id="sign_in_form">
+            <form class="form-horizontal" role="form" id="form_signup" method="post" action="{% url 'account_signup' %}" align="right">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+
+                <div class="sign_up_buttons">
+                    <button type="submit">Sign Up</button><!--
+                    --><button type="reset" id="signup_btn_r">Reset</button>
+                    <br/>
+                    <h6><a href="/accounts/login"><small>Already a user? Login here</small></a></h6>
+                </div>
+
+            </form>
+        </div>
+
+        <div id="request_demo_form">
+            <p id="sign_in_form_instructions">
+                We are currently allowing limited access. You must schedule a demo with us and we will set you up with an account.<br/><br/>Fill out the form below and we will contact you to set up a demo.
+            </p>
+            <input placeholder="Full Name" id="demo_form_name">
+            <input placeholder="Email Address" id="demo_form_email">
+            <input placeholder="Phone Number" id="demo_form_phone">
+            <textarea placeholder="Describe your business" id="demo_form_business"></textarea>
+            <textarea placeholder="What times work for you? Ex: 'Mondays 11-3, Tuesdays 3-5, etc.'" id="demo_form_time"></textarea>
+            <button id="demo_form_submit">Submit</button>
+            <p>Already have an account? <a id="back_to_login">Log in.</a></p>
+            <div id="demo_form_error">
+                Sorry, you must fill out every field.
+            </div>
+        </div>
+
+        <div id="request_success">
+            <i class="ion-ios-checkmark-outline"></i>
+            <h2>Success!</h2>
+            <p>
+                We will be in touch shortly to schedule a demo for you!
+            </p>
+            <a href="/" id="return_home">Return Home</a>
+            <br/><br/><br/>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="src/main.js"></script>
+
+<script>
+
+    $( document ).ready(function() {
+        if(window.location.href.indexOf("#request")>-1){
+            $("#schedule_demo_link").click();
+        }
+    });
+
+    $("#schedule_demo_link").click(function(){
+        $("#sign_in_form").slideUp();
+        $("#request_demo_form").slideDown();
+    });
+    $("#back_to_login").click(function(){
+        $("#request_demo_form").slideUp();
+        $("#sign_in_form").slideDown();
+    });
+
+
+    $("#demo_form_submit").click(function () {
+
+
+
+            var empty = "";
+            var name = $("#demo_form_name").val();
+            var email = $("#demo_form_email").val();
+            var phone = $("#demo_form_phone").val();
+            var business = $("#demo_form_business").val();
+            var time = $("#demo_form_time").val();
+            if (empty == name || empty == email || empty == business || empty == time)
+            {
+                $("#demo_form_error").show(400).delay(8000).hide(400);
+                e.preventDefault();
+            }
+            else
+           {
+                $("#demo_form_submit").text("Submitting...");
+                $.ajax({
+                      type: 'POST',
+                      url: 'https://mandrillapp.com/api/1.0/messages/send.json',
+                      data: {
+                        'key': 'WKXdbEwmpCgbrFai8a10Ag',
+                        'message': {
+                          'from_email': 'mitch@exportabroad.com',
+                          'to': [
+                              {
+                                'email': 'austin@exportabroad.com',
+                                'name': 'Austin Grandt',
+                                'type': 'to'
+                              }
+                            ],
+                          'autotext': 'true',
+                          'subject': 'Demo Request - '+name,
+                          'html': '<b>Message From:</b> '+name+'<br/><b>Email Address:</b> '+email+'<br/><b>Phone:</b> '+phone+'<b><br/><br/>Business:</b><br/>'+business+'<b><br/><br/>Timing:<br/></b>'+time
+                        }
+                      }
+                     }).done(function(response) {
+                        $("#request_demo_form").slideUp();
+                        $("#request_success").slideDown();
+                });
+
+
+            }
+
+
+    });
+
+
+
+</script>
+
+</body>
+</html>

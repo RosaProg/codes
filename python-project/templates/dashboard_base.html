@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+{% load analytical %}
+{% load humanize %}
+{% load account %}
+
+<html lang="en-US">
+<head>
+	{% analytical_head_top %}
+
+    <meta name="theme-color" content="#1253A4">
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <meta name="robots" content="noindex,nofollow" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="icon" type="image/x-icon" href="{% static 'img/globe.png' %}" />
+
+	<script src="{% static 'scripts/universal/jquery-2.1.4.min.js' %}"></script>
+
+
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/universal.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/sidebar.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/grid.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'js/bootstrap.min.js' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/styles_dashboard.css' %}">
+
+    {% block extra_stylesheets %}
+    {% endblock %}
+
+    <!--Open Sans-->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <!--Montserrat-->
+    <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+
+    {% analytical_head_bottom %}
+
+</head>
+
+<body>
+
+    <!--
+        ===================================
+        ===================================
+                  Navigation Bar
+        ===================================
+        ===================================
+                                            -->
+    <nav id="main-nav">
+        <h1><a href="/"><img src="{% static 'main/universal/visuals/globe.png' %}">ExportAbroad</h1>
+
+        <ul id="main-nav-links">
+            <li><a href="{% url 'dashboard' %}" id="nav-link-overview">Overview</a></li>
+            <li><a href="{% url 'feasability' %}" id="nav-link-data">Data</a></li>
+            <!-- <li><a href="/projects/" id="nav-link-customers">Customers</a></li> -->
+            <li><a href="#" id="show-lead-request">Request Leads</a></li>
+            <li><a href="https://uscensus.prod.3ceonline.com/" target="_blank" id="nav-link-hs">Find Your HS#</a></li>
+        </ul>
+
+        <button id="nav-accounts">
+            <img src="https://www.gravatar.com/avatar/{}?s=40">
+            <i class="ion-ios-arrow-down"></i>
+        </button>
+
+        <ul id="nav-accounts-links">
+            <li><a href="/accounts/password/change/"><span class="glyphicon glyphicon-lock"></span> Change Password</a></li>
+			<li><a href="/accounts/settings/"><span class="glyphicon glyphicon-cog"></span> Settings</a></li>
+            <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-user"></span> Log Out</a></li>
+        </ul>
+    </nav>
+
+
+
+    <!-- Sidebar -->
+    {% block sidebar %}
+    {% endblock %}
+
+    <!--
+        ===================================
+        ===================================
+                Form Popup/Request
+        ===================================
+        ===================================
+                                            -->
+    <div id="lightbox-background"></div>
+    <div class="popup-modal">
+
+        <i class="ion-android-close" id="close-modal"></i>
+
+        <h1>Request Leads</h1>
+		<input type="hidden" value="{{ request.user.username }}" id="lr-username" />
+        <input type="text" placeholder="Customer Name" id="lr-name" />
+        <input type="text" placeholder="Requested Country" id="lr-country" />
+        <input type="text" placeholder="Product (HS#)" id="lr-product" />
+        <button id="send-lead-request">Submit</button>
+		<h2 id="another-lead-request">Request Another</h2>
+
+    </div>
+
+
+    <!--
+        ===================================
+        ===================================
+                     Body
+                 universal.less
+        ===================================
+        ===================================
+                                            -->
+
+
+        {% block body %}
+    		{% block content %}
+
+
+    		{% endblock content %}
+    	{% endblock body %}
+
+  	<!-- Javascript references -->
+	<script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'scripts/universal/universal.js' %}"></script>
+	<script src="{% static 'scripts/universal/jquery-sort.js' %}"></script>
+
+	{% block extra_scripts %}
+
+	{% endblock %}
+
+
+{% analytical_body_bottom %}
+
+</body>
+</html>

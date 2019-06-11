@@ -1,0 +1,8 @@
+main{
+	width: calc(100% - 60px);
+	position: absolute; left: 60px; top: 60px;
+}
+header{
+	width: calc(100% - 60px);
+	z-index: 10000000;
+}

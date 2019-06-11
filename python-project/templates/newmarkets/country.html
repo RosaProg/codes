@@ -1,0 +1,442 @@
+{% extends "dashboard_base.html" %}
+{% load url from future %}
+{% load static from staticfiles %}
+{% block title %}Export Abroad | Making Exporting Easy.{% endblock %}
+{% load humanize %}
+{% block body %}
+
+
+
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/pages/data.css' %}">
+    <!-- Flag font -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/flagfont/css/flag-icon.min.css' %}">
+    <!-- Map Glyphs -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/universal/mapglyphs/mapglyphs.css' %}">
+{% endblock %}
+
+
+
+{% block sidebar %}
+    <nav id="sidebar">
+
+        <span class="heading">
+            Top Countries
+        </span>
+
+        <ul class="sidebar-nav">
+            <li><a href="../../results/{{hsdescript.hs_number}}">All Countries <i class="ion-chevron-right"></i></a></li>
+            {%if markets %}
+    	    	{% for market in markets %}
+    	        	<li class="{{ market.country_id }}"><a href="/newmarkets/country/{{market.country_id}}/">{{ market.country_id.country_name }} <i class="ion-chevron-right"></i></a></li>
+    	        {% endfor %}
+    	    {% endif %}
+            <li class="spacer"><a href="/newmarkets/pdf/"><i class="ion-arrow-down-c"></i> Download Report</a></li>
+            <li><a href="{{ MEDIA_URL }}/assets/UK-Layout-UPS-Approved.pdf"><i class="ion-arrow-down-c"></i> UPS UK Report</a></li>
+
+        </ul>
+
+        <hr/>
+
+        <i class="mg map-wrld" id="overview-globe"></i>
+
+    </nav>
+{% endblock %}
+
+
+
+
+{% block content %}
+
+<main>
+    <div class="scroll-header">
+        <h1 id="scroll-header-title">{{hsdescript.product_descript}} (HS#{{hsdescript.hs_number}}) - <b>{{country.country_name}}</b></h1>
+    </div>
+
+    <div class="country-silhouette">
+        <i class="mg map-{{country.country_id}}"></i>
+    </div>
+
+
+    <div class="country-about">
+        <h1>{{country.country_name}}</h1>
+        <p><span id="fill_specific_desc">Background info Unavailable.</span> <span id="more_background">Read more about {{country.country_name}} <i class="ion-chevron-down"></i></span></p>
+    </div>
+
+    <div class="background-data">
+        <div class="item">
+            <h2>Capital</h2>
+            <h3 id="capital_entry">Unavailable.</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Population</h2>
+            <h3>{{country.population|intcomma}}</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Languages</h2>
+            <h3 id="language_entry">Unavailable.</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Currency</h2>
+            <h3 id="currency_entry">Unavailable.</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Government</h2>
+            <h3 id="government_entry">Unavailable.</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Time Zone</h2>
+            <h3 id="time_entry">Unavailable.</h3>
+        </div>
+        <!--<div class="specific_background_item" id="hide_background">
+            Hide Background Info
+        </div> -->
+    </div>
+
+
+    <div class="tri-graph">
+        <div class="economic-graph">
+            <h1>GDP Growth Rate (% Change)</h1>
+            <div class="tri_canvas_wrap">
+                <canvas id="gdp_growth_graph"></canvas>
+            </div>
+        </div><!--
+
+        --><div class="economic-graph">
+            <h1>GDP Per Capita ($)</h1>
+            <div class="tri_canvas_wrap">
+                <canvas id="gdp_capita_graph"></canvas>
+            </div>
+        </div><!--
+
+        --><div class="economic-graph">
+                <h1>Inflation (% Change)</h1>
+            <div class="tri_canvas_wrap">
+                <canvas id="inflation_graph"></canvas>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <div class="data-four">
+        <div class="item">
+            <h1>GDP 2013<br/><small>Total in $</small></h1>
+            <h2>{{country.gdp|intword}}</h2>
+        </div><!--
+        --><div class="item">
+            <h1>Income<br/><small>Per Capita</small></h1>
+            <h2>${{country.gdp_per_capita}}</h2>
+        </div><!--
+        --><div class="item">
+            <h1>GDP Growth<br/><small>% Change 2013</small></h1>
+            <h2>{{country.gdp_growth}}</h2>
+        </div><!--
+        --><div class="item">
+            <h1>Inflation<br/><small>% Change 2013</small></h1>
+            <h2>{{country.inflation}}</h2>
+        </div>
+    </div>
+
+
+
+    <div class="background-data">
+        <div class="item">
+            <h2>Legal Rights</h2>
+            <h3 id="country_legalrights">Unavailable.</h3>
+            <script>
+                var legal_rights = {{country.legal_rightsindex}};
+                if(legal_rights >= 0 && legal_rights <4 ){
+                    $("#country_legalrights").text("Weak");
+                }else if(legal_rights >= 5 && legal_rights <7 ){
+                    $("#country_legalrights").text("Intermediate");
+                }else if(legal_rights >= 8 && legal_rights <13 ){
+                    $("#country_legalrights").text("Strong");
+                }else{
+                    $("#country_legalrights").text("Unknown");
+                }
+            </script>
+        </div><!--
+        --><div class="item">
+            <h2>Import Cost</h2>
+            <h3>${{country.imports_cost}}</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Import Time</h2>
+            <h3>{{country.imports_time|intword}} Days</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Import Docs</h2>
+            <h3>{{country.imports_docs|intword}}</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Business Index</h2>
+            <h3>{{country.bizindex|intword}}</h3>
+        </div><!--
+        --><div class="item">
+            <h2>Logistics Index</h2>
+            <h3>{{country.logistics_index}}/5</h3>
+        </div>
+    </div>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+</main>
+
+
+    {% block extra_scripts %}
+        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+        <script>
+            $("#link_data").addClass("active");
+        </script>
+
+        <script type="text/javascript" src="{% static 'newmarkets/js/results.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'newmarkets/js/app.js' %}"></script>
+
+        <script type="text/javascript" src="{% static 'newmarkets/js/Chart.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'newmarkets/js/charts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'newmarkets/js/highcharts.js' %}"></script>
+        <script type="text/javascript" src="{% static 'scripts/universal/mapglyphs.js' %}"></script>
+
+
+
+
+
+
+
+        <script>
+
+
+            //Active links
+            if ( document.location.href.indexOf('{{ country.country_id }}') > -1 ) {
+                $(".{{ country.country_id }}").addClass("active");
+            }
+            $("#nav-link-data").addClass("active");
+
+
+            // Number counter animation. Cool but totally unnecessary
+            //Number counter - cool but totally unnecessary
+            $('.countIt').each(function () {
+              var $this = $(this);
+              jQuery({ Counter: 0 }).animate({ Counter: $this.text() }, {
+                duration: 1000,
+                easing: 'swing',
+                step: function () {
+                  $this.text(Math.ceil(this.Counter));
+                  $this.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                }
+              });
+            });
+
+
+
+
+
+
+
+            </script>
+
+
+
+
+
+
+
+            <script>
+
+
+                $.getJSON("{% static "" %}newmarkets/factbook/{{ country.country_id }}.json").done(function(jsondata){
+                    var getjson = jsondata;
+
+                    // $("#specific_desc").text(getjson.intro.background.text);
+                    var shortdesc = getjson.intro.background.text;
+                    shortdesc = shortdesc.substring(0,320);
+                    $("#fill_specific_desc").text(shortdesc + "...");
+                    $("#more_background").click(function(){
+                        $(this).hide();
+                        $("#fill_specific_desc").text(getjson.intro.background.text);
+                        $("#specific_background_wrapper").fadeIn();
+                    });
+                    $("#hide_background").click(function(){
+                        $("#more_background").show();
+                        $("#fill_specific_desc").text(shortdesc);
+                        $("#specific_background_wrapper").hide();
+                    });
+
+
+
+
+                    $("#capital_entry").text(getjson.govt.capital.name);
+
+                    var lang = getjson.people.languages.text;
+                    var splitlang = lang.split(/[(,]+/);
+                    var lang2 = splitlang[0];
+                    var splitlang2 = lang2.split("or");
+                    var lang3 = splitlang2[0];
+                    var splitlang3 = lang3.split("lang");
+                    var finallang = splitlang3[0];
+                    $("#language_entry").text(finallang);
+
+                    var currency = getjson.econ.exchange_rates.text;
+                    var splitcurrency = currency.split("(");
+                    var finalcurrency = splitcurrency[0];
+                    $("#currency_entry").text(finalcurrency);
+
+                    $("#government_entry").text(getjson.govt.government_type.text);
+
+                    var time = getjson.govt.capital.time_difference;
+                    var splittime = time.split("(");
+                    var finaltime = splittime[0];
+                    $("#time_entry").text(finaltime);
+
+
+
+
+
+
+
+                        $("#at_a_glance").hide();
+                        $("#at_a_glance_tab").removeClass("active_specific");
+                        $("#economic").show();
+                        $("#economic_info_tab").addClass("active_specific");
+
+
+                        //
+                        //  GRAPH 1 DATA
+                        //
+                        var gdp_growth_1 = getjson.econ.gdp_real_growth_rate.text.replace(/ *\([^)]*\) */g, "");
+                        gdp_growth_1_split = gdp_growth_1.split(";");
+
+                        var gdp_growth_data_1 = gdp_growth_1_split[0];
+                        gdp_growth_data_1 = gdp_growth_data_1.replace("%", "");
+
+                        var gdp_growth_data_2 = gdp_growth_1_split[1];
+                        gdp_growth_data_2 = gdp_growth_data_2.replace("%", "");
+
+                        var gdp_growth_data_3 = gdp_growth_1_split[2];
+                        gdp_growth_data_3 = gdp_growth_data_3.replace("%", "");
+
+                        var gdp_growth_data = {
+                            labels: ["2010", "2011", "2012"],
+                            datasets: [
+                                {
+                                    fillColor: "#3794F8",
+                                    strokeColor: "#3794F8",
+                                    highlightFill: "#1561c1",
+                                    data: [gdp_growth_data_3,gdp_growth_data_2,gdp_growth_data_1]
+                                }
+                            ]
+                        };
+                        var gdp_growth_graph = document.getElementById("gdp_growth_graph").getContext("2d");
+                        new Chart(gdp_growth_graph).Bar(gdp_growth_data, {
+                                  responsive:true,
+                                  scaleBeginAtZero : false
+                                });
+
+                        //
+                        //  GRAPH 3 DATA
+                        //
+                        var inflation_1 = getjson.econ.inflation_rate_consumer_prices.text.replace(/ *\([^)]*\) */g, "");
+                        inflation_1_split = inflation_1.split(";");
+
+                        var inflation_data_1 = inflation_1_split[0];
+                        inflation_data_1 = inflation_data_1.replace("%", "");
+
+                        var inflation_data_2 = inflation_1_split[1];
+                        inflation_data_2 = inflation_data_2.replace("%", "");
+
+
+                        var inflation_data = {
+                            labels: ["2011", "2012"],
+                            datasets: [
+                                {
+                                    fillColor: "#3794F8",
+                                    strokeColor: "#3794F8",
+                                    highlightFill: "#1561c1",
+                                    data: [inflation_data_2,inflation_data_1]
+                                }
+                            ]
+                        };
+                        var inflation_graph = document.getElementById("inflation_graph").getContext("2d");
+                        new Chart(inflation_graph).Bar(inflation_data, {
+                                  responsive:true,
+                                  scaleBeginAtZero : false
+                                });
+
+                        //
+                        //  GRAPH 2 DATA
+                        //
+                        var gdp_capita_data = getjson.econ.gdp_per_capita_ppp.text.replace(/ *\([^)]*\) */g, "");
+                        gdp_capita_data = gdp_capita_data.split(";");
+
+                        var gdp_capita_data_1 = gdp_capita_data[0];
+                        gdp_capita_data_1 = gdp_capita_data_1.replace("%", "").replace(",", "").replace("$", "");
+
+                        var gdp_capita_data_2 = gdp_capita_data[1];
+                        gdp_capita_data_2 = gdp_capita_data_2.replace("%", "").replace(",", "").replace("$", "");
+
+                        var gdp_capita_data_3 = gdp_capita_data[2];
+                        gdp_capita_data_3 = gdp_capita_data_3.replace("%", "").replace(",", "").replace("$", "");
+
+                        var gdp_capita_data = {
+                            labels: ["2010", "2011", "2012"],
+                            datasets: [
+                                {
+                                    label: "My First dataset",
+                                    fillColor: "rgba(0,0,0,0)",
+                                    strokeColor: "#3794F8",
+                                    highlightFill: "rgba(220,220,220,0.0)",
+                                    highlightStroke: "rgba(220,220,220,1)",
+                                    data: [gdp_capita_data_3,gdp_capita_data_2,gdp_capita_data_1]
+                                }
+                            ]
+                        };
+                        var gdp_capita_graph = document.getElementById("gdp_capita_graph").getContext("2d");
+                        new Chart(gdp_capita_graph).Line(gdp_capita_data, {
+                                  responsive:true,
+                                  scaleBeginAtZero : false
+                                });
+
+
+
+
+
+
+
+
+
+
+
+                });
+
+        </script>
+
+
+
+
+
+
+
+
+    {% endblock %}
+
+
+
+{% endblock %}
+{% endblock %}
