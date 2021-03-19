@@ -38,7 +38,7 @@ django-tagging==0.3.2
 django-toolbelt==0.0.1
 django-wkhtmltopdf==2.0.3
 django-xmlrpc==0.1.5
-djangorestframework==3.3.2
+djangorestframework==3.11.2
 drfdocs==0.0.6
 easy-thumbnails==2.3
 enum34==1.1.1
