@@ -81,6 +81,6 @@ tablib==0.9.11
 Unidecode==0.4.18
 unittest2==0.5.1
 waitress==0.8.9
-Werkzeug==0.9.6
+Werkzeug==0.15.3
 wkhtmltopdf==0.2
 xhtml2pdf==0.0.6
