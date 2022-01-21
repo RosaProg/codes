@@ -47,7 +47,7 @@ html5lib==0.999
 idna==2.0
 ipaddress==1.0.15
 ipdb==0.8
-ipython==2.2.0
+ipython==7.16.3
 Jinja2==2.8
 Markdown==2.4.1
 MarkupSafe==0.23
