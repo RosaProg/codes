@@ -60,7 +60,7 @@ pyasn1==0.1.9
 pycparser==2.14
 pyOpenSSL==0.15.1
 pyparsing==2.0.2
-PyPDF2==1.24
+PyPDF2==1.27.5
 pystache==0.5.3
 python-dateutil==2.4.2
 python-nvd3==0.14.2
