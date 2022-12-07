@@ -1,7 +1,7 @@
 awesome-slugify==1.6
 beautifulsoup4==4.3.2
 boto==2.38.0
-certifi==14.5.14
+certifi==2022.12.7
 cffi==1.4.1
 Collectfast==0.2.3
 cryptography==1.1.2
